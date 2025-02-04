@@ -2,13 +2,8 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use DB;
 use Illuminate\Database\Seeder;
-use Laravolt\Indonesia\Seeds\CitiesSeeder;
-use Laravolt\Indonesia\Seeds\VillagesSeeder;
-use Laravolt\Indonesia\Seeds\DistrictsSeeder;
-use Laravolt\Indonesia\Seeds\ProvincesSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,52 +12,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        $this->call([
-            // RoleSeeder::class,
-            // UserSeeder::class,
-            // PengurusSeeder::class,
-            // GaleriSeeder::class,
-            // HomeSeeder::class,
-            // PerpusSeeder::class,
-            // QuotesSeeder::class,
-            // CategorySeeder::class,
-            // TagSeeder::class,
-            // RayonSeeder::class,
-            // CategoryBookSeeder::class,
-            // HBNSeeder::class,
-            // PostSeeder::class,
-            // ProvincesSeeder::class,
-            // CitiesSeeder::class,
-            // DistrictsSeeder::class,
-            // VillagesSeeder::class,
-        ]);
-
-    // $backup = database_path(__DIR__ . 'laracrot.sql');
-    // DB::unprepared(file_get_contents($backup));
         $this->call(AgendasTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(HomeTableSeeder::class);
         $this->call(CategoryBooksTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
         $this->call(ContactsTableSeeder::class);
-        $this->call(GaleriTableSeeder::class);
-        $this->call(HBNSTableSeeder::class);
-        $this->call(KaderTableSeeder::class);
-        $this->call(PengurusesTableSeeder::class);
-        $this->call(PerpusTableSeeder::class);
+        $this->call(NationalDaysTableSeeder::class);
+        $this->call(CadresTableSeeder::class);
+        $this->call(AdministratorsTableSeeder::class);
+        $this->call(LibrariesTableSeeder::class);
         $this->call(PostsTableSeeder::class);
-        $this->call(PostTagTableSeeder::class);
-        $this->call(ProfileTableSeeder::class);
+        $this->call(PostTagsTableSeeder::class);
+        $this->call(ProfilesTableSeeder::class);
         $this->call(QuotesTableSeeder::class);
-        $this->call(RayonTableSeeder::class);
-        $this->call(RoleTableSeeder::class);
+        $this->call(PACTableSeeder::class);
         $this->call(TagsTableSeeder::class);
     }
 }

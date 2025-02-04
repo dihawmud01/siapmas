@@ -33,8 +33,8 @@ class TagController extends Controller
             ->orderBy('title')
             ->get();
         $posts = $tag->posts()
-            ->with('category')
-            ->with('user')
+            ->with('categories')
+            ->with('users')
             ->where('active', '1')
             ->orderBy('created_at', 'desc')
             ->paginate(4);
@@ -42,11 +42,11 @@ class TagController extends Controller
             ->orderBy('title')
             ->latest()
             ->get();
-        $trending = Post::with('category', 'user')
+        $trending = Post::with('categories', 'users')
             ->where('active', '1')
             ->orderBy('views', 'desc')
             ->paginate(15);
 
-        return view('user.blog.tag', compact('tag', 'tags', 'posts', 'post_categories', 'user', 'trending'));
+        return view('users.blogs.tag', compact('tag', 'tags', 'posts', 'post_categories', 'user', 'trending'));
     }
 }

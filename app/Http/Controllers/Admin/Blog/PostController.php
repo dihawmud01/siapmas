@@ -25,9 +25,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('category', 'tags')->paginate(10);
+        $posts = Post::with('categories', 'tags')->paginate(10);
 
-        return view('admin.posts.index', compact('posts'));
+        return view('admins.posts.index', compact('posts'));
     }
 
     /**
@@ -40,7 +40,7 @@ class PostController extends Controller
         $categories = Category::pluck('title', 'id')->all();
         $tags = Tag::pluck('title', 'id')->all();
 
-        return view('admin.posts.create', compact('categories', 'tags'));
+        return view('admins.posts.create', compact('categories', 'tags'));
     }
 
 
@@ -51,8 +51,8 @@ class PostController extends Controller
 
         if ($request->image) {
             $extension = $request->image->getClientOriginalExtension();
-            $newFileName = $request->title . '_' . 'PMII_UNINUS' . '-' . now()->timestamp . '.' . $extension;
-            $request->file('image')->move(public_path('/storage/img'), $newFileName);
+            $newFileName = $request->title . '_' . 'PC_IPNU_IPPNU_BANYUMAS' . '-' . now()->timestamp . '.' . $extension;
+            $request->file('image')->move(public_path('/storage/images'), $newFileName);
             $data['image'] = $newFileName;
         }
 
@@ -74,8 +74,8 @@ class PostController extends Controller
         $categories = Category::pluck('title', 'id')->all();
         $tags = Tag::pluck('title', 'id')->all();
 
-        // dd($post);
-        return view('admin.posts.edit', compact('categories', 'tags', 'post'));
+        // dd($posts);
+        return view('admins.posts.edit', compact('categories', 'tags', 'post'));
     }
 
     /**
@@ -92,8 +92,8 @@ class PostController extends Controller
 
         if ($request->image) {
             $extension = $request->image->getClientOriginalExtension();
-            $newFileName = 'blog' . '_' . $request->nama . '-' . now()->timestamp . '.' . $extension;
-            $request->file('image')->move(public_path('/storage/img'), $newFileName);
+            $newFileName = 'blogs' . '_' . $request->nama . '-' . now()->timestamp . '.' . $extension;
+            $request->file('image')->move(public_path('/storage/images'), $newFileName);
             $data['image'] = $newFileName;
         }
 

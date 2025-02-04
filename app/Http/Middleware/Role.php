@@ -12,7 +12,7 @@ class Role
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param Closure(Request): (foundation\Response) $next
      */
     // public function handle(Request $request, Closure $next): Response
     // {
@@ -21,13 +21,12 @@ class Role
 
     public function handle(Request $request, Closure $next, $role)
     {
-          $user = Auth::user();
-  
-          if ($user && $user->role_id == $role) {
-              return $next($request);
-          }
-  
+        $user = Auth::user();
+
+        if ($user && $user->role_id == $role) {
+            return $next($request);
+        }
+
         abort(403, 'Anda tidak memiliki hak mengakses laman tersebut! Buruken Uih deui');
     }
-
 }

@@ -178,7 +178,7 @@ function create(input, value) {
         throw new ParchmentError("Unable to create " + input + " blot");
     }
     var BlotClass = match;
-    var node = 
+    var node =
     // @ts-ignore
     input instanceof Node || input['nodeType'] === Node.TEXT_NODE ? input : BlotClass.create(value);
     return new BlotClass(node, value);
@@ -7727,7 +7727,7 @@ document.addEventListener("DOMContentLoaded", function () {
 /***/ (function(module, exports) {
 
 /**
- * This library modifies the diff-patch-match library by Neil Fraser
+ * This libraries modifies the diff-patch-match libraries by Neil Fraser
  * by removing the patch and match functionality and certain advanced
  * options in the diff function. The original license is as follows:
  *
@@ -11142,7 +11142,7 @@ var Syntax = function (_Module) {
     var _this2 = _possibleConstructorReturn(this, (Syntax.__proto__ || Object.getPrototypeOf(Syntax)).call(this, quill, options));
 
     if (typeof _this2.options.highlight !== 'function') {
-      throw new Error('Syntax module requires highlight.js. Please include the library on the page before Quill.');
+      throw new Error('Syntax module requires highlight.js. Please include the libraries on the pages before Quill.');
     }
     var timer = null;
     _this2.quill.on(_quill2.default.events.SCROLL_OPTIMIZE, function () {

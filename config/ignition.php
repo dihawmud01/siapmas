@@ -199,7 +199,7 @@ return [
     |
     | Ignition allows you to save your settings to a specific global file.
     |
-    | If no path is specified, a file with settings will be saved to the user's
+    | If no path is specified, a file with settings will be saved to the users's
     | home directory. The directory depends on the OS and its settings but it's
     | typically `~/.ignition.json`. In this case, the settings will be applied
     | to all of your projects where Ignition is used and the path is not

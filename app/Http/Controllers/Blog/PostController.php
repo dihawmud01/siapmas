@@ -15,10 +15,8 @@ use Illuminate\Contracts\Foundation\Application;
 
 class PostController extends Controller
 {
-
-
     /**
-     * Show post page
+     * Show posts pages
      *
      * @return Application|Factory|View
      */
@@ -51,10 +49,8 @@ class PostController extends Controller
             ->orderBy('title')
             ->get();
 
-
-
-        // test api 
-        $on_page = is_null($request->get('page')) ? 2 : $request->get('page');
+        // test api
+        $on_page = is_null($request->get('pages')) ? 2 : $request->get('pages');
 
         $res = Http::get('https://nuonline.cms.nu.or.id/api/v3/articles?lang=id&limit=2' . $on_page);
 
@@ -62,20 +58,14 @@ class PostController extends Controller
         // $data['max_pages'] = $res->json()['total_pages'];
 
         // dd($data);
-        return view('user.blog.index', compact(
-            'data',
-            'recent_posts',
-            'post_categories',
-            'old_posts',
-            'tags',
-            'user',
-            'trending'
-        ));
+        return view(
+            'users.blogs.index',
+            compact('data', 'recent_posts', 'post_categories', 'old_posts', 'tags', 'user', 'trending'),
+        );
     }
 
-
     /**
-     * Display single post.
+     * Display single posts.
      *
      * @param  $slug
      * @return Application|Factory|View
@@ -84,7 +74,7 @@ class PostController extends Controller
     {
         $user = Auth::user();
         $post = Post::where('slug', $slug)
-            ->with('category', 'comments', 'user')
+            ->with('categories', 'comments', 'users')
             ->where('active', 1)
             ->orderBy('created_at', 'desc')
             ->firstOrFail();
@@ -95,7 +85,7 @@ class PostController extends Controller
             ->orderBy('title')
             ->latest()
             ->get();
-        $trending = Post::with('category', 'user')
+        $trending = Post::with('categories', 'users')
             ->where('active', '1')
             ->orderBy('views', 'desc')
             ->paginate(15);
@@ -110,49 +100,44 @@ class PostController extends Controller
         ++$post->views;
         $post->update();
 
-
-        return view("user.blog.post", compact('post', 'post_categories', 'tags', 'user', 'trending'));
+        return view('users.blogs.posts', compact('post', 'post_categories', 'tags', 'user', 'trending'));
     }
 
     function nushow($slug, Request $request)
     {
-        // {{ route('post', ['slug' => $nuonline['slug']]) }}
-    
-        $on_page = is_null($request->get('page')) ? 2 : $request->get('page');
-    
+        // {{ route('posts', ['slug' => $nuonline['slug']]) }}
+
+        $on_page = is_null($request->get('pages')) ? 2 : $request->get('pages');
+
         $res = Http::get('https://nuonline.cms.nu.or.id/api/v3/articles?lang=id&limit=2' . $on_page);
-    
+
         $data['users'] = $res->json()['data'];
-    
+
         $user = Auth::user();
-        $post = collect($data['users'])->where('slug', $slug)->first();
-    
+        $post = collect($data['users'])
+            ->where('slug', $slug)
+            ->first();
+
         $id = $post['id'];
         $title = $post['title'];
         $url = $post['url'];
         $preview = $post['preview'];
-        $category = $post['category'];
-    
+        $category = $post['categories'];
+
         $full = $post['image']['full'];
         $author = $post['author'][1]['name'];
-        
+
         $date = $post['date']['published'];
-    
-        // $post['views']++;
-        // $post->save();
-    
+
+        // $posts['views']++;
+        // $posts->save();
+
         // dd($date);
         // return  $full;
 
-        return view("user.blog.post-nu", compact(
-            'post', 'user',
-            'full', 'title',
-            'preview', 'url',
-            'category', 'date',
-            'author', 'data',
-        ));
-
+        return view(
+            'users.blogs.posts-nu',
+            compact('post', 'user', 'full', 'title', 'preview', 'url', 'category', 'date', 'author', 'data'),
+        );
     }
-    
-    
 }

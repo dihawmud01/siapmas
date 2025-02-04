@@ -29,7 +29,7 @@ class CategoryController extends Controller
             })
             ->orderBy('title')
             ->firstOrFail();
-        $trending = Post::with('category', 'user')
+        $trending = Post::with('categories', 'users')
             ->where('active', '1')
             ->orderBy('views', 'desc')
             ->paginate(15);
@@ -41,8 +41,8 @@ class CategoryController extends Controller
             ->latest()
             ->get();
         $posts = $category->posts()
-            ->with('category', 'user')
-            ->with('user')
+            ->with('categories', 'users')
+            ->with('users')
             ->where('active','1')
             ->orderBy('created_at', 'desc')
             ->paginate(4);
@@ -53,6 +53,6 @@ class CategoryController extends Controller
             ->orderBy('title')
             ->get();
 
-        return view('user.blog.category', compact('category', 'posts', 'tags', 'post_categories', 'user', 'trending'));
+        return view('users.blogs.categories', compact('category', 'posts', 'tags', 'post_categories', 'user', 'trending'));
     }
 }

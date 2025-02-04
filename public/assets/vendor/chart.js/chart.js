@@ -3457,6 +3457,7 @@ class Element {
     static defaults = {};
     static defaultRoutes = undefined;
     active = false;
+    style;
     tooltipPosition(useFinalPosition) {
         const { x , y  } = this.getProps([
             'x',

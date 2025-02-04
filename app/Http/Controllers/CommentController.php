@@ -15,14 +15,14 @@ class CommentController extends Controller
           'comment' => 'required',
           'post_id' => 'required|exists:posts,id',
       ]);
-  
+
       $comment = new Comment();
       $comment->user_id = Auth::user()->id;
       $comment->post_id = $request->post_id;
       $comment->comment = $request->comment;
       $comment->save();
-  
+
       return redirect()->back();
   }
-  
+
 }

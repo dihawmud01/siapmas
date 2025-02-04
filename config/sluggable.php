@@ -87,7 +87,7 @@ return [
      * "similar" slugs.  The closure should return the new unique
      * suffix to append to the slug.
      */
-    
+
     'uniqueSuffix' => null,
 
     /**
@@ -95,9 +95,9 @@ return [
      * For the default method of adding incremental integers, we start
      * counting at 2, so the list of slugs would be, e.g.:
      *
-     *   - my-post
-     *   - my-post-2
-     *   - my-post-3
+     *   - my-posts
+     *   - my-posts-2
+     *   - my-posts-3
      */
     'firstUniqueSuffix' => 2,
 
@@ -146,7 +146,7 @@ return [
      * is probably not a good idea from an SEO point of view.
      * Only set this to true if you understand the possible consequences.
      */
-    
+
     'onUpdate' => false,
 
     /**

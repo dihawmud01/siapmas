@@ -454,7 +454,7 @@ elif [ "$1" == "shell" ] || [ "$1" == "bash" ]; then
         sail_is_not_running
     fi
 
-# Initiate a root user Bash shell within the application container...
+# Initiate a root users Bash shell within the application container...
 elif [ "$1" == "root-shell" ] || [ "$1" == "root-bash" ]; then
     shift 1
 

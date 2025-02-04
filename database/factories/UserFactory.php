@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use Faker\Factory as faker;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -20,20 +19,21 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        // $faker = faker::create();
         return [
             'name' => fake()->name(15),
-            'username' =>fake()->unique()->name(13),
+            'username' => fake()
+                ->unique()
+                ->name(13),
             'role_id' => Arr::random(['1', '2', '3', '4', '5']),
-            'thn_mapaba' => Arr::random(['2018', '2019', '2020', '2021', '2022', '2023']),
-            'kelamin' => Arr::random(['L', 'P']),
+            'makesta_year' => Arr::random(['2018', '2019', '2020', '2021', '2022', '2023', '2024']),
+            'gender' => Arr::random(['L', 'P']),
             'email' => fake()->email(),
-            'rayon_id' => Arr::random(['1', '2', '3', '4', '5', '6']),
+            'pac_id' => Arr::random(['1', '2', '3', '4', '5', '6']),
             'email_verified_at' => now(),
-            'password' => Hash::make('password'), // password
+            'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
-            'kaderisasi'=> Arr::random(['Belum Mapaba', 'Mapaba', 'PKD', 'PKL', 'PKN']),
-            'nim'=> fake()->numberBetween(5, 9999),
+            'cadre_level' => Arr::random(['Belum Makesta', 'Makesta', 'Lakmud', 'Lakut', 'Latinpel']),
+            'nim' => fake()->numberBetween(5, 9999),
         ];
     }
 
@@ -44,8 +44,10 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        return $this->state(
+            fn (array $attributes) => [
+                'email_verified_at' => null,
+            ],
+        );
     }
 }

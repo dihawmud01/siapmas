@@ -62,7 +62,7 @@
           </div>
       </div>
       <!-- Wallet Card -->
-{{-- 
+{{--
       <!-- Deposit Action Sheet -->
       <div class="modal fade action-sheet" id="depositActionSheet" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
@@ -314,12 +314,12 @@
           </div>
           <div class="transactions">
               <!-- item -->
-              
+
               @foreach ($users as $user)
               <a href="app-transaction-detail.html" class="item">
                   <div class="detail">
-                      <img src="{{ asset('storage/img/' . $user->img) }}" 
-                      alt="img" class="image-block imaged w48" 
+                      <img src="{{ asset('storage/images/' . $user->img) }}"
+                      alt="img" class="image-block imaged w48"
                       style="width:48px; height:48px; object-fit:cover; border-radius:50%">
                       <div>
                           <strong>{{ $user->name }}</strong>
@@ -501,12 +501,12 @@
              <div class="splide__track">
                  <ul class="splide__list">
                   @foreach ($galeries as $galery)
-                      
+
                      <li class="splide__slide">
                          <a href="#">
                              <div class="user-card">
-                                 <img src="{{ asset('storage/img/' . $galery->img) }}" 
-                                 alt="img" class="imaged" 
+                                 <img src="{{ asset('storage/images/' . $galery->img) }}"
+                                 alt="img" class="imaged"
                                  style="width: 48px; height:48px; object-fit:cover">
                                  <strong></strong>
                              </div>
@@ -519,7 +519,7 @@
          <!-- * carousel small -->
      </div>
      <!-- * Send Money -->
-     
+
       <!-- Monthly Bills -->
       {{-- <div class="section full mt-4">
           <div class="section-heading padding">
@@ -533,8 +533,8 @@
 
                       <li class="splide__slide">
                           <div class="bill-box">
-                              <div class="img-wrapper">
-                                  <img src="assets/img/sample/brand/1.jpg" alt="img" class="image-block imaged w48">
+                              <div class="images-wrapper">
+                                  <images src="assets/images/sample/brand/1.jpg" alt="images" class="image-block imaged w48">
                               </div>
                               <div class="price">$ 14</div>
                               <p>Prime Monthly Subscription</p>
@@ -544,8 +544,8 @@
 
                       <li class="splide__slide">
                           <div class="bill-box">
-                              <div class="img-wrapper">
-                                  <img src="assets/img/sample/brand/2.jpg" alt="img" class="image-block imaged w48">
+                              <div class="images-wrapper">
+                                  <images src="assets/images/sample/brand/2.jpg" alt="images" class="image-block imaged w48">
                               </div>
                               <div class="price">$ 9</div>
                               <p>Music Monthly Subscription</p>
@@ -555,7 +555,7 @@
 
                       <li class="splide__slide">
                           <div class="bill-box">
-                              <div class="img-wrapper">
+                              <div class="images-wrapper">
                                   <div class="iconbox bg-danger">
                                       <ion-icon name="medkit-outline"></ion-icon>
                                   </div>
@@ -568,7 +568,7 @@
 
                       <li class="splide__slide">
                           <div class="bill-box">
-                              <div class="img-wrapper">
+                              <div class="images-wrapper">
                                   <div class="iconbox">
                                       <ion-icon name="card-outline"></ion-icon>
                                   </div>
@@ -658,15 +658,15 @@
                   <ul class="splide__list">
 
                    @foreach ($posts as $post)
-                       
+
                       <li class="splide__slide">
                           <a href="app-blog-post.html">
                            <div class="blog-card">
-                            <img src="{{ asset('storage/img/' . $post->image) }}" alt="image" class="imaged" style="width:100%; height:200px; object-fit:cover;">
+                            <img src="{{ asset('storage/images/' . $post->image) }}" alt="image" class="imaged" style="width:100%; height:200px; object-fit:cover;">
                             <div class="text">
                               <h4 class="title">{{ $post->title }}</h4>
                             </div>
-                          </div>                          
+                          </div>
                           </a>
                       </li>
                       @endforeach

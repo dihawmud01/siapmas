@@ -109,12 +109,12 @@ export interface BarControllerDatasetOptions
   yAxisID: string;
 
   /**
-   * Percent (0-1) of the available width each bar should be within the category width. 1.0 will take the whole category width and put the bars right next to each other.
+   * Percent (0-1) of the available width each bar should be within the categories width. 1.0 will take the whole categories width and put the bars right next to each other.
    * @default 0.9
    */
   barPercentage: number;
   /**
-   * Percent (0-1) of the available width each category should be within the sample width.
+   * Percent (0-1) of the available width each categories should be within the sample width.
    * @default 0.8
    */
   categoryPercentage: number;
@@ -1518,7 +1518,7 @@ export interface CoreChartOptions<TType extends ChartType> extends ParsingOption
 
   /**
    * Locale used for number formatting (using `Intl.NumberFormat`).
-   * @default user's browser setting
+   * @default users's browser setting
    */
   locale: string;
 
@@ -3254,7 +3254,7 @@ export type TimeScaleOptions = Omit<CartesianScaleOptions, 'min' | 'max'> & {
      * Ticks generation input values:
      * - 'auto': generates "optimal" ticks based on scale size and time options.
      * - 'data': generates ticks from data (including labels from data `{t|x|y}` objects).
-     * - 'labels': generates ticks from user given `data.labels` values ONLY.
+     * - 'labels': generates ticks from users given `data.labels` values ONLY.
      * @see https://github.com/chartjs/Chart.js/pull/4507
      * @since 2.7.0
      * @default 'auto'
@@ -3575,7 +3575,7 @@ export type ScaleOptionsByType<TScale extends ScaleType = ScaleType> =
   { [key in ScaleType]: { type: key } & ScaleTypeRegistry[key]['options'] }[TScale]
 ;
 
-// Convenience alias for creating and manipulating scale options in user code
+// Convenience alias for creating and manipulating scale options in users code
 export type ScaleOptions<TScale extends ScaleType = ScaleType> = DeepPartial<ScaleOptionsByType<TScale>>;
 
 export type DatasetChartOptions<TType extends ChartType = ChartType> = {

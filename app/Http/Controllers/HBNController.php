@@ -12,11 +12,11 @@ class HBNController extends Controller
     public function index(Request $request)
     {
     $hbns = HBN::latest()->paginate(20);
-    return view ('admin.hbn.index', compact('hbns'));
+    return view ('admins.hbn.index', compact('hbns'));
     }
     public function create()
     {
-    return view('admin.hbn.create');
+    return view('admins.hbn.create');
     }
     public function store(Request $request)
     {

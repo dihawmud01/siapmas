@@ -1,0 +1,119 @@
+kosakata:
+SIAPMAS
+
+Ganti PMII --> PC IPNU IPPNU BANYUMAS
+
+RAYON --> PAC:
+1) BATURRADEN
+2) CILONGOK
+3) KEDUNGBANTENG
+4) KARANGLEWAS
+5) PURWOJATI
+6) PURWOKERTO BARAT
+7) PURWOKERTO TIMUR
+8) PURWOKERTO UTARA
+9) PURWOKERTO SELATAN
+10) SUMBANG
+11) SOKARAJA
+12) KEMBARAN
+13) TAMBAK
+14) SOMAGEDE
+15) BANYUMAS
+16) KEMRANJEN
+17) GUMELAR
+18) AJIBARANG
+19) PEKUNCEN
+20) WANGON
+21) RAWALO
+22) JATILAWANG
+23) KEBASEN
+24) PATIKRAJA
+25) KALIBAGOR
+26) LUMBIR
+27) SUMPIUH
+28) KOMISARIAT UNU PURWOKERTO
+29) KOMISARIAT UIN SAIZU PURWOKERTO
+
+PKPT:
+1) PKPT UIN SAIZU PURWOKERTO
+2) PKPT UNU PURWOKERTO
+
+MAPABA --> MAKESTA
+PKD --> LAKMUD
+PKL --> LAKUT
+PKN --> LATINPEL
+
+WEBSITE PC IPNU IPPNU
+MENU:
+
+1) HOME PAGE
+2) ABOUT
+3) AGENDA
+4) NEWS
+5) LOGIN  --> ADMIN PAC, ADMIN PC, SUPERADMIN
+
+LOGIN SUPERADMIN
+MENU:
+
+1) HOME PAGE
+2) ABOUT
+3) AGENDA
+4) NEWS
+5) DASHBOARD (Untuk dikelola):
+   a) Home
+   b) Dashboard (Otomatis)
+   c) Anggota (Read Only)
+   d) Kaderisasi (Data Only):
+	- Makesta
+	- Lakmud
+	- Lakut
+	- Latinpel
+   e) Data PAC (Read Only)
+   f) Berita (Memposting dan Menyetujui Berita dari Admin PAC)
+   h) Agenda
+   i) Hari Besar
+      Point f dan g integrasikan ke Menu 3) Agenda
+   j) Kelola Admin
+   k) Page (Edit Home Page)Pages
+
+LOGIN ADMIN PC
+MENU:
+
+1) HOME PAGE
+2) ABOUT
+3) AGENDA
+4) NEWS
+5) DASHBOARD (Untuk dikelola):
+   a) Home
+   b) Dashboard (Otomatis)
+   c) Anggota (CRUD)
+   d) Kaderisasi (Data Only):
+	- Makesta
+	- Lakmud
+	- Lakut
+	- Latinpel
+   e) Data PAC
+   f) Berita (Memposting dan Menyetujui Berita dari Admin PAC)
+   g) surat-menyurat
+	- Mengirim dan menerima surat dari PAC, pengarsipan, dll
+	- Menyetujui Pengajuan SP dari PAC sehingga PAC tinggal mengisi data dan cetak 	  pdf
+   h) Agenda
+   i) Hari Besar
+      Point f dan g integrasikan ke Menu 3) Agenda
+   j) Kelola Pengurus
+
+LOGIN ADMIN PAC & KOMSAT (Ada 28 Admin PAC & Komsat)
+MENU:
+
+1) HOME PAGE
+2) ABOUT
+3) AGENDA
+4) NEWS
+5) DASHBOARD:
+   a) Berita:
+	- Posting Berita (Tapi nunggu Acc Admin PC / Superadmin)
+   b) Surat-Menyurat:
+	- Mengirim dan menerima surat dari PC, Pengarsipan, dll
+	- Mengajukan SP (Menunggu di Acc oleh admin PC lalu bisa print to pdf)
+   c) Anggota (mengelola Anggota dari daerahnya sendiri)
+   d) Agenda (Memposting agenda untuk PAC nya sendiri)

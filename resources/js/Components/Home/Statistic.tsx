@@ -1,10 +1,8 @@
-import { BsFillCaretUpFill, BsFillCaretDownFill } from "react-icons/bs";
-
 type HomepageProps = {
-    totalMapaba: string;
-    totalPKD: string;
-    totalPKL: string;
-    totalPKN: string;
+    totalMakesta: string;
+    totalLakmud: string;
+    totalLakut: string;
+    totalLatinpel: string;
 };
 
 const Statistik = (props: HomepageProps) => {
@@ -14,17 +12,13 @@ const Statistik = (props: HomepageProps) => {
                 <div className="col-6">
                     <div className="stat-box">
                         <div className="title">Makesta</div>
-                        <div className="value text-success text-center">
-                            {props.totalMapaba}
-                        </div>
+                        <div className="value text-success text-center">{props.totalMakesta}</div>
                     </div>
                 </div>
                 <div className="col-6">
                     <div className="stat-box">
-                        <div className="title">PKD</div>
-                        <div className="value text-success text-center">
-                            {props.totalPKD}
-                        </div>
+                        <div className="title">Lakmud</div>
+                        <div className="value text-success text-center">{props.totalLakmud}</div>
                     </div>
                 </div>
             </div>
@@ -32,18 +26,14 @@ const Statistik = (props: HomepageProps) => {
             <div className="row mt-2">
                 <div className="col-6">
                     <div className="stat-box">
-                        <div className="title">PKL</div>
-                        <div className="value text-success text-center">
-                            {props.totalPKL}
-                        </div>
+                        <div className="title">Lakut</div>
+                        <div className="value text-success text-center">{props.totalLakut}</div>
                     </div>
                 </div>
                 <div className="col-6">
                     <div className="stat-box">
-                        <div className="title">PKN</div>
-                        <div className="value text-success text-center">
-                            {props.totalPKN}
-                        </div>
+                        <div className="title">Latinpel</div>
+                        <div className="value text-success text-center">{props.totalLatinpel}</div>
                     </div>
                 </div>
             </div>

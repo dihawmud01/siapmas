@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,15 +19,7 @@ class Post extends Model
      */
     protected $table = 'posts';
 
-    protected $fillable = [
-        'title',
-        'slug',
-        'content',
-        'image',
-        'category_id',
-        'user_id',
-        'active',
-    ];
+    protected $fillable = ['title', 'slug', 'content', 'images', 'category_id', 'user_id', 'active'];
 
     public function category(): BelongsTo
     {
@@ -37,7 +28,7 @@ class Post extends Model
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class,'post_tag','post_id','tag_id');
+        return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id');
     }
 
     public function user(): BelongsTo
@@ -50,7 +41,6 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
-
     /**
      * Return the sluggable configuration array for this model.
      *
@@ -60,8 +50,8 @@ class Post extends Model
     {
         return [
             'slug' => [
-                'source' => 'title'
-            ]
+                'source' => 'title',
+            ],
         ];
     }
 }

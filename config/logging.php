@@ -1,11 +1,10 @@
 <?php
 
-use Monolog\Handler\NullHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\SyslogUdpHandler;
+use ckfinder\core\connector\php\vendor\monolog\monolog\src\Monolog\Handler\NullHandler;
+use ckfinder\core\connector\php\vendor\monolog\monolog\src\Monolog\Handler\StreamHandler;
+use ckfinder\core\connector\php\vendor\monolog\monolog\src\Monolog\Handler\SyslogUdpHandler;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Log Channel
@@ -25,7 +24,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This option controls the log channel that should be used to log warnings
-    | regarding deprecated PHP and library features. This allows you to get
+    | regarding deprecated PHP and libraries features. This allows you to get
     | your application ready for upcoming major versions of dependencies.
     |
     */
@@ -41,7 +40,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you may configure the log channels for your application. Out of
-    | the box, Laravel uses the Monolog PHP logging library. This gives
+    | the box, Laravel uses the Monolog PHP logging libraries. This gives
     | you a variety of powerful log handlers / formatters to utilize.
     |
     | Available Drivers: "single", "daily", "slack", "syslog",
@@ -85,7 +84,7 @@ return [
             'handler_with' => [
                 'host' => env('PAPERTRAIL_URL'),
                 'port' => env('PAPERTRAIL_PORT'),
-                'connectionString' => 'tls://'.env('PAPERTRAIL_URL').':'.env('PAPERTRAIL_PORT'),
+                'connectionString' => 'tls://' . env('PAPERTRAIL_URL') . ':' . env('PAPERTRAIL_PORT'),
             ],
         ],
 
@@ -118,5 +117,4 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
     ],
-
 ];

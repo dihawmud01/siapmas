@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\User;
-use App\Models\Rayon;
+use App\Models\PAC;
 use Illuminate\Http\Request;
 use Laravolt\Indonesia\Models\Province;
-use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,25 +17,26 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $count_user = User::count();
+        $userCounts = User::count();
         if ($request->has('search')) {
             $user = User::where('username', 'LIKE', '%' . $request->search . '%')
-                //   ->orwhere('rayon', 'LIKE', '%'.$request->search.'%')
                 ->orwhere('name', 'LIKE', '%' . $request->search . '%')
                 ->orwhere('nim', 'LIKE', '%' . $request->search . '%')
                 ->paginate(25);
         } else {
-            $user = User::with('rayon')->latest()->paginate(25);
+            $user = User::with('pac')
+                ->latest()
+                ->paginate(25);
         }
 
-        $first_item = ($user instanceof \Illuminate\Pagination\LengthAwarePaginator) ? $user->firstItem() : $user->first();
+        $firstItem = $user instanceof \Illuminate\Pagination\LengthAwarePaginator ? $user->firstItem() : $user->first();
 
-        return view('admin.user.index', compact('user', 'count_user', 'first_item'));
+        return view('admins.users.index', compact('user', 'userCounts', 'firstItem'));
     }
 
-    public function list($slug, Request $request)
+    public function showList($slug, Request $request)
     {
-        $rayon = Rayon::where('slug', $slug)
+        $pac = PAC::where('slug', $slug)
             ->with('users')
             ->latest()
             ->paginate(25);
@@ -46,12 +46,15 @@ class UserController extends Controller
                 ->orWhere('name', 'LIKE', '%' . $request->search . '%')
                 ->get();
         } else {
-            $user = User::with('rayon')->latest()->paginate(25);
-            $count_user = User::count();
+            $user = User::with('pac')
+                ->latest()
+                ->paginate(25);
+            $userCounts = User::count();
         }
 
-        return view('admin.rayon.show', compact('rayon', 'user'));
+        return view('admins.pac.show', compact('pac', 'user', 'userCounts'));
     }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -59,13 +62,79 @@ class UserController extends Controller
     {
         $user = Auth();
 
-        $provinsi = Province::all()->sortBy('name')->pluck('name', 'id');
-        $route_get_kota = route('get.kota');
-        $route_get_kecamatan = route('get.kecamatan');
-        $route_get_kelurahan = route('get.kelurahan');
+        $province = Province::all()
+            ->sortBy('name')
+            ->pluck('name', 'id');
 
-        return view('admin.user.create', compact('provinsi', 'route_get_kota', 
-        'route_get_kecamatan', 'route_get_kelurahan', 'user'));
+        $pacList = [
+            'BATURRADEN',
+            'CILONGOK',
+            'KEDUNGBANTENG',
+            'KARANGLEWAS',
+            'PURWOJATI',
+            'PURWOKERTO BARAT',
+            'PURWOKERTO TIMUR',
+            'PURWOKERTO UTARA',
+            'PURWOKERTO SELATAN',
+            'SUMBANG',
+            'SOKARAJA',
+            'KEMBARAN',
+            'TAMBAK',
+            'SOMAGEDE',
+            'BANYUMAS',
+            'KEMRANJEN',
+            'GUMELAR',
+            'AJIBARANG',
+            'PEKUNCEN',
+            'WANGON',
+            'RAWALO',
+            'JATILAWANG',
+            'KEBASEN',
+            'PATIKRAJA',
+            'KALIBAGOR',
+            'LUMBIR',
+            'SUMPIUH',
+            'KOMISARIAT UNU PURWOKERTO',
+            'KOMISARIAT UIN SAIZU PURWOKERTO',
+        ];
+
+        $years = [
+            '2016' => 'Sebelum 2017',
+            '2017' => '2017',
+            '2018' => '2018',
+            '2019' => '2019',
+            '2020' => '2020',
+            '2021' => '2021',
+            '2022' => '2022',
+            '2023' => '2023',
+            '2024' => '2024',
+        ];
+
+        $attendanceCount = [
+            'Belum Pernah',
+            'Pernah 1 kali',
+            'Pernah 2 Kali',
+            'Pernah 3 Kali',
+            'Pernah 4 Kali',
+            'Pernah 5 Kali',
+            'Pernah 6 Kali',
+            'Pernah 7 Kali',
+            'Pernah 8 Kali',
+            'Pernah 9 Kali',
+            'Lebih dari 9 Kali',
+        ];
+
+        $cadreLevels = ['Belum Makesta', 'Makesta', 'Lakmud', 'Lakut', 'Latinpel'];
+
+        $genders = [
+            'L' => 'Laki-Laki',
+            'P' => 'Perempuan',
+        ];
+
+        return view(
+            'admins.users.create',
+            compact('province', 'user', 'pacList', 'cadreLevels', 'years', 'attendanceCount', 'genders'),
+        );
     }
 
     /**
@@ -73,41 +142,41 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // Rule validasi
         $rules = [
-          'name' => 'required',
-          'nim' => 'required|min:14|unique:users,nim|numeric',
-          'alamat' => 'required',
-          't_lahir' => 'required',
-          'kelamin' => 'required',
-      ];
-  
-      $messages = [
-        'name.required' => 'Nama wajib diisi.',
-        'kelamin.required' => 'Jenis Kelamin wajib diisi.',
-        'name.alpha' => 'Nama Harus Huruf doang Tolol!!!',
-        'nim.required' => 'Nim wajib diisi.',
-        'nim.unique' => 'Nim sudah digunakan.',
-        'nim.min' => 'Nim kurang anjing minimal 14 Angka goblok.',
-        'nim.numeric' => 'Nim Harus Angka Anjing!!!',
-        'alamat.required' => 'Alamatnya di isi dong bodo.',
-        't_lahir.required' => 'Tulis nama kota kelahirnya. TOLOL!!!.',
-    ];
-  
-      // Validasi input
-      $validator = Validator::make($request->all(), $rules, $messages);
-  
-      if ($validator->fails()) {
-          return redirect()->back()->withErrors($validator)->withInput();
-      }
+            'name' => 'required',
+            'nim' => 'required|min:14|unique:users,nim|numeric',
+            'address' => 'required',
+            'place_of_birth' => 'required',
+            'gender' => 'required',
+        ];
 
-      // dd($request);
+        $messages = [
+            'name.required' => 'Nama wajib diisi.',
+            'gender.required' => 'Jenis Kelamin wajib diisi.',
+            'name.alpha' => 'Nama Harus Huruf doang Tolol!!!',
+            'nim.required' => 'Nim wajib diisi.',
+            'nim.unique' => 'Nim sudah digunakan.',
+            'nim.min' => 'Nim kurang anjing minimal 14 Angka goblok.',
+            'nim.numeric' => 'Nim Harus Angka Anjing!!!',
+            'address.required' => 'Alamatnya di isi dong bodo.',
+            'place_of_birth.required' => 'Tulis nama kota kelahirnya. TOLOL!!!.',
+        ];
 
-      $request = User::create($request->all());
+        $validator = Validator::make($request->all(), $rules, $messages);
 
-  Alert::success('Mantap Sahabat', 'Kader Berhasil Ditambahkan');
-  return redirect()->route('user.index');
-  }
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $request = User::create($request->all());
+
+        Alert::success('Mantap Sahabat', 'Cadre Berhasil Ditambahkan');
+        return redirect()->route('users.index');
+    }
+
     /**
      * Display the specified resource.
      */
@@ -123,16 +192,65 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $role = Role::find($user->role_id);
-        $rayon = Rayon::find($user->rayon_id);
-        $provinsi = Province::all()->sortBy('name')->pluck('name', 'id');
-        $route_get_kota = route('get.kota');
-        $route_get_kecamatan = route('get.kecamatan');
-        $route_get_kelurahan = route('get.kelurahan');
+        $pac = PAC::find($user->pac_id);
+        $province = Province::all()
+            ->sortBy('name')
+            ->pluck('name', 'id');
 
-        // dd($user);
-        return view('admin.user.edit', compact('user', 'role', 
-        'rayon', 'provinsi', 'route_get_kota', 
-        'route_get_kecamatan', 'route_get_kelurahan',));
+        $pacList = [
+            'BATURRADEN',
+            'CILONGOK',
+            'KEDUNGBANTENG',
+            'KARANGLEWAS',
+            'PURWOJATI',
+            'PURWOKERTO BARAT',
+            'PURWOKERTO TIMUR',
+            'PURWOKERTO UTARA',
+            'PURWOKERTO SELATAN',
+            'SUMBANG',
+            'SOKARAJA',
+            'KEMBARAN',
+            'TAMBAK',
+            'SOMAGEDE',
+            'BANYUMAS',
+            'KEMRANJEN',
+            'GUMELAR',
+            'AJIBARANG',
+            'PEKUNCEN',
+            'WANGON',
+            'RAWALO',
+            'JATILAWANG',
+            'KEBASEN',
+            'PATIKRAJA',
+            'KALIBAGOR',
+            'LUMBIR',
+            'SUMPIUH',
+            'KOMISARIAT UNU PURWOKERTO',
+            'KOMISARIAT UIN SAIZU PURWOKERTO',
+        ];
+        $roles = ['Kader PC IPNU IPPNU Banyumas', 'Pengjunjung', 'Bukan Kader PC IPPNU Banyumas'];
+        $cadreLevels = ['Belum Makesta', 'Makesta', 'Lakmud', 'Lakut', 'Latinpel'];
+
+        $years = [
+            '2016' => 'Sebelum 2017',
+            '2017' => '2017',
+            '2018' => '2018',
+            '2019' => '2019',
+            '2020' => '2020',
+            '2021' => '2021',
+            '2022' => '2022',
+            '2023' => '2023',
+            '2024' => '2024',
+        ];
+        $genders = [
+            'L' => 'Laki-Laki',
+            'P' => 'Perempuan',
+        ];
+
+        return view(
+            'admins.users.edit',
+            compact('user', 'role', 'roles', 'pac', 'pacList', 'province', 'genders', 'years', 'cadreLevels'),
+        );
     }
 
     /**
@@ -145,15 +263,15 @@ class UserController extends Controller
         $userData = $request->all();
         if ($request->img) {
             $extension = $request->img->getClientOriginalExtension();
-            $newFileName = 'user' . '_' . $request->username . '-' . now()->timestamp . '.' . $extension;
-            $request->file('img')->move(public_path('/storage/img'), $newFileName);
-            $userData['img'] = $newFileName;
+            $newFileName = 'users' . '_' . $request->username . '-' . now()->timestamp . '.' . $extension;
+            $request->file('images')->move(public_path('/storage/images'), $newFileName);
+            $userData['images'] = $newFileName;
         }
 
         $userToUpdate->update($userData);
 
         Alert::success('Mantap Sahabat', 'User Berhasil Di Update');
-        return redirect('/admin');
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -164,44 +282,58 @@ class UserController extends Controller
         //
     }
 
-    public function administrator(Request $request)
+    public function showAdministrators(Request $request)
     {
-        $administrator = User::whereIn('role_id', [1, 2])->latest()->paginate(10);
-        return view('admin.administrator.index', compact('administrator'));
+        $administrator = User::whereIn('role_id', [1, 2])
+            ->latest()
+            ->paginate(10);
+        return view('admins.admins.index', compact('administrator'));
     }
 
-    public function kadermapaba(Request $request)
+    public function showMakestaCadres(Request $request)
     {
-        $kadermapaba = User::whereIn('kaderisasi', ['Mapaba', 'PKD', 'PKL', 'PKN'])->latest()->paginate(10);
-        return view('admin.user.mapaba', compact('kadermapaba'));
+        $makestaCadres = User::whereIn('cadre_level', ['Makesta', 'Lakmud', 'Lakut', 'Latinpel'])
+            ->latest()
+            ->paginate(10);
+
+        return view('admins.users.makesta', compact('makestaCadres'));
     }
 
-    public function kaderpkd(Request $request)
+    public function showLakmudCadres(Request $request)
     {
-        $kaderpkd = User::whereIn('kaderisasi', ['PKD', 'PKL', 'PKN'])->latest()->paginate(10);
-        return view('admin.user.pkd', compact('kaderpkd'));
-    }
-    public function kaderpkl(Request $request)
-    {
-        $kaderpkl = User::whereIn('kaderisasi', ['PKL', 'PKN'])->latest()->paginate(10);
-        return view('admin.user.pkl', compact('kaderpkl'));
-    }
-    public function kaderpkn(Request $request)
-    {
-        $kaderpkn = User::where('kaderisasi', 'PKN')->latest()->paginate(10);
-        return view('admin.user.pkn', compact('kaderpkn'));
+        $lakmudCadres = User::whereIn('cadre_level', ['Lakmud', 'Lakut', 'Latinpel'])
+            ->latest()
+            ->paginate(10);
+
+        return view('admins.users.lakmud', compact('lakmudCadres'));
     }
 
-    public function unverification(Request $request)
+    public function showLakutCadres(Request $request)
     {
-        // data kader yang belum di verifikasi 
+        $lakutCadres = User::whereIn('cadre_level', ['Lakut', 'Latinpel'])
+            ->latest()
+            ->paginate(10);
+
+        return view('admins.users.lakut', compact('lakutCadres'));
+    }
+
+    public function showLatinpelCadres(Request $request)
+    {
+        $latinpelCadres = User::where('cadre_level', 'Latinpel')
+            ->latest()
+            ->paginate(10);
+        return view('admins.users.latinpel', compact('latinpelCadres'));
+    }
+
+    public function showUnverification(Request $request)
+    {
         $unverification = User::where('role_id', 4)->paginate(10);
-        return view('admin.user.unverification', compact('unverification'));
+        return view('admins.users.unverification', compact('unverification'));
     }
-    public function bukankader(Request $request)
+
+    public function showNoncadres(Request $request)
     {
-        // data kader yang belum di verifikasi 
-        $bukankader = User::where('role_id', 5)->paginate(10);
-        return view('admin.user.bukankader', compact('bukankader'));
+        $noncadres = User::where('role_id', 5)->paginate(10);
+        return view('admins.users.noncadres', compact('noncadres'));
     }
 }

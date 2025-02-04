@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title', 200);
             $table->string('slug')->unique();
             $table->text('content');
-            $table->string('image');
+            $table->string('images');
             $table->integer('category_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('views')->unsigned()->default(0);

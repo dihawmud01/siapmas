@@ -13,6 +13,6 @@ class QrCodeController extends Controller
    $users = User::findOrFail($id);
    $now = Carbon::now()->format('Y-m-d');
 
-   return view('user.qrcode', compact('users', 'now'));
+   return view('users.qrcode', compact('users', 'now'));
  }
 }

@@ -1,33 +1,40 @@
 <?php
 
 namespace App\Http\Controllers;
-use Laravolt\Indonesia\Models\Village;
 use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Province;
+use Laravolt\Indonesia\Models\City;
 
 use Illuminate\Http\Request;
 
 class LaravoltController extends Controller
 {
-    public function get_kota()
+    public function showCity()
     {
-        $province_id = request('province_id');
-        $kota = \Indonesia::findProvince($province_id, ['cities'])->cities->sortBy('name')->pluck('name', 'id');
-        return view('laravolt.list_kota', compact('kota'));
+        $provinceId = request('province_id');
+        $city = Province::findProvince($provinceId, ['cities'])
+            ->cities->sortBy('name')
+            ->pluck('name', 'id');
+
+        return view('laravolt.city', compact('city'));
     }
 
-    public function get_kecamatan()
+    public function showDistrict()
     {
-        $city_id = request('city_id');
-        $kecamatan = \Indonesia::findCity($city_id, ['districts'])->districts->sortBy('name')->pluck('name', 'id');
+        $cityId = request('city_id');
+        $district = City::findCity($cityId, ['districts'])
+            ->districts->sortBy('name')
+            ->pluck('name', 'id');
 
-        return view('laravolt.list_kecamatan', compact('kecamatan'));
+        return view('laravolt.district', compact('district'));
     }
-    public function get_kelurahan()
+    public function showVillage()
     {
-        $kecamatan_id = request('kecamatan_id');
-        $kelurahan = \Indonesia::findDistrict($kecamatan_id, ['villages'])->villages->sortBy('name')->pluck('name', 'id');
+        $districtId = request('district_id');
+        $village = District::findDistrict($districtId, ['villages'])
+            ->villages->sortBy('name')
+            ->pluck('name', 'id');
 
-        return view('laravolt.list_kelurahan', compact('kelurahan'));
+        return view('laravolt.village', compact('village'));
     }
 }

@@ -7,6 +7,7 @@
     "devDependencies": {
         "@headlessui/react": "^1.4.2",
         "@inertiajs/react": "^1.0.0",
+        "@prettier/plugin-php": "^0.22.4",
         "@tailwindcss/forms": "^0.5.3",
         "@types/node": "^18.13.0",
         "@types/react": "^18.0.28",
@@ -17,6 +18,9 @@
         "axios": "^1.1.2",
         "laravel-vite-plugin": "^0.7.8",
         "postcss": "^8.4.18",
+        "prettier": "^3.4.2",
+        "prettier-plugin-blade": "^2.1.19",
+        "prettier-plugin-tailwindcss": "^0.6.9",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "tailwindcss": "^3.2.1",
@@ -26,7 +30,8 @@
     "type": "module",
     "dependencies": {
         "@react-icons/all-files": "^4.1.0",
+        "ckeditor5": "^44.1.0",
         "react-icons": "^4.10.1",
-        "react-ionicons": "^4.2.1"
+        "react-ionicons": "^1.5.7"
     }
 }

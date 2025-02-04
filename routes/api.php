@@ -15,11 +15,9 @@ use App\Http\Controllers\Api\ApiController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/users', function (Request $request) {
     return $request->user();
 });
 
-
-Route::get('/post', [ApiController::class, 'post']);
+Route::get('/posts', [ApiController::class, 'post']);
 Route::get('/article/{slug}', [ApiController::class, 'show']);
-Route::get('/galeri', [ApiController::class, 'galeri']);

@@ -22,7 +22,7 @@ class CategoryController extends Controller
     {
         $categories = Category::paginate(5);
 
-        return view('admin.categories.index', compact('categories'));
+        return view('admins.categories.index', compact('categories'));
     }
 
     /**
@@ -32,7 +32,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admins.categories.create');
     }
 
     public function store(Request $request): RedirectResponse
@@ -53,7 +53,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        return view('admin.categories.edit', compact('category'));
+        return view('admins.categories.edit', compact('category'));
     }
 
     /**
@@ -82,7 +82,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
 
         if ($category->posts()->count()) {
-            return redirect()->route('categories.index')->with('error', 'Error! The category has entries.');
+            return redirect()->route('categories.index')->with('error', 'Error! The categories has entries.');
         }
 
         $category->delete();

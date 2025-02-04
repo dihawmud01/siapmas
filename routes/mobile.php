@@ -29,11 +29,11 @@ Route::prefix('mobile')->group(function () {
   Route::get('/book', [MobileHomeController::class, 'book'])->name('mobileBook');
   Route::get('/bookShow/{id}', [MobileHomeController::class, 'bookShow'])->name('mobileBookShow');
   Route::get('/galery', [MobileHomeController::class, 'galery'])->name('mobileGalery');
-  Route::get('/calender', [MobileHomeController::class, 'calender'])->name('mobileCalender');
-  Route::get('/post', [MobileHomeController::class, 'post'])->name('mobilePost');
-  Route::get('/post/details/{slug}', [MobileHomeController::class, 'show'])->name('mobilePostShow');
-  Route::get('/post/nuOnline/details/{slug}', [MobileHomeController::class, 'nuShow'])->name('nuShow');
-  Route::get('/kader/profile/{slug}', [MobileHomeController::class, 'KaderProfile'])->name('KaderProfile')->middleware(['auth']);
+  Route::get('/calendar', [MobileHomeController::class, 'calendar'])->name('mobileCalender');
+  Route::get('/posts', [MobileHomeController::class, 'posts'])->name('mobilePost');
+  Route::get('/posts/details/{slug}', [MobileHomeController::class, 'show'])->name('mobilePostShow');
+  Route::get('/posts/nuOnline/details/{slug}', [MobileHomeController::class, 'nuShow'])->name('nuShow');
+  Route::get('/cadres/profile/{slug}', [MobileHomeController::class, 'KaderProfile'])->name('KaderProfile')->middleware(['auth']);
  });
 
  Route::middleware(['auth', 'role:1, 2, 3'])->group(function () {

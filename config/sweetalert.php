@@ -131,7 +131,7 @@ return [
     | ShowCloseButton
     |--------------------------------------------------------------------------
     | If set to true, a "Close"-button will be shown,
-    | which the user can click on to dismiss the modal.
+    | which the users can click on to dismiss the modal.
     | This is for the all Modal windows.
     | For specific modal just use the showCloseButton() helper method.
     |

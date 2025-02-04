@@ -3,42 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Rayon;
-use Barryvdh\DomPDF\PDF;
+use App\Models\PAC;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\View;
 
 class PDFController extends Controller
 {
+    public function pacPDF($slug, Request $request)
+    {
+        $pac = PAC::where('slug', $slug)
+            ->with('users')
+            ->latest()
+            ->first();
 
- public function rayonPDF($slug, Request $request)
- {
-     // Ambil data rayon berdasarkan slug
-     $rayon = Rayon::where('slug', $slug)
-         ->with('users')
-         ->latest()
-         ->first(); // Menggunakan first() untuk mendapatkan satu data rayon
- 
-     if (!$rayon) {
-         // Handle jika rayon tidak ditemukan
-         abort(404); // Atau tampilkan pesan error yang sesuai
-     }
- 
-     // Hitung jumlah pengguna dalam rayon tersebut
-     $count_user = $rayon->users->count();
- 
-     // Format tanggal sesuai dengan yang Anda inginkan
-     $now = Carbon::now()->format('Y-m-d');
- 
-     return view('admin.rayon.rayon-pdf', compact('rayon', 'count_user', 'now'));
- }
+        if (! $pac) {
+            abort(404);
+        }
 
+        $count_user = $pac->users->count();
+        $now = Carbon::now()->format('Y-m-d');
 
- public function kaderPDF($id, Request $request) {
-  $users = User::findOrFail($id);
-  $now = Carbon::now()->format('Y-m-d');
+        return view('admins.pac.pac-pdf', compact('pac', 'count_user', 'now'));
+    }
 
-  return view('admin.user.pdf', compact('users', 'now'));
- }
+    public function cadrePDF($id, Request $request)
+    {
+        $users = User::findOrFail($id);
+        $now = Carbon::now()->format('Y-m-d');
+
+        return view('admins.users.pdf', compact('users', 'now'));
+    }
 }

@@ -8,7 +8,6 @@ use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendEmail extends Mailable
 {
@@ -28,8 +27,8 @@ class SendEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('pkpmiiuninus.official@gmail.com', 'PMII Komisariat UNINUS'),
-            subject: 'PMII Komisariat Uninus',
+            from: new Address('email@mail.com', 'PC IPNU IPPNU Banyumas'),
+            subject: 'PC IPNU IPPNU Banyumas',
         );
     }
 

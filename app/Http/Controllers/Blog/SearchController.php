@@ -16,7 +16,7 @@ class SearchController extends Controller
         $search = $request->s;
 
         if ($search) {
-            $query = Post::with('category', 'tags')
+            $query = Post::with('categories', 'tags')
                 ->where('title', 'like', "%$search%")
                 ->where('active', 1);
         }
@@ -29,6 +29,6 @@ class SearchController extends Controller
             ->get();
         $search_results = $query->paginate(4);
 
-        return view('blog.search', compact('search', 'search_results', 'tags'));
+        return view('blogs.search', compact('search', 'search_results', 'tags'));
     }
 }
