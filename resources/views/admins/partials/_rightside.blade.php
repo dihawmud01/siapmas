@@ -12,7 +12,7 @@
         </ul>
     </div>
 
-    <div class="card-body pb-0">
+    <div class="card-body p-5">
         <h5 class="card-title">
             {{ __('Kader Berdasarkan Jenis Kelamin') }}
         </h5>
@@ -68,7 +68,7 @@
 </div>
 
 <div class="card">
-    <div class="card-body">
+    <div class="card-body p-5">
         <h5 class="card-title">
             {{ __('Kader Berdasarkan PAC/Komisariat') }}
         </h5>

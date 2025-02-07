@@ -22,7 +22,7 @@
                     >
                         <div class="carousel-container">
                             <div class="container">
-                                <h2 class="animate__animated animate__fadeInDown">
+                                <h2 class="animate__animated animate__fadeInDown mb-2">
                                     {{ __('Selamat Datang') }}
                                     <br />
                                     {{ __('Di Website PC IPNU IPPNU BANYUMAS') }}
@@ -44,7 +44,7 @@
                         >
                             <div class="carousel-container">
                                 <div class="position-absolute top-50 start-50 translate-middle container">
-                                    <h2 class="animate__animated animate__fadeInDown">{{ $value['title'] }}</h2>
+                                    <h2 class="animate__animated animate__fadeInDown mb-2">{{ $value['title'] }}</h2>
                                     <a
                                         href="{{ route('login') }}"
                                         class="btn-get-started scrollto animate__animated animate__fadeInUp rounded-4 p-4"
@@ -133,7 +133,7 @@
 
     <div class="col-12 p-4" data-aos="fade-up">
         <div class="card">
-            <div class="card-body mt-5">
+            <div class="card-body pt-5">
                 <h4 class="card-title text-center">
                     {{ __('Data Rekan & Rekanita') }}
                     <span>{{ __('Dari Tahun Ke Tahun') }}</span>
@@ -200,7 +200,7 @@
 
     <div class="col-12 p-4" data-aos="fade-up">
         <div class="card">
-            <div class="card-body mt-5">
+            <div class="card-body pt-5">
                 <h4 class="card-title text-center">
                     {{ __('Kader Berdasarkan Jenis Kelamin') }}
                 </h4>
@@ -257,7 +257,7 @@
 
     <div class="col-12 mb-4 px-4 pb-4" data-aos="fade-up">
         <div class="card">
-            <div class="card-body mt-5">
+            <div class="card-body pt-5">
                 <h4 class="card-title text-center">
                     {{ __('Kader Berdasarkan PAC/Komisariat') }}
                 </h4>
@@ -347,7 +347,7 @@
 
     {{-- <div class="col-lg-12 mb-2" data-aos="fade-up"> --}}
     {{-- <div class="card"> --}}
-    {{-- <div class="card-body mt-5"> --}}
+    {{-- <div class="card-body pt-5"> --}}
     {{-- <h5 class="card-title"> --}}
     {{-- {{ __('Kader Berdasarkan') }} --}}
     {{-- <span>{{ __('Status Anggota') }}</span> --}}

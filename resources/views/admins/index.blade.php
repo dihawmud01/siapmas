@@ -9,20 +9,17 @@
     <div class="row">
         <div class="col">
             <div class="card info-card sales-card">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        {{ __('Pasca') }}
-                        <span>| {{ __('Makesta') }}</span>
+                <div class="card-body p-4">
+                    <h5 class="card-title mb-3">
+                        {{ __('Kader Makesta') }}
                     </h5>
 
                     <div class="d-flex align-items-center">
-                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center me-3">
                             <i class="bi bi-people"></i>
                         </div>
-                        <div class="ps-3">
+                        <div>
                             <h6>{{ $cadreLevelCounts['Makesta'] }}</h6>
-                            <span class="text-primary small fw-bold pt-1"></span>
-                            <span class="text-muted small ps-1 pt-2"></span>
                         </div>
                     </div>
                 </div>
@@ -31,16 +28,15 @@
 
         <div class="col">
             <div class="card info-card sales-card">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        {{ __('Kader') }}
-                        <span>| {{ __('Lakmud') }}</span>
+                <div class="card-body p-4">
+                    <h5 class="card-title mb-3">
+                        {{ __('Kader Lakmud') }}
                     </h5>
                     <div class="d-flex align-items-center">
-                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center me-3">
                             <i class="bi bi-people"></i>
                         </div>
-                        <div class="ps-3">
+                        <div>
                             <h6>{{ $cadreLevelCounts['Lakmud'] }}</h6>
                         </div>
                     </div>
@@ -50,20 +46,17 @@
 
         <div class="col">
             <div class="card info-card revenue-card">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        {{ __('Kader') }}
-                        <span>| {{ __('Lakut') }}</span>
+                <div class="card-body p-4">
+                    <h5 class="card-title mb-3">
+                        {{ __('Kader Lakut') }}
                     </h5>
 
                     <div class="d-flex align-items-center">
-                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center me-3">
                             <i class="bi bi-people"></i>
                         </div>
-                        <div class="ps-3">
+                        <div>
                             <h6>{{ $cadreLevelCounts['Lakut'] }}</h6>
-                            <span class="text-danger small fw-bold pt-1"></span>
-                            <span class="text-muted small ps-1 pt-2"></span>
                         </div>
                     </div>
                 </div>
@@ -72,20 +65,17 @@
 
         <div class="col">
             <div class="card info-card revenue-card">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        {{ __('Kader') }}
-                        <span>| {{ __('Latinpel') }}</span>
+                <div class="card-body p-4">
+                    <h5 class="card-title mb-3">
+                        {{ __('Kader Latinpel') }}
                     </h5>
 
                     <div class="d-flex align-items-center">
-                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center me-3">
                             <i class="bi bi-people"></i>
                         </div>
-                        <div class="ps-3">
+                        <div>
                             <h6>{{ $cadreLevelCounts['Latinpel'] }}</h6>
-                            <span class="text-danger small fw-bold pt-1"></span>
-                            <span class="text-muted small ps-1 pt-2"></span>
                         </div>
                     </div>
                 </div>
@@ -94,24 +84,33 @@
 
         <div class="col-12">
             <div class="card">
-                <div class="filter">
-                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                        <li class="dropdown-header text-start">
-                            <h6>{{ __('Filter') }}</h6>
-                        </li>
+                <div class="card-body p-4">
+                    <div class="card-header d-flex justify-content-between align-items-center mb-4 border-0 bg-white">
+                        <h5 class="card-title d-flex align-items-center mb-0">
+                            {{ __('Data Makesta') }}
+                            <span>| {{ __('Dari Tahun Ke Tahun') }}</span>
+                        </h5>
+                        <div class="dropdown filter">
+                            <button
+                                class="icon text-dark fs-5 border-0 bg-transparent"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                <i class="bi bi-three-dots"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <li class="dropdown-header text-start">
+                                    <h6>{{ __('Filter') }}</h6>
+                                </li>
 
-                        <li><a class="dropdown-item" href="#">{{ __('Hari Ini') }}</a></li>
-                        <li><a class="dropdown-item" href="#">{{ __('Bulan Ini') }}</a></li>
-                        <li><a class="dropdown-item" href="#">{{ __('Tahun ini') }}</a></li>
-                    </ul>
-                </div>
-
-                <div class="card-body">
-                    <h5 class="card-title">
-                        {{ __('Data Makesta') }}
-                        <span>| {{ __('Dari Tahun Ke Tahun') }}</span>
-                    </h5>
+                                <li><a class="dropdown-item" href="#" data-filter="today">{{ __('Hari Ini') }}</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="#" data-filter="month">{{ __('Bulan Ini') }}</a>
+                                </li>
+                                <li><a class="dropdown-item" href="#" data-filter="year">{{ __('Tahun ini') }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
                     <div id="reportsChart"></div>
 
                     <script>
@@ -121,7 +120,7 @@
                             const years = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'];
                             const data = years.map((year) => makestaCounts[year] || 0);
 
-                            new ApexCharts(document.querySelector('#reportsChart'), {
+                            const chart = new ApexCharts(document.querySelector('#reportsChart'), {
                                 series: [
                                     {
                                         name: '{{ __('Makesta') }}',
@@ -138,7 +137,7 @@
                                 markers: {
                                     size: 4,
                                 },
-                                colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                                colors: ['#008000FF', '#2eca6a', '#ff771d'],
                                 fill: {
                                     type: 'gradient',
                                     gradient: {
@@ -156,25 +155,47 @@
                                     width: 2,
                                 },
                                 xaxis: {
-                                    type: 'datetime',
-                                    categories: [
-                                        '2016',
-                                        '2017',
-                                        '2018',
-                                        '2019',
-                                        '2020',
-                                        '2021',
-                                        '2022',
-                                        '2023',
-                                        '2024',
-                                    ],
+                                    type: 'category',
+                                    categories: years,
                                 },
                                 tooltip: {
                                     x: {
                                         format: 'yyyy',
                                     },
                                 },
-                            }).render();
+                            });
+
+                            chart.render();
+
+                            function filterData(filter) {
+                                const now = new Date();
+
+                                let filteredYears = [];
+
+                                if (filter === 'today') {
+                                    filteredYears = [now.getFullYear().toString()];
+                                } else if (filter === 'month') {
+                                    filteredYears = [now.getFullYear().toString()];
+                                } else if (filter === 'year') {
+                                    filteredYears = years.filter((year) => parseInt(year) >= now.getFullYear() - 5);
+                                } else {
+                                    filteredYears = years;
+                                }
+
+                                const data = filteredYears.map((year) => makestaCounts[year] || 0);
+
+                                chart.updateSharedOptions({
+                                    xaxis: { categories: filteredYears },
+                                    series: [{ data: data }],
+                                });
+                            }
+
+                            document.getElementById('filterDropdown').addEventListener('click', function (event) {
+                                if (event.target.tagName === 'A') {
+                                    const filter = event.target.getAttribute('data-filter');
+                                    filterData(filter);
+                                }
+                            });
                         });
                     </script>
                 </div>
@@ -195,8 +216,8 @@
                         <li><a class="dropdown-item" href="#">{{ __('Tahun ini') }}</a></li>
                     </ul>
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">
+                <div class="card-body p-4">
+                    <h5 class="card-title mb-3">
                         {{ __('Data Postingan') }}
                         <span>| {{ __('Belum Diverifikasi') }}</span>
                     </h5>
