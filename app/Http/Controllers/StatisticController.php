@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\News;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -92,7 +92,7 @@ class StatisticController extends Controller
             $makestaCounts[$year] = $makesta->get($year, 0);
         }
 
-        $posts = Post::with('category', 'tags')
+        $posts = News::with('category', 'tags')
             ->where('active', 1)
             ->take(10)
             ->get();

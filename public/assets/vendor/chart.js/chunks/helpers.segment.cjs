@@ -1844,7 +1844,7 @@ const EPSILON = Number.EPSILON || 1e-14;
 const getPoint = (points, i)=>i < points.length && !points[i].skip && points[i];
 const getValueAxis = (indexAxis)=>indexAxis === 'x' ? 'y' : 'x';
 function splineCurve(firstPoint, middlePoint, afterPoint, t) {
-    // Props to Rob Spencer at scaled innovation for his posts on splining between points
+    // Props to Rob Spencer at scaled innovation for his news on splining between points
     // http://scaledinnovation.com/analytics/splines/aboutSplines.html
     // This function must also respect "skipped" points
     const previous = firstPoint.skip ? middlePoint : firstPoint;

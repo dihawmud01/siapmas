@@ -7,7 +7,7 @@
 @section('content')
     <div class="card info-card sales-card">
         <div class="container">
-            <h4 class="my-3 text-center">{{ __('Edit Tag Blog') }}</h4>
+            <h4 class="my-3 text-center">{{ __('Edit Tag News') }}</h4>
 
             <section class="content">
                 <div class="container-fluid">

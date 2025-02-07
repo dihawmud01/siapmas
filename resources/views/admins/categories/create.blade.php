@@ -6,7 +6,7 @@
 @section('content')
     <div class="card info-card sales-card">
         <div class="container">
-            <h4 class="my-3 text-center">{{ __('Tambah Kategori Blog') }}</h4>
+            <h4 class="my-3 text-center">{{ __('Tambah Kategori News') }}</h4>
             <form action="{{ route('categories.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">

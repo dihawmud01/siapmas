@@ -19,20 +19,23 @@
                 <h1 class="pt-5">{{ __('Agenda Kegiatan') }}</h1>
             </div>
             <div class="container mb-4 pb-4 pt-2" data-aos="fade-up">
-                <div class="card info-card sales-card" style="box-shadow: 0 0 50px rgba(0, 0, 0, 0.7)">
-                    <table class="table-hover table">
+                <div
+                    class="card info-card sales-card rounded-2 border-0 p-5"
+                    style="box-shadow: 0 0 30px rgba(1, 41, 112, 0.1)"
+                >
+                    <table class="table-hover mb-0 table">
                         <tr>
-                            <th class="text-center">{{ __('No.') }}</th>
-                            <th class="text-start">{{ __('Nama Kegiatan') }}</th>
-                            <th class="text-start">{{ __('Penyelenggara') }}</th>
-                            <th class="text-center">{{ __('Waktu') }}</th>
+                            <th class="p-4 text-center">{{ __('No.') }}</th>
+                            <th class="p-4 text-start">{{ __('Nama Kegiatan') }}</th>
+                            <th class="p-4 text-start">{{ __('Penyelenggara') }}</th>
+                            <th class="p-4 text-start">{{ __('Waktu') }}</th>
                         </tr>
                         @foreach ($events->take(20) as $event)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $event->title }}</td>
-                                <td>{{ $event->organizer }}</td>
-                                <td>{{ date('l, d F Y', strtotime($event->start)) }}</td>
+                                <td class="p-4 text-center">{{ $loop->iteration }}</td>
+                                <td class="p-4">{{ $event->title }}</td>
+                                <td class="p-4">{{ $event->organizer }}</td>
+                                <td class="p-4">{{ $event->formatted_date }}</td>
                             </tr>
                         @endforeach
                     </table>
@@ -42,20 +45,23 @@
                 <h1 class="pt-5">{{ __('Hari Besar Nasional') }}</h1>
             </div>
             <div class="container mb-4 pb-4 pt-2" data-aos="fade-up">
-                <div class="card info-card sales-card" style="box-shadow: 0 0 50px rgba(0, 0, 0, 0.7)">
-                    <table class="table-hover table">
+                <div
+                    class="card info-card sales-card rounded-2 border-0 p-5"
+                    style="box-shadow: 0 0 30px rgba(1, 41, 112, 0.1)"
+                >
+                    <table class="table-hover mb-0 table">
                         <tr>
-                            <th class="text-center">{{ __('No.') }}</th>
-                            <th class="text-start">{{ __('Hari Besar') }}</th>
-                            <th class="text-start">{{ __('Tanggal') }}</th>
-                            <th class="text-center">{{ __('Waktu') }}</th>
+                            <th class="p-4 text-center">{{ __('No.') }}</th>
+                            <th class="p-4 text-start">{{ __('Hari Besar') }}</th>
+                            <th class="p-4 text-start">{{ __('Tanggal') }}</th>
+                            <th class="p-4 text-start">{{ __('Waktu') }}</th>
                         </tr>
-                        @foreach ($national_days as $day => $hational_day)
+                        @foreach ($hbn as $day => $idx)
                             <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
-                                <td>{{ $hational_day->title }}</td>
-                                <td>{{ date('l, d F Y', strtotime($hational_day->date)) }}</td>
-                                <td class="text-center">
+                                <td class="p-4 text-center">{{ $loop->iteration }}</td>
+                                <td class="p-4">{{ $idx->title }}</td>
+                                <td class="p-4">{{ $idx->formatted_date }}</td>
+                                <td class="p-4">
                                     <div id="countdown-{{ $loop->iteration }}"></div>
                                 </td>
                             </tr>
@@ -162,11 +168,9 @@
                 </div>
             </div>
 
-            @foreach ($national_days as $hational_day)
+            @foreach ($hbn as $day)
                 <script>
-                    let targetDate{{ $loop->iteration }} = new Date(
-                        '{{ date('Y-m-d', strtotime($hational_day->date)) }}',
-                    );
+                    let targetDate{{ $loop->iteration }} = new Date('{{ date('Y-m-d', strtotime($day->date)) }}');
 
                     function countdownTimer{{ $loop->iteration }}() {
                         let now = new Date();

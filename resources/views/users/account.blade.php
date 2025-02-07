@@ -463,7 +463,7 @@
                                             >
                                                 @csrf
                                                 <div class="card-body">
-                                                    @include('admins.posts.form')
+                                                    @include('admins.news.form')
                                                 </div>
                                                 <div class="card-footer">
                                                     <button type="submit" class="btn btn-primary">

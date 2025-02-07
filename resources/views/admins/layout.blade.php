@@ -39,8 +39,8 @@
     </head>
 
     <body>
-        @include('admins.partials._topbar')
         @include('admins.partials._sidebar')
+        @include('admins.partials._topbar')
 
         <main id="main" class="main">
             <div class="pagetitle">

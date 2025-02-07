@@ -2347,8 +2347,8 @@
     const prefixName = (name) => constant$1('alloy.' + name);
     const alloy = { tap: prefixName('tap') };
     const focus$4 = prefixName('focus');
-    const postBlur = prefixName('blur.posts');
-    const postPaste = prefixName('paste.posts');
+    const postBlur = prefixName('blur.news');
+    const postPaste = prefixName('paste.news');
     const receive = prefixName('receive');
     const execute$5 = prefixName('execute');
     const focusItem = prefixName('focus.item');

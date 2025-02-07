@@ -7,7 +7,7 @@
 @section('content')
     <div class="card info-card sales-card">
         <div class="container">
-            <h4 class="my-3 text-center">{{ __('Edit Kategori Blog') }}</h4>
+            <h4 class="my-3 text-center">{{ __('Edit Kategori News') }}</h4>
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -17,8 +17,11 @@
                                     <h3 class="card-title">{{ __('Kategori') }} "{{ $category->title }}"</h3>
                                 </div>
 
-                                <form role="form" method="post"
-                                      action="{{ route('categories.update', $category->id) }}">
+                                <form
+                                    role="form"
+                                    method="post"
+                                    action="{{ route('categories.update', $category->id) }}"
+                                >
                                     @csrf
                                     @method('PUT')
                                     <div class="card-body">

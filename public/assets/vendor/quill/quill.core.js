@@ -6524,7 +6524,7 @@ var ScrollBlot = /** @class */ (function (_super) {
                 mark(blot.parent);
         };
         var optimize = function (blot) {
-            // Post-order traversal
+            // News-order traversal
             if (
             // @ts-ignore
             blot.domNode[Registry.DATA_KEY] == null ||
@@ -8358,7 +8358,7 @@ function isLine(node) {
 }
 
 function traverse(node, elementMatchers, textMatchers) {
-  // Post-order
+  // News-order
   if (node.nodeType === node.TEXT_NODE) {
     return textMatchers.reduce(function (delta, matcher) {
       return matcher(node, delta);

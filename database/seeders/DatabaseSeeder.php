@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use DB;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,15 +19,14 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoryBooksTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
         $this->call(ContactsTableSeeder::class);
-        $this->call(NationalDaysTableSeeder::class);
+        $this->call(HBNTableSeeder::class);
         $this->call(CadresTableSeeder::class);
         $this->call(AdministratorsTableSeeder::class);
-        $this->call(LibrariesTableSeeder::class);
-        $this->call(PostsTableSeeder::class);
-        $this->call(PostTagsTableSeeder::class);
+        $this->call(NewsTableSeeder::class);
+        $this->call(TagsTableSeeder::class);
+        $this->call(NewsTagsTableSeeder::class);
         $this->call(ProfilesTableSeeder::class);
         $this->call(QuotesTableSeeder::class);
         $this->call(PACTableSeeder::class);
-        $this->call(TagsTableSeeder::class);
     }
 }

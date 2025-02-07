@@ -5,21 +5,33 @@ namespace App\Http\Controllers;
 use App\Models\HBN;
 use App\Models\Agenda;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use Carbon\Carbon;
 
 class AgendaController extends Controller
 {
     public function index()
     {
-        $hbns = HBN::latest()
-            ->take(20)
-            ->get();
+        Carbon::setLocale('id');
+
         $user = Auth::user();
-        $events = Agenda::latest()->get();
-        // ddd($events);
-        return view('users.calendar', compact('events', 'user', 'hbns'));
+
+        $hbn = HBN::latest()
+            ->take(20)
+            ->get()->map(function ($day) {
+                $day->formatted_date = Carbon::parse($day->date)->translatedFormat('l, d F Y');
+
+                return $day;
+            });
+
+        $events = Agenda::latest()->get()->map(function ($event) {
+            $event->formatted_date = Carbon::parse($event->date)->translatedFormat('l, d F Y');
+
+            return $event;
+        });
+
+        return view('users.calendar', compact('events', 'user', 'hbn', 'events'));
     }
 
     public function adminIndex()

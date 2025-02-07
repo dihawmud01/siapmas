@@ -227,7 +227,7 @@
                                     </td>
                                     <td>
                                         <form
-                                            action="{{ route('posts.destroy', $post->id) }}"
+                                            action="{{ route('news.destroy', $post->id) }}"
                                             method="post"
                                             class="float-left"
                                         >
@@ -239,7 +239,7 @@
                                                 <i class="ri-eye-fill"></i>
                                             </a>
                                             <a
-                                                href="{{ route('posts.edit', $post->id) }}"
+                                                href="{{ route('news.edit', $post->id) }}"
                                                 class="btn btn-warning btn-sm float-left mr-1"
                                             >
                                                 <i class="ri-edit-fill"></i>

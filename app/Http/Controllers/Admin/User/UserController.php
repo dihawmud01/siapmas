@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\StoreNewsRequest;
+use App\Http\Requests\UpdateNewsRequest;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -40,7 +40,7 @@ class UserController extends Controller
             'Travelling' => 'Travelling',
             'Membaca' => 'Membaca',
             'Seni dan kreativitas' => 'Seni dan kreativitas',
-            'Menonton film dan serial TV' => 'Menonton Film/Serial TV'
+            'Menonton film dan serial TV' => 'Menonton Film/Serial TV',
         ];
 
         $pacList = [
@@ -72,7 +72,7 @@ class UserController extends Controller
             'lumbir' => 'LUMBIR',
             'sumpiuh' => 'SUMPIUH',
             'unu' => 'KOMISARIAT UNU PURWOKERTO',
-            'uin-saizu' => 'KOMISARIAT UIN SAIZU PURWOKERTO'
+            'uin-saizu' => 'KOMISARIAT UIN SAIZU PURWOKERTO',
         ];
 
         $years = [
@@ -87,7 +87,7 @@ class UserController extends Controller
             '2023' => '2023',
             '2024' => '2024',
             '2025' => '2025',
-            '2026' => '2026'
+            '2026' => '2026',
         ];
 
         $attendanceCount = [
@@ -102,27 +102,24 @@ class UserController extends Controller
             '8' => 'Pernah 8 Kali',
             '9' => 'Pernah 9 Kali',
             '10' => 'Pernah 10 Kali',
-            '11' => 'Lebih dari 10 Kali'
+            '11' => 'Lebih dari 10 Kali',
         ];
-        return view('admins.users.create', compact(
-            'hobbies',
-            'pacList',
-            'years',
-            'attendanceCount'
-        ));
+        return view('admins.users.create', compact('hobbies', 'pacList', 'years', 'attendanceCount'));
     }
 
     /**
      * Store a newly created users in storage.
      *
-     * @param StoreUserRequest $request
+     * @param StoreNewsRequest $request
      * @return RedirectResponse|Redirector|Application
      */
-    public function store(StoreUserRequest $request): Application|RedirectResponse|Redirector
+    public function store(StoreNewsRequest $request): Application|RedirectResponse|Redirector
     {
         User::create($request->all());
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        return redirect()
+            ->route('users.index')
+            ->with('success', 'User created successfully.');
     }
 
     /**
@@ -141,16 +138,18 @@ class UserController extends Controller
     /**
      * Update users.
      *
-     * @param UpdateUserRequest $request
+     * @param UpdateNewsRequest $request
      * @param int $id
      * @return RedirectResponse
      */
-    public function update(UpdateUserRequest $request, int $id): RedirectResponse
+    public function update(UpdateNewsRequest $request, int $id): RedirectResponse
     {
         $user = User::findOrFail($id);
         $user->update($request->all());
 
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        return redirect()
+            ->route('users.index')
+            ->with('success', 'User updated successfully.');
     }
 
     /**
@@ -164,11 +163,15 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         if ($user->posts()->count()) {
-            return redirect()->route('users.index')->with('error', 'Error! The users has entries.');
+            return redirect()
+                ->route('users.index')
+                ->with('error', 'Error! The users has entries.');
         }
 
         $user->delete();
 
-        return redirect()->back()->with('info', 'User deleted successfully!');
+        return redirect()
+            ->back()
+            ->with('info', 'User deleted successfully!');
     }
 }

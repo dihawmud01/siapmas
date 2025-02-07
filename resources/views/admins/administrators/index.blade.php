@@ -19,7 +19,7 @@
                     <td class="text-center">{{ __('Gambar') }}</td>
                     <td class="text-center">{{ __('Aksi') }}</td>
                 </tr>
-                @foreach ($administratoers as $administrator)
+                @foreach ($administrators as $administrator)
                     <tr>
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td>{{ $administrator->name }}</td>
@@ -34,13 +34,13 @@
                         <td class="text-center">
                             <div class="btn-group">
                                 <a
-                                    href="{{ route('administrator.edit', ['id' => $administrator->id]) }}"
+                                    href="{{ route('administrators.edit', ['id' => $administrator->id]) }}"
                                     class="btn btn-warning btn-sm"
                                 >
                                     {{ __('Edit') }}
                                 </a>
                                 <form
-                                    action="{{ route('administrator.destroy', ['id' => $administrator->id]) }}"
+                                    action="{{ route('administrators.destroy', ['id' => $administrator->id]) }}"
                                     method="POST"
                                 >
                                     @csrf

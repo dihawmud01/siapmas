@@ -19,5 +19,5 @@ Route::middleware('auth:sanctum')->get('/users', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/posts', [ApiController::class, 'post']);
+Route::get('/news', [ApiController::class, 'post']);
 Route::get('/article/{slug}', [ApiController::class, 'show']);

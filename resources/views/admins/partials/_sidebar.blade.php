@@ -79,57 +79,27 @@
         @endauth
 
         <li class="nav-item">
-            <hr />
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link {{ request()->routeIs('admin.libraries.*') ? ' active' : ' collapsed' }}"
-                data-bs-target="#tables-books"
-                data-bs-toggle="collapse"
-                href="{{ route('admin.libraries.index') }}"
-            >
-                <i class="bi bi-book-half"></i>
-                <span>{{ __('Perpustkaan') }}</span>
-                <i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="tables-books" class="nav-content collapse" data-bs-parent="#tables-books">
-                <li>
-                    <a href="{{ route('book-categories.index') }}">
-                        <i class="bi bi-circle"></i>
-                        <span>{{ __('Kategori') }}</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.libraries.index') }}">
-                        <i class="bi bi-circle"></i>
-                        <span>{{ __('Buku') }}</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-        <li class="nav-item">
             <a
                 class="nav-link collapsed"
                 data-bs-target="#tables-nav"
                 data-bs-toggle="collapse"
-                href="{{ route('posts.index') }}"
+                href="{{ route('news.index') }}"
             >
                 <i class="bi bi-layout-text-window-reverse"></i>
-                <span>{{ __('Blog') }}</span>
+                <span>{{ __('Berita') }}</span>
                 <i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="tables-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="{{ route('posts.index') }}">
+                    <a href="{{ route('news.index') }}">
                         <i class="bi bi-circle"></i>
-                        <span>{{ __('List Blog') }}</span>
+                        <span>{{ __('List Berita') }}</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('categories.index') }}">
                         <i class="bi bi-circle"></i>
-                        <span>{{ __('Kategori Blog') }}</span>
+                        <span>{{ __('Kategori Berita') }}</span>
                     </a>
                 </li>
                 <li>
@@ -153,16 +123,12 @@
 
         <li class="nav-item">
             <a
-                class="nav-link {{ request()->routeIs('national-days.*') ? ' active' : ' collapsed' }}"
-                href="{{ route('national-days.index') }}"
+                class="nav-link {{ request()->routeIs('hbn.*') ? ' active' : ' collapsed' }}"
+                href="{{ route('hbn.index') }}"
             >
                 <i class="bi bi-bookmark-check"></i>
                 <span>{{ __('Hari Besar') }}</span>
             </a>
-        </li>
-
-        <li>
-            <hr />
         </li>
 
         @auth
@@ -176,7 +142,6 @@
                         <span>{{ __('Admin') }}</span>
                     </a>
                 </li>
-
                 <li class="nav-item">
                     <a
                         class="nav-link {{ request()->routeIs('pages.*') ? ' active' : ' collapsed' }}"
@@ -186,7 +151,6 @@
                         <span>{{ __('Pages') }}</span>
                     </a>
                 </li>
-
                 <li class="nav-item">
                     <a
                         class="nav-link {{ request()->routeIs('quotes.*') ? ' active' : ' collapsed' }}"
@@ -196,7 +160,6 @@
                         <span>{{ __('Quotes') }}</span>
                     </a>
                 </li>
-
                 <li class="nav-item">
                     <a
                         class="nav-link {{ request()->routeIs('administrators.*') ? ' active' : ' collapsed' }}"
@@ -209,12 +172,10 @@
             @endif
         @endauth
 
-        <li>
-            <div>
-                <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">
-                    <i class="bi bi-box-arrow-right btn btn-success m-4"><span>{{ __('Keluar') }}</span></i>
-                </a>
-            </div>
+        <li class="nav-item">
+            <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">
+                <i class="bi bi-box-arrow-right btn btn-success m-4"><span>{{ __('Keluar') }}</span></i>
+            </a>
         </li>
     </ul>
 </aside>

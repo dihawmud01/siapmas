@@ -19,7 +19,7 @@ class AgendasTableSeeder extends Seeder
             [
                 'title' => 'Pelantikan Administrator Komisariat',
                 'organizer' => 'KOMISARIAT UNU PURWOKERTO',
-                'start' => '2023-05-26T13:00',
+                'date' => '2023-05-26T13:00',
                 'place' => 'Gd. PascaSarjana Lt 1',
                 'category' => 'Formal',
                 'total_participants' => '70',
@@ -33,7 +33,7 @@ class AgendasTableSeeder extends Seeder
             [
                 'title' => 'Taman Baca',
                 'organizer' => 'PAC BATURRADEN',
-                'start' => '2023-05-31T16:00',
+                'date' => '2023-05-31T16:00',
                 'place' => 'Rumput Surga',
                 'category' => 'Nonformal',
                 'total_participants' => '21',
@@ -47,7 +47,7 @@ class AgendasTableSeeder extends Seeder
             [
                 'title' => 'Harlah PC IPNU IPPNU Banyumas',
                 'organizer' => 'KOMISARIAT UIN SAIZU PURWOKERTO',
-                'start' => '2023-06-23T00:00',
+                'date' => '2023-06-23T00:00',
                 'place' => 'Solo',
                 'category' => 'Nonformal',
                 'total_participants' => null,
@@ -61,7 +61,7 @@ class AgendasTableSeeder extends Seeder
             [
                 'title' => 'Ngecor Jalan',
                 'organizer' => 'PAC CILONGOK',
-                'start' => '2023-08-23T17:13',
+                'date' => '2023-08-23T17:13',
                 'place' => 'Jl. Soekarno Hatta',
                 'category' => 'Nonformal',
                 'total_participants' => null,

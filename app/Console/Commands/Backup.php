@@ -66,7 +66,7 @@ class Backup extends Command
             'cadres' => ['cadres'],
             'penguruses' => ['penguruses'],
             'libraries' => ['libraries'],
-            'posts' => ['posts'],
+            'news' => ['news'],
             'post_tag' => ['post_tag'],
             'profile' => ['profile'],
             'quotes' => ['quotes'],

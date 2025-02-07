@@ -152,7 +152,7 @@ return [
 
     'requests' => [
         // With on-demand mode enabled, Clockwork will only profile requests when the browser extension is open or you
-        // manually pass a "clockwork-profile" cookie or get/posts data key.
+        // manually pass a "clockwork-profile" cookie or get/news data key.
         // Optionally you can specify a "secret" that has to be passed as the value to enable profiling.
         'on_demand' => env('CLOCKWORK_REQUESTS_ON_DEMAND', false),
 

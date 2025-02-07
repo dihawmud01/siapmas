@@ -77,7 +77,7 @@ Perlu diingat bahwa fitur-fitur ini dapat bervariasi tergantung pada status anda
 -   Perpustakaan Kader
 ![image.png]( https://pmiiuninus.com/storage/img/10.png )
 
--   Fitur Blog/Berita
+-   Fitur News/Berita
 ![image.png]( https://pmiiuninus.com/storage/img/11.png )
 ![image.png]( https://pmiiuninus.com/storage/img/12.png )
 

@@ -11,7 +11,6 @@ class Tag extends Model
 {
     use HasFactory, Sluggable;
 
-
     /**
      * The table associated with the model.
      *
@@ -21,9 +20,9 @@ class Tag extends Model
 
     protected $fillable = ['title'];
 
-    public function posts(): BelongsToMany
+    public function news(): BelongsToMany
     {
-        return $this->belongsToMany(Post::class);
+        return $this->belongsToMany(News::class, 'news_tags', 'news_id', 'tag_id');
     }
 
     /**
@@ -35,8 +34,8 @@ class Tag extends Model
     {
         return [
             'slug' => [
-                'source' => 'title'
-            ]
+                'source' => 'title',
+            ],
         ];
     }
 }

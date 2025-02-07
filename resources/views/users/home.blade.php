@@ -5,7 +5,7 @@
 @extends('users.layout')
 
 @section('content')
-    <section id="hero">
+    <section id="hero" class="mb-4">
         <div class="hero-container">
             <div
                 id="heroCarousel"
@@ -29,9 +29,9 @@
                                 </h2>
                                 <a
                                     href="{{ route('login') }}"
-                                    class="btn-get-started scrollto animate__animated animate__fadeInUp"
+                                    class="btn-get-started scrollto animate__animated animate__fadeInUp rounded-4 fw-semibold p-4"
                                 >
-                                    {{ __('Mulai') }}
+                                    {{ __('Mulai Sekarang') }}
                                 </a>
                             </div>
                         </div>
@@ -46,10 +46,10 @@
                                 <div class="position-absolute top-50 start-50 translate-middle container">
                                     <h2 class="animate__animated animate__fadeInDown">{{ $value['title'] }}</h2>
                                     <a
-                                        href="{{ $value->link }}"
-                                        class="btn-get-started scrollto animate__animated animate__fadeInUp"
+                                        href="{{ route('login') }}"
+                                        class="btn-get-started scrollto animate__animated animate__fadeInUp rounded-4 p-4"
                                     >
-                                        {{ __('Mulai') }}
+                                        {{ __('Mulai Sekarang') }}
                                     </a>
                                 </div>
                             </div>
@@ -68,23 +68,23 @@
         </div>
     </section>
 
-    <section id="about">
+    <section id="about" class="mb-4">
         <div class="container" data-aos="fade-up">
             <header class="section-header">
                 <h3>{{ __('Tentang Kami') }}</h3>
             </header>
 
-            <h6 class="pl-2 pr-2 text-center">
+            <h6 class="p-4 text-center">
                 {{ __('IPNU IPPNU Merupakan Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum quidem voluptas beatae iusto saepe eaque vel doloribus non aliquam, a esse molestiae illo ab exercitationem vero officiis quaerat veniam natus!') }}
             </h6>
         </div>
     </section>
 
-    <section id="facts">
+    <section id="facts" class="mb-4">
         <div class="container" data-aos="fade-up">
             <header class="section-header">
-                <h3>{{ __('Rekan Rekanita dalam Angka') }}</h3>
-                <h2>{{ __('Data Kader PC IPNU IPPNU BMS') }}</h2>
+                <h3>{{ __('Data Kader PC IPNU IPPNU Banyumas') }}</h3>
+                {{-- <h2 class="text-center">{{ __('Data Kader PC IPNU IPPNU Banyumas') }}</h2> --}}
             </header>
 
             <div class="row counters text-center">
@@ -128,19 +128,16 @@
                     <p>{{ __('Kader Latinpel') }}</p>
                 </div>
             </div>
-            {{-- <div class="facts-img"> --}}
-            {{-- <img src="{{ asset('assets/images/waduh.jpeg') }}" alt="" class="img-fluid" /> --}}
-            {{-- </div> --}}
         </div>
     </section>
 
     <div class="col-12 p-4" data-aos="fade-up">
         <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">
+            <div class="card-body mt-5">
+                <h4 class="card-title text-center">
                     {{ __('Data Rekan & Rekanita') }}
                     <span>{{ __('Dari Tahun Ke Tahun') }}</span>
-                </h5>
+                </h4>
 
                 <div id="reportsChart"></div>
 
@@ -201,238 +198,297 @@
         </div>
     </div>
 
-    <div class="p-4" data-aos="fade-up">
-        <div class="col-12 mb-2">
-            <div class="card">
-                <div class="card-body pb-0">
-                    <h5 class="card-title">
-                        {{ __('Kader Berdasarkan Jenis Kelamin') }}
-                    </h5>
-                    <div id="trafficChart" style="min-height: 400px" class="echart"></div>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', () => {
-                            echarts.init(document.querySelector('#trafficChart')).setOption({
-                                tooltip: {
-                                    trigger: 'item',
-                                },
-                                legend: {
-                                    top: '5%',
-                                    left: 'center',
-                                },
-                                series: [
-                                    {
-                                        name: '{{ __('Akses Dari') }}',
-                                        type: 'pie',
-                                        radius: ['40%', '70%'],
-                                        avoidLabelOverlap: false,
+    <div class="col-12 p-4" data-aos="fade-up">
+        <div class="card">
+            <div class="card-body mt-5">
+                <h4 class="card-title text-center">
+                    {{ __('Kader Berdasarkan Jenis Kelamin') }}
+                </h4>
+                <div id="trafficChart" style="min-height: 400px" class="echart mb-5"></div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        echarts.init(document.querySelector('#trafficChart')).setOption({
+                            tooltip: {
+                                trigger: 'item',
+                            },
+                            legend: {
+                                bottom: '0',
+                                left: 'center',
+                                orient: 'horizontal',
+                            },
+                            series: [
+                                {
+                                    name: '{{ __('Akses Dari') }}',
+                                    type: 'pie',
+                                    radius: ['40%', '70%'],
+                                    avoidLabelOverlap: false,
+                                    label: {
+                                        show: false,
+                                        position: 'center',
+                                    },
+                                    emphasis: {
                                         label: {
-                                            show: false,
-                                            position: 'center',
-                                        },
-                                        emphasis: {
-                                            label: {
-                                                show: true,
-                                                fontSize: '18',
-                                                fontWeight: 'bold',
-                                            },
-                                        },
-                                        labelLine: {
-                                            show: false,
-                                        },
-                                        data: [
-                                            {
-                                                value: {{ $genderCounts['P'] }},
-                                                name: '{{ __('Kader Perempuan') }}',
-                                            },
-                                            {
-                                                value: {{ $genderCounts['L'] }},
-                                                name: '{{ __('Kader Laki-Laki') }}',
-                                            },
-                                        ],
-                                    },
-                                ],
-                            });
-                        });
-                    </script>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 mb-2" data-aos="fade-up">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        {{ __('Kader Berdasarkan PAC/Komisariat') }}
-                    </h5>
-
-                    <div id="pieChart" style="min-height: 600px" class="echart"></div>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', () => {
-                            const pacCounts = @json($pacCounts);
-                            const pac = [
-                                'BATURRADEN',
-                                'CILONGOK',
-                                'KEDUNGBANTENG',
-                                'KARANGLEWAS',
-                                'PURWOJATI',
-                                'PURWOKERTO BARAT',
-                                'PURWOKERTO TIMUR',
-                                'PURWOKERTO UTARA',
-                                'PURWOKERTO SELATAN',
-                                'SUMBANG',
-                                'SOKARAJA',
-                                'KEMBARAN',
-                                'TAMBAK',
-                                'SOMAGEDE',
-                                'BANYUMAS',
-                                'KEMRANJEN',
-                                'GUMELAR',
-                                'AJIBARANG',
-                                'PEKUNCEN',
-                                'WANGON',
-                                'RAWALO',
-                                'JATILAWANG',
-                                'KEBASEN',
-                                'PATIKRAJA',
-                                'KALIBAGOR',
-                                'LUMBIR',
-                                'SUMPIUH',
-                                'KOMISARIAT UNU PURWOKERTO',
-                                'KOMISARIAT UIN SAIZU PURWOKERTO',
-                            ];
-
-                            const data = Object.keys(pacCounts).map((key) => {
-                                const name = pac[parseInt(key) - 1];
-                                return {
-                                    value: pacCounts[key],
-                                    name,
-                                };
-                            });
-
-                            echarts.init(document.querySelector('#pieChart')).setOption({
-                                title: {
-                                    left: 'center',
-                                },
-                                tooltip: {
-                                    trigger: 'item',
-                                },
-                                legend: {
-                                    orient: 'vertical',
-                                    left: 'left',
-                                },
-                                series: [
-                                    {
-                                        name: '{{ __('Akses Dari') }}',
-                                        type: 'pie',
-                                        radius: '50%',
-                                        data: data,
-                                        emphasis: {
-                                            itemStyle: {
-                                                shadowBlur: 10,
-                                                shadowOffsetX: 0,
-                                                shadowColor: 'rgba(0, 0, 0, 0.5)',
-                                            },
+                                            show: true,
+                                            fontSize: '18',
+                                            fontWeight: 'bold',
                                         },
                                     },
-                                ],
-                            });
+                                    labelLine: {
+                                        show: false,
+                                    },
+                                    data: [
+                                        {
+                                            value: {{ $genderCounts['P'] }},
+                                            name: '{{ __('Kader Perempuan') }}',
+                                        },
+                                        {
+                                            value: {{ $genderCounts['L'] }},
+                                            name: '{{ __('Kader Laki-Laki') }}',
+                                        },
+                                    ],
+                                },
+                            ],
                         });
-                    </script>
-                </div>
+                    });
+                </script>
             </div>
         </div>
-
-        {{-- <div class="col-lg-12 mb-2" data-aos="fade-up"> --}}
-        {{-- <div class="card"> --}}
-        {{-- <div class="card-body"> --}}
-        {{-- <h5 class="card-title"> --}}
-        {{-- {{ __('Kader Berdasarkan') }} --}}
-        {{-- <span>{{ __('Status Anggota') }}</span> --}}
-        {{-- </h5> --}}
-        {{-- <div id="membersChart"></div> --}}
-        {{-- <script> --}}
-        {{-- document.addEventListener('DOMContentLoaded', () => { --}}
-        {{-- new ApexCharts(document.querySelector('#membersChart'), { --}}
-        {{-- series: [ --}}
-        {{-- { --}}
-        {{-- name: '{{ __('Anggota Aktif') }}', --}}
-        {{-- data: [{{ $activeMembers }}], --}}
-        {{-- }, --}}
-        {{-- { --}}
-        {{-- name: '{{ __('Anggota Tidak Aktif') }}', --}}
-        {{-- data: [{{ $inactiveMembers }}], --}}
-        {{-- }, --}}
-        {{-- ], --}}
-        {{-- chart: { --}}
-        {{-- height: 350, --}}
-        {{-- type: 'bar', --}}
-        {{-- stacked: true, --}}
-        {{-- }, --}}
-        {{-- plotOptions: { --}}
-        {{-- bar: { --}}
-        {{-- horizontal: true, --}}
-        {{-- columnWidth: '50%', --}}
-        {{-- }, --}}
-        {{-- }, --}}
-        {{-- colors: ['#4db8ff', '#f63d3d'], --}}
-        {{-- dataLabels: { --}}
-        {{-- enabled: false, --}}
-        {{-- }, --}}
-        {{-- xaxis: { --}}
-        {{-- categories: ['{{ __('Anggota') }}'], --}}
-        {{-- }, --}}
-        {{-- yaxis: { --}}
-        {{-- title: { --}}
-        {{-- text: undefined, --}}
-        {{-- }, --}}
-        {{-- }, --}}
-        {{-- tooltip: { --}}
-        {{-- shared: true, --}}
-        {{-- intersect: false, --}}
-        {{-- }, --}}
-        {{-- }).render(); --}}
-        {{-- }); --}}
-        {{-- </script> --}}
-        {{-- </div> --}}
-        {{-- </div> --}}
-        {{-- </div> --}}
     </div>
 
-    <section id="testimonials" class="section-bg">
+    <div class="col-12 mb-4 px-4 pb-4" data-aos="fade-up">
+        <div class="card">
+            <div class="card-body mt-5">
+                <h4 class="card-title text-center">
+                    {{ __('Kader Berdasarkan PAC/Komisariat') }}
+                </h4>
+
+                <div id="pieChart" style="min-height: 600px" class="echart mb-5"></div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const pacCounts = @json($pacCounts);
+                        const pac = [
+                            'BATURRADEN',
+                            'CILONGOK',
+                            'KEDUNGBANTENG',
+                            'KARANGLEWAS',
+                            'PURWOJATI',
+                            'PURWOKERTO BARAT',
+                            'PURWOKERTO TIMUR',
+                            'PURWOKERTO UTARA',
+                            'PURWOKERTO SELATAN',
+                            'SUMBANG',
+                            'SOKARAJA',
+                            'KEMBARAN',
+                            'TAMBAK',
+                            'SOMAGEDE',
+                            'BANYUMAS',
+                            'KEMRANJEN',
+                            'GUMELAR',
+                            'AJIBARANG',
+                            'PEKUNCEN',
+                            'WANGON',
+                            'RAWALO',
+                            'JATILAWANG',
+                            'KEBASEN',
+                            'PATIKRAJA',
+                            'KALIBAGOR',
+                            'LUMBIR',
+                            'SUMPIUH',
+                            'KOMISARIAT UNU PURWOKERTO',
+                            'KOMISARIAT UIN SAIZU PURWOKERTO',
+                        ];
+
+                        const data = Object.keys(pacCounts).map((key) => {
+                            const name = pac[parseInt(key) - 1];
+                            return {
+                                value: pacCounts[key],
+                                name,
+                            };
+                        });
+
+                        echarts.init(document.querySelector('#pieChart')).setOption({
+                            title: {
+                                left: 'center',
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                            },
+                            legend: {
+                                orient: 'horizontal',
+                                bottom: 0,
+                            },
+                            series: [
+                                {
+                                    name: '{{ __('Akses Dari') }}',
+                                    type: 'pie',
+                                    radius: '75%',
+                                    data: data,
+                                    emphasis: {
+                                        itemStyle: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)',
+                                        },
+                                    },
+                                    labelLine: {
+                                        show: false,
+                                    },
+                                    label: {
+                                        show: false,
+                                    },
+                                },
+                            ],
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+
+    {{-- <div class="col-lg-12 mb-2" data-aos="fade-up"> --}}
+    {{-- <div class="card"> --}}
+    {{-- <div class="card-body mt-5"> --}}
+    {{-- <h5 class="card-title"> --}}
+    {{-- {{ __('Kader Berdasarkan') }} --}}
+    {{-- <span>{{ __('Status Anggota') }}</span> --}}
+    {{-- </h5> --}}
+    {{-- <div id="membersChart"></div> --}}
+    {{-- <script> --}}
+    {{-- document.addEventListener('DOMContentLoaded', () => { --}}
+    {{-- new ApexCharts(document.querySelector('#membersChart'), { --}}
+    {{-- series: [ --}}
+    {{-- { --}}
+    {{-- name: '{{ __('Anggota Aktif') }}', --}}
+    {{-- data: [{{ $activeMembers }}], --}}
+    {{-- }, --}}
+    {{-- { --}}
+    {{-- name: '{{ __('Anggota Tidak Aktif') }}', --}}
+    {{-- data: [{{ $inactiveMembers }}], --}}
+    {{-- }, --}}
+    {{-- ], --}}
+    {{-- chart: { --}}
+    {{-- height: 350, --}}
+    {{-- type: 'bar', --}}
+    {{-- stacked: true, --}}
+    {{-- }, --}}
+    {{-- plotOptions: { --}}
+    {{-- bar: { --}}
+    {{-- horizontal: true, --}}
+    {{-- columnWidth: '50%', --}}
+    {{-- }, --}}
+    {{-- }, --}}
+    {{-- colors: ['#4db8ff', '#f63d3d'], --}}
+    {{-- dataLabels: { --}}
+    {{-- enabled: false, --}}
+    {{-- }, --}}
+    {{-- xaxis: { --}}
+    {{-- categories: ['{{ __('Anggota') }}'], --}}
+    {{-- }, --}}
+    {{-- yaxis: { --}}
+    {{-- title: { --}}
+    {{-- text: undefined, --}}
+    {{-- }, --}}
+    {{-- }, --}}
+    {{-- tooltip: { --}}
+    {{-- shared: true, --}}
+    {{-- intersect: false, --}}
+    {{-- }, --}}
+    {{-- }).render(); --}}
+    {{-- }); --}}
+    {{-- </script> --}}
+    {{-- </div> --}}
+    {{-- </div> --}}
+    {{-- </div> --}}
+
+    <section id="news" class="section-bg py-5">
+        <div class="container" data-aos="fade-up">
+            <header class="section-header pt-5">
+                <h3>{{ __('Berita Terkini') }}</h3>
+            </header>
+            <div class="row news-container mt-4 pt-4" data-aos="fade-up" data-aos-delay="200">
+                @foreach ($recentNews->take(3) as $news)
+                    <div class="col-lg-4 col-md-6 news-item filter-app">
+                        <div class="news-wrap">
+                            <figure>
+                                <img
+                                    src="{{ asset('storage/images/' . $news->img) }}"
+                                    class="img-fluid rounded-1"
+                                    alt=""
+                                    style="
+                                        width: 120%;
+                                        height: 120%;
+                                        object-fit: cover;
+                                        box-shadow: 0 0 30px rgba(1, 41, 112, 0.1);
+                                    "
+                                />
+                                <a
+                                    href="{{ asset('storage/images/' . $news->img) }}"
+                                    data-lightbox="news"
+                                    data-title="{{ $news->title }}"
+                                    class="link-preview"
+                                >
+                                    <i class="bi bi-plus text-dark"></i>
+                                </a>
+                                <a
+                                    href="{{ route('news', ['slug' => $news->slug]) }}"
+                                    class="link-details"
+                                    title="More Details"
+                                >
+                                    <i class="bi bi-link text-dark"></i>
+                                </a>
+                            </figure>
+
+                            <div class="news-info">
+                                <a href="{{ route('news', ['slug' => $news->slug]) }}">
+                                    <h4 class="text-dark">{{ Str::limit($news->title, '35') }}</h4>
+                                </a>
+                                <a href="{{ route('categories', ['slug' => $news->category->slug]) }}">
+                                    <p class="text-dark" style="text-transform: none; text-decoration: none">
+                                        {{ $news->category->title }}
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <section id="quote" class="section-bg py-5">
         <div class="container" data-aos="fade-up">
             <header class="section-header">
-                <h3 style="text-transform: inherit">Quote Of The Day</h3>
+                <h3 style="text-transform: inherit">{{ __('Quotes Of The Day') }}</h3>
             </header>
 
-            <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
-                <div class="swiper-wrapper">
+            <div class="quote-details-slider swiper" data-aos="fade-up" data-aos-delay="100">
+                <div class="swiper-wrapper py-5">
                     @foreach ($quotes as $quote)
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
+                        <div class="swiper-slide d-flex align-items-center justify-content-center">
+                            <div class="quote-item d-flex align-items-center flex-column text-center">
                                 <img
                                     src="{{ asset('storage/images/' . $quote->img) }}"
-                                    class="testimonial-img"
+                                    class="quote-img rounded-circle"
                                     alt=""
-                                    style="width: 110px; height: 110px; object-fit: cover"
+                                    style="width: 110px; height: 110px; object-fit: cover; border: 4px solid green"
                                 />
                                 <h3>{{ $quote->name }}</h3>
                                 <h4>{{ $quote->who }}</h4>
                                 <p>
                                     <img
-                                        src="{{ asset('assets_user/img/quote-sign-left.png') }}"
+                                        src="{{ asset('assets/images/quote-sign-left.png') }}"
                                         class="quote-sign-left"
                                         alt=""
                                     />
                                     {{ $quote->quote }}
                                     <img
-                                        src="{{ asset('assets_user/img/quote-sign-right.png') }}"
+                                        src="{{ asset('assets/images/quote-sign-right.png') }}"
                                         class="quote-sign-right"
                                         alt=""
                                     />
                                 </p>
                             </div>
                         </div>
-                        <!-- End testimonial item -->
                     @endforeach
                 </div>
                 <div class="swiper-pagination"></div>

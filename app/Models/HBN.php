@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class HBN extends Model
 {
     use HasFactory;
-  protected $guarded = ([]);
+
+    protected $guarded = [];
+    protected $table = 'hbn';
 }

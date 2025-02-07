@@ -26,9 +26,9 @@
                                 <ul class="nav nav-tabs nav-tabs-bordered">
                                     <li class="nav-item">
                                         <button
-                                            class="nav-link active"
-                                            data-bs-toggle="tab"
-                                            data-bs-target="#profileStatistic"
+                                                class="nav-link active"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#profileStatistic"
                                         >
                                             {{ __('Statistik') }}
                                         </button>
@@ -55,21 +55,21 @@
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <img
-                                                        src="{{ asset('storage/images/profile-images.jpg') }}"
-                                                        alt="Profile"
+                                                            src="{{ asset('storage/images/profile-images.jpg') }}"
+                                                            alt="Profile"
                                                     />
                                                     <div class="pt-2">
                                                         <a
-                                                            href="#"
-                                                            class="btn btn-primary btn-sm"
-                                                            title="Upload new profile image"
+                                                                href="#"
+                                                                class="btn btn-primary btn-sm"
+                                                                title="Upload new profile image"
                                                         >
                                                             <i class="bi bi-upload"></i>
                                                         </a>
                                                         <a
-                                                            href="#"
-                                                            class="btn btn-danger btn-sm"
-                                                            title="Remove my profile image"
+                                                                href="#"
+                                                                class="btn btn-danger btn-sm"
+                                                                title="Remove my profile image"
                                                         >
                                                             <i class="bi bi-trash"></i>
                                                         </a>
@@ -83,11 +83,11 @@
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input
-                                                        name="name"
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="name"
-                                                        value="Kevin Anderson"
+                                                            name="name"
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="name"
+                                                            value="Kevin Anderson"
                                                     />
                                                 </div>
                                             </div>
@@ -98,11 +98,11 @@
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input
-                                                        name="company"
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="company"
-                                                        value="Lueilwitz, Wisoky and Leuschke"
+                                                            name="company"
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="company"
+                                                            value="Lueilwitz, Wisoky and Leuschke"
                                                     />
                                                 </div>
                                             </div>
@@ -112,11 +112,11 @@
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input
-                                                        name="job"
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="job"
-                                                        value="Web Designer"
+                                                            name="job"
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="job"
+                                                            value="Web Designer"
                                                     />
                                                 </div>
                                             </div>
@@ -127,11 +127,11 @@
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input
-                                                        name="country"
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="country"
-                                                        value="USA"
+                                                            name="country"
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="country"
+                                                            value="USA"
                                                     />
                                                 </div>
                                             </div>
@@ -142,36 +142,38 @@
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input
-                                                        name="address"
-                                                        type="text"
-                                                        class="form-control"
-                           <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="csrf-token" content="{{ csrf_token() }}" />
+                                                            name="address"
+                                                            type="text"
+                                                            class="form-control"
+                                                    <!DOCTYPE html>
+                                                    <html>
+                                                    <head>
+                                                        <meta charset="utf-8" />
+                                                        <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-        <title>{{ __('Generate QR Code') }}</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    </head>
+                                                        <title>{{ __('Generate QR Code') }}</title>
+                                                        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+                                                              rel="stylesheet" />
+                                                    </head>
 
-    <body>
-        <div class="container mt-4">
-            <div class="card text-center align-middle">
-                <img
-                    src="{{ asset('storage/images/' . $users->img) }}"
-                    alt="{{ __('User Image') }}"
-                    style="width: 100%; height: 40rem; object-fit: cover"
-                />
-                <h1>
-                    {{ __('Benar Bahwasannya sahabat') }} {{ $users->name }} {{ __('dengan NIM/NIK') }} : {{ $users->nim }} {{ __('Adalah Kader PC IPNU IPPNU Banyumas') }}
-                </h1>
-            </div>
-        </div>
-    </body>
-</html>
-                             id="address"
-                                                        value="A108 Adam Street, New York, NY 535022"
+                                                    <body>
+                                                    <div class="container mt-4">
+                                                        <div class="card text-center align-middle">
+                                                            <img
+                                                                    src="{{ asset('storage/images/' . $users->img) }}"
+                                                                    alt="{{ __('User Image') }}"
+                                                                    style="width: 100%; height: 40rem; object-fit: cover"
+                                                            />
+                                                            <h1>
+                                                                {{ __('Benar Bahwasannya sahabat') }} {{ $users->name }} {{ __('dengan NIM/NIK') }}
+                                                                : {{ $users->nim }} {{ __('Adalah Kader PC IPNU IPPNU Banyumas') }}
+                                                            </h1>
+                                                        </div>
+                                                    </div>
+                                                    </body>
+                                                    </html>
+                                                    id="address"
+                                                    value="A108 Adam Street, New York, NY 535022"
                                                     />
                                                 </div>
                                             </div>
@@ -182,11 +184,11 @@
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input
-                                                        name="phone"
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="phone"
-                                                        value="(436) 486-3538 x29071"
+                                                            name="phone"
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="phone"
+                                                            value="(436) 486-3538 x29071"
                                                     />
                                                 </div>
                                             </div>
@@ -197,11 +199,11 @@
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input
-                                                        name="email"
-                                                        type="email"
-                                                        class="form-control"
-                                                        id="email"
-                                                        value="k.anderson@example.com"
+                                                            name="email"
+                                                            type="email"
+                                                            class="form-control"
+                                                            id="email"
+                                                            value="k.anderson@example.com"
                                                     />
                                                 </div>
                                             </div>
@@ -212,11 +214,11 @@
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input
-                                                        name="twitter"
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="x"
-                                                        value="https://twitter.com/#"
+                                                            name="twitter"
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="x"
+                                                            value="https://twitter.com/#"
                                                     />
                                                 </div>
                                             </div>
@@ -227,11 +229,11 @@
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input
-                                                        name="fb"
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="fb"
-                                                        value="https://facebook.com/#"
+                                                            name="fb"
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="fb"
+                                                            value="https://facebook.com/#"
                                                     />
                                                 </div>
                                             </div>
@@ -242,11 +244,11 @@
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input
-                                                        name="ig"
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="ig"
-                                                        value="https://instagram.com/#"
+                                                            name="ig"
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="ig"
+                                                            value="https://instagram.com/#"
                                                     />
                                                 </div>
                                             </div>
@@ -257,11 +259,11 @@
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input
-                                                        name="linkedin"
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="linkedin"
-                                                        value="https://linkedin.com/#"
+                                                            name="linkedin"
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="linkedin"
+                                                            value="https://linkedin.com/#"
                                                     />
                                                 </div>
                                             </div>
@@ -281,14 +283,14 @@
                                             </div>
 
                                             <form
-                                                role="form"
-                                                method="POST"
-                                                action="{{ route('profile.post.store') }}"
-                                                enctype="multipart/form-data"
+                                                    role="form"
+                                                    method="POST"
+                                                    action="{{ route('profile.post.store') }}"
+                                                    enctype="multipart/form-data"
                                             >
                                                 @csrf
                                                 <div class="card-body">
-                                                    @include('admins.posts.form')
+                                                    @include('admins.news.form')
                                                 </div>
                                                 <div class="card-footer">
                                                     <button type="submit" class="btn btn-primary">
@@ -305,20 +307,20 @@
                                                 <h4 class="my-4 text-center">{{ __('Tambah Buku Perpustakaan') }}</h4>
 
                                                 <form
-                                                    action="{{ route('profile.libraries.store') }}"
-                                                    method="POST"
-                                                    enctype="multipart/form-data"
+                                                        action="{{ route('profile.libraries.store') }}"
+                                                        method="POST"
+                                                        enctype="multipart/form-data"
                                                 >
                                                     @csrf
                                                     <label for="file">
                                                         {{ __('File (PDF/DOCX)') }}
                                                     </label>
                                                     <input
-                                                        type="file"
-                                                        class="form-control my-4"
-                                                        name="file"
-                                                        id="file"
-                                                        accept="application/pdf,application/vnd.ms-word"
+                                                            type="file"
+                                                            class="form-control my-4"
+                                                            name="file"
+                                                            id="file"
+                                                            accept="application/pdf,application/vnd.ms-word"
                                                     />
 
                                                     <label for="img">{{ __('Cover') }}</label>
@@ -326,11 +328,11 @@
                                                     <div class="my-3"></div>
                                                     <label for="title">{{ __('Judul') }}</label>
                                                     <input
-                                                        type="text"
-                                                        class="form-control"
-                                                        name="title"
-                                                        id="title"
-                                                        placeholder="Max 15 Huruf"
+                                                            type="text"
+                                                            class="form-control"
+                                                            name="title"
+                                                            id="title"
+                                                            placeholder="Max 15 Huruf"
                                                     />
 
                                                     <label for="author">{{ __('Penulis') }}</label>
@@ -339,10 +341,10 @@
 
                                                     <label for="publisher">{{ __('Penerbit') }}</label>
                                                     <input
-                                                        type="text"
-                                                        class="form-control"
-                                                        name="publisher"
-                                                        id="publisher"
+                                                            type="text"
+                                                            class="form-control"
+                                                            name="publisher"
+                                                            id="publisher"
                                                     />
                                                     <div class="my-3"></div>
 
@@ -360,10 +362,10 @@
 
                                                     <label for="category">{{ __('Kategori') }}</label>
                                                     <select
-                                                        name="category"
-                                                        class="form-select"
-                                                        required
-                                                        aria-label="category"
+                                                            name="category"
+                                                            class="form-select"
+                                                            required
+                                                            aria-label="category"
                                                     >
                                                         <option disabled selected>{{ __(' -- Pilih --') }}</option>
                                                         @foreach ($categories as $item)
@@ -380,9 +382,9 @@
 
                                                     <label for="description">{{ __('Deskripsi') }}</label>
                                                     <textarea
-                                                        name="description"
-                                                        class="form-control"
-                                                        rows="3"
+                                                            name="description"
+                                                            class="form-control"
+                                                            rows="3"
                                                     ></textarea>
                                                     <div class="my-3"></div>
 
@@ -404,9 +406,9 @@
                                                     <div class="card">
                                                         <div class="card-body">
                                                             <div
-                                                                id="pieChart"
-                                                                style="min-height: 500px"
-                                                                class="echart"
+                                                                    id="pieChart"
+                                                                    style="min-height: 500px"
+                                                                    class="echart"
                                                             ></div>
 
                                                             <script>
@@ -467,10 +469,10 @@
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input
-                                                        name="current_password"
-                                                        type="password"
-                                                        class="form-control"
-                                                        id="currentPassword"
+                                                            name="current_password"
+                                                            type="password"
+                                                            class="form-control"
+                                                            id="currentPassword"
                                                     />
                                                 </div>
                                             </div>
@@ -480,10 +482,10 @@
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input
-                                                        name="new_password"
-                                                        type="password"
-                                                        class="form-control"
-                                                        id="newPassword"
+                                                            name="new_password"
+                                                            type="password"
+                                                            class="form-control"
+                                                            id="newPassword"
                                                     />
                                                 </div>
                                             </div>
@@ -493,10 +495,10 @@
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input
-                                                        name="renew_password"
-                                                        type="password"
-                                                        class="form-control"
-                                                        id="renewPassword"
+                                                            name="renew_password"
+                                                            type="password"
+                                                            class="form-control"
+                                                            id="renewPassword"
                                                     />
                                                 </div>
                                             </div>
@@ -564,7 +566,7 @@
             table: {
                 contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
             },
-        }).catch(function (error) {
+        }).catch(function(error) {
             console.error(error);
         });
     </script>

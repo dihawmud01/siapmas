@@ -59,6 +59,6 @@ h2 {
 #calendar .fc-view-container {
     padding: 30px;
     background-color: #fff;
-    -webkit-box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.9);
-    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.9);
+    box-shadow: 0 0 30px rgba(1, 41, 112, 0.1);
+    border-radius: .25rem;
 }

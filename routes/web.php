@@ -15,17 +15,16 @@ use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Blog\TagController;
+use App\Http\Controllers\News\TagController;
 use App\Http\Controllers\LaravoltController;
 use App\Http\Controllers\AdministratorController;
-use App\Http\Controllers\Blog\PostController;
+use App\Http\Controllers\News\NewsController;
 use App\Http\Controllers\StatisticController;
-use App\Http\Controllers\CategoryBookController;
-use App\Http\Controllers\Blog\CategoryController;
+use App\Http\Controllers\News\CategoryController;
 use App\Http\Controllers\ForgetPasswordControler;
-use App\Http\Controllers\Admin\Blog\TagController as AdminTagController;
-use App\Http\Controllers\Admin\Blog\PostController as AdminPostController;
-use App\Http\Controllers\Admin\Blog\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\News\TagController as AdminTagController;
+use App\Http\Controllers\Admin\News\NewsController as AdminPostController;
+use App\Http\Controllers\Admin\News\CategoryController as AdminCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,14 +42,14 @@ Route::get('/emails', function () {
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
-Route::get('/posts', [PostController::class, 'index'])->name('posts.detail');
+Route::get('/news', [NewsController::class, 'index'])->name('news');
 Route::get('/administrators', [AdministratorController::class, 'show'])->name('administrators');
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
-Route::get('/article/{slug}', [PostController::class, 'show'])->name('article.index');
-Route::get('/article/nu/{slug}', [PostController::class, 'nushow'])->name('article.nu');
+Route::get('/articles/{slug}', [NewsController::class, 'show'])->name('articles.index');
+Route::get('/articles/nu/{slug}', [NewsController::class, 'nuArticle'])->name('articles.nu');
 Route::get('/categories/{slug}', [CategoryController::class, 'show'])->name('categories');
-Route::get('/tag/{slug}', [TagController::class, 'show'])->name('tag');
+Route::get('/tags/{slug}', [TagController::class, 'show'])->name('tag');
 Route::get('/calendar', [AgendaController::class, 'index'])->name('calendar.index');
 Route::get('/profile/{slug}', [ProfileController::class, 'show'])->name('profile.user');
 Route::get('/qrcode/varifikasi/kta/{id}/anjay/mabar/ckuahsksdfsihew/S3NAT-4NJ1NG-63lut-73ng/51-3nd1', [
@@ -139,28 +138,28 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     Route::put('/admin/libraries/{id}', [LibraryController::class, 'update'])->name('admin.libraries.update');
     Route::delete('/admin/libraries/{id}', [LibraryController::class, 'destroy'])->name('admin.libraries.destroy');
 
-    Route::get('/admin/posts/categories', [AdminCategoryController::class, 'index'])->name('categories.index');
-    Route::get('/admin/posts/categories/create', [AdminCategoryController::class, 'create'])->name('categories.create');
-    Route::post('/admin/posts/categories/store', [AdminCategoryController::class, 'store'])->name('categories.store');
-    Route::get('/admin/posts/categories/{id}/edit', [AdminCategoryController::class, 'edit'])->name('categories.edit');
-    Route::put('/admin/posts/categories/{id}', [AdminCategoryController::class, 'update'])->name('categories.update');
-    Route::delete('/admin/posts/categories/{id}', [AdminCategoryController::class, 'destroy'])->name(
+    Route::get('/admin/news/categories', [AdminCategoryController::class, 'index'])->name('categories.index');
+    Route::get('/admin/news/categories/create', [AdminCategoryController::class, 'create'])->name('categories.create');
+    Route::post('/admin/news/categories/store', [AdminCategoryController::class, 'store'])->name('categories.store');
+    Route::get('/admin/news/categories/{id}/edit', [AdminCategoryController::class, 'edit'])->name('categories.edit');
+    Route::put('/admin/news/categories/{id}', [AdminCategoryController::class, 'update'])->name('categories.update');
+    Route::delete('/admin/news/categories/{id}', [AdminCategoryController::class, 'destroy'])->name(
         'categories.destroy',
     );
 
-    Route::get('/admin/posts/tags', [AdminTagController::class, 'index'])->name('tags.index');
-    Route::get('/admin/posts/tags/create', [AdminTagController::class, 'create'])->name('tags.create');
-    Route::post('/admin/posts/tags/store', [AdminTagController::class, 'store'])->name('tags.store');
-    Route::get('/admin/posts/tags/{id}/edit', [AdminTagController::class, 'edit'])->name('tags.edit');
-    Route::put('/admin/posts/tags/{id}', [AdminTagController::class, 'update'])->name('tags.update');
-    Route::delete('/admin/posts/tags/{id}', [AdminTagController::class, 'destroy'])->name('tags.destroy');
+    Route::get('/admin/news/tags', [AdminTagController::class, 'index'])->name('tags.index');
+    Route::get('/admin/news/tags/create', [AdminTagController::class, 'create'])->name('tags.create');
+    Route::post('/admin/news/tags/store', [AdminTagController::class, 'store'])->name('tags.store');
+    Route::get('/admin/news/tags/{id}/edit', [AdminTagController::class, 'edit'])->name('tags.edit');
+    Route::put('/admin/news/tags/{id}', [AdminTagController::class, 'update'])->name('tags.update');
+    Route::delete('/admin/news/tags/{id}', [AdminTagController::class, 'destroy'])->name('tags.destroy');
 
-    Route::get('/admin/posts', [AdminPostController::class, 'index'])->name('posts.index');
-    Route::get('/admin/posts/create', [AdminPostController::class, 'create'])->name('posts.create');
-    Route::post('/admin/posts/store', [AdminPostController::class, 'store'])->name('posts.store');
-    Route::get('/admin/posts/{id}/edit', [AdminPostController::class, 'edit'])->name('posts.edit');
-    Route::put('/admin/posts/{id}', [AdminPostController::class, 'update'])->name('posts.update');
-    Route::delete('/admin/posts/{id}', [AdminPostController::class, 'destroy'])->name('posts.destroy');
+    Route::get('/admin/news', [AdminPostController::class, 'index'])->name('news.index');
+    Route::get('/admin/news/create', [AdminPostController::class, 'create'])->name('news.create');
+    Route::post('/admin/news/store', [AdminPostController::class, 'store'])->name('news.store');
+    Route::get('/admin/news/{id}/edit', [AdminPostController::class, 'edit'])->name('news.edit');
+    Route::put('/admin/news/{id}', [AdminPostController::class, 'update'])->name('news.update');
+    Route::delete('/admin/news/{id}', [AdminPostController::class, 'destroy'])->name('news.destroy');
 
     Route::get('/admin/calendar', [AgendaController::class, 'adminIndex'])->name('admin.calendar.index');
     Route::get('/admin/calendar/create', [AgendaController::class, 'create'])->name('admin.calendar.create');
@@ -193,32 +192,12 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     Route::get('/admin/unverification/', [UserController::class, 'showUnverification'])->name('unverification');
     Route::get('/admin/noncadres/', [UserController::class, 'showNoncadres'])->name('noncadre');
 
-    Route::get('/admin/book-categories/', [CategoryBookController::class, 'index'])->name('book-categories.index');
-    Route::get('/admin/book-categories/create', [CategoryBookController::class, 'create'])->name(
-        'book-categories.create',
-    );
-    Route::post('/admin/book-categories/store', [CategoryBookController::class, 'store'])->name(
-        'book-categories.store',
-    );
-    Route::get('/admin/book-categories/{id}/show', [CategoryBookController::class, 'show'])->name(
-        'book-categories.show',
-    );
-    Route::get('/admin/book-categories/{id}/edit', [CategoryBookController::class, 'edit'])->name(
-        'book-categories.edit',
-    );
-    Route::put('/admin/book-categories/{id}', [CategoryBookController::class, 'update'])->name(
-        'book-categories.update',
-    );
-    Route::delete('/admin/book-categories/{id}', [CategoryBookController::class, 'destroy'])->name(
-        'book-categories.destroy',
-    );
-
-    Route::get('/admin/national-days/', [HBNController::class, 'index'])->name('national-days.index');
-    Route::get('/admin/national-days/create', [HBNController::class, 'create'])->name('national-days.create');
-    Route::post('/admin/national-days/store', [HBNController::class, 'store'])->name('national-days.store');
-    Route::get('/admin/national-days/{id}/edit', [HBNController::class, 'edit'])->name('national-days.edit');
-    Route::put('/admin/national-days/{id}', [HBNController::class, 'update'])->name('national-days.update');
-    Route::delete('/admin/national-days/{id}', [HBNController::class, 'destroy'])->name('national-days.destroy');
+    Route::get('/admin/national-days/', [HBNController::class, 'index'])->name('hbn.index');
+    Route::get('/admin/national-days/create', [HBNController::class, 'create'])->name('hbn.create');
+    Route::post('/admin/national-days/store', [HBNController::class, 'store'])->name('hbn.store');
+    Route::get('/admin/national-days/{id}/edit', [HBNController::class, 'edit'])->name('hbn.edit');
+    Route::put('/admin/national-days/{id}', [HBNController::class, 'update'])->name('hbn.update');
+    Route::delete('/admin/national-days/{id}', [HBNController::class, 'destroy'])->name('hbn.destroy');
 });
 
 // Route Superadmin only

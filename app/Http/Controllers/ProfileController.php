@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
-use App\Models\Post;
+use App\Models\News;
 use App\Models\User;
 use App\Models\Library;
 use App\Models\Category;
@@ -28,7 +28,7 @@ class ProfileController extends Controller
     {
         $profile = Auth::user();
 
-        $posts = Post::where('user_id', '=', $profile->id)
+        $posts = News::where('user_id', '=', $profile->id)
             ->with('category', 'comments', 'user')
             ->where('active', 1)
             ->orderBy('created_at', 'desc')
@@ -36,8 +36,8 @@ class ProfileController extends Controller
 
         $libraryProfiles = Library::where('user_id', $profile->id)->get();
 
-        // Count the number of picture and book posts uploaded by users
-        $postCounts = Post::where('user_id', '=', $profile->id)
+        // Count the number of picture and book news uploaded by users
+        $postCounts = News::where('user_id', '=', $profile->id)
             ->where('active', 1)
             ->count();
 
@@ -125,7 +125,7 @@ class ProfileController extends Controller
         $tags = Tag::pluck('title', 'id')->all();
         $user = Auth::user();
 
-        $postCounts = Post::where('user_id', $user->id)
+        $postCounts = News::where('user_id', $user->id)
             ->where('active', 1)
             ->count();
 
@@ -169,12 +169,12 @@ class ProfileController extends Controller
 
         if ($request->img) {
             $extension = $request->img->getClientOriginalExtension();
-            $newFileName = 'blogs' . '_' . $request->name . '-' . now()->timestamp . '.' . $extension;
+            $newFileName = 'news' . '_' . $request->name . '-' . now()->timestamp . '.' . $extension;
             $request->file('image')->move(public_path('/storage/images'), $newFileName);
             $data['image'] = $newFileName;
         }
 
-        $post = Post::create($data);
+        $post = News::create($data);
         $post->tags()->sync($request->tags);
 
         Alert::success('Mantap Sahabat', 'Postingan akan ditinjau terlebih dahulu oleh admins');
@@ -249,7 +249,7 @@ class ProfileController extends Controller
         $user = Auth::user();
         $profile = User::where('slug', $slug)->firstOrFail();
 
-        $posts = Post::where('user_id', '=', $profile->id)
+        $posts = News::where('user_id', '=', $profile->id)
             ->with('category', 'comments', 'user')
             ->where('active', 1)
             ->orderBy('created_at', 'desc')
@@ -257,7 +257,7 @@ class ProfileController extends Controller
 
         $libraryProfiles = Library::where('user_id', $profile->id)->get();
 
-        $postCounts = Post::where('user_id', '=', $profile->id)
+        $postCounts = News::where('user_id', '=', $profile->id)
             ->where('active', 1)
             ->count();
 

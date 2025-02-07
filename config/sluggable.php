@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /**
      * What attributes do we use to build the slug?
      * This can be a single field, like "name" which will build a slug from:
@@ -95,9 +94,9 @@ return [
      * For the default method of adding incremental integers, we start
      * counting at 2, so the list of slugs would be, e.g.:
      *
-     *   - my-posts
-     *   - my-posts-2
-     *   - my-posts-3
+     *   - my-news
+     *   - my-news-2
+     *   - my-news-3
      */
     'firstUniqueSuffix' => 2,
 
@@ -154,5 +153,4 @@ return [
      * configuration options will be used when instantiating the engine.
      */
     'slugEngineOptions' => [],
-
 ];

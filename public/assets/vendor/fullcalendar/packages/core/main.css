@@ -16,15 +16,15 @@ body .fc {
 /* Colors
 --------------------------------------------------------------------------------------------------*/
 .fc-highlight {
+    opacity: 0.3;
     /* when users is selecting cells */
     background: #fddee2;
-    opacity: 0.3;
 }
 
 .fc-bgevent {
+    opacity: 0.3;
     /* default look for background events */
     background: #dfda82;
-    opacity: 0.3;
 }
 
 .fc-nonbusiness {
@@ -59,24 +59,24 @@ body .fc {
 }
 
 .fc-popover .fc-header .fc-close {
-    cursor: pointer;
     opacity: 0.65;
+    cursor: pointer;
     font-size: 1.1em;
 }
 
 /* Misc Reusable Components
 --------------------------------------------------------------------------------------------------*/
 .fc-divider {
-    border-style: solid;
     border-width: 1px;
+    border-style: solid;
 }
 
 hr.fc-divider {
-    height: 0;
     margin: 0;
-    padding: 0 0 2px;
     /* height is unreliable across browsers, so use padding */
     border-width: 1px 0;
+    padding: 0 0 2px;
+    height: 0;
 }
 
 .fc-bg,
@@ -86,8 +86,8 @@ hr.fc-divider {
     /* these element should always cling to top-left/right corners */
     position: absolute;
     top: 0;
-    left: 0;
     right: 0;
+    left: 0;
 }
 
 .fc-bg {
@@ -103,12 +103,12 @@ hr.fc-divider {
 /* Tables
 --------------------------------------------------------------------------------------------------*/
 .fc table {
-    width: 100%;
     box-sizing: border-box;
-    /* fix scrollbar issue in firefox */
-    table-layout: fixed;
     border-collapse: collapse;
     border-spacing: 0;
+    width: 100%;
+    /* fix scrollbar issue in firefox */
+    table-layout: fixed;
     font-size: 1em;
     /* normalize cross-browser */
 }
@@ -119,10 +119,20 @@ hr.fc-divider {
 
 .fc th,
 .fc td {
-    border-style: solid;
-    border-width: 1px;
-    padding: 0;
     vertical-align: top;
+    border-width: 1px;
+    border-style: solid;
+    padding: 0px;
+}
+
+.fc-sun,
+.fc-mon,
+.fc-tue,
+.fc-wed,
+.fc-thu,
+.fc-fri,
+.fc-sat {
+    padding: 20px !important;
 }
 
 .fc td.fc-today {
@@ -143,19 +153,19 @@ a[data-goto]:hover {
 /* Fake Table Rows
 --------------------------------------------------------------------------------------------------*/
 .fc .fc-row {
+    border-width: 0;
     /* extra precedence to overcome themes forcing a 1px border */
     /* no visible border by default. but make available if need be (scrollbar width compensation) */
     border-style: solid;
-    border-width: 0;
 }
 
 .fc-row table {
-    /* don't put left/right border on anything within a fake row.
-     the outer tbody will worry about this */
-    border-left: 0 hidden transparent;
     border-right: 0 hidden transparent;
     /* no bottom borders on rows */
     border-bottom: 0 hidden transparent;
+    /* don't put left/right border on anything within a fake row.
+     the outer tbody will worry about this */
+    border-left: 0 hidden transparent;
 }
 
 .fc-row:first-child table {
@@ -217,11 +227,11 @@ temporary rendered events).
 .fc .fc-row .fc-content-skeleton table,
 .fc .fc-row .fc-content-skeleton td,
 .fc .fc-row .fc-mirror-skeleton td {
+    /* in case <td>s are globally styled */
+    border-color: transparent;
     /* see-through to the background below */
     /* extra precedence to prevent theme-provided backgrounds */
     background: none;
-    /* in case <td>s are globally styled */
-    border-color: transparent;
 }
 
 .fc-row .fc-content-skeleton td,
@@ -254,19 +264,19 @@ temporary rendered events).
 /* Global Event Styles
 --------------------------------------------------------------------------------------------------*/
 .fc-event {
-    position: relative;
     /* for resize handle and other inner positioning */
     display: block;
+    position: relative;
+    border: 1px solid green;
+    border-radius: 3px;
     /* make the <a> tag block */
     font-size: 0.85em;
     line-height: 1.4;
-    border-radius: 3px;
-    border: 1px solid #729cf6;
 }
 
 .fc-event,
 .fc-event-dot {
-    background-color: #729cf6;
+    background-color: green;
     /* default BACKGROUND color */
 }
 
@@ -293,8 +303,8 @@ temporary rendered events).
 .fc-event .fc-content {
     position: relative;
     z-index: 2;
-    color: #fff;
     padding: 4px;
+    color: #fff;
 }
 
 /* resizer (cursor AND touch devices) */
@@ -316,17 +326,17 @@ temporary rendered events).
 
 /* hit area */
 .fc-event.fc-selected .fc-resizer:before {
-    /* 40x40 touch area */
-    content: "";
     position: absolute;
-    z-index: 9999;
     /* users of this util can scope within a lower z-index */
     top: 50%;
     left: 50%;
+    z-index: 9999;
+    margin-top: -20px;
+    margin-left: -20px;
     width: 40px;
     height: 40px;
-    margin-left: -20px;
-    margin-top: -20px;
+    /* 40x40 touch area */
+    content: '';
 }
 
 /* Event Selection (only for touch devices)
@@ -338,18 +348,18 @@ temporary rendered events).
 }
 
 .fc-event.fc-selected:after {
-    content: "";
     position: absolute;
-    z-index: 1;
     /* same z-index as fc-bg, behind text */
     /* overcome the borders */
     top: -1px;
     right: -1px;
     bottom: -1px;
     left: -1px;
+    opacity: 0.25;
+    z-index: 1;
     /* darkening effect */
     background: #000;
-    opacity: 0.25;
+    content: '';
 }
 
 /* Event Dragging
@@ -366,14 +376,14 @@ temporary rendered events).
 --------------------------------------------------------------------------------------------------*/
 /* bigger touch area when selected */
 .fc-h-event.fc-selected:before {
-    content: "";
     position: absolute;
-    z-index: 3;
     /* below resizers */
     top: -10px;
+    right: 0;
     bottom: -10px;
     left: 0;
-    right: 0;
+    z-index: 3;
+    content: '';
 }
 
 /* events that are continuing to/from another week. kill rounded corners and butt up against edge */
@@ -381,61 +391,61 @@ temporary rendered events).
 .fc-rtl .fc-h-event.fc-not-end {
     margin-left: 0;
     border-left-width: 0;
-    padding-left: 1px;
     /* replace the border with padding */
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    padding-left: 1px;
 }
 
 .fc-ltr .fc-h-event.fc-not-end,
 .fc-rtl .fc-h-event.fc-not-start {
     margin-right: 0;
     border-right-width: 0;
-    padding-right: 1px;
     /* replace the border with padding */
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    padding-right: 1px;
 }
 
 /* resizer (cursor AND touch devices) */
 /* left resizer  */
 .fc-ltr .fc-h-event .fc-start-resizer,
 .fc-rtl .fc-h-event .fc-end-resizer {
-    cursor: w-resize;
     left: -1px;
+    cursor: w-resize;
     /* overcome border */
 }
 
 /* right resizer */
 .fc-ltr .fc-h-event .fc-end-resizer,
 .fc-rtl .fc-h-event .fc-start-resizer {
-    cursor: e-resize;
     right: -1px;
+    cursor: e-resize;
     /* overcome border */
 }
 
 /* resizer (mouse devices) */
 .fc-h-event.fc-allow-mouse-resize .fc-resizer {
-    width: 7px;
     top: -1px;
     /* overcome top border */
     bottom: -1px;
+    width: 7px;
     /* overcome bottom border */
 }
 
 /* resizer (touch devices) */
 .fc-h-event.fc-selected .fc-resizer {
-    /* 8x8 little dot */
-    border-radius: 4px;
-    border-width: 1px;
-    width: 6px;
-    height: 6px;
-    border-style: solid;
-    border-color: inherit;
-    background: #fff;
     /* vertically center */
     top: 50%;
     margin-top: -4px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: inherit;
+    /* 8x8 little dot */
+    border-radius: 4px;
+    background: #fff;
+    width: 6px;
+    height: 6px;
 }
 
 /* left resizer  */
@@ -474,9 +484,9 @@ tr:first-child > td > .fc-day-grid-event {
 }
 
 .fc-day-grid-event .fc-content {
+    overflow: hidden;
     /* force events to be one-line tall */
     white-space: nowrap;
-    overflow: hidden;
 }
 
 .fc-day-grid-event .fc-time {
@@ -502,9 +512,9 @@ tr:first-child > td > .fc-day-grid-event {
 --------------------------------------------------------------------------------------------------*/
 /* "more" link that represents hidden events */
 a.fc-more {
+    cursor: pointer;
     margin: 1px 3px;
     font-size: 0.85em;
-    cursor: pointer;
     text-decoration: none;
 }
 
@@ -566,7 +576,8 @@ TODO: more distinction between this file and common.css
 .fc-unthemed .fc-popover,
 .fc-unthemed .fc-list-view,
 .fc-unthemed .fc-list-heading td {
-    border-color: #f9f9f9;
+    border-color: #e5e5e5;
+    color: #1e1e1e;
 }
 
 .fc-unthemed .fc-popover {
@@ -580,12 +591,13 @@ TODO: more distinction between this file and common.css
 }
 
 .fc-unthemed td.fc-today {
-    background: #40e0d0;
+    background: green;
+    color: #fff;
 }
 
 .fc-unthemed .fc-disabled-day {
-    background: #d7d7d7;
     opacity: 0.3;
+    background: #d7d7d7;
 }
 
 /* Icons
@@ -593,52 +605,53 @@ TODO: more distinction between this file and common.css
 from https://feathericons.com/ and built with IcoMoon
 */
 @font-face {
-    font-family: "fcicons";
-    src: url("data:application/x-font-ttf;charset=utf-8;base64,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")
-        format("truetype");
-    font-weight: normal;
     font-style: normal;
+    font-weight: normal;
+    src: url('data:application/x-font-ttf;charset=utf-8;base64,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')
+        format('truetype');
+    font-family: 'fcicons';
 }
+
 .fc-icon {
     /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: "fcicons" !important;
+    font-family: 'fcicons' !important;
     speak: none;
     font-style: normal;
-    font-weight: normal;
     font-variant: normal;
-    text-transform: none;
+    font-weight: normal;
     line-height: 1;
+    text-transform: none;
     /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 .fc-icon-chevron-left:before {
-    content: "";
+    content: '';
 }
 
 .fc-icon-chevron-right:before {
-    content: "";
+    content: '';
 }
 
 .fc-icon-chevrons-left:before {
-    content: "";
+    content: '';
 }
 
 .fc-icon-chevrons-right:before {
-    content: "";
+    content: '';
 }
 
 .fc-icon-minus-square:before {
-    content: "";
+    content: '';
 }
 
 .fc-icon-plus-square:before {
-    content: "";
+    content: '';
 }
 
 .fc-icon-x:before {
-    content: "";
+    content: '';
 }
 
 .fc-icon {
@@ -654,13 +667,13 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 */
 /* reset */
 .fc-button {
+    margin: 0;
     border-radius: 0;
     overflow: visible;
-    text-transform: none;
-    margin: 0;
-    font-family: inherit;
     font-size: inherit;
     line-height: inherit;
+    font-family: inherit;
+    text-transform: none;
 }
 
 .fc-button:focus {
@@ -677,27 +690,27 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 }
 
 .fc-button::-moz-focus-inner {
-    padding: 0;
     border-style: none;
+    padding: 0;
 }
 
 /* theme */
 .fc-button {
     display: inline-block;
-    font-weight: 400;
-    color: #212529;
-    text-align: center;
     vertical-align: middle;
+    border: 1px solid transparent;
+    border-radius: 0.25em;
+    background-color: transparent;
+    padding: 0.4em 0.65em;
+    color: #212529;
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 1.5;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    background-color: transparent;
-    border: 1px solid transparent;
-    padding: 0.4em 0.65em;
-    font-size: 1em;
-    line-height: 1.5;
-    border-radius: 0.25em;
+    text-align: center;
 }
 
 .fc-button:hover {
@@ -717,15 +730,15 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 /* "primary" coloring */
 .fc-button-primary {
+    border-color: green;
+    background-color: green;
     color: #fff;
-    background-color: #729cf6;
-    border-color: #729cf6;
 }
 
 .fc-button-primary:hover {
+    border-color: green;
+    background-color: green;
     color: #fff;
-    background-color: #729cf6;
-    border-color: #729cf6;
 }
 
 .fc-button-primary:focus {
@@ -735,16 +748,16 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 }
 
 .fc-button-primary:disabled {
+    border-color: green;
+    background-color: green;
     color: #fff;
-    background-color: #729cf6;
-    border-color: #729cf6;
 }
 
 .fc-button-primary:not(:disabled):active,
 .fc-button-primary:not(:disabled).fc-button-active {
+    border-color: green;
+    background-color: green;
     color: #fff;
-    background-color: #729cf6;
-    border-color: #729cf6;
 }
 
 .fc-button-primary:not(:disabled):active:focus,
@@ -763,10 +776,10 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 /* Buttons Groups
 --------------------------------------------------------------------------------------------------*/
 .fc-button-group {
-    position: relative;
     display: -webkit-inline-box;
     display: -ms-inline-flexbox;
     display: inline-flex;
+    position: relative;
     vertical-align: middle;
 }
 
@@ -836,8 +849,8 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 }
 
 .fc-toolbar h2 {
-    font-size: 1.75em;
     margin: 0;
+    font-size: 1.75em;
 }
 
 /* View Structure
@@ -871,9 +884,9 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
     /* Global Event Restyling
   --------------------------------------------------------------------------------------------------*/
     .fc-event {
+        page-break-inside: avoid;
         background: #fff !important;
         color: #000 !important;
-        page-break-inside: avoid;
     }
 
     .fc-event .fc-resizer {
@@ -1002,7 +1015,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
     /* indicate the event continues via "..." text */
     .fc-time-grid .fc-event.fc-not-end:after {
-        content: "...";
+        content: '...';
     }
 
     /* for events that are continuations from previous days, give the top border back */
@@ -1012,7 +1025,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
     /* indicate the event is a continuation via "..." text */
     .fc-time-grid .fc-event.fc-not-start:before {
-        content: "...";
+        content: '...';
     }
 
     /* time */
@@ -1037,15 +1050,15 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
     .fc-scroller,
     .fc-day-grid-container,
     .fc-time-grid-container {
+        height: auto !important;
         /* */
         overflow: visible !important;
-        height: auto !important;
     }
 
     /* kill the horizontal border/padding used to compensate for scrollbars */
     .fc-row {
-        border: 0 !important;
         margin: 0 !important;
+        border: 0 !important;
     }
 
     /* Button Controls

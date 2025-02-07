@@ -9,7 +9,7 @@
                             alt="{{ __('Logo') }}"
                             class="img-fluid"
                         />
-                        {{ __('PELAJAR NU BANYUMAS') }}
+                        {{ __('SIAPMAS') }}
                     </a>
                 </h1>
                 <nav id="navbar" class="navbar">
@@ -31,7 +31,7 @@
                                 <li><a href="{{ route('index') }}#about">{{ __('Tentang Kami') }}</a></li>
                                 <li><a href="{{ route('administrators.index') }}">{{ __('Pengurus') }}</a></li>
                                 <li><a href="{{ route('calendar.index') }}">{{ __('Agenda') }}</a></li>
-                                <li><a href="{{ route('posts.detail') }}">{{ __('Blog') }}</a></li>
+                                <li><a href="{{ route('news') }}">{{ __('News') }}</a></li>
                             </ul>
                         </li>
                         <li>
@@ -44,8 +44,8 @@
                         </li>
                         <li>
                             <a
-                                class="nav-link scrollto {{ request()->routeIs('posts.detail') ? 'active' : '' }}"
-                                href="{{ route('posts.detail') }}"
+                                class="nav-link scrollto {{ request()->routeIs('news') ? 'active' : '' }}"
+                                href="{{ route('news') }}"
                             >
                                 {{ __('Berita') }}
                             </a>

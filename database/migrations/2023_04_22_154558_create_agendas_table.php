@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('organizer', 50)->nullable();
-            $table->string('start', 20)->nullable();
+            $table->string('date', 20)->nullable();
             $table->string('place', 50)->nullable();
             $table->string('category', 100)->nullable();
             $table->string('total_participants', 3)->nullable();

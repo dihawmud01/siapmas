@@ -1,4 +1,4 @@
-<header id="header" class="header fixed-top d-flex align-items-center">
+<header id="header" class="header fixed-top d-flex align-items-center p-5">
     <div class="d-flex align-items-center justify-content-between">
         <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center">
             <img src="{{ asset('assets/images/logokomi.png') }}" alt="{{ __('Logo') }}" />

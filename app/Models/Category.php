@@ -20,9 +20,9 @@ class Category extends Model
 
     protected $fillable = ['title'];
 
-    public function posts(): HasMany
+    public function news(): HasMany
     {
-        return $this->hasMany(Post::class,'category_id');
+        return $this->hasMany(News::class, 'category_id');
     }
 
     /**
@@ -34,8 +34,8 @@ class Category extends Model
     {
         return [
             'slug' => [
-                'source' => 'title'
-            ]
+                'source' => 'title',
+            ],
         ];
     }
 }

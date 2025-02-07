@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Home;
-use App\Models\Post;
+use App\Models\News;
 use App\Models\User;
 use App\Models\Quote;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class HomeController extends Controller
             ->take(5)
             ->get();
 
-        $recentPosts = Post::with('category', 'user')
+        $recentNews = News::with('category', 'user')
             ->where('active', '1')
             ->orderBy('created_at', 'desc')
             ->paginate(15);
@@ -92,7 +92,7 @@ class HomeController extends Controller
                 'home',
                 'user',
                 'quotes',
-                'recentPosts',
+                'recentNews',
                 'cadreLevelCounts',
                 'genderCounts',
                 'pacCounts',

@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 
 class TagsTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -16,15 +15,25 @@ class TagsTableSeeder extends Seeder
     {
         \DB::table('tags')->delete();
 
-        \DB::table('tags')->insert(array(
-            0 =>
-                array(
-                    'id' => 1,
-                    'title' => 'pc-ipnu-ippnu-banyumas',
-                    'slug' => 'pc-ipnu-ippnu-banyumas',
-                    'created_at' => date("Y-m-d H:i:s"),
-                    'updated_at' => date("Y-m-d H:i:s"),
-                ),
-        ));
+        \DB::table('tags')->insert([
+            [
+                'title' => 'pc-ipnu-ippnu-banyumas',
+                'slug' => 'pc-ipnu-ippnu-banyumas',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'title' => 'lorem-ipsum',
+                'slug' => 'lorem-ipsum',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'title' => 'lorem-ipsum-2',
+                'slug' => 'lorem-ipsum-2',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 }

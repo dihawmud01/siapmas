@@ -1975,7 +1975,7 @@ proto.resize = function() {
 };
 
 /**
- * check if layout is needed posts layout
+ * check if layout is needed news layout
  * @returns Boolean
  */
 proto.needsResizeLayout = function() {
