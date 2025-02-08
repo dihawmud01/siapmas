@@ -27,14 +27,10 @@ return new class extends Migration {
             $table->string('boarding_school')->nullable();
             $table->string('place_of_birth')->nullable();
             $table->string('date_of_birth', 20)->nullable();
-            $table->string('hobby')->nullable();
             $table->string('highschool', 100)->nullable();
             $table->string('grad_year', 10)->nullable();
             $table->string('bachelor_year', 10)->nullable();
             $table->string('telephone')->nullable();
-            $table->string('twitter')->nullable();
-            $table->string('fb')->nullable();
-            $table->string('ig')->nullable();
             $table->string('bio')->default('tangan terkepan dan maju kemuka!!!');
             $table
                 ->string('username')
@@ -45,7 +41,6 @@ return new class extends Migration {
             $table->string('password')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('check', 2)->default('0');
-            $table->string('pac_id');
             $table->string('cadre_level')->default('Belum Makesta');
             $table->string('makesta_year', 50)->nullable();
             $table->string('lakmud_year', 50)->nullable();
@@ -57,6 +52,10 @@ return new class extends Migration {
                 ->foreignId('role_id')
                 ->default(4)
                 ->constrained()
+                ->onDelete('cascade');
+            $table
+                ->foreignId('pac_id')
+                ->constrained('pac')
                 ->onDelete('cascade');
             $table->rememberToken()->nullable();
             $table->timestamps();

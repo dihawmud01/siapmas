@@ -41,15 +41,9 @@ class StatisticController extends Controller
             ->pluck('count', 'cadre_level');
 
         $cadreLevelCounts = [];
-        $total = 0;
 
         foreach ($levels as $level) {
-            if (in_array($level, ['Lakut', 'Lakmud', 'Makesta'])) {
-                $total += $cadreLevels->get($level, 0);
-                $cadreLevelCounts[$level] = $total;
-            } else {
-                $cadreLevelCounts[$level] = $cadreLevels->get($level, 0);
-            }
+            $cadreLevelCounts[$level] = $cadreLevels->get($level, 0);
         }
 
         // User counts by gender
@@ -79,17 +73,38 @@ class StatisticController extends Controller
         }
 
         // User counts by Makesta year
-        $years = ['Sebelum 2017', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'];
+        $years = ['Sebelum 2017', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'];
 
-        $makesta = User::selectRaw('makesta_year, COUNT(*) as count')
+        $makestas = User::selectRaw('makesta_year, COUNT(*) as count')
             ->whereIn('makesta_year', $years)
             ->groupBy('makesta_year')
             ->pluck('count', 'makesta_year');
 
+        $lakmuds = User::selectRaw('lakmud_year, COUNT(*) as count')
+            ->whereIn('lakmud_year', $years)
+            ->groupBy('lakmud_year')
+            ->pluck('count', 'lakmud_year');
+
+        $lakuts = User::selectRaw('lakut_year, COUNT(*) as count')
+            ->whereIn('lakut_year', $years)
+            ->groupBy('lakut_year')
+            ->pluck('count', 'lakut_year');
+
+        $latinpels = User::selectRaw('latinpel_year, COUNT(*) as count')
+            ->whereIn('latinpel_year', $years)
+            ->groupBy('latinpel_year')
+            ->pluck('count', 'latinpel_year');
+
         $makestaCounts = [];
+        $lakmudCounts = [];
+        $lakutCounts = [];
+        $latinpelCounts = [];
 
         foreach ($years as $year) {
-            $makestaCounts[$year] = $makesta->get($year, 0);
+            $makestaCounts[$year] = $makestas->get($year, 0);
+            $lakmudCounts[$year] = $lakmuds->get($year, 0);
+            $lakutCounts[$year] = $lakuts->get($year, 0);
+            $latinpelCounts[$year] = $latinpels->get($year, 0);
         }
 
         $posts = News::with('category', 'tags')
@@ -108,6 +123,9 @@ class StatisticController extends Controller
                 'genderCounts',
                 'pacCounts',
                 'makestaCounts',
+                'lakmudCounts',
+                'lakutCounts',
+                'latinpelCounts',
             ),
         );
     }

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Faker\Factory as Faker;
 
 class UsersTableSeeder extends Seeder
@@ -28,14 +29,10 @@ class UsersTableSeeder extends Seeder
                 'boarding_school' => 'Muwahidun',
                 'place_of_birth' => 'Tegal',
                 'date_of_birth' => $faker->date('Y-m-d'),
-                'hobby' => null,
                 'highschool' => 'Muwahidun',
                 'grad_year' => '2021',
                 'bachelor_year' => '2021',
                 'telephone' => $faker->unique()->numerify('08##########'),
-                'twitter' => null,
-                'fb' => null,
-                'ig' => null,
                 'role_id' => 1,
                 'bio' => 'Salam Pergerakan',
                 'username' => 'superadmin',
@@ -69,14 +66,10 @@ class UsersTableSeeder extends Seeder
                 'boarding_school' => 'Muwahidun',
                 'place_of_birth' => 'Tegal',
                 'date_of_birth' => $faker->date('Y-m-d'),
-                'hobby' => null,
                 'highschool' => 'Muwahidun',
                 'grad_year' => '2021',
                 'bachelor_year' => '2021',
                 'telephone' => $faker->unique()->numerify('08##########'),
-                'twitter' => null,
-                'fb' => null,
-                'ig' => null,
                 'role_id' => 2,
                 'bio' => 'Salam Pergerakan',
                 'username' => 'adminpac',
@@ -110,14 +103,10 @@ class UsersTableSeeder extends Seeder
                 'boarding_school' => 'Muwahidun',
                 'place_of_birth' => 'Tegal',
                 'date_of_birth' => $faker->date('Y-m-d'),
-                'hobby' => null,
                 'highschool' => 'Muwahidun',
                 'grad_year' => '2021',
                 'bachelor_year' => '2021',
                 'telephone' => $faker->unique()->numerify('08##########'),
-                'twitter' => null,
-                'fb' => null,
-                'ig' => null,
                 'role_id' => 3,
                 'bio' => 'Salam Pergerakan',
                 'username' => 'adminpc',
@@ -139,5 +128,49 @@ class UsersTableSeeder extends Seeder
                 'nonformal' => '5',
             ],
         ]);
+
+        for ($i = 0; $i < 50; $i++) {
+            $cadreLevel = $faker->randomElement(['Makesta', 'Lakmud', 'Lakut', 'Latinpel']);
+
+            $users[] = [
+                'name' => $faker->name,
+                'gender' => $faker->randomElement(['L', 'P']),
+                'nim' => $faker->unique()->numerify('2110####'),
+                'img' => 'waduh.jpeg',
+                'province_id' => null,
+                'city_id' => $faker->numberBetween(100, 200),
+                'district_id' => $faker->numberBetween(2000, 3000),
+                'village_id' => $faker->numberBetween(26000, 27000),
+                'address' => $faker->city,
+                'boarding_school' => $faker->word,
+                'place_of_birth' => $faker->city,
+                'date_of_birth' => $faker->date('Y-m-d'),
+                'highschool' => $faker->word,
+                'grad_year' => $faker->year,
+                'bachelor_year' => $faker->year,
+                'telephone' => $faker->unique()->numerify('08##########'),
+                'role_id' => $faker->numberBetween(1, 4),
+                'bio' => 'Salam Pergerakan',
+                'username' => $faker->userName,
+                'slug' => Str::slug($faker->userName),
+                'email' => $faker->unique()->safeEmail,
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+                'remember_token' => Str::random(60),
+                'created_at' => now(),
+                'updated_at' => now(),
+                'check' => $faker->boolean,
+                'pac_id' => $faker->numberBetween(1, 29),
+                'cadre_level' => $cadreLevel,
+                'makesta_year' => $cadreLevel === 'Makesta' ? strval(rand(2017, 2025)) : null,
+                'lakmud_year' => $cadreLevel === 'Lakmud' ? strval(rand(2017, 2025)) : null,
+                'lakut_year' => $cadreLevel === 'Lakut' ? strval(rand(2017, 2025)) : null,
+                'latinpel_year' => $cadreLevel === 'Latinpel' ? strval(rand(2017, 2025)) : null,
+                'informal' => strval(rand(1, 9)),
+                'nonformal' => strval(rand(1, 9)),
+            ];
+        }
+
+        \DB::table('users')->insert($users);
     }
 }

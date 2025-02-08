@@ -16,9 +16,9 @@ return new class extends Migration {
             $table->string('address', 150)->nullable();
             $table->string('nim', 16)->nullable();
             $table->enum('gender', ['L', 'P'])->nullable();
-            $table->string('place_of_borth', 20)->nullable();
+            $table->string('place_of_birth', 20)->nullable();
             $table->string('date_of_birth', 20)->nullable();
-            $table->string('wa', 15)->nullable();
+            $table->string('telephone', 15)->nullable();
             $table->string('hobby', 15)->nullable();
             $table->string('highschool', 50)->nullable();
             $table->string('grad_year', 10)->nullable();
@@ -26,8 +26,8 @@ return new class extends Migration {
             $table->string('college_year', 10)->nullable();
             $table->string('fakultas')->nullable();
             $table->string('jurusan')->nullable();
-            $table->string('makesta_year', 10)->nullable();
             $table->string('organizer_makesta', 30)->nullable();
+            $table->string('makesta_year', 10)->nullable();
             $table->string('lakmud_year', 10)->nullable();
             $table->string('lakut_year', 10)->nullable();
             $table->string('latinpel_year', 10)->nullable();
@@ -35,7 +35,7 @@ return new class extends Migration {
             $table->string('organizer_informal', 100)->nullable();
             $table->string('nonformal', 100)->nullable();
             $table->string('organizer_nonformal', 100)->nullable();
-            $table->string('images', 100)->nullable();
+            $table->string('img', 100)->nullable();
             $table->timestamps();
         });
     }

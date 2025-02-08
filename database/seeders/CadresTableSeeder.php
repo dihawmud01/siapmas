@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 
 class CadresTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,11 +13,6 @@ class CadresTableSeeder extends Seeder
      */
     public function run()
     {
-
-
         \DB::table('cadres')->delete();
-
-
-
     }
 }

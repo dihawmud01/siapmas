@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(AgendasTableSeeder::class);
         $this->call(RolesTableSeeder::class);
+        $this->call(PACTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(HomeTableSeeder::class);
@@ -27,6 +28,5 @@ class DatabaseSeeder extends Seeder
         $this->call(NewsTagsTableSeeder::class);
         $this->call(ProfilesTableSeeder::class);
         $this->call(QuotesTableSeeder::class);
-        $this->call(PACTableSeeder::class);
     }
 }

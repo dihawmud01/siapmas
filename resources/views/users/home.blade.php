@@ -144,15 +144,45 @@
                 <script>
                     document.addEventListener('DOMContentLoaded', () => {
                         const makestaCounts = @json($makestaCounts);
+                        const lakmudCounts = @json($lakmudCounts);
+                        const lakutCounts = @json($lakutCounts);
+                        const latinpelCounts = @json($latinpelCounts);
 
-                        const years = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'];
-                        const data = years.map((year) => makestaCounts[year] || 0);
+                        const years = [
+                            '2016',
+                            '2017',
+                            '2018',
+                            '2019',
+                            '2020',
+                            '2021',
+                            '2022',
+                            '2023',
+                            '2024',
+                            '2025',
+                            '2026',
+                        ];
+                        const makestaData = years.map((year) => makestaCounts[year] || 0);
+                        const lakmudData = years.map((year) => lakmudCounts[year] || 0);
+                        const lakutData = years.map((year) => lakutCounts[year] || 0);
+                        const latinpelData = years.map((year) => latinpelCounts[year] || 0);
 
                         new ApexCharts(document.querySelector('#reportsChart'), {
                             series: [
                                 {
                                     name: '{{ __('Makesta') }}',
-                                    data: data,
+                                    data: makestaData,
+                                },
+                                {
+                                    name: '{{ __('Lakmud') }}',
+                                    data: lakmudData,
+                                },
+                                {
+                                    name: '{{ __('Lakut') }}',
+                                    data: lakutData,
+                                },
+                                {
+                                    name: '{{ __('Latinpel') }}',
+                                    data: latinpelData,
                                 },
                             ],
                             chart: {
@@ -165,7 +195,7 @@
                             markers: {
                                 size: 4,
                             },
-                            colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                            colors: ['#5CB338', '#ECE852', '#FFC145', '#FB4141'],
                             fill: {
                                 type: 'gradient',
                                 gradient: {
@@ -184,12 +214,16 @@
                             },
                             xaxis: {
                                 type: 'datetime',
-                                categories: ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                                categories: years,
                             },
                             tooltip: {
                                 x: {
                                     format: 'yyyy',
                                 },
+                            },
+                            legend: {
+                                offsetY: 20,
+                                height: 52,
                             },
                         }).render();
                     });
@@ -218,7 +252,7 @@
                             },
                             series: [
                                 {
-                                    name: '{{ __('Akses Dari') }}',
+                                    name: '{{ __('Gender') }}',
                                     type: 'pie',
                                     radius: ['40%', '70%'],
                                     avoidLabelOverlap: false,
@@ -319,9 +353,9 @@
                             },
                             series: [
                                 {
-                                    name: '{{ __('Akses Dari') }}',
+                                    name: '{{ __('PAC') }}',
                                     type: 'pie',
-                                    radius: '75%',
+                                    radius: '50%',
                                     data: data,
                                     emphasis: {
                                         itemStyle: {
@@ -329,12 +363,6 @@
                                             shadowOffsetX: 0,
                                             shadowColor: 'rgba(0, 0, 0, 0.5)',
                                         },
-                                    },
-                                    labelLine: {
-                                        show: false,
-                                    },
-                                    label: {
-                                        show: false,
                                     },
                                 },
                             ],
