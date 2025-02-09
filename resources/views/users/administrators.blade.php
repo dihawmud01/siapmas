@@ -19,7 +19,6 @@
                             <br />
                             {{ __('Masa Khidmat 2024/2026') }}
                         </h3>
-                        <h2>{{ __('P.A.S.T.I') }}</h2>
                     </header>
                     <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
                         @foreach ($administrators as $administrator)
