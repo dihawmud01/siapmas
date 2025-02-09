@@ -29,7 +29,7 @@
                             </a>
                             <ul>
                                 <li><a href="{{ route('index') }}#about">{{ __('Tentang Kami') }}</a></li>
-                                <li><a href="{{ route('administrators.index') }}">{{ __('Pengurus') }}</a></li>
+                                <li><a href="{{ route('administrators') }}">{{ __('Pengurus') }}</a></li>
                                 <li><a href="{{ route('calendar.index') }}">{{ __('Agenda') }}</a></li>
                                 <li><a href="{{ route('news') }}">{{ __('News') }}</a></li>
                             </ul>
