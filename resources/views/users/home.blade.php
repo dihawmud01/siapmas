@@ -5,7 +5,7 @@
 @extends('users.layout')
 
 @section('content')
-    <section id="hero" class="mb-4">
+    <section id="hero" class="mb-5">
         <div class="hero-container">
             <div
                 id="heroCarousel"
@@ -68,7 +68,7 @@
         </div>
     </section>
 
-    <section id="about" class="mb-4">
+    <section id="about" class="my-5 px-5 pb-5">
         <div class="container" data-aos="fade-up">
             <header class="section-header">
                 <h3>{{ __('Tentang Kami') }}</h3>
@@ -80,14 +80,13 @@
         </div>
     </section>
 
-    <section id="facts" class="mb-4">
+    <section id="facts" class="my-5 p-5">
         <div class="container" data-aos="fade-up">
             <header class="section-header">
                 <h3>{{ __('Data Kader PC IPNU IPPNU Banyumas') }}</h3>
-                {{-- <h2 class="text-center">{{ __('Data Kader PC IPNU IPPNU Banyumas') }}</h2> --}}
             </header>
 
-            <div class="row counters text-center">
+            <div class="row counters p-4 text-center">
                 <div class="col text-center">
                     <span
                         data-purecounter-start="0"
@@ -132,7 +131,7 @@
     </section>
 
     <div class="col-12 p-4" data-aos="fade-up">
-        <div class="card">
+        <div class="card mt-5">
             <div class="card-body pt-5">
                 <h4 class="card-title text-center">
                     {{ __('Data Rekan & Rekanita') }}
@@ -289,7 +288,7 @@
         </div>
     </div>
 
-    <div class="col-12 mb-4 px-4 pb-4" data-aos="fade-up">
+    <div class="col-12 p-4" data-aos="fade-up">
         <div class="card">
             <div class="card-body pt-5">
                 <h4 class="card-title text-center">
@@ -428,12 +427,12 @@
     {{-- </div> --}}
     {{-- </div> --}}
 
-    <section id="news" class="section-bg py-5">
+    <section id="news" class="section-bg p-5">
         <div class="container" data-aos="fade-up">
             <header class="section-header pt-5">
                 <h3>{{ __('Berita Terkini') }}</h3>
             </header>
-            <div class="row news-container mt-4 pt-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="row news-container mt-4 p-4" data-aos="fade-up" data-aos-delay="200">
                 @foreach ($recentNews->take(3) as $news)
                     <div class="col-lg-4 col-md-6 news-item filter-app">
                         <div class="news-wrap">
@@ -483,14 +482,14 @@
         </div>
     </section>
 
-    <section id="quote" class="section-bg py-5">
+    <section id="quote" class="section-bg p-5">
         <div class="container" data-aos="fade-up">
             <header class="section-header">
                 <h3 style="text-transform: inherit">{{ __('Quotes Of The Day') }}</h3>
             </header>
 
             <div class="quote-details-slider swiper" data-aos="fade-up" data-aos-delay="100">
-                <div class="swiper-wrapper py-5">
+                <div class="swiper-wrapper py-4">
                     @foreach ($quotes as $quote)
                         <div class="swiper-slide d-flex align-items-center justify-content-center">
                             <div class="quote-item d-flex align-items-center flex-column text-center">
