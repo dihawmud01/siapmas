@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 
 class AdministratorsTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,22 +13,42 @@ class AdministratorsTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('administrators')->delete();
+        \DB::table('administrators')->truncate();
 
-        \DB::table('administrators')->insert(array(
-            0 =>
-                array(
-                    'id' => 1,
-                    'images' => 'users.png',
-                    'name' => 'Riki Ramdan',
-                    'username' => 'rikiramdan',
-                    'position' => 'Ketua PC IPNU IPPNU Banyumas',
-                    'fb' => NULL,
-                    'ig' => NULL,
-                    'x' => NULL,
-                    'created_at' => date("Y-m-d H:i:s"),
-                    'updated_at' => date("Y-m-d H:i:s"),
-                ),
-        ));
+        \DB::table('administrators')->insert([
+            [
+                'img' => 'waduh.jpeg',
+                'name' => 'Riki Ramdan',
+                'username' => 'rikiramdan',
+                'position' => 'Ketua PC IPNU IPPNU Banyumas',
+                'fb' => null,
+                'ig' => null,
+                'x' => null,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'img' => 'waduh.jpeg',
+                'name' => 'Riki Ramdan',
+                'username' => 'rikiramdan',
+                'position' => 'Ketua PC IPNU IPPNU Banyumas',
+                'fb' => null,
+                'ig' => null,
+                'x' => null,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'img' => 'waduh.jpeg',
+                'name' => 'Riki Ramdan',
+                'username' => 'rikiramdan',
+                'position' => 'Ketua PC IPNU IPPNU Banyumas',
+                'fb' => null,
+                'ig' => null,
+                'x' => null,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+        ]);
     }
 }
