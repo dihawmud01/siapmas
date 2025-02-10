@@ -1,6 +1,6 @@
 /**
  * @typedef { import('./core.controller.js').default } Chart
- * @typedef { import('../types/index.js').ChartEvent } ChartEvent
+ * @typedef { import('../types').ChartEvent } ChartEvent
  * @typedef { import('../plugins/plugin.tooltip.js').default } Tooltip
  */
 /**
@@ -53,7 +53,7 @@ export default class PluginService {
     private _notifyStateChanges;
 }
 export type Chart = import('./core.controller.js').default;
-export type ChartEvent = import('../types/index.js').ChartEvent;
+export type ChartEvent = import('../types').ChartEvent;
 export type Tooltip = any;
 export type filterCallback = (value: {
     plugin: object;

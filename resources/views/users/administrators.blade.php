@@ -11,7 +11,7 @@
         <div class="row">
             <section id="portfolio">
                 <div class="container" data-aos="fade-up">
-                    <header class="section-header" style="padding: 5rem">
+                    <header class="section-header">
                         <h3 style="text-transform: none">
                             {{ __('PENGURUS') }}
                             <br />
@@ -20,10 +20,10 @@
                             {{ __('Masa Khidmat 2024/2026') }}
                         </h3>
                     </header>
-                    <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+                    <div class="row portfolio-container p-4" data-aos="fade-up" data-aos-delay="200">
                         @foreach ($administrators as $administrator)
                             <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                                <div class="portfolio-wrap">
+                                <div class="portfolio-wrap rounded">
                                     <figure>
                                         <img
                                             src="{{ asset('storage/images/' . $administrator->img) }}"

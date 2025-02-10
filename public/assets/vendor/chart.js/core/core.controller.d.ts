@@ -1,6 +1,6 @@
 export default Chart;
-export type ChartEvent = import('../types/index.js').ChartEvent;
-export type Point = import('../types/index.js').Point;
+export type ChartEvent = import('../types').ChartEvent;
+export type Point = import('../types').Point;
 declare class Chart {
     static defaults: import("./core.defaults.js").Defaults;
     static instances: {};
@@ -27,7 +27,7 @@ declare class Chart {
     currentDevicePixelRatio: any;
     chartArea: any;
     _active: any[];
-    _lastEvent: import("../types/index.js").ChartEvent;
+    _lastEvent: import("../types").ChartEvent;
     _listeners: {};
     /** @type {?{attach?: function, detach?: function, resize?: function}} */
     _responsiveListeners: {
@@ -245,13 +245,13 @@ declare class Chart {
     private _handleEvent;
     /**
      * @param {ChartEvent} e - The event
-     * @param {import('../types/index.js').ActiveElement[]} lastActive - Previously active elements
+     * @param {import('../types').ActiveElement[]} lastActive - Previously active elements
      * @param {boolean} inChartArea - Is the envent inside chartArea
      * @param {boolean} useFinalPosition - Should the evaluation be done with current or final (after animation) element positions
-     * @returns {import('../types/index.js').ActiveElement[]} - The active elements
+     * @returns {import('../types').ActiveElement[]} - The active elements
      * @pravate
      */
-    _getActiveElements(e: ChartEvent, lastActive: import('../types/index.js').ActiveElement[], inChartArea: boolean, useFinalPosition: boolean): import('../types/index.js').ActiveElement[];
+    _getActiveElements(e: ChartEvent, lastActive: import('../types').ActiveElement[], inChartArea: boolean, useFinalPosition: boolean): import('../types').ActiveElement[];
 }
 import Config from "./core.config.js";
 import PluginService from "./core.plugins.js";

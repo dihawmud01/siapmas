@@ -1,4 +1,4 @@
-import type { ChartArea } from '../types/index.js';
+import type { ChartArea } from '../types';
 export interface SplinePoint {
     x: number;
     y: number;

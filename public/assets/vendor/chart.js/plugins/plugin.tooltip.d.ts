@@ -243,8 +243,8 @@ declare namespace _default {
 }
 export default _default;
 export type Chart = import('../platform/platform.base.js').Chart;
-export type ChartEvent = import('../types/index.js').ChartEvent;
-export type ActiveElement = import('../types/index.js').ActiveElement;
+export type ChartEvent = import('../types').ChartEvent;
+export type ActiveElement = import('../types').ActiveElement;
 export type InteractionItem = import('../core/core.interaction.js').InteractionItem;
 import Element from "../core/core.element.js";
 import Animations from "../core/core.animations.js";

@@ -117,5 +117,5 @@ declare namespace _default {
     }
 }
 export default _default;
-export type ChartEvent = import('../types/index.js').ChartEvent;
+export type ChartEvent = import('../types').ChartEvent;
 import Element from "../core/core.element.js";

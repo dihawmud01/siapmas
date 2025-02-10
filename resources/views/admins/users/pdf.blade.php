@@ -12,7 +12,8 @@
             integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
             crossorigin="anonymous"
         />
-        <link rel="stylesheet" href="{{ asset('user-assets/css/kta.css') }}" />
+
+        <link rel="stylesheet" href="{{ asset('css/kta.css') }}" />
     </head>
 
     <body>

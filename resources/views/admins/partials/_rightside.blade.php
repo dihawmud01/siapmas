@@ -13,7 +13,7 @@
     </div>
 
     <div class="card-body p-5">
-        <h5 class="card-title fs-4 mb-4">
+        <h5 class="card-title fw-bold fs-4 mb-4">
             {{ __('Kader Berdasarkan Jenis Kelamin') }}
         </h5>
 
@@ -69,7 +69,7 @@
 
 <div class="card">
     <div class="card-body p-5">
-        <h5 class="card-title fs-4 mb-4">
+        <h5 class="card-title fw-bold fs-4 mb-4">
             {{ __('Kader Berdasarkan PAC/Komisariat') }}
         </h5>
         <div id="pieChart" style="min-height: 600px" class="echart"></div>

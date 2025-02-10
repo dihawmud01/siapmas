@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
+        <link href="{{ asset('assets/images/favicon.png') }}" rel="icon" />
+
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
@@ -26,23 +28,18 @@
                             <div class="row g-0">
                                 <div class="col-md-6 col-lg-5 d-none d-md-block">
                                     <img
-                                        src="{{ asset('assets/images/logokomi.png') }}"
+                                        src="{{ asset('storage/images/waduh.jpeg') }}"
                                         alt="{{ __('Form Login') }}"
-                                        class="img-fluid"
-                                        style="
-                                            width: 100%;
-                                            height: 35rem;
-                                            object-fit: cover;
-                                            border-radius: 1rem 0 0 1rem;
-                                        "
+                                        class="img-fluid h-100 w-100"
+                                        style="object-fit: cover; border-radius: 1rem 0 0 1rem"
                                     />
                                 </div>
                                 <div class="col-md-6 col-lg-7 d-flex align-items-center">
                                     <div class="card-body p-lg-5 p-4 text-black">
-                                        <form method="POST" action="authenticate">
+                                        <form method="POST" action="{{ route('authenticate') }}">
                                             @csrf
                                             <div
-                                                class="d-flex align-items-center justify-content-center mb-6 pb-1 text-center"
+                                                class="d-flex align-items-center justify-content-center mb-4 pb-1 text-center"
                                             >
                                                 <span class="h1 fw-bold mb-0">
                                                     <img
@@ -53,66 +50,72 @@
                                                 </span>
                                             </div>
 
-                                            <h5 class="fw-normal mb-3" style="letter-spacing: 1px">
+                                            <h5 class="fw-normal mb-4">
                                                 {{ __('Masuk ke akun Anda') }}
                                             </h5>
 
-                                            <div class="form-outline mb-2">
-                                                <label class="form-label" for="form2Example17">
-                                                    {{ __('Email') }}
-                                                </label>
-                                                <input
-                                                    type="email"
-                                                    placeholder="{{ __('Email') }}"
-                                                    name="email"
-                                                    id="form2Example17"
-                                                    autofocus
-                                                    class="form-control form-control-lg"
-                                                />
-                                            </div>
-
-                                            <div class="form-outline">
-                                                @if (Session::has('error'))
-                                                    <div class="alert alert-danger">
-                                                        {{ Session::get('error') }}
-                                                    </div>
-                                                @endif
-                                            </div>
-
-                                            <div class="form-outline mb-2">
-                                                <label class="form-label" for="form2Example27">
-                                                    {{ __('Kata Sandi') }}
-                                                </label>
-                                                <div class="input-group">
+                                            <div class="mb-3">
+                                                <div class="form-outline mb-3">
+                                                    <label class="form-label" for="form2Example17">
+                                                        {{ __('Email') }}
+                                                    </label>
                                                     <input
-                                                        type="password"
-                                                        placeholder="{{ __('Kata Sandi') }}"
-                                                        name="password"
-                                                        id="form2Example27"
+                                                        type="email"
+                                                        placeholder="{{ __('Email') }}"
+                                                        name="email"
+                                                        id="form2Example17"
+                                                        autofocus
                                                         class="form-control form-control-lg"
                                                     />
-                                                    <button type="button" id="togglePassword" class="btn btn-primary">
-                                                        <i id="toggleIcon" class="fa fa-eye"></i>
-                                                    </button>
+                                                </div>
+
+                                                <div class="form-outline mb-3">
+                                                    @if (Session::has('error'))
+                                                        <div class="alert alert-danger">
+                                                            {{ Session::get('error') }}
+                                                        </div>
+                                                    @endif
+                                                </div>
+
+                                                <div class="form-outline mb-2">
+                                                    <label class="form-label" for="form2Example27">
+                                                        {{ __('Kata Sandi') }}
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <input
+                                                            type="password"
+                                                            placeholder="{{ __('Kata Sandi') }}"
+                                                            name="password"
+                                                            id="form2Example27"
+                                                            class="form-control form-control-lg"
+                                                        />
+                                                        <button
+                                                            type="button"
+                                                            id="togglePassword"
+                                                            class="btn btn-success"
+                                                        >
+                                                            <i id="toggleIcon" class="fa fa-eye"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <div class="pb-2">
+                                            <div class="d-flex justify-content-between mb-4">
                                                 <a
                                                     href="{{ route('password.request') }}"
                                                     style="text-decoration: none"
                                                 >
-                                                    <h6>{{ __('Lupa Kata Sandi') }}</h6>
+                                                    <p class="text-secondary fs-6">{{ __('Lupa Kata Sandi') }}</p>
                                                 </a>
                                                 <a
                                                     href="{{ route('validation.index') }}"
                                                     style="text-decoration: none"
                                                 >
-                                                    <h6>{{ __('Belum Punya Akun?') }}</h6>
+                                                    <p class="text-secondary fs-6">{{ __('Belum Punya Akun?') }}</p>
                                                 </a>
                                             </div>
-                                            <div class="d-flex justify-content-between mb-4 pt-1">
-                                                <a href="{{ route('index') }}" class="btn btn-warning btn-lg">
+                                            <div class="d-flex justify-content-between mb-4">
+                                                <a href="{{ route('index') }}" class="btn btn-lg bg-transparent px-0">
                                                     {{ __('Kembali') }}
                                                 </a>
                                                 <div>
@@ -151,6 +154,7 @@
         </script>
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        script
         @include('sweetalert::alert')
         <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

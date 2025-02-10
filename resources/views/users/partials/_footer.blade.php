@@ -27,25 +27,25 @@
 
                 {{
                     __('Tim IT PC IPNU IPPNU Banyumas adalah kelompok kader PC IPNU IPPNU Banyumas yang terdiri dari para
-                                                                                                                                                                                                                                                                                                        profesional berpengalaman, ahli TI, terampil dan berdedikasi dalam bidang teknologi informasi (TI). Kami
-                                                                                                                                                                                                                                                                                                        bertugas menyediakan, mengelola, dan mendukung sistem kaderisasi digital di lingkungan PC IPNU IPPNU
-                                                                                                                                                                                                                                                                                                        Banyumas Komisariat.')
+                                                                                                                                                                                                                                                                                                                                                profesional berpengalaman, ahli TI, terampil dan berdedikasi dalam bidang teknologi informasi (TI). Kami
+                                                                                                                                                                                                                                                                                                                                                bertugas menyediakan, mengelola, dan mendukung sistem kaderisasi digital di lingkungan PC IPNU IPPNU
+                                                                                                                                                                                                                                                                                                                                                Banyumas Komisariat.')
                 }}
                 <br />
                 <br />
 
                 {{
                     __('Tim IT PC IPNU IPPNU Banyumas memiliki fokus pada kualitas, keandalan, dan keamanan dalam setiap tugas
-                                                                                                                                                                                                                                                                                                        yang kami jalankan. Kami menyadari pentingnya infrastruktur TI yang stabil dan efisien dalam mendukung
-                                                                                                                                                                                                                                                                                                        kegiatan kaderisasi di lingkungan PC IPNU IPPNU Banyumas.')
+                                                                                                                                                                                                                                                                                                                                                yang kami jalankan. Kami menyadari pentingnya infrastruktur TI yang stabil dan efisien dalam mendukung
+                                                                                                                                                                                                                                                                                                                                                kegiatan kaderisasi di lingkungan PC IPNU IPPNU Banyumas.')
                 }}
                 <br />
                 <br />
 
                 {{
                     __('Komitmen kami adalah memberikan pelayanan yang ramah dan responsif kepada kader PC IPNU IPPNU Banyumas .
-                                                                                                                                                                                                                                                                                                        Kami siap membantu kader dalam menjalani pengalaman kaderisasi digital yang lancar, aman, dan bermanfaat
-                                                                                                                                                                                                                                                                                                        di ruang lingkup PC IPNU IPPNU Banyumas Komisariat.')
+                                                                                                                                                                                                                                                                                                                                                Kami siap membantu kader dalam menjalani pengalaman kaderisasi digital yang lancar, aman, dan bermanfaat
+                                                                                                                                                                                                                                                                                                                                                di ruang lingkup PC IPNU IPPNU Banyumas Komisariat.')
                 }}
                 <br />
                 <br />
@@ -74,8 +74,8 @@
                     <p>
                         {{
                             __('Pergerakan Mahasiswa Islam Indonesia (PC IPNU IPPNU Banyumas) adalah organisasi mahasiswa Islam
-                                                                                                                                                                                                                                                                                                                                                                                                                                terbesar dan tertua di Indonesia. PC IPNU IPPNU Banyumas didirikan pada tanggal 17 April 1960 di
-                                                                                                                                                                                                                                                                                                                                                                                                                                Surabaya')
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        terbesar dan tertua di Indonesia. PC IPNU IPPNU Banyumas didirikan pada tanggal 17 April 1960 di
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Surabaya')
                         }}
                     </p>
                 </div>
@@ -107,8 +107,8 @@
                     <p>
                         {{
                             __('Jl. Soekarno Hatta No.530,
-                                                                                                                                                                                                                                                                                                                                                                                                                                Sekejati, Kec. Buahbatu,
-                                                                                                                                                                                                                                                                                                                                                                                                                                Kota Bandung, Jawa Barat 40286')
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Sekejati, Kec. Buahbatu,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Kota Bandung, Jawa Barat 40286')
                         }}
                         <br />
                         <strong>{{ __('Telepon:') }}</strong>
@@ -165,6 +165,7 @@
     </div>
 </footer>
 
+{{-- <script src="{{ asset('js/main.js') }}"></script> --}}
 <script src="{{ asset('assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
 <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
 <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
@@ -172,7 +173,6 @@
 <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/waypoints/noframework.waypoints.js') }}"></script>
 <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
-<script src="{{ asset('assets/js/main.js') }}"></script>
 
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

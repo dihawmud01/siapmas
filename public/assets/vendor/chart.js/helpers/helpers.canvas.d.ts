@@ -3,7 +3,7 @@
  * necessary to avoid duplicates with `export * from './helpers`; see
  * https://github.com/microsoft/TypeScript/issues/46011
  * @typedef { import('../core/core.controller.js').default } canvas.Chart
- * @typedef { import('../types/index.js').Point } Point
+ * @typedef { import('../types').Point } Point
  */
 /**
  * @namespace Chart.helpers.canvas
@@ -82,4 +82,4 @@ export namespace canvas {
  * necessary to avoid duplicates with `export * from './helpers`; see
  * https://github.com/microsoft/TypeScript/issues/46011
  */
-export type Point = import('../types/index.js').Point;
+export type Point = import('../types').Point;

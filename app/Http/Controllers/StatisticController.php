@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\News;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class StatisticController extends Controller
 {
@@ -107,15 +108,20 @@ class StatisticController extends Controller
             $latinpelCounts[$year] = $latinpels->get($year, 0);
         }
 
-        $posts = News::with('category', 'tags')
+        $news = News::with('category', 'tags')
             ->where('active', 1)
             ->take(10)
-            ->get();
+            ->get()
+            ->map(function ($post) {
+                $post->formatted_updated_date = Carbon::parse($post->updated_at)->format('Y-m-d');
+
+                return $post;
+            });
 
         return view(
             'admins.index',
             compact(
-                'posts',
+                'news',
                 'memberCounts',
                 'cadreCounts',
                 'userCounts',

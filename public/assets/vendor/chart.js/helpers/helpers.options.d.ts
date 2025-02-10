@@ -1,5 +1,5 @@
 import { Point } from './helpers.canvas.js';
-import type { ChartArea, FontSpec } from '../types/index.js';
+import type { ChartArea, FontSpec } from '../types';
 import type { TRBL, TRBLCorners } from '../types/geometric.js';
 /**
  * @alias Chart.helpers.options

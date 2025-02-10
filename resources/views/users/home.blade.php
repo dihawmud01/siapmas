@@ -237,7 +237,11 @@
                 <h4 class="card-title text-center">
                     {{ __('Kader Berdasarkan Jenis Kelamin') }}
                 </h4>
-                <div id="trafficChart" style="min-height: 400px" class="echart mb-5"></div>
+                <div
+                    id="trafficChart"
+                    style="min-height: 400px"
+                    class="echart d-flex justify-content-center align-items-center mb-5"
+                ></div>
                 <script>
                     document.addEventListener('DOMContentLoaded', () => {
                         echarts.init(document.querySelector('#trafficChart')).setOption({
@@ -295,7 +299,11 @@
                     {{ __('Kader Berdasarkan PAC/Komisariat') }}
                 </h4>
 
-                <div id="pieChart" style="min-height: 600px" class="echart mb-5"></div>
+                <div
+                    id="pieChart"
+                    style="min-height: 600px"
+                    class="echart d-flex justify-content-center align-items-center mb-5"
+                ></div>
                 <script>
                     document.addEventListener('DOMContentLoaded', () => {
                         const pacCounts = @json($pacCounts);

@@ -172,10 +172,10 @@
             @endif
         @endauth
 
-        <li class="nav-item">
-            <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">
-                <i class="bi bi-box-arrow-right btn btn-success m-4"><span>{{ __('Keluar') }}</span></i>
-            </a>
-        </li>
+        {{-- <li class="nav-item"> --}}
+        {{-- <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"> --}}
+        {{-- <i class="bi bi-box-arrow-right btn btn-success m-4"><span>{{ __('Keluar') }}</span></i> --}}
+        {{-- </a> --}}
+        {{-- </li> --}}
     </ul>
 </aside>

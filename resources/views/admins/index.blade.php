@@ -10,7 +10,7 @@
         <div class="col">
             <div class="card info-card sales-card">
                 <div class="card-body p-4">
-                    <h5 class="card-title align-items-baseline fs-5 mb-3">
+                    <h5 class="card-title fw-bold align-items-baseline fs-5 mb-3">
                         {{ __('Kader Makesta') }}
                     </h5>
 
@@ -29,7 +29,7 @@
         <div class="col">
             <div class="card info-card sales-card">
                 <div class="card-body p-4">
-                    <h5 class="card-title align-items-baseline fs-5 mb-3">
+                    <h5 class="card-title fw-bold align-items-baseline fs-5 mb-3">
                         {{ __('Kader Lakmud') }}
                     </h5>
                     <div class="d-flex align-items-center">
@@ -47,7 +47,7 @@
         <div class="col">
             <div class="card info-card revenue-card">
                 <div class="card-body p-4">
-                    <h5 class="card-title align-items-baseline fs-5 mb-3">
+                    <h5 class="card-title fw-bold align-items-baseline fs-5 mb-3">
                         {{ __('Kader Lakut') }}
                     </h5>
 
@@ -66,7 +66,7 @@
         <div class="col">
             <div class="card info-card revenue-card">
                 <div class="card-body p-4">
-                    <h5 class="card-title align-items-baseline fs-5 mb-3">
+                    <h5 class="card-title fw-bold align-items-baseline fs-5 mb-3">
                         {{ __('Kader Latinpel') }}
                     </h5>
 
@@ -86,10 +86,10 @@
             <div class="card">
                 <div class="card-body p-4">
                     <div class="card-header d-flex justify-content-between align-items-center mb-4 border-0 bg-white">
-                        <h5 class="card-title d-fl align-items-baseline fs-4 align-items-baseline">
+                        <h5 class="card-title fw-bold d-flex align-items-baseline fs-4 mb-0">
                             {{ __('Data Kader') }}
                         </h5>
-                        <div class="dropdown rounded filter">
+                        <div class="dropdown rounded filter" data-target="cadre">
                             <button
                                 class="btn text-secondary fs-6 border-secondary-subtle dropdown-btn"
                                 data-bs-toggle="dropdown"
@@ -117,144 +117,19 @@
                     <div id="reportsChart"></div>
 
                     <script>
-                        document.addEventListener('DOMContentLoaded', () => {
-                            const makestaCounts = @json($makestaCounts);
-                            const lakmudCounts = @json($lakmudCounts);
-                            const lakutCounts = @json($lakutCounts);
-                            const latinpelCounts = @json($latinpelCounts);
+                        window.chartData = {
+                            makestaCounts: @json($makestaCounts),
+                            lakmudCounts: @json($lakmudCounts),
+                            lakutCounts: @json($lakutCounts),
+                            latinpelCounts: @json($latinpelCounts),
+                        };
 
-                            const years = [
-                                '2016',
-                                '2017',
-                                '2018',
-                                '2019',
-                                '2020',
-                                '2021',
-                                '2022',
-                                '2023',
-                                '2024',
-                                '2025',
-                                '2026',
-                            ];
-
-                            const chart = new ApexCharts(document.querySelector('#reportsChart'), {
-                                series: [
-                                    {
-                                        name: '{{ __('Makesta') }}',
-                                        data: years.map((year) => makestaCounts[year] || 0),
-                                    },
-                                    { name: '{{ __('Lakmud') }}', data: years.map((year) => lakmudCounts[year] || 0) },
-                                    { name: '{{ __('Lakut') }}', data: years.map((year) => lakutCounts[year] || 0) },
-                                    {
-                                        name: '{{ __('Latinpel') }}',
-                                        data: years.map((year) => latinpelCounts[year] || 0),
-                                    },
-                                ],
-                                chart: { height: 350, type: 'area', toolbar: { show: false } },
-                                markers: { size: 4 },
-                                colors: ['#5CB338', '#ECE852', '#FFC145', '#FB4141'],
-                                fill: {
-                                    type: 'gradient',
-                                    gradient: {
-                                        shadeIntensity: 1,
-                                        opacityFrom: 0.3,
-                                        opacityTo: 0.4,
-                                        stops: [0, 90, 100],
-                                    },
-                                },
-                                dataLabels: { enabled: false },
-                                stroke: { curve: 'smooth', width: 2 },
-                                xaxis: { type: 'datetime', categories: years },
-                                tooltip: { x: { format: 'yyyy' } },
-                                legend: { offsetY: 20, height: 52 },
-                            });
-
-                            chart.render();
-
-                            const dropdownButton = document.getElementById('dropdownButton');
-                            const dropdownMenu = document.getElementById('dropdownMenu');
-                            const selectedFilterText = document.getElementById('selectedFilter');
-
-                            function filterData(filter) {
-                                const now = new Date();
-                                let filteredYears = [];
-
-                                switch (filter) {
-                                    case 'today':
-                                    case 'month':
-                                        filteredYears = [now.getFullYear().toString()];
-                                        break;
-                                    case 'year':
-                                        filteredYears = years.filter((year) => parseInt(year) >= now.getFullYear() - 4);
-                                        break;
-                                    default:
-                                        filteredYears = years;
-                                        break;
-                                }
-
-                                chart.updateOptions({
-                                    xaxis: { categories: filteredYears },
-                                    series: [
-                                        {
-                                            name: '{{ __('Makesta') }}',
-                                            data: filteredYears.map((year) => makestaCounts[year] || 0),
-                                        },
-                                        {
-                                            name: '{{ __('Lakmud') }}',
-                                            data: filteredYears.map((year) => lakmudCounts[year] || 0),
-                                        },
-                                        {
-                                            name: '{{ __('Lakut') }}',
-                                            data: filteredYears.map((year) => lakutCounts[year] || 0),
-                                        },
-                                        {
-                                            name: '{{ __('Latinpel') }}',
-                                            data: filteredYears.map((year) => latinpelCounts[year] || 0),
-                                        },
-                                    ],
-                                });
-                            }
-
-                            document.addEventListener('click', (event) => {
-                                const target = event.target;
-
-                                if (dropdownMenu.contains(target)) {
-                                    if (target.classList.contains('dropdown-item')) {
-                                        event.preventDefault();
-
-                                        document
-                                            .querySelectorAll('.dropdown-item')
-                                            .forEach((item) => item.classList.remove('active'));
-                                        target.classList.add('active');
-
-                                        if (selectedFilterText) {
-                                            selectedFilterText.textContent = target.textContent;
-                                        }
-
-                                        filterData(target.dataset.filter);
-
-                                        const dropdown = new bootstrap.Dropdown(dropdownButton);
-                                        dropdown.hide();
-                                    }
-                                } else {
-                                    dropdownMenu.classList.remove('show');
-                                }
-                            });
-
-                            dropdownButton.addEventListener('click', (event) => {
-                                event.stopPropagation();
-                                dropdownMenu.classList.toggle('show');
-                            });
-
-                            window.addEventListener('scroll', () => {
-                                const buttonRect = dropdownButton.getBoundingClientRect();
-                                if (buttonRect.bottom + dropdownMenu.offsetHeight > window.innerHeight) {
-                                    dropdownMenu.classList.add('dropup');
-                                } else {
-                                    dropdownMenu.classList.remove('dropup');
-                                }
-                            });
-                        });
+                        window.chartLables = {
+                            makesta: '{{ __('Makesta') }}',
+                            lakmud: '{{ __('Lakmud') }}',
+                            lakut: '{{ __('lakut') }}',
+                            latinpel: '{{ __('Latinpel') }}',
+                        };
                     </script>
                 </div>
             </div>
@@ -262,22 +137,37 @@
 
         <div class="col-12">
             <div class="card">
-                <div class="filter">
-                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                        <li class="dropdown-header text-start">
-                            <h6>{{ __('Filter') }}</h6>
-                        </li>
-
-                        <li><a class="dropdown-item" href="#">{{ __('Hari Ini') }}</a></li>
-                        <li><a class="dropdown-item" href="#">{{ __('Bulan Ini') }}</a></li>
-                        <li><a class="dropdown-item" href="#">{{ __('Tahun ini') }}</a></li>
-                    </ul>
-                </div>
                 <div class="card-body p-4">
-                    <h5 class="card-title align-items-baseline fs-4 mb-4">
-                        {{ __('Data Postingan Berita') }}
-                    </h5>
+                    <div class="card-header d-flex justify-content-between align-items-center mb-4 border-0 bg-white">
+                        <h5 class="card-title fw-bold align-items-baseline fs-4 d-flex mb-0">
+                            {{ __('Data Postingan Berita') }}
+                        </h5>
+                        <div class="dropdown rounded filter" data-target="news">
+                            <button
+                                class="btn text-secondary fs-6 border-secondary-subtle dropdown-btn"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                type="button"
+                                id="dropdownButton"
+                            >
+                                <span id="selectedFilter">{{ __('Semua') }}</span>
+                                <i class="bi bi-filter ms-1"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" id="dropdownMenu">
+                                <li>
+                                    <a class="dropdown-item active" href="#" data-filter="all">
+                                        {{ __('Semua') }}
+                                    </a>
+                                </li>
+                                <li><a class="dropdown-item" href="#" data-filter="today">{{ __('Hari Ini') }}</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="#" data-filter="month">{{ __('Bulan Ini') }}</a>
+                                </li>
+                                <li><a class="dropdown-item" href="#" data-filter="year">{{ __('Tahun ini') }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <table class="table-bordered table-hover text-nowrap table">
                         <thead>
                             <tr>
@@ -286,13 +176,15 @@
                                 <th>{{ __('Kategori') }}</th>
                                 <th>{{ __('Penulis') }}</th>
                                 <th>{{ __('Status') }}</th>
+                                <th>{{ __('Dibuat pada') }}</th>
+                                <th>{{ __('Diperbarui pada') }}</th>
                                 <th>{{ __('Aksi') }}</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($posts as $post)
-                                <tr>
-                                    <td>{{ $post->id }}</td>
+                        <tbody id="newsTable">
+                            @foreach ($news as $post)
+                                <tr data-updated="{{ $post->formatted_updated_date }}">
+                                    <td class="text-center">{{ $loop->iteration }}</td>
                                     <td>{{ Str::limit($post->title, 50) }}</td>
                                     <td>{{ $post->category->title }}</td>
                                     <td>{{ $post->user->username }}</td>
@@ -303,6 +195,8 @@
                                             <span class="badge bg-danger">{{ __('Nonaktif') }}</span>
                                         @endif
                                     </td>
+                                    <td>{{ \Carbon\Carbon::parse($post->created_at)->format('d M Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($post->updated_at)->format('d M Y') }}</td>
                                     <td>
                                         <form
                                             action="{{ route('news.destroy', $post->id) }}"
