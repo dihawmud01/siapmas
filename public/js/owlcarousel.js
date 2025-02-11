@@ -46,8 +46,8 @@
         loop: true,
         nav : true,
         navText : [
-            '<i class="fa fa-angle-left"></i>',
-            '<i class="fa fa-angle-right"></i>'
+            '<i class="bi bi-chevron-compact-left"></i>',
+            '<i class="bi bi-chevron-compact-right"></i>'
         ]
     });
 
@@ -59,8 +59,8 @@
         loop: true,
         nav : true,
         navText : [
-            '<i class="fa fa-angle-left" aria-hidden="true"></i>',
-            '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+            '<i class="bi bi-chevron-compact-left" aria-hidden="true"></i>',
+            '<i class="bi bi-chevron-compact-right" aria-hidden="true"></i>'
         ]
     });
 
@@ -72,8 +72,8 @@
         loop: true,
         nav : true,
         navText : [
-            '<i class="fa fa-angle-left" aria-hidden="true"></i>',
-            '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+            '<i class="bi bi-chevron-compact-left" aria-hidden="true"></i>',
+            '<i class="bi bi-chevron-compact-right" aria-hidden="true"></i>'
         ],
         responsive: {
             0:{
@@ -96,8 +96,8 @@
         loop: true,
         nav : true,
         navText : [
-            '<i class="fa fa-angle-left" aria-hidden="true"></i>',
-            '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+            '<i class="bi bi-chevron-compact-left" aria-hidden="true"></i>',
+            '<i class="bi bi-chevron-compact-right" aria-hidden="true"></i>'
         ],
         responsive: {
             0:{
@@ -123,8 +123,8 @@
         loop: true,
         nav : true,
         navText : [
-            '<i class="fa fa-angle-left" aria-hidden="true"></i>',
-            '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+            '<i class="bi bi-chevron-compact-left" aria-hidden="true"></i>',
+            '<i class="bi bi-chevron-compact-right" aria-hidden="true"></i>'
         ],
         responsive: {
             0:{
