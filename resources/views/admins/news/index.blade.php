@@ -30,7 +30,7 @@
                                         {{ __('Tambah') }}
                                     </a>
                                 </div>
-                                @if (count($posts))
+                                @if (count($news))
                                     <div class="table-responsive">
                                         <table class="table-bordered table-hover text-nowrap table">
                                             <thead>
@@ -44,7 +44,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($posts as $post)
+                                                @foreach ($news as $post)
                                                     <tr>
                                                         <td>{{ $post->id }}</td>
                                                         <td>{{ Str::limit($post->title, 50) }}</td>
@@ -68,7 +68,7 @@
                                                                 class="float-left"
                                                             >
                                                                 <a
-                                                                    href="{{ route('article.index', ['slug' => $post->slug]) }}"
+                                                                    href="{{ route('news.index', ['slug' => $post->slug]) }}"
                                                                     class="btn btn-info btn-sm float-left mr-1"
                                                                     target="_blank"
                                                                 >
@@ -101,7 +101,7 @@
                                 @endif
                             </div>
                             <div class="card-footer">
-                                {!! $posts->links() !!}
+                                {!! $news->links() !!}
                             </div>
                         </div>
                     </div>
