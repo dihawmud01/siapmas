@@ -28,7 +28,7 @@ class ProfileController extends Controller
     {
         $profile = Auth::user();
 
-        $posts = News::where('user_id', '=', $profile->id)
+        $news = News::where('user_id', '=', $profile->id)
             ->with('category', 'comments', 'user')
             ->where('active', 1)
             ->orderBy('created_at', 'desc')
@@ -49,7 +49,7 @@ class ProfileController extends Controller
 
         return view(
             'users.profile',
-            compact('tags', 'user', 'profile', 'postCounts', 'categories', 'libraryCounts', 'posts', 'libraryProfiles'),
+            compact('tags', 'user', 'profile', 'postCounts', 'categories', 'libraryCounts', 'news', 'libraryProfiles'),
         );
     }
 
@@ -249,23 +249,20 @@ class ProfileController extends Controller
         $user = Auth::user();
         $profile = User::where('slug', $slug)->firstOrFail();
 
-        $posts = News::where('user_id', '=', $profile->id)
+        $news = News::where('user_id', '=', $profile->id)
             ->with('category', 'comments', 'user')
             ->where('active', 1)
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $libraryProfiles = Library::where('user_id', $profile->id)->get();
+        //        $libraryProfiles = Library::where('user_id', $profile->id)->get();
 
         $postCounts = News::where('user_id', '=', $profile->id)
             ->where('active', 1)
             ->count();
 
-        $libraryCounts = Library::where('user_id', '=', $profile->id)->count();
+        //        $libraryCounts = Library::where('user_id', '=', $profile->id)->count();
 
-        return view(
-            'users.user-profile',
-            compact('user', 'profile', 'postCounts', 'libraryCounts', 'posts', 'libraryProfiles'),
-        );
+        return view('users.user-profile', compact('user', 'profile', 'postCounts', 'news'));
     }
 }
