@@ -1,16 +1,16 @@
 <div class="card">
-    <div class="filter">
-        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-            <li class="dropdown-header text-start">
-                <h6>{{ __('Filter') }}</h6>
-            </li>
+    {{-- <div class="filter"> --}}
+    {{-- <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a> --}}
+    {{-- <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"> --}}
+    {{-- <li class="dropdown-header text-start"> --}}
+    {{-- <h6>{{ __('Filter') }}</h6> --}}
+    {{-- </li> --}}
 
-            <li><a class="dropdown-item" href="#">{{ __('Hari Ini') }}</a></li>
-            <li><a class="dropdown-item" href="#">{{ __('Bulan Ini') }}</a></li>
-            <li><a class="dropdown-item" href="#">{{ __('Tahun Ini') }}</a></li>
-        </ul>
-    </div>
+    {{-- <li><a class="dropdown-item" href="#">{{ __('Hari Ini') }}</a></li> --}}
+    {{-- <li><a class="dropdown-item" href="#">{{ __('Bulan Ini') }}</a></li> --}}
+    {{-- <li><a class="dropdown-item" href="#">{{ __('Tahun Ini') }}</a></li> --}}
+    {{-- </ul> --}}
+    {{-- </div> --}}
 
     <div class="card-body p-5">
         <h5 class="card-title fw-bold fs-4 mb-4">
@@ -26,12 +26,13 @@
                         trigger: 'item',
                     },
                     legend: {
-                        top: '5%',
+                        bottom: '0',
                         left: 'center',
+                        orient: 'horizontal',
                     },
                     series: [
                         {
-                            name: '{{ __('Akses Dari') }}',
+                            name: '{{ __('Jenis Kelamin') }}',
                             type: 'pie',
                             radius: ['40%', '70%'],
                             avoidLabelOverlap: false,
