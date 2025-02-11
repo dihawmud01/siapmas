@@ -1,5 +1,5 @@
 <aside id="sidebar" class="sidebar p-4">
-    <ul class="sidebar-nav" id="sidebar-nav">
+    <ul class="sidebar-nav" id="sidebarNav">
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('index') }}/">
                 <i class="bi bi-house-door"></i>
@@ -9,7 +9,7 @@
 
         <li class="nav-item">
             <a
-                class="nav-link {{ request()->routeIs('dashboard') ? ' active' : ' collapsed' }}"
+                class="nav-link {{ request()->routeIs('dashboard') ? ' active' : ' collapsed text-dark' }}"
                 href="{{ route('dashboard') }}"
             >
                 <i class="bi bi-grid"></i>
@@ -22,7 +22,7 @@
         </li>
         <li class="nav-item">
             <a
-                class="nav-link {{ request()->routeIs('users.*') ? ' active' : ' collapsed' }}"
+                class="nav-link {{ request()->routeIs('users.*') ? ' active' : ' collapsed text-dark' }}"
                 href="{{ route('users.index') }}"
             >
                 <i class="bi bi-people"></i>
@@ -31,33 +31,49 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+            <a
+                class="nav-link collapsible text-dark {{ request()->routeIs('makesta') || request()->routeIs('lakmud') || request()->routeIs('lakut') || request()->routeIs('latinpel') ? '' : 'collapsed' }} bg-transparent"
+                data-toggle="custom-collapse"
+                data-target="#collapseCadre"
+                href="#"
+            >
                 <i class="bi bi-menu-button-wide"></i>
                 <span>{{ __('Kaderisasi') }}</span>
                 <i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <ul
+                id="collapseCadre"
+                class="nav-content {{ request()->routeIs('makesta') || request()->routeIs('lakmud') || request()->routeIs('lakut') || request()->routeIs('latinpel') ? 'show' : '' }}"
+            >
                 <li>
-                    <a href="{{ route('makesta') }}">
-                        <i class="bi bi-circle"></i>
+                    <a
+                        href="{{ route('makesta') }}"
+                        class="text-dark text-decoration-none {{ request()->routeIs('makesta') ? 'active' : '' }}"
+                    >
                         <span>{{ __('Makesta') }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('lakmud') }}">
-                        <i class="bi bi-circle"></i>
+                    <a
+                        href="{{ route('lakmud') }}"
+                        class="text-dark text-decoration-none {{ request()->routeIs('lakmud') ? 'active' : '' }}"
+                    >
                         <span>{{ __('Lakmud') }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('lakut') }}">
-                        <i class="bi bi-circle"></i>
+                    <a
+                        href="{{ route('lakut') }}"
+                        class="text-dark text-decoration-none {{ request()->routeIs('lakut') ? 'active' : '' }}"
+                    >
                         <span>{{ __('Lakut') }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('latinpel') }}">
-                        <i class="bi bi-circle"></i>
+                    <a
+                        href="{{ route('latinpel') }}"
+                        class="text-dark text-decoration-none {{ request()->routeIs('latinpel') ? 'active' : '' }}"
+                    >
                         <span>{{ __('Latinpel') }}</span>
                     </a>
                 </li>
@@ -68,7 +84,7 @@
             @if (in_array(auth()->user()->role_id, [1, 2]))
                 <li class="nav-item">
                     <a
-                        class="nav-link{{ request()->routeIs('pac.*') ? ' active' : ' collapsed' }}"
+                        class="nav-link{{ request()->routeIs('pac.*') ? ' active' : ' collapsed text-dark' }}"
                         href="{{ route('pac.index') }}"
                     >
                         <i class="bi bi-exclude"></i>
@@ -80,31 +96,40 @@
 
         <li class="nav-item">
             <a
-                class="nav-link collapsed"
-                data-bs-target="#tables-nav"
-                data-bs-toggle="collapse"
-                href="{{ route('news.index') }}"
+                class="nav-link collapsible text-dark {{ request()->routeIs('news.index') || request()->routeIs('categories.index') || request()->routeIs('tags.index') ? '' : 'collapsed' }} bg-transparent"
+                data-toggle="custom-collapse"
+                data-target="#collapseNews"
+                href="#"
             >
                 <i class="bi bi-layout-text-window-reverse"></i>
                 <span>{{ __('Berita') }}</span>
                 <i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="tables-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <ul
+                id="collapseNews"
+                class="nav-content {{ request()->routeIs('news.index') || request()->routeIs('categories.index') || request()->routeIs('tags.index') ? 'show' : '' }}"
+            >
                 <li>
-                    <a href="{{ route('news.index') }}">
-                        <i class="bi bi-circle"></i>
+                    <a
+                        href="{{ route('news.index') }} "
+                        class="text-dark text-decoration-none {{ request()->routeIs('news.index') ? 'active' : '' }}"
+                    >
                         <span>{{ __('List Berita') }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('categories.index') }}">
-                        <i class="bi bi-circle"></i>
+                    <a
+                        href="{{ route('categories.index') }}"
+                        class="text-dark text-decoration-none {{ request()->routeIs('categories.index') ? 'active' : '' }}"
+                    >
                         <span>{{ __('Kategori Berita') }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('tags.index') }}">
-                        <i class="bi bi-circle"></i>
+                    <a
+                        href="{{ route('tags.index') }}"
+                        class="text-dark text-decoration-none {{ request()->routeIs('tags.index') ? 'active' : '' }}"
+                    >
                         <span>{{ __('Tags') }}</span>
                     </a>
                 </li>
@@ -113,7 +138,7 @@
 
         <li class="nav-item">
             <a
-                class="nav-link {{ request()->routeIs('admin.calendar.*') ? ' active' : ' collapsed' }}"
+                class="nav-link {{ request()->routeIs('admin.calendar.*') ? ' active' : ' collapsed text-dark' }}"
                 href="{{ route('admin.calendar.index') }}"
             >
                 <i class="bi bi-calendar-date"></i>
@@ -135,7 +160,7 @@
             @if (in_array(auth()->user()->role_id, [1]))
                 <li class="nav-item">
                     <a
-                        class="nav-link {{ request()->routeIs('admins') ? ' active' : ' collapsed' }}"
+                        class="nav-link {{ request()->routeIs('admins') ? ' active' : ' collapsed text-dark' }}"
                         href="{{ route('admins') }}"
                     >
                         <i class="bi bi-people"></i>
@@ -144,7 +169,7 @@
                 </li>
                 <li class="nav-item">
                     <a
-                        class="nav-link {{ request()->routeIs('pages.*') ? ' active' : ' collapsed' }}"
+                        class="nav-link {{ request()->routeIs('pages.*') ? ' active' : ' collapsed text-dark' }}"
                         href="{{ route('pages.index') }}"
                     >
                         <i class="bi bi-menu-button-wide"></i>
@@ -153,7 +178,7 @@
                 </li>
                 <li class="nav-item">
                     <a
-                        class="nav-link {{ request()->routeIs('quotes.*') ? ' active' : ' collapsed' }}"
+                        class="nav-link {{ request()->routeIs('quotes.*') ? ' active' : ' collapsed text-dark' }}"
                         href="{{ route('quotes.index') }}"
                     >
                         <i class="bi bi-chat-left-text"></i>
@@ -162,7 +187,7 @@
                 </li>
                 <li class="nav-item">
                     <a
-                        class="nav-link {{ request()->routeIs('administrators.*') ? ' active' : ' collapsed' }}"
+                        class="nav-link {{ request()->routeIs('administrators.*') ? ' active' : ' collapsed text-dark' }}"
                         href="{{ route('administrators.index') }}"
                     >
                         <i class="bi bi-person-lines-fill"></i>

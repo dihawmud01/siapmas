@@ -3,39 +3,30 @@
 @endsection
 
 @extends('admins.layout')
+@section('page_title', __('Berita'))
+@section('path', __('Edit'))
+
 @section('content')
-    <div class="card info-card sales-card">
-        <div class="container">
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">{{ __('Postingan') }} "{{ $post->title }}"</h3>
-                                </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card info-card sales-card">
+                <div class="card-body p-4">
+                    <h5 class="card-title fw-bold fs-5 mb-3">{{ __('Edit Postingan') }}: "{{ $news->title }}"</h5>
 
-                                <form
-                                    role="form"
-                                    method="post"
-                                    action="{{ route('news.update', $post->id) }}"
-                                    enctype="multipart/form-data"
-                                >
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="card-body">
-                                        @include('admins.news.form')
-                                    </div>
+                    <form method="POST" action="{{ route('news.update', $news->id) }}" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
 
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">{{ __('Simpan') }}</button>
-                                    </div>
-                                </form>
-                            </div>
+                        <div class="card-body">
+                            @include('admins.news.form')
                         </div>
-                    </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success">{{ __('Simpan') }}</button>
+                        </div>
+                    </form>
                 </div>
-            </section>
+            </div>
         </div>
     </div>
 @endsection

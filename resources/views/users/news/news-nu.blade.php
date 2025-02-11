@@ -65,14 +65,14 @@
                                     <div class="">
                                         <a
                                             class="badge badge-primary text-uppercase font-weight-semi-bold mr-2 pt-1"
-                                            href="{{ route('articles.nu', ['slug' => $nuOnline['slug']]) }}"
+                                            href="{{ route('news.nu', ['slug' => $nuOnline['slug']]) }}"
                                         >
                                             {{ $nuOnline['categories']['name'] }}
                                         </a>
                                     </div>
                                     <a
                                         class="h6 text-secondary font-weight-bold m-0"
-                                        href="{{ route('articles.nu', ['slug' => $nuOnline['slug']]) }}"
+                                        href="{{ route('news.nu', ['slug' => $nuOnline['slug']]) }}"
                                     >
                                         {{ Str::limit($nuOnline['title'], 30) }}
                                     </a>

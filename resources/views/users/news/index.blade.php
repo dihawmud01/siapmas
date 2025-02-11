@@ -15,12 +15,13 @@
                                     class="img-fluid h-100"
                                     src="{{ asset('storage/images/' . $news->img) }}"
                                     style="object-fit: cover"
+                                    p
                                     alt="{{ $news->title }}"
                                 />
                             @endif
 
                             <div class="overlay">
-                                <div class="mb-2 overflow-hidden">
+                                <div class="d-flex align-items-center mb-2 overflow-hidden">
                                     <a
                                         class="badge badge-primary text-uppercase font-weight-semi-bold mr-2 p-2"
                                         href="{{ route('categories', ['slug' => $news->category->slug]) }}"
@@ -33,7 +34,7 @@
                                 </div>
                                 <a
                                     class="h3 font-weight-bold text-decoration-none m-0 text-white"
-                                    href="{{ route('articles.index', ['slug' => $news->slug]) }}"
+                                    href="{{ route('news.show', ['slug' => $news->slug]) }}"
                                 >
                                     {{ $news->title }}
                                 </a>
@@ -57,9 +58,9 @@
                                 @endif
 
                                 <div class="overlay">
-                                    <div class="mb-2">
+                                    <div class="d-flex align-items-center mb-2">
                                         <a
-                                            class="badge badge-warning text-uppercase font-weight-semi-bold mb-2 mr-2 p-2"
+                                            class="badge badge-warning text-uppercase font-weight-semi-bold me-2 p-2"
                                             href="{{ route('categories', ['slug' => $news->category->slug]) }}"
                                         >
                                             {{ $news->category->title }}
@@ -70,7 +71,7 @@
                                     </div>
                                     <a
                                         class="h6 font-weight-semi-bold m-0 text-white"
-                                        href="{{ route('articles.index', ['slug' => $news->slug]) }}"
+                                        href="{{ route('news.show', ['slug' => $news->slug]) }}"
                                     >
                                         {{ Str::limit($news->title, 50) }}
                                     </a>
@@ -102,7 +103,7 @@
                                 <div class="text-truncate">
                                     <a
                                         class="font-weight-semi-bold text-white"
-                                        href="{{ route('articles.index', ['slug' => $news->slug]) }}"
+                                        href="{{ route('news.show', ['slug' => $news->slug]) }}"
                                     >
                                         {{ Str::limit($news->title, 50) }}
                                     </a>
@@ -115,12 +116,12 @@
         </div>
     </div>
 
-    <div class="container-fluid mb-3 pt-5">
+    <div class="container-fluid mb-5 pt-5">
         <div class="container">
             <div class="section-title rounded">
                 <h4 class="font-weight-bold m-0">{{ __('Berita Unggulan') }}</h4>
             </div>
-            <div class="container p-0">
+            <div class="container mb-0 p-0">
                 <div class="owl-carousel news-carousel carousel-item-4 position-relative">
                     @foreach ($oldNews->take(7) as $news)
                         <div class="position-relative overflow-hidden rounded" style="height: 300px">
@@ -134,7 +135,7 @@
                             @endif
 
                             <div class="overlay">
-                                <div class="mb-2">
+                                <div class="d-flex align-items-center mb-2">
                                     <a
                                         class="badge badge-primary text-uppercase font-weight-semi-bold mr-2 p-2"
                                         href="{{ route('categories', ['slug' => $news->category->slug]) }}"
@@ -144,7 +145,7 @@
                                 </div>
                                 <a
                                     class="h6 font-weight-semi-bold m-0 text-white"
-                                    href="{{ route('articles.index', ['slug' => $news->slug]) }}"
+                                    href="{{ route('news.show', ['slug' => $news->slug]) }}"
                                 >
                                     {{ Str::limit($news->title, 50) }}
                                 </a>
@@ -163,9 +164,9 @@
                             <div class="col-12">
                                 <div class="section-title rounded">
                                     <h4 class="font-weight-bold m-0">{{ __('Berita Terbaru') }}</h4>
-                                    <a class="text-secondary font-weight-medium text-decoration-none" href="">
-                                        {{ __('Lihat Semua') }}
-                                    </a>
+                                    {{-- <a class="text-success font-weight-medium text-decoration-none" href=""> --}}
+                                    {{-- {{ __('Lihat Semua') }} --}}
+                                    {{-- </a> --}}
                                 </div>
                             </div>
 
@@ -187,18 +188,18 @@
                                         <div
                                             class="w-100 h-100 d-flex flex-column justify-content-center border-left-0 rounded-end-1 border px-3"
                                         >
-                                            <div class="mb-0">
+                                            <div class="mb-1">
                                                 <a
-                                                    class="badge badge-primary text-uppercase font-weight-semi-bold mb-1 mr-2 p-2"
+                                                    class="badge badge-primary text-uppercase font-weight-semi-bold me-2 p-2"
                                                     href="{{ route('categories', ['slug' => $news->category->slug]) }}"
                                                 >
                                                     {{ $news->category->title }}
                                                 </a>
                                             </div>
-                                            <div class="mb-2">
+                                            <div class="mb-1">
                                                 <a
-                                                    class="h6 text-secondary font-weight-bold m-0"
-                                                    href="{{ route('articles.index', ['slug' => $news->slug]) }}"
+                                                    class="h6 text-dark font-weight-bold m-0"
+                                                    href="{{ route('news.show', ['slug' => $news->slug]) }}"
                                                 >
                                                     {{ Str::limit($news->title, 30) }}
                                                 </a>
@@ -227,8 +228,8 @@
                         <div class="section-title rounded">
                             <h4 class="font-weight-bold m-0">{{ __('Nu Online') }}</h4>
                             <a
-                                class="text-secondary font-weight-medium text-decoration-none"
-                                href="https://www.nu.or.id/indeks"
+                                class="text-success font-weight-medium text-decoration-none"
+                                href="{{ url('https://www.nu.or.id/indeks') }}"
                             >
                                 {{ __('Lihat Semua') }}
                             </a>
@@ -250,23 +251,25 @@
                                 <div
                                     class="w-100 h-100 d-flex flex-column justify-content-center border-left-0 rounded border px-3"
                                 >
-                                    <div class="mb-2">
+                                    <div class="mb-1">
                                         <a
                                             class="badge badge-primary text-uppercase font-weight-semi-bold mr-2 p-2"
-                                            href="{{ route('articles.nu', ['slug' => $nuOnline['slug']]) }}"
+                                            href="{{ route('news.nu', ['slug' => $nuOnline['slug']]) }}"
                                         >
                                             {{ $nuOnline['category']['name'] }}
                                         </a>
                                     </div>
-                                    <div class="mb-2">
+                                    <div class="mb-1">
                                         <a
-                                            class="h6 text-secondary font-weight-bold m-0"
-                                            href="{{ route('articles.nu', ['slug' => $nuOnline['slug']]) }}"
+                                            class="h6 text-dark font-weight-bold m-0"
+                                            href="{{ route('news.nu', ['slug' => $nuOnline['slug']]) }}"
                                         >
                                             {{ Str::limit($nuOnline['title'], 40) }}
                                         </a>
                                     </div>
-                                    <p class="text-secondary"><small>{{ $nuOnline['date']['published'] }}</small></p>
+                                    <p class="text-secondary mb-0">
+                                        <small>{{ $nuOnline['date']['published'] }}</small>
+                                    </p>
                                 </div>
                             </div>
                         </div>

@@ -7,12 +7,7 @@
 @section('content')
     <section id="hero" class="mb-5">
         <div class="hero-container">
-            <div
-                id="heroCarousel"
-                class="carousel slide carousel-fade"
-                data-bs-ride="carousel"
-                data-bs-interval="20000"
-            >
+            <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
                 <ol id="hero-carousel-indicators" class="carousel-indicators"></ol>
 
                 <div class="carousel-inner" role="listbox">
@@ -47,7 +42,7 @@
                                     <h2 class="animate__animated animate__fadeInDown mb-2">{{ $value['title'] }}</h2>
                                     <a
                                         href="{{ route('login') }}"
-                                        class="btn-get-started scrollto animate__animated animate__fadeInUp rounded-4 p-4"
+                                        class="btn-get-started scrollto animate__animated animate__fadeInUp rounded-4 fw-semibold p-4"
                                     >
                                         {{ __('Mulai Sekarang') }}
                                     </a>
@@ -255,7 +250,7 @@
                             },
                             series: [
                                 {
-                                    name: '{{ __('Gender') }}',
+                                    name: '{{ __('Jenis Kelamin') }}',
                                     type: 'pie',
                                     radius: ['40%', '70%'],
                                     avoidLabelOverlap: false,
@@ -465,7 +460,7 @@
                                     <i class="bi bi-plus text-dark"></i>
                                 </a>
                                 <a
-                                    href="{{ route('news', ['slug' => $news->slug]) }}"
+                                    href="{{ route('news.show', ['slug' => $news->slug]) }}"
                                     class="link-details"
                                     title="More Details"
                                 >
@@ -493,7 +488,7 @@
     <section id="quote" class="section-bg p-5">
         <div class="container" data-aos="fade-up">
             <header class="section-header">
-                <h3 style="text-transform: inherit">{{ __('Quotes Of The Day') }}</h3>
+                <h3 style="text-transform: inherit">{{ __('QUOTES OF THE DAY') }}</h3>
             </header>
 
             <div class="quote-details-slider swiper" data-aos="fade-up" data-aos-delay="100">
@@ -512,13 +507,13 @@
                                 <p>
                                     <img
                                         src="{{ asset('assets/images/quote-sign-left.png') }}"
-                                        class="quote-sign-left"
+                                        class="quote-sign-left me-2"
                                         alt=""
                                     />
                                     {{ $quote->quote }}
                                     <img
                                         src="{{ asset('assets/images/quote-sign-right.png') }}"
-                                        class="quote-sign-right"
+                                        class="quote-sign-right ms-2"
                                         alt=""
                                     />
                                 </p>

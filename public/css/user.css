@@ -9,7 +9,7 @@
 body {
     background: #fff;
     color: #666666;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 
 a {
@@ -904,7 +904,7 @@ section {
 }
 
 #skills .progress .skill {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Montserrat", sans-serif;
     line-height: 35px;
     padding: 0;
     margin: 0 0 0 20px;
@@ -1197,12 +1197,12 @@ section {
 }
 
 .box {
-    font-family: "Merriweather Sans", sans-serif;
+    font-family: "Montserrat", sans-serif;
     width: 100%;
     height: 220px;
     border-radius: 25px;
     border: solid 4px #e0d8d8;
-    background: color #cec1bf;
+    background-color: #cec1bf;
     overflow: hidden;
     position: relative;
     z-index: 1;
@@ -2308,7 +2308,7 @@ section {
 }
 
 #footer .footer-top .social-links a {
-    display: inline-block;
+    /*display: inline-block;*/
     background: #333;
     color: #eee;
     line-height: 1;
@@ -2443,4 +2443,8 @@ section {
 
 .logo-text {
     width: 196px;
+}
+
+tbody {
+    font-family: 'Montserrat', sans-serif;
 }

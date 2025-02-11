@@ -25,12 +25,7 @@
         <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet" />
         <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet" />
 
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-            crossorigin="anonymous"
-        />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.css" crossorigin />
 
         @vite([])
@@ -50,9 +45,13 @@
                         </li>
                         @if (Route::is('makesta') || Route::is('lakmud') || Route::is('lakut') || Route::is('latinpel'))
                             <li class="breadcrumb-item">@yield('path', __('Default'))</li>
+                            <li class="breadcrumb-item active">@yield('page_title', __('Default'))</li>
+                        @elseif (Route::is('news.edit'))
+                            <li class="breadcrumb-item">@yield('page_title', __('Default'))</li>
+                            <li class="breadcrumb-item active">@yield('path', __('Default'))</li>
+                        @else
+                            <li class="breadcrumb-item active">@yield('page_title', __('Default'))</li>
                         @endif
-
-                        <li class="breadcrumb-item active">@yield('page_title', __('Default'))</li>
                     </ol>
                 </nav>
             </div>
@@ -77,14 +76,9 @@
 
         @include('sweetalert::alert')
 
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"
-        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script src="{{ asset('js/admin.js') }}"></script>
-        <script src="{{ asset('js/statistic.js') }}"></script>
     </body>
 </html>

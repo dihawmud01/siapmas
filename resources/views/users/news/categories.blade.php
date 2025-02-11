@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid my-5 pt-5">
-        <div class="container">
+    <div class="container-fluid news-container">
+        <div class="container my-5 py-5">
             <div class="row">
                 <div class="col-lg-8">
                     <div class="section-title mb-4 rounded">
@@ -39,7 +39,7 @@
                                             </a>
 
                                             <a
-                                                href="{{ route('news', ['slug' => $post->slug]) }}"
+                                                href="{{ route('news.show', ['slug' => $post->slug]) }}"
                                                 class="h6 text-dark fw-bold w-100 mb-1"
                                             >
                                                 {{ __(Str::limit($post->title, 60)) }}

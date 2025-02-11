@@ -36,7 +36,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
         <script src="{{ asset('assets/vendor/owlcarousel/owl.carousel.min.js') }}"></script>
-        <script src="{{ asset('js/owlcarousel.js') }}"></script>
 
         <script
             async
@@ -81,6 +80,7 @@
         <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
         <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
         <script src="{{ asset('js/user.js') }}"></script>
+        <script src="{{ asset('js/owlcarousel.js') }}"></script>
 
         @include('sweetalert::alert')
     </body>

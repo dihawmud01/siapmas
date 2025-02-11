@@ -24,7 +24,7 @@
                     style="box-shadow: 0 0 30px rgba(1, 41, 112, 0.1)"
                 >
                     <table class="table-hover mb-0 table">
-                        <tr>
+                        <tr class="fs-5">
                             <th class="p-4 text-center">{{ __('No.') }}</th>
                             <th class="p-4 text-start">{{ __('Nama Kegiatan') }}</th>
                             <th class="p-4 text-start">{{ __('Penyelenggara') }}</th>
@@ -50,7 +50,7 @@
                     style="box-shadow: 0 0 30px rgba(1, 41, 112, 0.1)"
                 >
                     <table class="table-hover mb-0 table">
-                        <tr>
+                        <tr class="fs-5">
                             <th class="p-4 text-center">{{ __('No.') }}</th>
                             <th class="p-4 text-start">{{ __('Hari Besar') }}</th>
                             <th class="p-4 text-start">{{ __('Tanggal') }}</th>

@@ -7,6 +7,8 @@
 
         <link href="{{ asset('assets/images/favicon.png') }}" rel="icon" />
 
+        <link rel="stylesheet" href="{{ asset('css/login.css') }}" />
+
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
@@ -108,17 +110,24 @@
                                                     href="{{ route('password.request') }}"
                                                     style="text-decoration: none"
                                                 >
-                                                    <p class="text-secondary fs-6">{{ __('Lupa Kata Sandi') }}</p>
+                                                    <p class="text-secondary fs-6 text-success">
+                                                        {{ __('Lupa Kata Sandi') }}
+                                                    </p>
                                                 </a>
                                                 <a
                                                     href="{{ route('validation.index') }}"
                                                     style="text-decoration: none"
                                                 >
-                                                    <p class="text-secondary fs-6">{{ __('Belum Punya Akun?') }}</p>
+                                                    <p class="text-secondary fs-6 text-success">
+                                                        {{ __('Belum Punya Akun?') }}
+                                                    </p>
                                                 </a>
                                             </div>
                                             <div class="d-flex justify-content-between mb-4">
-                                                <a href="{{ route('index') }}" class="btn btn-lg bg-transparent px-0">
+                                                <a
+                                                    href="{{ route('index') }}"
+                                                    class="btn btn-lg text-success bg-transparent px-0"
+                                                >
                                                     {{ __('Kembali') }}
                                                 </a>
                                                 <div>

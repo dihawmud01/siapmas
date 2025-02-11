@@ -705,11 +705,24 @@ h6 {
     align-items: center;
     font-size: 15px;
     font-weight: 600;
-    color: green;
+    /*color: green;*/
     transition: all 0.3s ease-in-out;
     background: #f6f9ff;
     padding: 10px 15px;
     border-radius: 4px;
+}
+
+.sidebar-nav .nav-link.active {
+    color: green;
+}
+
+.sidebar-nav .nav-link.collapsible:hover {
+    background: #f6f9ff !important;
+    color: green;
+}
+
+.sidebar-nav .nav-link.collapsible:hover i {
+    color: green !important;
 }
 
 .sidebar-nav .nav-link i {
@@ -719,7 +732,6 @@ h6 {
 }
 
 .sidebar-nav .nav-link.collapsed {
-    color: #1e1e1e;
     background: #fff;
 }
 
@@ -727,8 +739,12 @@ h6 {
     color: #899bbd;
 }
 
+.sidebar-nav .nav-link.collapsible i {
+    color: #899bbd;
+}
+
 .sidebar-nav .nav-link:hover {
-    color: green;
+    color: green !important;
     background: #f6f9ff;
 }
 
@@ -756,7 +772,6 @@ h6 {
     align-items: center;
     font-size: 14px;
     font-weight: 600;
-    color: #1e1e1e;
     padding: 10px 0 10px 40px;
     transition: 0.3s;
 }
@@ -770,11 +785,12 @@ h6 {
 
 .sidebar-nav .nav-content a:hover,
 .sidebar-nav .nav-content a.active {
-    color: green;
+    color: green !important;
+    background-color: #f6f9ff !important;
 }
 
 .sidebar-nav .nav-content a.active i {
-    background-color: green;
+    background-color: green !important;
 }
 
 /*--------------------------------------------------------------
@@ -1319,3 +1335,32 @@ h6 {
 .pagination .page-item:active .page-link {
     box-shadow: none;
 }
+
+.form-check-input:checked {
+    background-color: green !important;
+    border-color: green !important;
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 .25rem rgb(0, 123, 0, .25) !important;
+    border-color: green !important;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 .25rem rgb(0, 123, 0, .25) !important;
+    border-color: green !important;
+}
+
+.nav-content {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.nav-content.show {
+    max-height: 500px;
+    transition: max-height 0.5s ease-in;
+}
+
+

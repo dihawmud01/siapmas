@@ -4,11 +4,11 @@
 
 @extends('users.layout')
 @section('content')
-    <div class="container-fluid my-5 pt-5">
-        <div class="container">
+    <div class="container-fluid news-container">
+        <div class="container my-5 pt-5">
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="section-title mb-4">
+                    <div class="section-title mb-4 rounded">
                         <h4 class="text-uppercase font-weight-bold m-0">
                             {{ __('Berita berdasarkan hashtag') }} "#{{ $tag->title }}"
                         </h4>
@@ -17,7 +17,7 @@
                     <div class="row g-3">
                         @foreach ($news as $post)
                             <div class="col-md-6">
-                                <div class="card h-100 border-0 shadow-sm">
+                                <div class="card h-100 rounded border">
                                     <div class="d-flex">
                                         @if ($post->img)
                                             <img
@@ -30,15 +30,15 @@
 
                                         <div class="w-100 d-flex flex-column justify-content-between p-3">
                                             <a
-                                                class="badge badge-primary text-uppercase font-weight-semi-bold rounded-1 mb-1 p-2 text-white"
+                                                class="badge badge-primary text-uppercase font-weight-semi-bold mb-1 rounded p-2 text-white"
                                                 href="{{ route('categories', $post->category->slug) }}"
                                                 style="width: fit-content"
                                             >
                                                 {{ __($post->category->title) }}
                                             </a>
                                             <a
-                                                class="h6 text-dark text-uppercase fw-bold w-100 mb-1"
-                                                href="{{ route('news', ['slug' => $post->slug]) }}"
+                                                class="h6 text-dark fw-bold w-100 mb-1"
+                                                href="{{ route('news.show', ['slug' => $post->slug]) }}"
                                             >
                                                 {{ __(Str::limit($post->title, 60)) }}
                                             </a>

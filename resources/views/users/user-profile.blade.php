@@ -5,8 +5,8 @@
 @extends('users.layout')
 
 @section('content')
-    <div class="container my-4" style="padding-top: 5rem">
-        <header class="pt-3 pb-5 bg-white">
+    <div class="container-fluid px-0 mt-4" style="padding-top: 5rem">
+        <header class="pt-3 pb-5 bg-white min-vh-100">
             <div class="container d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center">
                     <img src="{{ asset('storage/images/'. $profile->img) }}" alt="{{ __('Profile Image') }}"
@@ -17,13 +17,13 @@
                             {{ $profile->username }}
 
                             @if($profile->check == '1')
-                                <i class="fas fa-check-circle text-primary"></i>
+                                <i class="bi bi-check text-success"></i>
                             @endif
 
                         </h1>
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center mb-2">
                             <span class="mr-4"><strong>{{ $postCounts }}</strong> {{ __('Postingan') }}</span>
-                            <span><strong>{{ $libraryCounts }}</strong> {{ __('Perpustakaan') }}</span>
+{{--                            <span><strong>{{ $libraryCounts }}</strong> {{ __('Perpustakaan') }}</span>--}}
                         </div>
 
                         @if($profile->cadre_level == 'Belum Makesta')
