@@ -88,7 +88,7 @@ h6 {
 }
 
 .back-to-top:hover {
-    background: #6776f4;
+    background: darkgreen;
     color: #fff;
 }
 
@@ -1300,4 +1300,22 @@ h6 {
 
 .logo-text .logo-text-secondary {
     font-size: 0.75rem;
+}
+
+.pagination .page-item .page-link {
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin: 0 4px;
+    color: green;
+    box-shadow: none;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: green;
+    color: white;
+    border-color: green;
+}
+
+.pagination .page-item:active .page-link {
+    box-shadow: none;
 }

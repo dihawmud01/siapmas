@@ -1156,7 +1156,7 @@ section {
 }
 
 .swiper-pagination-bullet-active {
-    background-color: green;
+    background-color: green !important;
 }
 
 .portfolio-details .portfolio-info {

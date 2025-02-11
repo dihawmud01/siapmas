@@ -26,7 +26,7 @@
 
             <li class="nav-item dropdown">
                 <a
-                    class="{{-- dropdown --}} d-flex align-items-center"
+                    class="{{-- dropdown --}} d-flex align-items-center text-decoration-none"
                     href="{{ route('logout') }}"
                 >
                     <i class="bi bi-box-arrow-right btn btn-danger m-4"><span>{{ __(' Keluar') }}</span></i>
