@@ -101,13 +101,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function filterNews(filter) {
-        let rows = document.querySelectorAll('#newsTable tbody tr');
+        let rows = document.querySelectorAll('#newsTable tr');
 
         rows.forEach((row) => {
             let dateText = row.getAttribute('data-updated');
             let show = true;
-
-            console.log("Row Date:", dateText);
 
             switch (filter) {
                 case 'today':
@@ -126,9 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     show = true;
             }
 
-            console.log("Filter:", filter, " | Show row?", show);
-
-            row.style.display = show || filter === 'today' ? '' : 'none';
+            row.style.display = show ? '' : 'none';
         });
     }
 
