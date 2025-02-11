@@ -16,23 +16,23 @@
                     @endif
 
                     <div class="w-100 h-100 d-flex flex-column justify-content-center rounded-end border px-3">
-                        <div class="">
+                        <div class="mb-1">
                             <a
                                 class="badge badge-primary text-uppercase font-weight-semi-bold mr-2 p-2"
                                 href="{{ route('categories', ['slug' => $news->category->slug]) }}"
                             >
                                 {{ $news->category->title }}
                             </a>
-                            <p class="text-body" style="padding: 0; margin: 0" href="">
-                                <small>{{ $news->views }} {{ __('Kali Dilihat') }}</small>
-                            </p>
                         </div>
                         <a
-                            class="h6 text-secondary font-weight-bold m-0"
-                            href="{{ route('news', ['slug' => $news->slug]) }}"
+                            class="h6 text-dark font-weight-bold mb-1"
+                            href="{{ route('news.show', ['slug' => $news->slug]) }}"
                         >
                             {{ Str::limit($news->title, 30) }}
                         </a>
+                        <p class="text-secondary" style="padding: 0; margin: 0" href="">
+                            <small>{{ $news->views }} {{ __('Kali Dilihat') }}</small>
+                        </p>
                     </div>
                 </div>
             @endforeach
@@ -46,7 +46,7 @@
                         @foreach ($newsCategories as $category)
                             <a
                                 href="{{ route('categories', ['slug' => $category->slug]) }}"
-                                class="btn btn-sm text-uppercase btn-outline-secondary m-1 rounded"
+                                class="btn btn-sm text-uppercase btn-outline-secondary category-btn m-1 rounded"
                             >
                                 {{ $category->title }}
                             </a>
@@ -64,7 +64,7 @@
                         @foreach ($tags as $tag)
                             <a
                                 href="{{ route('tag', $tag->slug) }}"
-                                class="btn btn-sm btn-outline-secondary m-1 rounded"
+                                class="btn btn-sm btn-outline-secondary category-btn m-1 rounded"
                             >
                                 {{ $tag->title }}
                             </a>
