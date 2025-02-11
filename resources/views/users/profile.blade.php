@@ -33,7 +33,7 @@
                         </div>
                         <div class="d-flex align-items-center">
                             <span class="mr-4"><strong>{{ $postCounts }}</strong> {{ __('Postingan') }}</span>
-                            <span><strong>{{ $libraryCounts }}</strong> {{ __('Perpustakaan') }}</span>
+{{--                            <span><strong>{{ $libraryCounts }}</strong> {{ __('Perpustakaan') }}</span>--}}
                         </div>
                         <p class="mt-2">{{ $profile->bio }}</p>
                     </div>
