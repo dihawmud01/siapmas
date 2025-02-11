@@ -66,8 +66,10 @@ document.addEventListener('DOMContentLoaded', () => {
             let targetType = dropdown.getAttribute('data-target');
             if (targetType === 'cadre') {
                 filterCadres(filterValue);
+                updateRowNumbers();
             } else if (targetType === 'news') {
                 filterNews(filterValue);
+                updateRowNumbers();
             }
         });
     });
@@ -101,24 +103,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function filterNews(filter) {
-        let rows = document.querySelectorAll('#newsTable tr');
+        let rows = document.querySelectorAll('#table tbody tr');
 
         rows.forEach((row) => {
             let dateText = row.getAttribute('data-updated');
             let show = true;
 
+            let today = new Date();
+            let year = today.getFullYear();
+            let month = String(today.getMonth() + 1).padStart(2, '0');
+            let day = String(today.getDate()).padStart(2, '0');
+            let localToday = `${year}-${month}-${day}`;
+
             switch (filter) {
                 case 'today':
-                    let today = new Date().toISOString().split('T')[0];
-                    show = dateText === today;
+                    show = dateText === localToday;
                     break;
                 case 'month':
-                    let month = new Date().toISOString().slice(0, 7);
-                    show = dateText.startsWith(month);
+                    let monthOnly = localToday.slice(0, 7);
+                    show = dateText.startsWith(monthOnly);
                     break;
                 case 'year':
-                    let year = new Date().getFullYear().toString();
-                    show = dateText.startsWith(year);
+                    let yearOnly = localToday.toString().slice(0, 4);
+                    show = dateText.startsWith(yearOnly);
                     break;
                 default:
                     show = true;
@@ -140,3 +147,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+function updateRowNumbers() {
+    let rows = document.querySelectorAll('#table tbody tr');
+    let counter = 1;
+
+    rows.forEach(row => {
+        if (row.style.display !== 'none') {
+            row.cells[0].textContent = counter++;
+        }
+    });
+}
+
+updateRowNumbers();
