@@ -127,7 +127,7 @@
                         window.chartLables = {
                             makesta: '{{ __('Makesta') }}',
                             lakmud: '{{ __('Lakmud') }}',
-                            lakut: '{{ __('lakut') }}',
+                            lakut: '{{ __('Lakut') }}',
                             latinpel: '{{ __('Latinpel') }}',
                         };
                     </script>
@@ -168,7 +168,7 @@
                         </div>
                     </div>
 
-                    <table class="table-bordered table-hover text-nowrap table">
+                    <table class="table-bordered table-hover text-nowrap table" id="table">
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 30px">{{ __('No.') }}</th>
@@ -181,10 +181,10 @@
                                 <th class="text-center">{{ __('Aksi') }}</th>
                             </tr>
                         </thead>
-                        <tbody id="newsTable">
+                        <tbody>
                             @foreach ($news as $post)
-                                <tr data-updated="{{ $post->formatted_updated_date }}">
-                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                <tr data-updated="{{ $post->formatted_updated_date }}" data-row>
+                                    <td class="text-center"></td>
                                     <td class="text-start">{{ $post->title }}</td>
                                     <td class="text-center">{{ $post->category->title }}</td>
                                     <td class="text-center">{{ $post->user->username }}</td>
@@ -203,19 +203,19 @@
                                     </td>
                                     <td class="text-center">
                                         <form
-                                            action="{{ route('news.destroy', $post->id) }}"
+                                            action="{{ route('news.destroy', ['id' => $post->id]) }}"
                                             method="post"
                                             class="float-left"
                                         >
                                             <a
-                                                href="{{ url('article') }}/{{ $post->slug }}"
+                                                href="{{ route('news.show', ['slug' => $post->slug]) }}"
                                                 class="btn btn-success btn-sm"
                                                 target="_blank"
                                             >
                                                 <i class="ri-eye-fill"></i>
                                             </a>
                                             <a
-                                                href="{{ route('news.edit', $post->id) }}"
+                                                href="{{ route('news.edit', ['id' => $post->id]) }}"
                                                 class="btn btn-warning btn-sm"
                                             >
                                                 <i class="ri-edit-fill"></i>
@@ -235,6 +235,8 @@
             </div>
         </div>
     </div>
+
+    <script src="{{ asset('js/statistic.js') }}"></script>
 
     @include('admins.partials._rightside')
 @endsection

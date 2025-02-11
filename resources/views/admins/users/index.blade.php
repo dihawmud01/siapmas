@@ -48,16 +48,19 @@
 
             <div class="row">
                 <table class="table" id="table">
+                    <thead>
                     <tr class="fw-bold">
                         <td class="text-center">{{ __('No.') }}</td>
                         <td class="text-start">{{ __('Nama') }}</td>
                         <td class="text-start">{{ __('PAC') }}</td>
                         <td class="text-center">{{ __('Aksi') }}</td>
                     </tr>
+                    </thead>
 
+                    <tbody>
                     @foreach ($user as $idx => $cadre)
-                        <tr>
-                            <td class="text-center">{{ $idx + $user -> firstItem() }}</td>
+                        <tr data-row>
+                            <td class="text-center"></td>
                             <td>{{ $cadre['name'] }}</td>
                             <td>
                                 <a class="text-decoration-none text-success"
@@ -87,6 +90,7 @@
                             @endauth
                         </tr>
                     @endforeach
+                    </tbody>
                 </table>
             </div>
 

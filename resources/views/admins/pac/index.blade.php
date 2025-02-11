@@ -37,7 +37,7 @@
                     <tbody>
                         @foreach ($pacs as $pac)
                             <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-center"></td>
                                 <td>{{ $pac['pac'] }}</td>
                                 <td>
                                     <a

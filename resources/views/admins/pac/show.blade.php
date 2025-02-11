@@ -41,7 +41,7 @@
             </div>
 
             <div class="row">
-                <table class="table">
+                <table class="table" id="table">
                     <tr>
                         <td class="text-center">{{ __('No.') }}</td>
                         <td class="text-center">{{ __('Nama') }}</td>
@@ -51,8 +51,8 @@
 
                     @foreach ($pacs as $pac)
                         @foreach ($pac->users as $item)
-                            <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
+                            <tr data-row>
+                                <td class="text-center"></td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->cadre_level }}</td>
                                 <td class="text-center">
