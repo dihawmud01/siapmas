@@ -102,7 +102,7 @@ class NewsController extends Controller
         return view('users.news.news', compact('news', 'newsCategories', 'tags', 'user', 'trending'));
     }
 
-    function nuArticle($slug, Request $request)
+    function nuNews($slug, Request $request)
     {
         $onPage = is_null($request->get('pages')) ? 2 : $request->get('pages');
         $res = Http::get('https://nuonline.cms.nu.or.id/api/v3/articles?lang=id&limit=2' . $onPage);
