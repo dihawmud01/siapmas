@@ -124,9 +124,9 @@ require __DIR__ . '/auth.php';
 
 // Route for Address Package
 //Route::get('contoh-laravolt', [LaravoltController::class, 'index'])->name('laravolt.index');
-Route::get('get-kota', [LaravoltController::class, 'showCity'])->name('show.kota');
-Route::get('get-kecamatan', [LaravoltController::class, 'showDistrict'])->name('show.kecamatan');
-Route::get('get-kelurahan', [LaravoltController::class, 'showVillage'])->name('show.kelurahan');
+Route::get('city', [LaravoltController::class, 'showCity'])->name('city');
+Route::get('district', [LaravoltController::class, 'showDistrict'])->name('district');
+Route::get('village', [LaravoltController::class, 'showVillage'])->name('village');
 
 // Route Admin & Superadmin
 Route::middleware(['auth', 'role:1,2'])->group(function () {

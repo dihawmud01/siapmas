@@ -23,7 +23,7 @@
             <div class="row pt-4 mt-5">
                 <div class="col-md-6">
 
-                    <form action="{{ route('store.users') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3">
@@ -260,7 +260,7 @@
             $(document).ready(function() {
                 $('body').on('change', '#province_id', function() {
                     let id = $(this).val();
-                    let route = "{{ route('get.city') }}";
+                    let route = "{{ route('city') }}";
 
                     $.ajax({
                         type: 'get',
@@ -276,7 +276,7 @@
 
                 $('body').on('change', '#city_id', function() {
                     let id = $(this).val();
-                    let route = "{{ route('get.district') }}";
+                    let route = "{{ route('district') }}";
 
                     $.ajax({
                         type: 'get',
@@ -292,7 +292,7 @@
 
                 $('body').on('change', '#kecamatan_id', function() {
                     let id = $(this).val();
-                    let route = "{{ route('get.village') }}";
+                    let route = "{{ route('village') }}";
 
                     $.ajax({
                         type: 'get',
