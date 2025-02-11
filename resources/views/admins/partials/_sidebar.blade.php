@@ -33,7 +33,7 @@
         <li class="nav-item">
             <a
                 class="nav-link collapsible text-dark {{ request()->routeIs('makesta') || request()->routeIs('lakmud') || request()->routeIs('lakut') || request()->routeIs('latinpel') ? '' : 'collapsed' }} bg-transparent"
-                data-toggle="custom-collapse"
+                data-toggle="nav-collapse"
                 data-target="#collapseCadre"
                 href="#"
             >
@@ -97,7 +97,7 @@
         <li class="nav-item">
             <a
                 class="nav-link collapsible text-dark {{ request()->routeIs('news.index') || request()->routeIs('categories.index') || request()->routeIs('tags.index') ? '' : 'collapsed' }} bg-transparent"
-                data-toggle="custom-collapse"
+                data-toggle="nav-collapse"
                 data-target="#collapseNews"
                 href="#"
             >

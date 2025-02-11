@@ -176,6 +176,19 @@
     }
 })();
 
+function updateRowNumbers() {
+    let rows = document.querySelectorAll('#table tbody tr');
+    let counter = 1;
+
+    rows.forEach(row => {
+        if (row.style.display !== 'none') {
+            row.cells[0].textContent = counter++;
+        }
+    });
+}
+
+updateRowNumbers();
+
 document.querySelectorAll('.search-input').forEach((input) => {
     const clearIcon = input.nextElementSibling;
 
@@ -201,6 +214,7 @@ document.querySelectorAll('.search-input').forEach((input) => {
             });
 
             rows[i].style.display = isMatch ? '' : 'none';
+            updateRowNumbers();
         }
     });
 
@@ -213,8 +227,10 @@ document.querySelectorAll('.search-input').forEach((input) => {
 
         for (let i = 1; i < rows.length; i++) {
             rows[i].style.display = '';
+            updateRowNumbers();
         }
     });
+
 });
 
 // function clearSearch() {
@@ -236,6 +252,7 @@ document.querySelectorAll('.search-input').forEach((input) => {
 //
 // }
 
+// Sort table
 function sortTable(colIdx) {
     const table = document.getElementById('table');
     const tbody = table.tBodies[0];
@@ -254,4 +271,30 @@ function sortTable(colIdx) {
     tbody.appendChild(fragment);
 
     table.setAttribute('data-sort-dir', isAsc ? 'asc' : 'desc');
+    updateRowNumbers();
 }
+
+
+// Collapse nav
+document.addEventListener('DOMContentLoaded', function() {
+    var toggles = document.querySelectorAll('.nav-link[data-toggle="nav-collapse"]');
+
+    toggles.forEach(function(toggle) {
+        toggle.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            var target = document.querySelector(this.getAttribute('data-target'));
+
+            if (target.classList.contains('show')) {
+                target.classList.remove('show');
+                this.classList.add('collapsed');
+                this.setAttribute('aria-expanded', 'false');
+            } else {
+                target.classList.add('show');
+                this.classList.remove('collapsed');
+                this.classList.remove('active');
+                this.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+});
