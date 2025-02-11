@@ -46,12 +46,12 @@ Route::get('/news', [NewsController::class, 'index'])->name('news');
 Route::get('/administrators', [AdministratorController::class, 'show'])->name('administrators');
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
-Route::get('/articles/{slug}', [NewsController::class, 'show'])->name('articles.index');
-Route::get('/articles/nu/{slug}', [NewsController::class, 'nuArticle'])->name('articles.nu');
+Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.show');
+Route::get('/news/nu/{slug}', [NewsController::class, 'nuNews'])->name('news.nu');
 Route::get('/categories/{slug}', [CategoryController::class, 'show'])->name('categories');
 Route::get('/tags/{slug}', [TagController::class, 'show'])->name('tag');
 Route::get('/calendar', [AgendaController::class, 'index'])->name('calendar.index');
-Route::get('/profile/{slug}', [ProfileController::class, 'show'])->name('profile.user');
+Route::get('/profiles/{slug}', [ProfileController::class, 'show'])->name('profile.user');
 Route::get('/qrcode/varifikasi/kta/{id}/anjay/mabar/ckuahsksdfsihew/S3NAT-4NJ1NG-63lut-73ng/51-3nd1', [
     QrCodeController::class,
     'index',
