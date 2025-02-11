@@ -171,33 +171,37 @@
                     <table class="table-bordered table-hover text-nowrap table">
                         <thead>
                             <tr>
-                                <th style="width: 30px">#</th>
-                                <th>{{ __('Judul') }}</th>
-                                <th>{{ __('Kategori') }}</th>
-                                <th>{{ __('Penulis') }}</th>
-                                <th>{{ __('Status') }}</th>
-                                <th>{{ __('Dibuat pada') }}</th>
-                                <th>{{ __('Diperbarui pada') }}</th>
-                                <th>{{ __('Aksi') }}</th>
+                                <th class="text-center" style="width: 30px">{{ __('No.') }}</th>
+                                <th class="text-start">{{ __('Judul') }}</th>
+                                <th class="text-center">{{ __('Kategori') }}</th>
+                                <th class="text-center">{{ __('Penulis') }}</th>
+                                <th class="text-center">{{ __('Status') }}</th>
+                                <th class="text-start">{{ __('Dibuat pada') }}</th>
+                                <th class="text-start">{{ __('Diperbarui pada') }}</th>
+                                <th class="text-center">{{ __('Aksi') }}</th>
                             </tr>
                         </thead>
                         <tbody id="newsTable">
                             @foreach ($news as $post)
                                 <tr data-updated="{{ $post->formatted_updated_date }}">
                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td>{{ Str::limit($post->title, 50) }}</td>
-                                    <td>{{ $post->category->title }}</td>
-                                    <td>{{ $post->user->username }}</td>
-                                    <td>
+                                    <td class="text-start">{{ $post->title }}</td>
+                                    <td class="text-center">{{ $post->category->title }}</td>
+                                    <td class="text-center">{{ $post->user->username }}</td>
+                                    <td class="text-center">
                                         @if ($post->active === 1)
                                             <span class="badge bg-success">{{ __('Aktif') }}</span>
                                         @else
                                             <span class="badge bg-danger">{{ __('Nonaktif') }}</span>
                                         @endif
                                     </td>
-                                    <td>{{ \Carbon\Carbon::parse($post->created_at)->format('d M Y') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($post->updated_at)->format('d M Y') }}</td>
-                                    <td>
+                                    <td class="text-start">
+                                        {{ \Carbon\Carbon::parse($post->created_at)->format('d M Y') }}
+                                    </td>
+                                    <td class="text-start">
+                                        {{ \Carbon\Carbon::parse($post->updated_at)->format('d M Y') }}
+                                    </td>
+                                    <td class="text-center">
                                         <form
                                             action="{{ route('news.destroy', $post->id) }}"
                                             method="post"
@@ -205,20 +209,20 @@
                                         >
                                             <a
                                                 href="{{ url('article') }}/{{ $post->slug }}"
-                                                class="btn btn-info btn-sm float-left mr-1"
+                                                class="btn btn-success btn-sm"
                                                 target="_blank"
                                             >
                                                 <i class="ri-eye-fill"></i>
                                             </a>
                                             <a
                                                 href="{{ route('news.edit', $post->id) }}"
-                                                class="btn btn-warning btn-sm float-left mr-1"
+                                                class="btn btn-warning btn-sm"
                                             >
                                                 <i class="ri-edit-fill"></i>
                                             </a>
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm float-left">
+                                            <button type="submit" class="btn btn-danger btn-sm">
                                                 <i class="ri-delete-bin-5-line"></i>
                                             </button>
                                         </form>

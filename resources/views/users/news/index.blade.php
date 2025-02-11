@@ -1,11 +1,11 @@
 @section('title')
-    {{ __('News') }}
+    {{ __('Berita') }}
 @endsection
 
 @extends('users.layout')
 @section('content')
-    <div class="container-fluid mt-5">
-        <div class="row pt-4">
+    <div class="container-fluid news-container">
+        <div class="row">
             <div class="col-lg-7 px-0">
                 <div class="owl-carousel main-carousel position-relative">
                     @foreach ($recentNews->take(3) as $news)

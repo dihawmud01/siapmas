@@ -8,7 +8,6 @@
         <meta name="keywords" content="" />
 
         <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" />
-        {{-- <link rel="apple-touch-icon" href="{{ asset('assets/images/favicon.png') }}" /> --}}
 
         <link rel="stylesheet" href="{{ asset('css/user.css') }}" />
         <link rel="stylesheet" href="{{ asset('css/news.css') }}" />

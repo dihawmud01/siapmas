@@ -20,9 +20,12 @@
         <title>{{ __('Masuk') }}</title>
     </head>
     <body>
-        <section class="vh-100" style="background-color: #363636">
-            <div class="h-100 container py-5">
-                <div class="row d-flex justify-content-center align-items-center h-100">
+        <section
+            class="d-flex justify-content-center align-items-center"
+            style="background-color: darkgreen; height: 100vh"
+        >
+            <div class="container">
+                <div class="row d-flex justify-content-center align-items-center">
                     <div class="col col-xl-10">
                         <div class="card" style="border-radius: 1rem">
                             <div class="row g-0">
@@ -154,7 +157,6 @@
         </script>
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        script
         @include('sweetalert::alert')
         <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

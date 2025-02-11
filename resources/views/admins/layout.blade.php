@@ -68,7 +68,7 @@
             </section>
         </main>
 
-        <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center rounded-circle">
             <i class="bi bi-arrow-up-short"></i>
         </a>
 
@@ -84,8 +84,7 @@
         ></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        <script src="{{ asset('js/main.js') }}"></script>
         <script src="{{ asset('js/admin.js') }}"></script>
-        <script src="{{ asset('js/chart.js') }}"></script>
+        <script src="{{ asset('js/statistic.js') }}"></script>
     </body>
 </html>

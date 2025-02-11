@@ -503,7 +503,7 @@
                             <div class="quote-item d-flex align-items-center flex-column text-center">
                                 <img
                                     src="{{ asset('storage/images/' . $quote->img) }}"
-                                    class="quote-img rounded-circle"
+                                    class="quote-img rounded-circle mb-3"
                                     alt=""
                                     style="width: 110px; height: 110px; object-fit: cover; border: 4px solid green"
                                 />
