@@ -25,7 +25,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::with('categories', 'tags')->paginate(10);
+        $news = News::with('category', 'tags')->paginate(10);
 
         return view('admins.news.index', compact('news'));
     }
@@ -51,8 +51,8 @@ class NewsController extends Controller
         if ($request->img) {
             $extension = $request->img->getClientOriginalExtension();
             $newFileName = $request->title . '_' . 'PC_IPNU_IPPNU_BANYUMAS' . '-' . now()->timestamp . '.' . $extension;
-            $request->file('image')->move(public_path('/storage/images'), $newFileName);
-            $data['image'] = $newFileName;
+            $request->file('img')->move(public_path('/storage/images'), $newFileName);
+            $data['img'] = $newFileName;
         }
 
         $news = News::create($data);
@@ -94,8 +94,8 @@ class NewsController extends Controller
         if ($request->img) {
             $extension = $request->img->getClientOriginalExtension();
             $newFileName = 'news' . '_' . $request->nama . '-' . now()->timestamp . '.' . $extension;
-            $request->file('image')->move(public_path('/storage/images'), $newFileName);
-            $data['image'] = $newFileName;
+            $request->file('img')->move(public_path('/storage/images'), $newFileName);
+            $data['img'] = $newFileName;
         }
 
         $news->update($data);
