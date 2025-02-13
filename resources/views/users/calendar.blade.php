@@ -77,7 +77,7 @@
                 data-bs-keyboard="false"
                 tabindex="-1"
                 aria-labelledby="staticBackdropLabel"
-                aria-hidden="true"
+                aria-hidden="false"
             >
                 <div class="modal-dialog modal-dialog-centered modal-xl">
                     <div class="modal-content">
@@ -196,49 +196,65 @@
             @endforeach
         </div>
     </div>
-@endsection
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let calendarEl = document.getElementById('calendar');
+            let calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: [window.FullCalendar.interactionPlugin, window.FullCalendar.dayGridPlugin],
+                editable: true,
+                initialView: 'dayGridMonth',
+                contentHeight: 'auto',
+                headerToolbar: {
+                    right: 'today prev,next',
+                },
+                customButtons: {
+                    prev: {
+                        text: '',
+                        click: function () {
+                            calendar.prev();
+                        },
+                    },
+                    next: {
+                        text: '',
+                        click: function () {
+                            calendar.next();
+                        },
+                    },
+                },
+                datesSet: function () {
+                    document.querySelector('.fc-prev-button').innerHTML = '<i class="bi bi-chevron-left"></i>';
+                    document.querySelector('.fc-next-button').innerHTML = '<i class="bi bi-chevron-right"></i>';
+                },
+                eventLimit: true,
+                events: {!! json_encode($events) !!},
+                eventClick: function (info) {
+                    $('#staticBackdrop').modal('show');
 
-<script src="{{ asset('assets/vendor/calendar/js/jquery-3.3.1.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/calendar/js/popper.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/calendar/js/bootstrap.min.js') }}"></script>
+                    $('#staticBackdropLabel').text(info.event.title);
+                    $('#title').val(info.event.title);
+                    $('#organizer').val(info.event.extendedProps.organizer);
+                    $('#place').val(info.event.extendedProps.place);
+                    $('#start').val(info.event.start ? info.event.start.toISOString().split('T')[0] : '');
+                    $('#categories').val(info.event.extendedProps.description);
+                    $('#totalParticipants').val(info.event.extendedProps.totalParticipants);
+                    $('#target').val(info.event.extendedProps.target);
+                    $('#evaluation').val(info.event.extendedProps.evaluation);
 
-<script src="{{ asset('assets/vendor/fullcalendar/packages/core/main.js') }}"></script>
-<script src="{{ asset('assets/vendor/fullcalendar/packages/interaction/main.js') }}"></script>
-<script src="{{ asset('assets/vendor/fullcalendar/packages/daygrid/main.js') }}"></script>
+                    if (info.event.extendedProps.status === 0) {
+                        $('#status').val('{{ __('Belum Terlaksana') }}').removeClass().addClass('btn btn-danger');
+                    } else if (info.event.extendedProps.status === 1) {
+                        $('#status').val('{{ __('Terlaksana') }}').removeClass().addClass('btn btn-success');
+                    }
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        let calendarEl = document.getElementById('calendar');
-        let calendar = new FullCalendar.Calendar(calendarEl, {
-            plugins: ['interaction', 'dayGrid'],
-            editable: true,
-            eventLimit: true,
-            events: {!! json_encode($events) !!},
-            eventClick: function (info) {
-                $('#staticBackdrop').modal('show');
-
-                $('#staticBackdropLabel').text(info.event.title);
-                $('#title').val(info.event.title);
-                $('#organizer').val(info.event.extendedProps.organizer);
-                $('#place').val(info.event.extendedProps.place);
-                $('#start').val(info.event.start);
-                $('#categories').val(info.event.extendedProps.description);
-                $('#totalParticipants').val(info.event.extendedProps.totalParticipants);
-                $('#target').val(info.event.extendedProps.target);
-                $('#evaluation').val(info.event.extendedProps.evaluation);
-
-                if (info.event.extendedProps.status === 0) {
-                    $('#status').val('{{ __('Belum Terlaksana') }}').removeClass().addClass('btn btn-danger');
-                } else if (info.event.extendedProps.status === 1) {
-                    $('#status').val('{{ __('Terlaksana') }}').removeClass().addClass('btn btn-success');
-                }
-
-                // Show image
-                $('#pamphlet').attr('src', '/storage/images/' + info.event.extendedProps.pamphlet);
-            },
+                    // Show image
+                    if (info.event.extendedProps.pamphlet) {
+                        $('#pamphlet').attr('src', '/storage/images/' + info.event.extendedProps.pamphlet);
+                    } else {
+                        $('#pamphlet').attr('src', '');
+                    }
+                },
+            });
+            calendar.render();
         });
-        calendar.render();
-    });
-</script>
-
-<script src="{{ asset('assets/vendor/calendar/js/main.js') }}"></script>
+    </script>
+@endsection

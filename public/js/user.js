@@ -5,8 +5,6 @@
  * License: https://bootstrapmade.com/license/
  */
 (function () {
-    "use strict";
-
     /**
      * Easy selector helper function
      */
@@ -327,18 +325,6 @@
             type: "bullets",
             clickable: true,
         },
-    });
-
-    /**
-     * Animation on scroll
-     */
-    window.addEventListener("load", () => {
-        AOS.init({
-            duration: 1000,
-            easing: "ease-in-out",
-            once: true,
-            mirror: false,
-        });
     });
 
     /**

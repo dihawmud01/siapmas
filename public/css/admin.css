@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
 * {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 :root {
@@ -11,7 +13,7 @@
 }
 
 body {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Open Sans", sans-serif;
     background: #f6f9ff;
     color: #444444;
 }
@@ -32,7 +34,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Open Sans", sans-serif;
 }
 
 /*--------------------------------------------------------------
@@ -262,7 +264,7 @@ h6 {
     font-size: 18px;
     font-weight: 500;
     color: #1e1e1e;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Open Sans", sans-serif;
 }
 
 .card-title span {
@@ -278,7 +280,7 @@ h6 {
 /* Alerts */
 .alert-heading {
     font-weight: 500;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-size: 20px;
 }
 
@@ -327,7 +329,7 @@ h6 {
 /* Breadcrumbs */
 .breadcrumb {
     font-size: 14px;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Open Sans", sans-serif;
     color: #899bbd;
     font-weight: 600;
 }
@@ -1017,7 +1019,7 @@ h6 {
 }
 
 .iconslist .label {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Open Sans", sans-serif;
     display: inline-block;
     width: 100%;
     overflow: hidden;

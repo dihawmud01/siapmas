@@ -446,7 +446,7 @@
                                     alt=""
                                     style="
                                         width: 120%;
-                                        height: 120%;
+                                        height: 400px;
                                         object-fit: cover;
                                         box-shadow: 0 0 30px rgba(1, 41, 112, 0.1);
                                     "
@@ -469,11 +469,14 @@
                             </figure>
 
                             <div class="news-info">
-                                <a href="{{ route('news', ['slug' => $news->slug]) }}">
+                                <a href="{{ route('news', ['slug' => $news->slug]) }}" class="text-decoration-none">
                                     <h4 class="text-dark">{{ Str::limit($news->title, '35') }}</h4>
                                 </a>
-                                <a href="{{ route('categories', ['slug' => $news->category->slug]) }}">
-                                    <p class="text-dark" style="text-transform: none; text-decoration: none">
+                                <a
+                                    href="{{ route('categories', ['slug' => $news->category->slug]) }}"
+                                    class="text-decoration-none"
+                                >
+                                    <p class="text-success" style="text-transform: none; text-decoration: none">
                                         {{ $news->category->title }}
                                     </p>
                                 </a>

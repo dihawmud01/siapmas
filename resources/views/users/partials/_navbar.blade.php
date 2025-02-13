@@ -35,7 +35,7 @@
                             </a>
                         </li>
                         <li class="dropdown">
-                            <a href="{{ route('index') }}#about">
+                            <a href="{{ route('index') }}#about" class="text-decoration-none">
                                 <span class="fs-6">{{ __('Tentang') }}</span>
                                 <i class="bi bi-chevron-down"></i>
                             </a>
