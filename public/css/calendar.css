@@ -53,6 +53,7 @@ h2 {
 
 #calendar {
     max-width: 900px;
+    min-width: 900px;
     margin: 0 auto;
     width: 667px;
 }
@@ -83,7 +84,7 @@ h2 {
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 0, .5);
 }
 
-.fc .fc-button-primary:focus  {
+.fc .fc-button-primary:focus {
     background-color: darkgreen;
     border-color: darkgreen;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 0, .5);
@@ -97,11 +98,11 @@ h2 {
     padding: .5rem;
 }
 
-a {
-    color: #1e1e1e !important;
+.fc-col-header-cell-cushion, .fc-daygrid-day-number {
+    color: #1e1e1e;
 }
 
-.fc-col-header, .fc .fc-daygrid-body, .fc .fc-scrollgrid-section-body table  {
+.fc-col-header, .fc .fc-daygrid-body, .fc .fc-scrollgrid-section-body table {
     width: 100% !important;
 }
 
@@ -109,10 +110,42 @@ a {
     background-color: rgb(0, 123, 0, .15);
 }
 
-.fc .fc-scrollgrid-liquid {
-    /*height: 547px !important;*/
+.modal-backdrop {
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgba(0, 0, 0, .5) !important;
 }
 
-.fc .fc-view {
-    /*position: relative;*/
+body.modal-open {
+    overflow: visible !important;
+}
+
+.fc-direction-ltr .fc-daygrid-event.fc-event-end {
+    color: green;
+}
+
+.fc-daygrid-event-dot {
+    border: calc(8px / 2) solid green;
+}
+
+#pamphlet {
+    display: block;
+    max-width: 50%;
+}
+
+.modal-dialog {
+    min-width: 600px;
+}
+
+.modal-body {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.card.info-card.sales-card {
+    box-shadow: 0 0 30px rgba(1, 41, 112, 0.1);
+}
+
+.btn-close:focus {
+    box-shadow: 0 0 0 0.25rem rgb(0, 123, 0, .25) !important;
 }
