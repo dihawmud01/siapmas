@@ -1,9 +1,3 @@
-/**
- * Template Name: BizPage - v5.11.0
- * Template URL: https://bootstrapmade.com/bizpage-bootstrap-business-template/
- * Author: BootstrapMade.com
- * License: https://bootstrapmade.com/license/
- */
 (function () {
     /**
      * Easy selector helper function
@@ -214,51 +208,6 @@
         });
     }
 
-    /**
-     * Quote isotope and filter
-     */
-    window.addEventListener("load", () => {
-        let quoteContainer = select(".quote-container");
-        if (quoteContainer) {
-            let quoteIsotope = new Isotope(quoteContainer, {
-                itemSelector: ".quote-item",
-                layoutMode: "fitRows",
-            });
-
-            let quoteFilters = select("#quote-flters li", true);
-
-            on(
-                "click",
-                "#quote-flters li",
-                function (e) {
-                    e.preventDefault();
-                    quoteFilters.forEach(function (el) {
-                        el.classList.remove("filter-active");
-                    });
-                    this.classList.add("filter-active");
-
-                    quoteIsotope.arrange({
-                        filter: this.getAttribute("data-filter"),
-                    });
-                    quoteIsotope.on("arrangeComplete", function () {
-                        AOS.refresh();
-                    });
-                },
-                true
-            );
-        }
-    });
-
-    /**
-     * Initiate quote lightbox
-     */
-    const quoteLightbox = GLightbox({
-        selector: ".quote-lightbox",
-    });
-
-    /**
-     * Portfolio details slider
-     */
     new Swiper(".quote-details-slider", {
         speed: 400,
         loop: true,
