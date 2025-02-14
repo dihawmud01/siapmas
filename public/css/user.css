@@ -215,7 +215,7 @@ h6 {
 .navbar .active,
 .navbar .active:focus,
 .navbar li:hover > a {
-    color: green;
+    color: green !important;
 }
 
 .navbar .dropdown ul {
@@ -554,7 +554,7 @@ h6 {
     letter-spacing: 1px;
     display: inline-block;
     transition: 0.5s;
-    color: #fff;
+    color: #fff !important;
     background: green;
 }
 
@@ -2449,4 +2449,12 @@ section {
 
 tbody {
     font-family: 'Open Sans', sans-serif;
+}
+
+.logo-title {
+    color: green;
+}
+
+.author {
+    color: green !important;
 }

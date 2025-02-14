@@ -8,7 +8,7 @@
         <div class="container my-5 py-5">
             <div class="row">
                 <div class="col-lg-8">
-                    <article class="my-5">
+                    <article class="mb-5">
                         <header class="mb-4">
                             @if ($news->img)
                                 <figure class="mb-4">
