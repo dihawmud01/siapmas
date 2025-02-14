@@ -19,17 +19,21 @@ class AgendaController extends Controller
 
         $hbn = HBN::latest()
             ->take(20)
-            ->get()->map(function ($day) {
+            ->get()
+            ->map(function ($day) {
                 $day->formatted_date = Carbon::parse($day->date)->translatedFormat('l, d F Y');
 
                 return $day;
             });
 
-        $events = Agenda::latest()->get()->map(function ($event) {
-            $event->formatted_date = Carbon::parse($event->date)->translatedFormat('l, d F Y');
+        $events = Agenda::latest()
+            ->get()
+            ->map(function ($event) {
+                $event->formatted_date = Carbon::parse($event->date)->translatedFormat('l, d F Y');
+                $event->time = Carbon::parse($event->date)->translatedFormat('H:i');
 
-            return $event;
-        });
+                return $event;
+            });
 
         return view('users.calendar', compact('events', 'user', 'hbn', 'events'));
     }
