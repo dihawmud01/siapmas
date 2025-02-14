@@ -1,5 +1,5 @@
 import $ from 'jquery';
-window.$ = window.jQuery = $;
+// window.$ = window.jQuery = $;
 
 import 'owl.carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
