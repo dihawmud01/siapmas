@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -15,14 +14,14 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('organizer', 50)->nullable();
-            $table->string('date', 20)->nullable();
+            $table->dateTime('date')->nullable();
             $table->string('place', 50)->nullable();
             $table->string('category', 100)->nullable();
             $table->string('total_participants', 3)->nullable();
             $table->string('target')->nullable();
             $table->string('evaluation')->nullable();
-            $table->string('status')->default(false);
-            $table->string('pamphlet',100)->nullable();
+            $table->boolean('status')->default(false);
+            $table->string('pamphlet', 100)->nullable();
 
             $table->timestamps();
         });
