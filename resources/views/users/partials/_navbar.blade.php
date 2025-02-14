@@ -12,7 +12,7 @@
                                     class="img-fluid"
                                 />
                                 <div class="logo-text d-flex flex-column ms-2">
-                                    <h1 class="fw-bold fs-2 m-0">
+                                    <h1 class="fw-bold fs-2 logo-title m-0">
                                         {{ __('SIAPMAS') }}
                                     </h1>
                                     <span class="logo-text-secondary text-secondary fw-normal">

@@ -66,7 +66,7 @@
     <section id="about" class="my-5 px-5 pb-5">
         <div class="container" data-aos="fade-up">
             <header class="section-header">
-                <h3>{{ __('Tentang Kami') }}</h3>
+                <h3 class="fw-bold">{{ __('Tentang Kami') }}</h3>
             </header>
 
             <h6 class="p-4 text-center">
@@ -78,7 +78,7 @@
     <section id="facts" class="my-5 p-5">
         <div class="container" data-aos="fade-up">
             <header class="section-header">
-                <h3>{{ __('Data Kader PC IPNU IPPNU Banyumas') }}</h3>
+                <h3 class="fw-bold">{{ __('Data Kader PC IPNU IPPNU Banyumas') }}</h3>
             </header>
 
             <div class="row counters p-4 text-center">
@@ -433,24 +433,26 @@
     <section id="news" class="section-bg p-5">
         <div class="container" data-aos="fade-up">
             <header class="section-header pt-5">
-                <h3>{{ __('Berita Terkini') }}</h3>
+                <h3 class="fw-bold">{{ __('Berita Terkini') }}</h3>
             </header>
             <div class="row news-container mt-4 p-4" data-aos="fade-up" data-aos-delay="200">
                 @foreach ($recentNews->take(3) as $news)
                     <div class="col-lg-4 col-md-6 news-item filter-app">
                         <div class="news-wrap">
                             <figure>
-                                <img
-                                    src="{{ asset('storage/images/' . $news->img) }}"
-                                    class="img-fluid rounded-1"
-                                    alt=""
-                                    style="
-                                        width: 120%;
-                                        height: 400px;
-                                        object-fit: cover;
-                                        box-shadow: 0 0 30px rgba(1, 41, 112, 0.1);
-                                    "
-                                />
+                                <a href="{{ route('news.show', ['slug' => $news->slug]) }}">
+                                    <img
+                                        src="{{ asset('storage/images/' . $news->img) }}"
+                                        class="img-fluid rounded-1"
+                                        alt="{{ $news->title }}"
+                                        style="
+                                            width: 120%;
+                                            height: 400px;
+                                            object-fit: cover;
+                                            box-shadow: 0 0 30px rgba(1, 41, 112, 0.1);
+                                        "
+                                    />
+                                </a>
                                 <a
                                     href="{{ asset('storage/images/' . $news->img) }}"
                                     data-lightbox="news"
@@ -469,7 +471,10 @@
                             </figure>
 
                             <div class="news-info">
-                                <a href="{{ route('news', ['slug' => $news->slug]) }}" class="text-decoration-none">
+                                <a
+                                    href="{{ route('news.show', ['slug' => $news->slug]) }}"
+                                    class="text-decoration-none"
+                                >
                                     <h4 class="text-dark">{{ Str::limit($news->title, '35') }}</h4>
                                 </a>
                                 <a
@@ -491,7 +496,7 @@
     <section id="quote" class="section-bg p-5">
         <div class="container" data-aos="fade-up">
             <header class="section-header">
-                <h3 style="text-transform: inherit">{{ __('QUOTES OF THE DAY') }}</h3>
+                <h3 class="fw-bold" style="text-transform: inherit">{{ __('QUOTES OF THE DAY') }}</h3>
             </header>
 
             <div class="quote-details-slider swiper" data-aos="fade-up" data-aos-delay="100">
@@ -505,7 +510,7 @@
                                     alt=""
                                     style="width: 110px; height: 110px; object-fit: cover; border: 4px solid green"
                                 />
-                                <h3>{{ $quote->name }}</h3>
+                                <h3 class="fw-bold">{{ $quote->name }}</h3>
                                 <h4>{{ $quote->who }}</h4>
                                 <p>
                                     <img
