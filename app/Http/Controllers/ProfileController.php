@@ -120,11 +120,9 @@ class ProfileController extends Controller
             ->where('active', 1)
             ->count();
 
-        $libCounts = Library::where('user_id', $user->id)->count();
-
         $category = BookCategory::all();
 
-        return view('users.uploads', compact('user', 'tags', 'category', 'postCounts', 'categories', 'libCounts'));
+        return view('users.uploads', compact('user', 'tags', 'category', 'postCounts', 'categories'));
     }
 
     public function changePassword(Request $request)

@@ -27,7 +27,7 @@
                             <a href="{{ route('account') }}" class="btn btn-dark sm me-2">{{ __('Edit Profil') }}</a>
                             @auth
                                 @if (in_array(auth()->user()->role_id, [1, 2, 3]))
-                                    <a href="{{ route('uploads') }}" class="btn btn-dark sm me-2">{{ __('Uploads') }}</a>
+                                    <a href="{{ route('uploads') }}" class="btn btn-dark sm me-2">{{ __('Unggahan') }}</a>
                                 @endif
                             @endauth
                             <a href="{{ route('download.kta', ['id' => $profile->id]) }}" class="btn btn-dark sm">{{ __('KTA') }}</a>

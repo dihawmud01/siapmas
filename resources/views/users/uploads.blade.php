@@ -160,13 +160,13 @@
                                                     <div class="container mt-4">
                                                         <div class="card text-center align-middle">
                                                             <img
-                                                                    src="{{ asset('storage/images/' . $users->img) }}"
+                                                                    src="{{ asset('storage/images/' . $user->img) }}"
                                                                     alt="{{ __('User Image') }}"
                                                                     style="width: 100%; height: 40rem; object-fit: cover"
                                                             />
                                                             <h1>
-                                                                {{ __('Benar Bahwasannya sahabat') }} {{ $users->name }} {{ __('dengan NIM/NIK') }}
-                                                                : {{ $users->nim }} {{ __('Adalah Kader PC IPNU IPPNU Banyumas') }}
+                                                                {{ __('Benar Bahwasannya sahabat') }} {{ $user->name }} {{ __('dengan NIM/NIK') }}
+                                                                : {{ $user->nim }} {{ __('Adalah Kader PC IPNU IPPNU Banyumas') }}
                                                             </h1>
                                                         </div>
                                                     </div>
@@ -368,9 +368,9 @@
                                                             aria-label="category"
                                                     >
                                                         <option disabled selected>{{ __(' -- Pilih --') }}</option>
-                                                        @foreach ($categories as $item)
-                                                            <option value="{{ $item->id }}">
-                                                                {{ $item->title }}
+                                                        @foreach ($categories as $id => $title)
+                                                            <option value="{{ $id }}">
+                                                                {{ $title }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -435,11 +435,7 @@
                                                                                         {
                                                                                             value: {{ $postCounts }},
                                                                                             name: '{{ __('Tulisan') }}',
-                                                                                        },
-                                                                                        {
-                                                                                            value: {{ $libraryCounts }},
-                                                                                            name: '{{ __('Buku') }}',
-                                                                                        },
+                                                                                        }
                                                                                     ],
                                                                                     emphasis: {
                                                                                         itemStyle: {

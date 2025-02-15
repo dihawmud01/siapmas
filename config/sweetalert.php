@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'cdn' => env('SWEET_ALERT_CDN', null),
+    'cdn' => env('SWEET_ALERT_CDN'),
 
     /*
     |--------------------------------------------------------------------------
@@ -24,7 +24,7 @@ return [
     |
     */
 
-    'alwaysLoadJS' => env('SWEET_ALERT_ALWAYS_LOAD_JS', true),
+    'alwaysLoadJS' => env('SWEET_ALERT_ALWAYS_LOAD_JS', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'timer' => env('SWEET_ALERT_TIMER', 10000),
+    'timer' => env('SWEET_ALERT_TIMER', 5000),
 
     /*
     |--------------------------------------------------------------------------
@@ -110,7 +110,10 @@ return [
         'enable' => env('SWEET_ALERT_ANIMATION_ENABLE', false),
     ],
 
-    'animatecss' => env('SWEET_ALERT_ANIMATECSS', '../../'),
+    'animatecss' => env(
+        'SWEET_ALERT_ANIMATECSS',
+        'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css',
+    ),
 
     /*
     |--------------------------------------------------------------------------
@@ -130,7 +133,7 @@ return [
     | ShowCloseButton
     |--------------------------------------------------------------------------
     | If set to true, a "Close"-button will be shown,
-    | which the users can click on to dismiss the modal.
+    | which the user can click on to dismiss the modal.
     | This is for the all Modal windows.
     | For specific modal just use the showCloseButton() helper method.
     |
@@ -201,7 +204,7 @@ return [
         'content' => env('SWEET_ALERT_CONTENT_CLASS'),
         'input' => env('SWEET_ALERT_INPUT_CLASS'),
         'actions' => env('SWEET_ALERT_ACTIONS_CLASS'),
-        'confirmButton' => 'btn btn-success',
+        'confirmButton' => env('SWEET_ALERT_CONFIRM_BUTTON_CLASS', 'btn btn-success'),
         'cancelButton' => env('SWEET_ALERT_CANCEL_BUTTON_CLASS'),
         'footer' => env('SWEET_ALERT_FOOTER_CLASS'),
     ],
