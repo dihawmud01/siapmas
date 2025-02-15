@@ -58,7 +58,7 @@
                         </li>
                         <li>
                             <a
-                                class="nav-link fs-6 scrollto {{ request()->routeIs('news') ? 'active' : '' }}"
+                                class="nav-link fs-6 scrollto {{ request()->routeIs('news') || request()->routeIs('news.show') || request()->routeIs('categories') || request()->routeIs('tags') ? 'active' : '' }}"
                                 href="{{ route('news') }}"
                             >
                                 {{ __('Berita') }}
@@ -91,7 +91,7 @@
                             @else
                                 <li class="nav-item dropdown pe-3 pl-3">
                                     <a
-                                        class="nav-link fs-6 nav-profile d-flex align-items-center pe-0"
+                                        class="nav-link fs-6 nav-profile d-flex align-items-center {{ request()->routeIs('profile') ? 'active' : '' }} pe-0"
                                         href="#"
                                         data-bs-toggle="dropdown"
                                     >
@@ -112,28 +112,28 @@
                                                 </h6>
                                             </div>
                                         </li>
-                                        <li>
+                                        <li class="profile-item">
                                             <a
-                                                class="dropdown-item fs-6 d-flex align-items-start"
-                                                href="{{ route('profile.index') }}"
+                                                class="profile-item fs-6 d-flex align-items-start {{ request()->routeIs('profile') ? 'active' : '' }}"
+                                                href="{{ route('profile') }}"
                                             >
                                                 <span>{{ __('Profilku') }}</span>
                                             </a>
                                         </li>
-                                        <li>
-                                            <a
-                                                class="dropdown-item fs-6 d-flex align-items-center"
-                                                href="{{ route('profile.account') }}"
-                                            >
-                                                <span>{{ __('Pengaturan Akun') }}</span>
-                                            </a>
-                                        </li>
+                                        {{-- <li class="profile-item"> --}}
+                                        {{-- <a --}}
+                                        {{-- class="profile-item fs-6 d-flex align-items-center" --}}
+                                        {{-- href="{{ route('account') }}" --}}
+                                        {{-- > --}}
+                                        {{-- <span>{{ __('Pengaturan Akun') }}</span> --}}
+                                        {{-- </a> --}}
+                                        {{-- </li> --}}
 
                                         @auth
                                             @if (in_array(auth()->user()->role_id, [1, 2, 3]))
-                                                <li>
+                                                <li class="profile-item">
                                                     <a
-                                                        class="dropdown-item fs-6 d-flex align-items-center"
+                                                        class="profile-item fs-6 d-flex align-items-center"
                                                         href="{{ route('uploads') }}"
                                                     >
                                                         <span>{{ __('Unggahan') }}</span>
@@ -142,11 +142,8 @@
                                             @endif
                                         @endauth
 
-                                        <li class="border-top">
-                                            <a
-                                                class="dropdown-item fs-6 d-flex align-items-center"
-                                                href="{{ route('logout') }}"
-                                            >
+                                        <li class="border-top profile-item">
+                                            <a class="fs-6 d-flex align-items-center" href="{{ route('logout') }}">
                                                 <span>{{ __('Keluar') }}</span>
                                             </a>
                                         </li>

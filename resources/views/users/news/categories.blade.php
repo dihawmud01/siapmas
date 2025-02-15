@@ -18,8 +18,8 @@
                     <div class="row g-3">
                         @foreach ($news as $post)
                             <div class="col-md-6">
-                                <div class="card h-100 radius border">
-                                    <div class="d-flex">
+                                <div class="card h-100">
+                                    <div class="d-flex rounded">
                                         @if ($post->img)
                                             <img
                                                 src="{{ asset('storage/images/' . $post->img) }}"
@@ -29,7 +29,7 @@
                                             />
                                         @endif
 
-                                        <div class="d-flex flex-column justify-content-between w-100 p-3">
+                                        <div class="d-flex flex-column justify-content-between w-100 border-left p-3">
                                             <a
                                                 href="{{ route('categories', $post->category->slug) }}"
                                                 class="badge badge-primary text-uppercase font-weight-semi-bold rounded-1 mb-1 p-2 text-white"

@@ -52,10 +52,13 @@ class NewsController extends Controller
             ->orderBy('title')
             ->get();
 
-        // test api
+        // Test API
         $onPage = is_null($request->get('pages')) ? 2 : $request->get('pages');
-        $res = Http::get('https://nuonline.cms.nu.or.id/api/v3/articles?lang=id&limit=2' . $onPage);
-        $data['users'] = $res->json()['data'];
+        $res = Http::get('https://nuonline.cms.nu.or.id/api/v3/articles?lang=id&limit=2', [
+            'lang' => 'id',
+            'limit' => $onPage,
+        ]);
+        $data['nuOnline'] = $res->json()['data'];
 
         return view(
             'users.news.index',

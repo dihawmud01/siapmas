@@ -11,9 +11,13 @@
                 <h1>{{ __('Profil') }}</h1>
                 <nav>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('index') }}">{{ __('Home') }}</a></li>
-                        <li class="breadcrumb-item">{{ $user->role->role }}</li>
-                        <li class="breadcrumb-item active">{{ __('Foto') }}</li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('index') }}" class="text-secondary text-decoration-underline">
+                                {{ __('Home') }}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item text-secondary">{{ $user->role->role }}</li>
+                        <li class="breadcrumb-item active text-success fw-semibold">{{ __('Profile') }}</li>
                     </ol>
                 </nav>
             </div>
@@ -26,16 +30,15 @@
                                 <img
                                     src="{{ asset('storage/images/' . $user->img) }}"
                                     alt="{{ __('Profil') }}"
-                                    class="rounded-circle"
+                                    class="rounded-circle mb-3"
                                     style="height: 200px; width: 200px; object-fit: cover"
                                 />
-                                <h2></h2>
                                 <h3>{{ $user->username }}</h3>
-                                <div class="social-links mt-2">
-                                    <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                                    <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                                    <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                                    <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                                <div class="social-links mt-1">
+                                    <a href="#" class="text-success twitter me-1"><i class="bi bi-twitter"></i></a>
+                                    <a href="#" class="text-success facebook me-1"><i class="bi bi-facebook"></i></a>
+                                    <a href="#" class="text-success instagram me-1"><i class="bi bi-instagram"></i></a>
+                                    <a href="#" class="text-success linkedin"><i class="bi bi-linkedin"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -47,7 +50,7 @@
                                 <ul class="nav nav-tabs nav-tabs-bordered">
                                     <li class="nav-item">
                                         <button
-                                            class="nav-link active"
+                                            class="nav-link active tab"
                                             data-bs-toggle="tab"
                                             data-bs-target="#profileEdit"
                                         >
@@ -56,46 +59,16 @@
                                     </li>
 
                                     <li class="nav-item">
-                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#changePassword">
+                                        <button
+                                            class="nav-link tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#changePassword"
+                                        >
                                             {{ __('Ubah Kata Sandi') }}
                                         </button>
                                     </li>
                                 </ul>
                                 <div class="tab-content pt-2">
-                                    <div class="tab-pane fade profile-overview" id="profileOverview">
-                                        <h5 class="card-title">Detail Profil</h5>
-
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-4 label">{{ __('Nama Lengkap') }}</div>
-                                            <div class="col-lg-9 col-md-8">{{ $user->name }}</div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-4 label">{{ __('Email') }}</div>
-                                            <div class="col-lg-9 col-md-8">{{ $user->email }}</div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-4 label">{{ __('PAC') }}</div>
-                                            <div class="col-lg-9 col-md-8">{{ $user->pac_id }}</div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-4 label">{{ __('Negara') }}</div>
-                                            <div class="col-lg-9 col-md-8">Indonesia</div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-4 label">{{ __('Alamat') }}</div>
-                                            <div class="col-lg-9 col-md-8">A108 Adam Street, New York, NY 535022</div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-4 label">{{ __('Nomor WhatsApp') }}</div>
-                                            <div class="col-lg-9 col-md-8">no wa</div>
-                                        </div>
-                                    </div>
-
                                     <div class="tab-pane fade show active profile-edit pt-3" id="profileEdit">
                                         <form
                                             method="POST"
@@ -104,6 +77,19 @@
                                         >
                                             @csrf
                                             @method('PUT')
+
+                                            @if ($errors->any())
+                                                <div class="alert alert-danger mb-3">
+                                                    <ul>
+                                                        @foreach ($errors->all() as $error)
+                                                            <li>
+                                                                {{ $error }}
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
+
                                             <div class="row mb-3">
                                                 <label for="profile-img" class="col-md-4 col-lg-3 col-form-label">
                                                     {{ __('Foto Profil') }}
@@ -112,24 +98,47 @@
                                                     <img
                                                         src="{{ asset('storage/images/' . $user->img) }}"
                                                         alt="{{ __('Profil') }}"
-                                                        style="height: 200px"
+                                                        style="height: 200px; width: 200px; object-fit: cover"
+                                                        id="previewImg"
+                                                        class="rounded-circle"
                                                     />
                                                     <div class="pt-2">
-                                                        <p class="text-danger">
-                                                            {{ __('Maksimal 4 MB') }}
-                                                            <br />
-                                                            {{ __('Format JPG/PNG/JPEG') }}
-                                                        </p>
                                                         <div class="mb-3">
-                                                            <div class="mb-3">
-                                                                <label for="formFileSm" class="form-label"></label>
+                                                            <div>
                                                                 <input
-                                                                    class="form-control form-control"
+                                                                    class="form-control edit-profile"
                                                                     id="formFileSm"
                                                                     type="file"
                                                                     name="img"
+                                                                    onchange="previewFile()"
+                                                                />
+                                                                <input
+                                                                    type="hidden"
+                                                                    name="remove_img"
+                                                                    id="removeImg"
+                                                                    value="0"
                                                                 />
                                                             </div>
+                                                        </div>
+                                                        <p class="text-danger mb-1">
+                                                            {{ __('Maksimal 4 MB') }} |
+                                                            {{ __('Format JPG/PNG/JPEG') }}
+                                                        </p>
+                                                        <div class="mb-3">
+                                                            <button
+                                                                type="button"
+                                                                class="btn btn-secondary mt-2"
+                                                                onclick="cancelImg()"
+                                                            >
+                                                                {{ __('Batal') }}
+                                                            </button>
+                                                            <button
+                                                                type="button"
+                                                                class="btn btn-danger me-1 mt-2"
+                                                                onclick="removeImage()"
+                                                            >
+                                                                {{ __('Hapus') }}
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -143,9 +152,10 @@
                                                     <input
                                                         name="name"
                                                         type="text"
-                                                        class="form-control"
+                                                        class="form-control edit-profile"
                                                         id="name"
                                                         value="{{ $user->name }}"
+                                                        required
                                                     />
                                                 </div>
                                             </div>
@@ -158,9 +168,10 @@
                                                     <input
                                                         name="bio"
                                                         type="text"
-                                                        class="form-control"
+                                                        class="form-control edit-profile"
                                                         id="bio"
                                                         value="{{ $user->bio }}"
+                                                        required
                                                     />
                                                 </div>
                                             </div>
@@ -173,7 +184,7 @@
                                                     <input
                                                         name="fullName"
                                                         type="text"
-                                                        class="form-control"
+                                                        class="form-control edit-profile"
                                                         id="fullName"
                                                         value="{{ $user->username }}"
                                                         readonly
@@ -189,7 +200,7 @@
                                                     <input
                                                         name="nim"
                                                         type="text"
-                                                        class="form-control"
+                                                        class="form-control edit-profile"
                                                         id="nim"
                                                         value="{{ $user->nim }}"
                                                         readonly
@@ -205,7 +216,7 @@
                                                     <input
                                                         name="pac"
                                                         type="text"
-                                                        class="form-control"
+                                                        class="form-control edit-profile"
                                                         id="pac"
                                                         value="{{ $user->pac->pac }}"
                                                         readonly
@@ -220,7 +231,7 @@
                                                     <input
                                                         name="job"
                                                         type="text"
-                                                        class="form-control"
+                                                        class="form-control edit-profile"
                                                         id="level"
                                                         value="{{ $user->cadre_level }}"
                                                         readonly
@@ -233,11 +244,7 @@
                                                     {{ __('Jenis Kelamin') }}
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
-                                                    <select
-                                                        class="form-select"
-                                                        name="gender"
-                                                        aria-label="Default select example"
-                                                    >
+                                                    <select class="form-select" name="gender" aria-label="gender">
                                                         <option disabled selected>{{ __('-- Pilih --') }}</option>
                                                         @foreach ($genders as $value => $label)
                                                             <option
@@ -256,54 +263,31 @@
                                                     {{ __('Alamat Lengkap') }}
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
-                                                    <input
+                                                    <textarea
                                                         name="address"
-                                                        type="text"
-                                                        class="form-control"
+                                                        class="form-control edit-profile"
                                                         id="address"
-                                                        value="{{ $user->address }}"
                                                         required
-                                                    />
+                                                    >
+{{ $user->address }}</textarea
+                                                    >
                                                     <p class="text-danger"></p>
                                                 </div>
                                             </div>
 
                                             <div class="row mb-3">
-                                                <label for="date" class="col-md-4 col-lg-3 col-form-label">
+                                                <label for="date_of_birth" class="col-md-4 col-lg-3 col-form-label">
                                                     {{ __('Tanggal Lahir') }}
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <input
-                                                        name="date"
+                                                        name="date_of_birth"
                                                         type="date"
-                                                        class="form-control"
-                                                        id="date"
+                                                        class="form-control edit-profile"
+                                                        id="dateOfBirth"
                                                         value="{{ $user->date_of_birth }}"
                                                         required
                                                     />
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-3">
-                                                <label for="hobby" class="col-md-4 col-lg-3 col-form-label">
-                                                    {{ __('Hobi') }}
-                                                </label>
-                                                <div class="col-md-8 col-lg-9">
-                                                    <select
-                                                        class="form-select"
-                                                        name="hobby"
-                                                        aria-label="Default select example"
-                                                    >
-                                                        <option disabled selected>{{ __('-- Pilih --') }}</option>
-                                                        @foreach ($hobbies as $value => $label)
-                                                            <option
-                                                                value="{{ $value }}"
-                                                                {{ $user->hobby == $value ? 'selected' : '' }}
-                                                            >
-                                                                {{ __($label) }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
                                                 </div>
                                             </div>
 
@@ -315,7 +299,7 @@
                                                     <input
                                                         name="highschool"
                                                         type="text"
-                                                        class="form-control"
+                                                        class="form-control edit-profile"
                                                         id="highschool"
                                                         value="{{ $user->highschool }}"
                                                         required
@@ -328,30 +312,44 @@
                                                     {{ __('Tahun Lulus SMA/SMK/MA/Sederajat') }}
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
-                                                    <input
+                                                    <select
                                                         name="grad_year"
-                                                        type="text"
-                                                        class="form-control"
+                                                        class="edit-profile form-select"
                                                         id="gradYear"
-                                                        value="{{ $user->grad_year }}"
                                                         required
-                                                    />
+                                                    >
+                                                        @for ($year = date('Y'); $year >= 1980; $year--)
+                                                            <option
+                                                                value="{{ $year }}"
+                                                                {{ $user->grad_year == $year ? 'selected' : '' }}
+                                                            >
+                                                                {{ $year }}
+                                                            </option>
+                                                        @endfor
+                                                    </select>
                                                 </div>
                                             </div>
 
                                             <div class="row mb-3">
-                                                <label for="college_year" class="col-md-4 col-lg-3 col-form-label">
+                                                <label for="bachelor_year" class="col-md-4 col-lg-3 col-form-label">
                                                     {{ __('Tahun Masuk Kuliah') }}
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
-                                                    <input
-                                                        name="college_year"
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="collegeYear"
-                                                        value="{{ $user->college_year }}"
+                                                    <select
+                                                        name="bachelor_year"
+                                                        class="edit-profile form-select"
+                                                        id="bachelorYear"
                                                         required
-                                                    />
+                                                    >
+                                                        @for ($year = date('Y'); $year >= 1980; $year--)
+                                                            <option
+                                                                value="{{ $year }}"
+                                                                {{ $user->bachelor_year == $year ? 'selected' : '' }}
+                                                            >
+                                                                {{ $year }}
+                                                            </option>
+                                                        @endfor
+                                                    </select>
                                                 </div>
                                             </div>
 
@@ -363,9 +361,9 @@
                                                     <input
                                                         name="wa"
                                                         type="text"
-                                                        class="form-control"
+                                                        class="form-control edit-profile"
                                                         id="wa"
-                                                        value="{{ $user->wa }}"
+                                                        value="{{ $user->phone }}"
                                                         required
                                                     />
                                                 </div>
@@ -379,70 +377,25 @@
                                                     <input
                                                         name="email"
                                                         type="email"
-                                                        class="form-control"
+                                                        class="form-control edit-profile mb-4"
                                                         id="email"
                                                         value="{{ $user->email }}"
                                                         required
+                                                        readonly
                                                     />
+                                                    <p class="text-danger m-0">
+                                                        {{ __('Pastikan semua data sudah terisi dengan benar') }}
+                                                    </p>
                                                 </div>
                                             </div>
 
-                                            <div class="row mb-3">
-                                                <label for="x" class="col-md-4 col-lg-3 col-form-label">
-                                                    {{ __('Profil X') }}
-                                                </label>
-                                                <div class="col-md-8 col-lg-9">
-                                                    <input
-                                                        name="x"
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="x"
-                                                        value="{{ $user->x }}"
-                                                        placeholder="Tautan profil X anda"
-                                                        required
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-3">
-                                                <label for="fb" class="col-md-4 col-lg-3 col-form-label">
-                                                    {{ __('Profil Facebook') }}
-                                                </label>
-                                                <div class="col-md-8 col-lg-9">
-                                                    <input
-                                                        name="fb"
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="fb"
-                                                        value="{{ $user->fb }}"
-                                                        placeholder="Tautan profil Facebook anda"
-                                                        required
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-3">
-                                                <label for="ig" class="col-md-4 col-lg-3 col-form-label">
-                                                    {{ __('Profil Instagram') }}
-                                                </label>
-                                                <div class="col-md-8 col-lg-9">
-                                                    <input
-                                                        name="ig"
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="ig"
-                                                        value="{{ $user->ig }}"
-                                                        placeholder="link profile instagram anda"
-                                                        required
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div class="text-center">
-                                                <p class="text-danger">
-                                                    {{ __('Pastikan semua data sudah terisi dengan benar') }}
-                                                </p>
-                                                <button type="submit" class="btn btn-primary">
+                                            <div class="text-end">
+                                                <a href="{{ route('profile') }}">
+                                                    <button type="button" class="btn btn-secondary me-1">
+                                                        {{ __('Batal') }}
+                                                    </button>
+                                                </a>
+                                                <button type="submit" class="btn btn-success">
                                                     {{ __('Update') }}
                                                 </button>
                                             </div>
@@ -485,7 +438,7 @@
                                                     <input
                                                         name="current_password"
                                                         type="password"
-                                                        class="form-control @error('current_password') is-invalid @enderror"
+                                                        class="form-control edit-profile @error('current_password') is-invalid @enderror"
                                                         id="currentPassword"
                                                     />
                                                     @error('current_password')
@@ -502,7 +455,7 @@
                                                     <input
                                                         name="new_password"
                                                         type="password"
-                                                        class="form-control @error('new_password') is-invalid @enderror"
+                                                        class="form-control edit-profile @error('new_password') is-invalid @enderror"
                                                         id="newPassword"
                                                     />
                                                     @error('new_password')
@@ -519,7 +472,7 @@
                                                     <input
                                                         name="reenter_password"
                                                         type="password"
-                                                        class="form-control @error('reenter_password') is-invalid @enderror"
+                                                        class="form-control edit-profile @error('reenter_password') is-invalid @enderror"
                                                         id="reenterPassword"
                                                     />
                                                     @error('reenter_password')
@@ -545,17 +498,23 @@
     </div>
 
     <script>
-        $('textarea#summernote').summernote({
-            placeholder: '{{ __('Sahabat bisa membuat tulisan disini') }}',
-            tabsize: 2,
-            height: 100,
-            toolbar: [
-                ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['insert', ['link', 'picture', 'hr']],
-                ['view', ['fullscreen', 'codeview']],
-            ],
-        });
+        {{-- $('textarea#summernote').summernote({ --}}
+        {{-- placeholder: '{{ __('Sahabat bisa membuat tulisan disini') }}', --}}
+        {{-- tabsize: 2, --}}
+        {{-- height: 100, --}}
+        {{-- toolbar: [ --}}
+        {{-- ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']], --}}
+        {{-- ['color', ['color']], --}}
+        {{-- ['para', ['ul', 'ol', 'paragraph']], --}}
+        {{-- ['insert', ['link', 'picture', 'hr']], --}}
+        {{-- ['view', ['fullscreen', 'codeview']], --}}
+        {{-- ], --}}
+        {{-- }); --}}
+        const cancelImg = () => {
+            const preview = document.getElementById('previewImg');
+            const fileInput = document.getElementById('formFileSm');
+            preview.src = '{{ asset('storage/images/' . $user->img) }}';
+            fileInput.value = '';
+        }
     </script>
 @endsection

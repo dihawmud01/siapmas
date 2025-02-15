@@ -13,29 +13,26 @@ class HBNTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('hbn')->delete();
+        \DB::table('hbn')->truncate();
 
         \DB::table('hbn')->insert([
-            0 => [
-                'id' => 5,
+            [
                 'title' => 'Hari Keluarga',
-                'date' => '2023-05-29',
+                'date' => '2025-02-15',
                 'description' => 'aw aw aw aw',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
-            1 => [
-                'id' => 6,
+            [
                 'title' => 'Hari Tanpa Tembakau Sedunia',
-                'date' => '2023-05-31',
+                'date' => '2025-03-31',
                 'description' => 'aw aw aw aw',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
-            2 => [
-                'id' => 8,
-                'title' => 'Idul adhw',
-                'date' => '2023-06-29',
+            [
+                'title' => 'Idul adha',
+                'date' => '2025-06-13',
                 'description' => null,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),

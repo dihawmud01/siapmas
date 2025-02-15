@@ -1,39 +1,11 @@
 import $ from 'jquery';
-// window.$ = window.jQuery = $;
+window.$ = window.jQuery = $;
 
-import 'owl.carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel/dist/assets/owl.theme.default.css';
+import 'owl.carousel';
 
 $(document).ready(() => {
-    function toggleNavbarMethod() {
-        if ($(window).width() > 992) {
-            $('.navbar .dropdown')
-                .on('mouseover', function () {
-                    $('.dropdown-toggle', this).trigger('click');
-                })
-                .on('mouseout', function () {
-                    $('.dropdown-toggle', this).trigger('click').blur();
-                });
-        } else {
-            $('.navbar .dropdown').off('mouseover').off('mouseout');
-        }
-    }
-    toggleNavbarMethod();
-    $(window).resize(toggleNavbarMethod);
-
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 100) {
-            $('.back-to-top').fadeIn('slow');
-        } else {
-            $('.back-to-top').fadeOut('slow');
-        }
-    });
-
-    $('.back-to-top').click(function () {
-        $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
-        return false;
-    });
-
     if ($('.owl-carousel').length > 0) {
         $('.main-carousel').owlCarousel({
             autoplay: true,
@@ -83,9 +55,5 @@ $(document).ready(() => {
                 },
             });
         });
-    } else {
-        console.warn('⚠️ Owl Carousel not initialized: No `.owl-carousel` element found.');
     }
-
-    $('#myModal').modal('show');
 });

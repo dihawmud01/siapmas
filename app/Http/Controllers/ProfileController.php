@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Tag;
 use App\Models\News;
 use App\Models\User;
@@ -24,7 +25,7 @@ class ProfileController extends Controller
      * Display the user's profile form.
      */
 
-    public function index(Request $request)
+    public function index()
     {
         $profile = Auth::user();
 
@@ -34,88 +35,78 @@ class ProfileController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $libraryProfiles = Library::where('user_id', $profile->id)->get();
-
         // Count the number of picture and book news uploaded by users
         $postCounts = News::where('user_id', '=', $profile->id)
             ->where('active', 1)
             ->count();
 
-        $libraryCounts = Library::where('user_id', '=', $profile->id)->count();
-
         $categories = Category::pluck('title', 'id')->all();
         $tags = Tag::pluck('title', 'id')->all();
         $user = Auth::user();
 
-        return view(
-            'users.profile',
-            compact('tags', 'user', 'profile', 'postCounts', 'categories', 'libraryCounts', 'news', 'libraryProfiles'),
-        );
+        return view('users.profile', compact('tags', 'user', 'profile', 'postCounts', 'categories', 'news'));
     }
 
-    public function showAccount(Request $request)
+    public function showAccount()
     {
         $categories = Category::pluck('title', 'id')->all();
         $tags = Tag::pluck('title', 'id')->all();
         $user = Auth::user();
-
-        $hobbies = [
-            'Bermain Game' => 'Bermain Game Online',
-            'Bermusik' => 'Bermusik: Mendengarkan, Bermain, atau Bernyanyi',
-            'Olahraga' => 'Berolahraga: Basket, Sepak Bola, atau Lainnya',
-            'Travelling' => 'Travelling: Jalan-jalan, Touring, Mendaki Gunung, atau Pergi ke Pantai',
-            'Membaca' => 'Membaca: Buku, Novel, Al-Quran, atau Lainnya',
-            'Seni dan kreativitas' =>
-                'Seni dan Kreativitas: Melukis, Menggambar, Fotografi, Membuat Konten, atau Lainnya',
-            'Menonton film dan serial TV' => 'Menonton: Film, Drakor, Anime, atau Serial TV',
-        ];
 
         $genders = [
-            'L' => 'Laki-laki',
-            'P' => 'Perempuan',
+            'male' => 'Laki-laki',
+            'female' => 'Perempuan',
         ];
 
-        return view('users.account', compact('user', 'categories', 'tags', 'hobbies', 'genders'));
+        return view('users.account', compact('user', 'categories', 'tags', 'genders'));
     }
 
-    public function update(Request $request)
+    public function update(ProfileUpdateRequest $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'gender' => 'required|in:male,female',
+            'address' => 'required|string|max:500',
+            'date_of_birth' => 'required|date',
+            'highschool' => 'required|string|max:255',
+            'grad_year' => 'required|integer|min:1900|max:' . date('Y'),
+            'bachelor_year' => 'required|integer|min:1900|max:' . date('Y'),
+            'bio' => 'required|string|max:255',
+        ]);
+
         $user = Auth::user();
         $user->fill(
             $request->only([
                 'address',
-                'wa',
-                'email',
+                'phone',
                 'x',
                 'fb',
                 'ig',
                 'gender',
-                'provinces',
-                'cities',
-                'districts',
-                'villages',
                 'bio',
                 'place_of_birth',
                 'date_of_birth',
-                'hobby',
                 'highschool',
                 'grad_year',
-                'college_year',
+                'bachelor_year',
             ]),
         );
 
-        if ($request->hasFile('images')) {
+        if ($request->input('remove_img') == '1') {
+            $user->img = 'default.png';
+        } elseif ($request->hasFile('img')) {
             $extension = $request->img->getClientOriginalExtension();
-            $newFileName = 'profile' . '_' . $user->username . '-' . now()->timestamp . '.' . $extension;
-            $request->file('images')->move(public_path('/storage/images'), $newFileName);
+            $newFileName = 'profile_' . $user->username . '-' . now()->timestamp . '.' . $extension;
+            $request->file('img')->move(public_path('/storage/images'), $newFileName);
             $user->img = $newFileName;
         }
 
         $user->save();
 
-        Alert::success('Mantap Sahabat', 'Profile Anda Sudah Di Perbaharui');
+        Alert::success('Mantap Sahabat', 'Profil Anda Sudah Diperbaharui');
+
         return redirect()
-            ->route('profile.index')
+            ->route('profile')
             ->with('users', $user);
     }
 
@@ -179,7 +170,7 @@ class ProfileController extends Controller
 
         Alert::success('Mantap Sahabat', 'Postingan akan ditinjau terlebih dahulu oleh admins');
 
-        return redirect()->route('profile.index');
+        return redirect()->route('profile');
     }
 
     public function storeLibrary(Request $request)
@@ -205,7 +196,7 @@ class ProfileController extends Controller
 
         Alert::success('Mantap Sahabat', 'File Berhasil Ditambahkan');
 
-        return redirect()->route('profile.index');
+        return redirect()->route('profile');
     }
 
     public function showDetail($id, Request $request)
@@ -233,7 +224,7 @@ class ProfileController extends Controller
             'Tempat, Tanggal Lahir' => $user->place_of_birth . ', ' . $user->date_of_birth,
             'SMA/SMK/MA/Sederajat' => $user->highschool,
             'Tahun Lulus' => $user->grad_year,
-            'Tahun Kuliah' => $user->college_year,
+            'Tahun Kuliah' => $user->bachelor_year,
             'PAC' => $user->pac->pac,
             'Tahun Makesta' => $user->makesta_year,
             'Tahun Lakmud' => $user->lakmud_year,

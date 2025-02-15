@@ -14,14 +14,11 @@
         <link href="https://fonts.gstatic.com" rel="preconnect" />
 
         <link href="{{ asset('css/admin.css') }}" rel="stylesheet" />
-        <link href="{{ asset('assets/vendor/quill/quill.snow.css') }}" rel="stylesheet" />
-        <link href="{{ asset('assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet" />
-        <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet" />
-        <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet" />
 
         <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.css" crossorigin />
 
         @vite(['resources/js/app.js'])
+        @include('sweetalert::alert')
     </head>
 
     <body>
@@ -66,10 +63,6 @@
 
         @include('admins.partials._footer')
         @include('admins.partials._script')
-
-        @include('sweetalert::alert')
-
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script src="{{ asset('js/admin.js') }}"></script>
     </body>

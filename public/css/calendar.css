@@ -6,7 +6,6 @@ body {
 }
 
 p {
-    color: #b3b3b3;
     font-weight: 300;
 }
 
@@ -130,11 +129,7 @@ body.modal-open {
 
 #pamphlet {
     display: block;
-    max-width: 50%;
-}
-
-.modal-dialog {
-    min-width: 600px;
+    width: 100%;
 }
 
 .modal-body {

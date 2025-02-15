@@ -1,9 +1,10 @@
 import $ from 'jquery';
+
 window.$ = window.jQuery = $;
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import * as bootstrap from 'bootstrap'
+import * as bootstrap from 'bootstrap';
 import 'animate.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -20,7 +21,13 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { Glightbox } from './glightbox';
 import { initIsotope } from './isotope';
-// import './ui.js'
+import PureCounter from '@srexi/purecounterjs';
+import { DataTable } from 'simple-datatables';
+import 'simple-datatables/dist/style.css'
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
+window.Swal = Swal;
 
 AOS.init({
     duration: 1000,
@@ -29,10 +36,13 @@ AOS.init({
     mirror: false,
 });
 
-window.bootstrap = bootstrap
+new PureCounter();
+
+window.bootstrap = bootstrap;
 window.ApexCharts = ApexCharts;
 window.Chart = Chart;
 window.echarts = echarts;
+// window.Swal = Swal;
 window.FullCalendar = {
     Calendar,
     dayGridPlugin,
@@ -42,4 +52,9 @@ window.FullCalendar = {
 document.addEventListener('DOMContentLoaded', () => {
     Glightbox();
     initIsotope();
+
+    const table = document.querySelector('#myTable');
+    if (table) {
+        new DataTable(table)
+    }
 });

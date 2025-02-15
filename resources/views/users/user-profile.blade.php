@@ -6,12 +6,12 @@
 
 @section('content')
     <div class="container-fluid px-0 mt-4" style="padding-top: 5rem">
-        <header class="pt-3 pb-5 bg-white min-vh-100">
+        <header class="profile-header pt-3 pb-5 bg-white">
             <div class="container d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-start">
                     <img src="{{ asset('storage/images/'. $profile->img) }}" alt="{{ __('Profile Image') }}"
                          class="rounded-circle mr-4 profile-image-desktop"
-                         style="width: 125px; height: 125px; object-fit: cover;">
+                         style="width: 140px; height: 140px;; object-fit: cover;">
                     <div class="d-flex flex-column">
                         <h1 class="h4 font-weight-bold">
                             {{ $profile->username }}
@@ -23,7 +23,6 @@
                         </h1>
                         <div class="d-flex align-items-center mb-2">
                             <span class="mr-4"><strong>{{ $postCounts }}</strong> {{ __('Postingan') }}</span>
-{{--                            <span><strong>{{ $libraryCounts }}</strong> {{ __('Perpustakaan') }}</span>--}}
                         </div>
 
                         @if($profile->cadre_level == 'Belum Makesta')

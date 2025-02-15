@@ -73,48 +73,45 @@
                 aria-labelledby="staticBackdropLabel"
                 aria-hidden="true"
             >
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-4" id="staticBackdropLabel">{{ __('Agenda Kegiatan') }}</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-
                         <div class="modal-body p-5">
-                            <img id="pamphlet" src="" alt="{{ __('Pamflet') }}" class="img-fluid mb-5 rounded" />
-                            <div class="d-flex justify-content-between text-start">
-                                <div>
-                                    <h5><strong>{{ __('Nama Kegiatan') }}</strong></h5>
-                                    <p id="title"></p>
-
-                                    <h5><strong>{{ __('Penyelenggara Kegiatan') }}</strong></h5>
-                                    <p id="organizer"></p>
-
-                                    <h5><strong>{{ __('Hari/tanggal') }}</strong></h5>
-                                    <p id="date"></p>
-
-                                    <h5><strong>{{ __('Pukul') }}</strong></h5>
-                                    <p id="time"></p>
-
-                                    <h5><strong>{{ __('Evaluasi Kegiatan') }}</strong></h5>
-                                    <p id="evaluation"></p>
+                            <div class="row text-start">
+                                <div class="col-md-4 mb-3">
+                                    <img id="pamphlet" src="" alt="{{ __('Pamflet') }}" class="img-fluid rounded" />
+                                    <div class="mt-3 text-center">
+                                        <p id="status"></p>
+                                    </div>
                                 </div>
-
-                                <div>
-                                    <h5><strong>{{ __('Tempat') }}</strong></h5>
-                                    <p id="place"></p>
-
-                                    <h5><strong>{{ __('Kategori') }}</strong></h5>
-                                    <p id="category"></p>
-
-                                    <h5><strong>{{ __('Jumlah Peserta') }}</strong></h5>
-                                    <p id="totalParticipants"></p>
-
-                                    <h5><strong>{{ __('Target Capaian') }}</strong></h5>
-                                    <p id="target"></p>
-
-                                    <h5><strong>{{ __('Status') }}</strong></h5>
-                                    <p id="status"></p>
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5 class="fw-bold">{{ __('Nama Kegiatan') }}</h5>
+                                            <p id="title"></p>
+                                            <h5 class="fw-bold">{{ __('Penyelenggara Kegiatan') }}</h5>
+                                            <p id="organizer"></p>
+                                            <h5 class="fw-bold">{{ __('Hari/tanggal') }}</h5>
+                                            <p id="date"></p>
+                                            <h5 class="fw-bold">{{ __('Pukul') }}</h5>
+                                            <p id="time"></p>
+                                            <h5 class="fw-bold">{{ __('Tempat') }}</h5>
+                                            <p id="place"></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5 class="fw-bold">{{ __('Kategori') }}</h5>
+                                            <p id="category"></p>
+                                            <h5 class="fw-bold">{{ __('Jumlah Peserta') }}</h5>
+                                            <p id="totalParticipants"></p>
+                                            <h5 class="fw-bold">{{ __('Target Capaian') }}</h5>
+                                            <p id="target"></p>
+                                            <h5 class="fw-bold">{{ __('Evaluasi Kegiatan') }}</h5>
+                                            <p id="evaluation" class="mb-0"></p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -137,9 +134,9 @@
 
                         if (days > 0) {
                             let countdownText = '{{ __('Tinggal') }} ' + days + ' {{ __('hari lagi') }}';
-                            countdownDiv.innerHTML = '<p>' + countdownText + '</p>';
+                            countdownDiv.innerHTML = '<p class="fw-normal">' + countdownText + '</p>';
                         } else {
-                            countdownDiv.innerHTML = '<p>{{ __('Tanggal telah berlalu') }}</p>';
+                            countdownDiv.innerHTML = '<p class="text-secondary">{{ __('Tanggal telah berlalu') }}</p>';
                         }
 
                         setTimeout(countdownTimer{{ $loop->iteration }}, 1000);
@@ -204,7 +201,7 @@
                         statusEl.className = 'fw-bold badge bg-danger p-2 text-light';
                     } else if (info.event.extendedProps.status === 1) {
                         statusEl.innerText = '{{ __('Terlaksana') }}';
-                        statusEl.className = 'fw-bold badge bg-success p-2 text-light';
+                        statusEl.className = 'fw-bold badge bg-success p-2 text-light w-100';
                     }
 
                     pamphletEl = document.getElementById('pamphlet');

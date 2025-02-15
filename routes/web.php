@@ -49,7 +49,7 @@ Route::post('/contact/store', [ContactController::class, 'store'])->name('contac
 Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.show');
 Route::get('/news/nu/{slug}', [NewsController::class, 'nuNews'])->name('news.nu');
 Route::get('/categories/{slug}', [CategoryController::class, 'show'])->name('categories');
-Route::get('/tags/{slug}', [TagController::class, 'show'])->name('tag');
+Route::get('/tags/{slug}', [TagController::class, 'show'])->name('tags');
 Route::get('/calendar', [AgendaController::class, 'index'])->name('calendar.index');
 Route::get('/profiles/{slug}', [ProfileController::class, 'show'])->name('profile.user');
 Route::get('/qrcode/varifikasi/kta/{id}/anjay/mabar/ckuahsksdfsihew/S3NAT-4NJ1NG-63lut-73ng/51-3nd1', [
@@ -91,17 +91,17 @@ Route::post('/reset-password', [ForgetPasswordControler::class, 'resetPassword']
     ->name('password.update');
 
 // Route Auth Pengunjung Kader Admin, Superadmin
-Route::middleware(['auth', 'role:1, 2, 3, 4'])->group(function () {
+Route::middleware(['auth', 'role:1,2,3,4'])->group(function () {
     Route::post('/comments', [CommentController::class, 'store'])
         ->name('comments.store')
         ->middleware('auth');
     Route::get('/profile', [ProfileController::class, 'index'])
-        ->name('profile.index')
+        ->name('profile')
         ->middleware(['auth']);
-    Route::get('/account', [ProfileController::class, 'account'])
-        ->name('profile.account')
+    Route::get('/account', [ProfileController::class, 'showAccount'])
+        ->name('account')
         ->middleware(['auth']);
-    Route::put('/account/update', [ProfileController::class, 'update'])
+    Route::put('/profile/update', [ProfileController::class, 'update'])
         ->name('profile.update')
         ->middleware(['auth']);
     Route::post('/account/new-password', [ProfileController::class, 'changePassword'])

@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('hbn', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('date');
+            $table->date('date');
             $table->string('description')->nullable();
             $table->timestamps();
         });

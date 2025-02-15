@@ -54,7 +54,7 @@
                             @foreach ($news->tags as $tag)
                                 <a
                                     class="badge bg-success text-decoration-none link-light p-2"
-                                    href="{{ route('tag', ['slug' => $tag->slug]) }}"
+                                    href="{{ route('tags', ['slug' => $tag->slug]) }}"
                                 >
                                     {{ $tag->title }}
                                 </a>

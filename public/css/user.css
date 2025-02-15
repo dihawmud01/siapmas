@@ -560,7 +560,7 @@ h6 {
 
 #hero .btn-get-started:hover {
     background: #fff;
-    color: green;
+    color: green !important;
 }
 
 /*--------------------------------------------------------------
@@ -2457,4 +2457,22 @@ tbody {
 
 .author {
     color: green !important;
+}
+
+.profile-item.active {
+    background-color: #f6f9ff;
+}
+
+.tab {
+    color: #1e1e1e !important;
+}
+
+.tab.active {
+    color: green !important;
+    font-weight: 700;
+}
+
+.edit-profile:focus {
+    box-shadow: 0 0 0 .25rem rgba(0, 123, 0, 0.25) !important;
+    border-color: green !important;
 }

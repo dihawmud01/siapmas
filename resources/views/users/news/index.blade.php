@@ -4,6 +4,7 @@
 
 @extends('users.layout')
 @section('content')
+    @vite(['resources/js/owl.carousel.js'])
     <div class="container-fluid news-container">
         <div class="row">
             <div class="col-lg-7 px-0">
@@ -11,13 +12,14 @@
                     @foreach ($recentNews->take(3) as $news)
                         <div class="position-relative overflow-hidden" style="height: 682px">
                             @if ($news->img)
-                                <img
-                                    class="img-fluid h-100"
-                                    src="{{ asset('storage/images/' . $news->img) }}"
-                                    style="object-fit: cover"
-                                    p
-                                    alt="{{ $news->title }}"
-                                />
+                                <a href="{{ route('news.show', ['slug' => $news->slug]) }}">
+                                    <img
+                                        class="img-fluid h-100"
+                                        src="{{ asset('storage/images/' . $news->img) }}"
+                                        style="object-fit: cover"
+                                        alt="{{ $news->title }}"
+                                    />
+                                </a>
                             @endif
 
                             <div class="overlay">
@@ -73,7 +75,7 @@
                                         class="h6 font-weight-semi-bold m-0 text-white"
                                         href="{{ route('news.show', ['slug' => $news->slug]) }}"
                                     >
-                                        {{ Str::limit($news->title, 50) }}
+                                        {{ Str::limit($news->title, 84) }}
                                     </a>
                                 </div>
                             </div>
@@ -173,7 +175,7 @@
                             @foreach ($recentNews as $news)
                                 <div class="col-lg-6">
                                     <div
-                                        class="d-flex align-items-center rounded-3 mb-3 bg-white"
+                                        class="d-flex align-items-center mb-3 rounded border bg-white"
                                         style="height: 120px"
                                     >
                                         @if ($news->img)
@@ -186,7 +188,7 @@
                                         @endif
 
                                         <div
-                                            class="w-100 h-100 d-flex flex-column justify-content-center border-left-0 rounded-end-1 border px-3"
+                                            class="w-100 h-100 d-flex flex-column justify-content-center border-left px-3"
                                         >
                                             <div class="mb-1">
                                                 <a
@@ -236,13 +238,13 @@
                         </div>
                     </div>
 
-                    @foreach ($data['users'] as $nuOnline)
+                    @foreach ($data['nuOnline'] as $news)
                         <div class="col-lg-6">
                             <div class="d-flex align-items-center rounded-3 mb-3 bg-white" style="height: 140px">
-                                @if (isset($nuOnline['images']['thumbnail']))
+                                @if (! empty($news['images']) && isset($news['images']['thumbnail']))
                                     <img
                                         class="img-fluid"
-                                        src="{{ $nuOnline['images']['thumbnail'] }}"
+                                        src="{{ $news['image']['thumbnail'] }}"
                                         alt=""
                                         style="height: 100px; width: 150px; overflow: hidden; object-fit: cover"
                                     />
@@ -254,21 +256,18 @@
                                     <div class="mb-1">
                                         <a
                                             class="badge badge-primary text-uppercase font-weight-semi-bold mr-2 p-2"
-                                            href="{{ route('news.nu', ['slug' => $nuOnline['slug']]) }}"
+                                            href="{{ $news['url'] }}"
                                         >
-                                            {{ $nuOnline['category']['name'] }}
+                                            {{ $news['category']['name'] }}
                                         </a>
                                     </div>
                                     <div class="mb-1">
-                                        <a
-                                            class="h6 text-dark font-weight-bold m-0"
-                                            href="{{ route('news.nu', ['slug' => $nuOnline['slug']]) }}"
-                                        >
-                                            {{ Str::limit($nuOnline['title'], 40) }}
+                                        <a class="h6 text-dark font-weight-bold m-0" href="{{ $news['url'] }}">
+                                            {{ Str::limit($news['title'], 68) }}
                                         </a>
                                     </div>
                                     <p class="text-secondary mb-0">
-                                        <small>{{ $nuOnline['date']['published'] }}</small>
+                                        <small>{{ $news['date']['published'] }}</small>
                                     </p>
                                 </div>
                             </div>

@@ -40,7 +40,7 @@ class HomeController extends Controller
         }
 
         // User counts by gender
-        $genderLists = ['L', 'P'];
+        $genderLists = ['male', 'female'];
 
         $genders = User::selectRaw('gender, COUNT(*) as count')
             ->whereIn('gender', $genderLists)

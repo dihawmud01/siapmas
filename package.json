@@ -30,6 +30,7 @@
         "@fullcalendar/interaction": "^6.1.15",
         "@fullcalendar/list": "^6.1.15",
         "@fullcalendar/timegrid": "^6.1.15",
+        "@srexi/purecounterjs": "^1.5.0",
         "animate.css": "^4.1.1",
         "aos": "^2.3.4",
         "apexcharts": "^4.4.0",
@@ -52,7 +53,10 @@
         "node-fetch": "^2.7.0",
         "owl.carousel": "^2.3.4",
         "prettier-plugin-css-order": "^2.1.2",
+        "quill": "^2.0.3",
+        "simple-datatables": "^10.0.0",
         "summernote": "^0.9.1",
+        "sweetalert2": "^11.16.1",
         "undefined": "^0.1.0"
     }
 }

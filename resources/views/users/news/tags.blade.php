@@ -17,7 +17,7 @@
                     <div class="row g-3">
                         @foreach ($news as $post)
                             <div class="col-md-6">
-                                <div class="card h-100 rounded border">
+                                <div class="card h-100 rounded">
                                     <div class="d-flex">
                                         @if ($post->img)
                                             <img
@@ -28,7 +28,7 @@
                                             />
                                         @endif
 
-                                        <div class="w-100 d-flex flex-column justify-content-between p-3">
+                                        <div class="w-100 d-flex flex-column justify-content-between border-left p-3">
                                             <a
                                                 class="badge badge-primary text-uppercase font-weight-semi-bold mb-1 rounded p-2 text-white"
                                                 href="{{ route('categories', $post->category->slug) }}"

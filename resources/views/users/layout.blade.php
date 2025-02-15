@@ -21,6 +21,7 @@
         ></script>
 
         @vite(['resources/js/app.js'])
+        @include('sweetalert::alert')
     </head>
 
     <body>
@@ -34,13 +35,9 @@
             <i class="bi bi-arrow-up-short"></i>
         </a>
 
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="{{ asset('assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
         <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
         <script src="{{ asset('assets/vendor/waypoints/noframework.waypoints.js') }}"></script>
-        <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
         <script src="{{ asset('js/user.js') }}"></script>
 
-        @include('sweetalert::alert')
     </body>
 </html>

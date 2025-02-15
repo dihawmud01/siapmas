@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | CDN LINK
@@ -12,7 +11,7 @@ return [
     |
     */
 
-    'cdn' => env('SWEET_ALERT_CDN'),
+    'cdn' => env('SWEET_ALERT_CDN', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -25,7 +24,7 @@ return [
     |
     */
 
-    'alwaysLoadJS' => env('SWEET_ALERT_ALWAYS_LOAD_JS', false),
+    'alwaysLoadJS' => env('SWEET_ALERT_ALWAYS_LOAD_JS', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -111,7 +110,7 @@ return [
         'enable' => env('SWEET_ALERT_ANIMATION_ENABLE', false),
     ],
 
-    'animatecss' => env('SWEET_ALERT_ANIMATECSS', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css'),
+    'animatecss' => env('SWEET_ALERT_ANIMATECSS', '../../'),
 
     /*
     |--------------------------------------------------------------------------
@@ -172,7 +171,6 @@ return [
     */
 
     'middleware' => [
-
         'autoClose' => env('SWEET_ALERT_MIDDLEWARE_AUTO_CLOSE', false),
 
         'toast_position' => env('SWEET_ALERT_MIDDLEWARE_TOAST_POSITION', 'top-end'),
@@ -193,7 +191,6 @@ return [
     */
 
     'customClass' => [
-
         'container' => env('SWEET_ALERT_CONTAINER_CLASS'),
         'popup' => env('SWEET_ALERT_POPUP_CLASS'),
         'header' => env('SWEET_ALERT_HEADER_CLASS'),
@@ -204,9 +201,8 @@ return [
         'content' => env('SWEET_ALERT_CONTENT_CLASS'),
         'input' => env('SWEET_ALERT_INPUT_CLASS'),
         'actions' => env('SWEET_ALERT_ACTIONS_CLASS'),
-        'confirmButton' => env('SWEET_ALERT_CONFIRM_BUTTON_CLASS'),
+        'confirmButton' => 'btn btn-success',
         'cancelButton' => env('SWEET_ALERT_CANCEL_BUTTON_CLASS'),
         'footer' => env('SWEET_ALERT_FOOTER_CLASS'),
     ],
-
 ];

@@ -5,15 +5,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('gender')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('nim')->unique();
             $table->string('img')->default('users.png');
             $table->string('province_id')->nullable();
@@ -23,29 +20,26 @@ return new class extends Migration {
             $table
                 ->string('address')
                 ->nullable()
-                ->dafault('pc ippnu banyumas pride');
+                ->default('pc ippnu banyumas pride');
             $table->string('boarding_school')->nullable();
             $table->string('place_of_birth')->nullable();
-            $table->string('date_of_birth', 20)->nullable();
+            $table->date('date_of_birth')->nullable();
             $table->string('highschool', 100)->nullable();
-            $table->string('grad_year', 10)->nullable();
-            $table->string('bachelor_year', 10)->nullable();
-            $table->string('telephone')->nullable();
+            $table->year('grad_year')->nullable();
+            $table->year('bachelor_year')->nullable();
+            $table->string('phone', 15)->nullable();
             $table->string('bio')->default('tangan terkepan dan maju kemuka!!!');
-            $table
-                ->string('username')
-                ->nullable()
-                ->unique();
+            $table->string('username')->unique();
             $table->string('slug')->nullable();
-            $table->string('email')->nullable();
-            $table->string('password')->nullable();
+            $table->string('email')->unique();
+            $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('check', 2)->default('0');
+            $table->boolean('check')->default(false);
             $table->string('cadre_level')->default('Belum Makesta');
-            $table->string('makesta_year', 50)->nullable();
-            $table->string('lakmud_year', 50)->nullable();
-            $table->string('lakut_year', 50)->nullable();
-            $table->string('latinpel_year', 50)->nullable();
+            $table->year('makesta_year')->nullable();
+            $table->year('lakmud_year')->nullable();
+            $table->year('lakut_year')->nullable();
+            $table->year('latinpel_year')->nullable();
             $table->string('informal', 100)->nullable();
             $table->string('nonformal', 100)->nullable();
             $table
@@ -57,14 +51,11 @@ return new class extends Migration {
                 ->foreignId('pac_id')
                 ->constrained('pac')
                 ->onDelete('cascade');
-            $table->rememberToken()->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('users');

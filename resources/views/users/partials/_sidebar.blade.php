@@ -5,7 +5,7 @@
         </div>
         <div class="border-top-0 rounded-bottom border bg-white p-3">
             @foreach ($trending->take(3) as $news)
-                <div class="d-flex align-items-center mb-3 bg-white" style="height: 120px">
+                <div class="d-flex align-items-center mb-3 rounded border bg-white" style="height: 120px">
                     @if ($news->img)
                         <img
                             class="img-fluid rounded-start"
@@ -15,7 +15,7 @@
                         />
                     @endif
 
-                    <div class="w-100 h-100 d-flex flex-column justify-content-center rounded-end border px-3">
+                    <div class="w-100 h-100 d-flex flex-column justify-content-center border-left px-3">
                         <div class="mb-1">
                             <a
                                 class="badge badge-primary text-uppercase font-weight-semi-bold mr-2 p-2"
@@ -28,7 +28,7 @@
                             class="h6 text-dark font-weight-bold mb-1"
                             href="{{ route('news.show', ['slug' => $news->slug]) }}"
                         >
-                            {{ Str::limit($news->title, 30) }}
+                            {{ Str::limit($news->title, 40) }}
                         </a>
                         <p class="text-secondary" style="padding: 0; margin: 0" href="">
                             <small>{{ $news->views }} {{ __('Kali Dilihat') }}</small>
@@ -63,7 +63,7 @@
                     <div class="d-flex m-n1 flex-wrap">
                         @foreach ($tags as $tag)
                             <a
-                                href="{{ route('tag', $tag->slug) }}"
+                                href="{{ route('tags', $tag->slug) }}"
                                 class="btn btn-sm btn-outline-secondary category-btn m-1 rounded"
                             >
                                 {{ $tag->title }}

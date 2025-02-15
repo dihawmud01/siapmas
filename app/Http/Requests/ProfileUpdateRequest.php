@@ -13,11 +13,29 @@ class ProfileUpdateRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'name' => ['string', 'max:255'],
-            'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
+            'name' => 'required|string|max:255',
+            'gender' => 'required|in:male,female',
+            'address' => 'required|string',
+            'date_of_birth' => 'required|date',
+            'highschool' => 'required|string',
+            'grad_year' => 'required|integer|min:1980|max:' . date('Y'),
+            'bachelor_year' => 'required|integer|min:1980|max:' . date('Y'),
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Nama Lengkap wajib diisi.',
+            'gender.required' => 'Jenis Kelamin harus dipilih.',
+            'address.required' => 'Alamat Lengkap tidak boleh kosong.',
+            'date_of_birth.required' => 'Tanggal Lahir harus diisi.',
+            'highschool.required' => 'Nama SMA/SMK/MA harus diisi.',
+            'grad_year.required' => 'Tahun Lulus harus dipilih.',
+            'bachelor_year.required' => 'Tahun Masuk Kuliah harus dipilih.',
         ];
     }
 }

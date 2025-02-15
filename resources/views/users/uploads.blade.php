@@ -517,8 +517,6 @@
     </div>
 
     <script src="{{ asset('assets/js/admins.js') }}"></script>
-    <script src="{{ asset('assets/vendor/chart.js/chart.umd.js') }}"></script>
-    <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/ckeditor5/build/ckeditor.js') }}"></script>
     <script src="{{ asset('assets/vendor/ckfinder/ckfinder.js') }}"></script>
