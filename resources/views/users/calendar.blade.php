@@ -4,9 +4,17 @@
 
 @extends('users.layout')
 
+@push('style')
+    @vite('resources/css/calendar.css')
+@endpush
+
+@push('script')
+    @vite('resources/js/fullcalendar.js')
+@endpush
+
 @section('content')
     <div class="my-5 pt-3 text-center" data-aos="fade-up">
-        <h1 class="pt-5">{{ __('Kalender Kegiatan') }}</h1>
+        <h1 class="fw-semibold pt-5">{{ __('Kalender Kegiatan') }}</h1>
     </div>
 
     <div class="container my-1">
@@ -16,7 +24,7 @@
             </div>
 
             <div class="my-5 pt-3 text-center" data-aos="fade-up">
-                <h1 class="pt-5">{{ __('Agenda Kegiatan') }}</h1>
+                <h1 class="fw-semibold pt-5">{{ __('Agenda Kegiatan') }}</h1>
             </div>
             <div class="container mb-4 pb-4 pt-2" data-aos="fade-up">
                 <div class="card info-card sales-card rounded-2 border-0 p-5">
@@ -39,7 +47,7 @@
                 </div>
             </div>
             <div class="my-5 pt-3 text-center" data-aos="fade-up">
-                <h1 class="pt-5">{{ __('Hari Besar Nasional') }}</h1>
+                <h1 class="fw-semibold pt-5">{{ __('Hari Besar Nasional') }}</h1>
             </div>
             <div class="container mb-4 pb-4 pt-2" data-aos="fade-up">
                 <div class="card info-card sales-card rounded-2 border-0 p-5">

@@ -1,8 +1,12 @@
-@extends('users.layout')
-
 @section('title')
     {{ __('Kategori') }}
 @endsection
+
+@extends('users.layout')
+
+@push('style')
+    @vite('resources/css/news.css')
+@endpush
 
 @section('content')
     <div class="container-fluid news-container">
@@ -32,7 +36,7 @@
                                         <div class="d-flex flex-column justify-content-between w-100 border-left p-3">
                                             <a
                                                 href="{{ route('categories', $post->category->slug) }}"
-                                                class="badge badge-primary text-uppercase font-weight-semi-bold rounded-1 mb-1 p-2 text-white"
+                                                class="badge badge-primary text-uppercase font-weight-semi-bold rounded-1 text-decoration-none mb-1 p-2 text-white"
                                                 style="width: fit-content"
                                             >
                                                 {{ $post->category->title }}
@@ -40,7 +44,7 @@
 
                                             <a
                                                 href="{{ route('news.show', ['slug' => $post->slug]) }}"
-                                                class="h6 text-dark fw-bold w-100 mb-1"
+                                                class="h6 text-dark fw-bold w-100 text-decoration-none mb-1"
                                             >
                                                 {{ __(Str::limit($post->title, 60)) }}
                                             </a>

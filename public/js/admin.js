@@ -163,17 +163,6 @@
     datatables.forEach(datatable => {
         new simpleDatatables.DataTable(datatable);
     });
-
-    const mainContainer = select('#main');
-    if (mainContainer) {
-        setTimeout(() => {
-            new ResizeObserver(function() {
-                select('.echart', true).forEach(getEchart => {
-                    echarts.getInstanceByDom(getEchart);
-                });
-            }).observe(mainContainer);
-        }, 200);
-    }
 })();
 
 function updateRowNumbers() {

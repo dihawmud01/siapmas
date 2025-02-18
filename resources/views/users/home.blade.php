@@ -3,6 +3,9 @@
 @endsection
 
 @extends('users.layout')
+@push('script')
+    @vite(['resources/js/plugins/apexcharts.js', 'resources/js/plugins/echarts.js', 'resources/js/plugins/purecounter.js', 'resources/js/plugins/swiper.js'])
+@endpush
 
 @section('content')
     <section id="hero" class="mb-5">
@@ -24,7 +27,7 @@
                                 </h2>
                                 <a
                                     href="{{ route('login') }}"
-                                    class="btn-get-started scrollto animate__animated animate__fadeInUp rounded-4 fw-semibold p-4"
+                                    class="btn-get-started scrollto animate__animated animate__fadeInUp rounded-4 fw-semibold text-decoration-none p-4"
                                 >
                                     {{ __('Mulai Sekarang') }}
                                 </a>
@@ -42,7 +45,7 @@
                                     <h2 class="animate__animated animate__fadeInDown mb-2">{{ $value['title'] }}</h2>
                                     <a
                                         href="{{ route('login') }}"
-                                        class="btn-get-started scrollto animate__animated animate__fadeInUp rounded-4 fw-semibold p-4"
+                                        class="btn-get-started scrollto animate__animated animate__fadeInUp rounded-4 fw-semibold text-decoration-none p-4"
                                     >
                                         {{ __('Mulai Sekarang') }}
                                     </a>
@@ -512,7 +515,7 @@
                                 />
                                 <h3 class="fw-bold">{{ $quote->name }}</h3>
                                 <h4>{{ $quote->who }}</h4>
-                                <p>
+                                <p class="d-flex align-items-center">
                                     <img
                                         src="{{ asset('assets/images/quote-sign-left.png') }}"
                                         class="quote-sign-left me-2"

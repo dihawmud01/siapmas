@@ -1,9 +1,9 @@
 import React from 'react';
 import { Head } from '@inertiajs/react';
-import Navbar from '@/Components/Navbar';
-import Footer from '@/Components/Footer';
-import Wallet from '@/Components/Home/Wallet';
-import Statistik from '@/Components/Home/Statistic';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import Wallet from '@/components/Home/Wallet';
+import Statistik from '@/components/Home/Statistic';
 
 type HomepageProps = {
     totalMakesta: string;

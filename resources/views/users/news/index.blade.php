@@ -3,8 +3,16 @@
 @endsection
 
 @extends('users.layout')
+
+@push('script')
+    @vite('resources/js/plugins/owl.carousel.js')
+@endpush
+
+@push('style')
+    @vite('resources/css/news.css')
+@endpush
+
 @section('content')
-    @vite(['resources/js/owl.carousel.js'])
     <div class="container-fluid news-container">
         <div class="row">
             <div class="col-lg-7 px-0">
@@ -25,7 +33,7 @@
                             <div class="overlay">
                                 <div class="d-flex align-items-center mb-2 overflow-hidden">
                                     <a
-                                        class="badge badge-primary text-uppercase font-weight-semi-bold mr-2 p-2"
+                                        class="badge badge-primary text-uppercase font-weight-semi-bold text-decoration-none mr-2 p-2"
                                         href="{{ route('categories', ['slug' => $news->category->slug]) }}"
                                     >
                                         {{ $news->category->title }}
@@ -62,7 +70,7 @@
                                 <div class="overlay">
                                     <div class="d-flex align-items-center mb-2">
                                         <a
-                                            class="badge badge-warning text-uppercase font-weight-semi-bold me-2 p-2"
+                                            class="badge badge-warning text-uppercase font-weight-semi-bold text-decoration-none me-2 p-2"
                                             href="{{ route('categories', ['slug' => $news->category->slug]) }}"
                                         >
                                             {{ $news->category->title }}
@@ -72,7 +80,7 @@
                                         </h9>
                                     </div>
                                     <a
-                                        class="h6 font-weight-semi-bold m-0 text-white"
+                                        class="h6 font-weight-semi-bold text-decoration-none m-0 text-white"
                                         href="{{ route('news.show', ['slug' => $news->slug]) }}"
                                     >
                                         {{ Str::limit($news->title, 84) }}
@@ -104,7 +112,7 @@
                             @foreach ($recentNews->take(2) as $news)
                                 <div class="text-truncate">
                                     <a
-                                        class="font-weight-semi-bold text-white"
+                                        class="font-weight-semi-bold text-decoration-none text-white"
                                         href="{{ route('news.show', ['slug' => $news->slug]) }}"
                                     >
                                         {{ Str::limit($news->title, 50) }}
@@ -139,14 +147,14 @@
                             <div class="overlay">
                                 <div class="d-flex align-items-center mb-2">
                                     <a
-                                        class="badge badge-primary text-uppercase font-weight-semi-bold mr-2 p-2"
+                                        class="badge badge-primary text-uppercase font-weight-semi-bold text-decoration-none mr-2 p-2"
                                         href="{{ route('categories', ['slug' => $news->category->slug]) }}"
                                     >
                                         {{ $news->category->title }}
                                     </a>
                                 </div>
                                 <a
-                                    class="h6 font-weight-semi-bold m-0 text-white"
+                                    class="h6 font-weight-semi-bold text-decoration-none m-0 text-white"
                                     href="{{ route('news.show', ['slug' => $news->slug]) }}"
                                 >
                                     {{ Str::limit($news->title, 50) }}
@@ -192,7 +200,7 @@
                                         >
                                             <div class="mb-1">
                                                 <a
-                                                    class="badge badge-primary text-uppercase font-weight-semi-bold me-2 p-2"
+                                                    class="badge badge-primary text-uppercase font-weight-semi-bold text-decoration-none me-2 p-2"
                                                     href="{{ route('categories', ['slug' => $news->category->slug]) }}"
                                                 >
                                                     {{ $news->category->title }}
@@ -200,7 +208,7 @@
                                             </div>
                                             <div class="mb-1">
                                                 <a
-                                                    class="h6 text-dark font-weight-bold m-0"
+                                                    class="h6 text-dark font-weight-bold text-decoration-none m-0"
                                                     href="{{ route('news.show', ['slug' => $news->slug]) }}"
                                                 >
                                                     {{ Str::limit($news->title, 30) }}
@@ -255,14 +263,17 @@
                                 >
                                     <div class="mb-1">
                                         <a
-                                            class="badge badge-primary text-uppercase font-weight-semi-bold mr-2 p-2"
+                                            class="badge badge-primary text-uppercase font-weight-semi-bold text-decoration-none mr-2 p-2"
                                             href="{{ $news['url'] }}"
                                         >
                                             {{ $news['category']['name'] }}
                                         </a>
                                     </div>
                                     <div class="mb-1">
-                                        <a class="h6 text-dark font-weight-bold m-0" href="{{ $news['url'] }}">
+                                        <a
+                                            class="h6 text-dark font-weight-bold text-decoration-none m-0"
+                                            href="{{ $news['url'] }}"
+                                        >
                                             {{ Str::limit($news['title'], 68) }}
                                         </a>
                                     </div>

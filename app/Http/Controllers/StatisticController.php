@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Disposition;
+use App\Models\Letter;
 use App\Models\News;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -118,6 +120,24 @@ class StatisticController extends Controller
                 return $post;
             });
 
+        $todayIncomingLetter = Letter::incoming()
+            ->today()
+            ->count();
+        $todayOutgoingLetter = Letter::outgoing()
+            ->today()
+            ->count();
+        $todayDispositionLetter = Disposition::today()->count();
+        $todayLetterTransaction = $todayIncomingLetter + $todayOutgoingLetter + $todayDispositionLetter;
+
+        $yesterdayIncomingLetter = Letter::incoming()
+            ->yesterday()
+            ->count();
+        $yesterdayOutgoingLetter = Letter::outgoing()
+            ->yesterday()
+            ->count();
+        $yesterdayDispositionLetter = Disposition::yesterday()->count();
+        $yesterdayLetterTransaction = $yesterdayIncomingLetter + $yesterdayOutgoingLetter + $yesterdayDispositionLetter;
+
         return view(
             'admins.index',
             compact(
@@ -132,6 +152,10 @@ class StatisticController extends Controller
                 'lakmudCounts',
                 'lakutCounts',
                 'latinpelCounts',
+                'todayIncomingLetter',
+                'todayOutgoingLetter',
+                'todayDispositionLetter',
+                'todayLetterTransaction',
             ),
         );
     }

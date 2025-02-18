@@ -13,37 +13,40 @@
 
         <link href="https://fonts.gstatic.com" rel="preconnect" />
 
-        <link href="{{ asset('css/admin.css') }}" rel="stylesheet" />
+        @vite(['resources/js/app.js', 'resources/css/admin.css'])
 
-        <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.css" crossorigin />
-
-        @vite(['resources/js/app.js'])
-        @include('sweetalert::alert')
+        @stack('script')
     </head>
 
     <body>
+        <div id="preloader"></div>
+
         @include('admins.partials._sidebar')
         @include('admins.partials._topbar')
 
         <main id="main" class="main">
             <div class="pagetitle">
-                <h1>@yield('page_title', __('Default'))</h1>
-                <nav>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a class="text-decoration-none" href="{{ route('index') }}">{{ __('Home') }}</a>
-                        </li>
-                        @if (Route::is('makesta') || Route::is('lakmud') || Route::is('lakut') || Route::is('latinpel'))
-                            <li class="breadcrumb-item">@yield('path', __('Default'))</li>
-                            <li class="breadcrumb-item active">@yield('page_title', __('Default'))</li>
-                        @elseif (Route::is('news.edit'))
-                            <li class="breadcrumb-item">@yield('page_title', __('Default'))</li>
-                            <li class="breadcrumb-item active">@yield('path', __('Default'))</li>
-                        @else
-                            <li class="breadcrumb-item active">@yield('page_title', __('Default'))</li>
-                        @endif
-                    </ol>
-                </nav>
+                {{-- <h1 class="">@yield('page_title', __('Default'))</h1> --}}
+                {{-- <nav> --}}
+                {{-- <ol class="breadcrumb"> --}}
+                {{-- <li class="breadcrumb-item"> --}}
+                {{-- <a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a> --}}
+                {{-- </li> --}}
+                {{-- @if (Route::is('makesta') || Route::is('lakmud') || Route::is('lakut') || Route::is('latinpel') || Route::is('dashboard.letters.*')) --}}
+                {{-- <li class="breadcrumb-item">@yield('path', __('Default'))</li> --}}
+                {{-- <li class="breadcrumb-item active text-success"> --}}
+                {{-- @yield('page_title', __('Default')) --}}
+                {{-- </li> --}}
+                {{-- @elseif (Route::is('news.edit')) --}}
+                {{-- <li class="breadcrumb-item">@yield('page_title', __('Default'))</li> --}}
+                {{-- <li class="breadcrumb-item active text-success">@yield('path', __('Default'))</li> --}}
+                {{-- @else --}}
+                {{-- <li class="breadcrumb-item active text-success"> --}}
+                {{-- @yield('page_title', __('Default')) --}}
+                {{-- </li> --}}
+                {{-- @endif --}}
+                {{-- </ol> --}}
+                {{-- </nav> --}}
             </div>
 
             <section class="section dashboard">
@@ -65,5 +68,7 @@
         @include('admins.partials._script')
 
         <script src="{{ asset('js/admin.js') }}"></script>
+
+        @include('sweetalert::alert')
     </body>
 </html>

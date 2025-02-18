@@ -28,5 +28,9 @@ class DatabaseSeeder extends Seeder
         $this->call(NewsTagsTableSeeder::class);
         $this->call(ProfilesTableSeeder::class);
         $this->call(QuotesTableSeeder::class);
+        $this->call(ClassificationTableSeeder::class);
+        $this->call(LetterStatusTableSeeder::class);
+        $this->call(LetterTableSeeder::class);
+        $this->call(DispositionTableSeeder::class);
     }
 }

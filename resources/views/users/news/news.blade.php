@@ -3,6 +3,11 @@
 @endsection
 
 @extends('users.layout')
+
+@push('style')
+    @vite('resources/css/news.css')
+@endpush
+
 @section('content')
     <div class="container-fluid news-container">
         <div class="container my-5 py-5">

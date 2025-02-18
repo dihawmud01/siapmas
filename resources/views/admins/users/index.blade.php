@@ -14,7 +14,6 @@
                     <div>
                         <h5 class="mb-2 fw-semibold">{{ __('Total Kader: ') }} {{ $userCounts }}</h5>
                         <div class="d-flex gap-2">
-
                             <a href="{{ route('users.create') }}"
                                class="btn btn-success fw-semibold">{{ __('Tambah Anggota') }}</a>
                         </div>
@@ -96,6 +95,5 @@
 
             {{ $user->links() }}
         </div>
-
     </div>
 @endsection

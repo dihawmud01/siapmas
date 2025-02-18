@@ -22,12 +22,12 @@ class RolesTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'role' => 'Admin PAC',
+                'role' => 'Admin PC',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'role' => 'Admin PC',
+                'role' => 'Admin PAC',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

@@ -18,14 +18,14 @@
                     <div class="w-100 h-100 d-flex flex-column justify-content-center border-left px-3">
                         <div class="mb-1">
                             <a
-                                class="badge badge-primary text-uppercase font-weight-semi-bold mr-2 p-2"
+                                class="badge badge-primary text-uppercase font-weight-semi-bold text-decoration-none mr-2 p-2"
                                 href="{{ route('categories', ['slug' => $news->category->slug]) }}"
                             >
                                 {{ $news->category->title }}
                             </a>
                         </div>
                         <a
-                            class="h6 text-dark font-weight-bold mb-1"
+                            class="h6 text-dark font-weight-bold text-decoration-none mb-1"
                             href="{{ route('news.show', ['slug' => $news->slug]) }}"
                         >
                             {{ Str::limit($news->title, 40) }}

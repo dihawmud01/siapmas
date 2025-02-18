@@ -28,7 +28,7 @@
                     <ul>
                         <li>
                             <a
-                                class="nav-link fs-6 scrollto {{ request()->routeIs('index') ? 'active' : '' }}"
+                                class="nav-link fs-6 text-decoration-none scrollto {{ request()->routeIs('index') ? 'active' : '' }}"
                                 href="{{ route('index') }}"
                             >
                                 {{ __('Home') }}
@@ -36,21 +36,35 @@
                         </li>
                         <li class="dropdown">
                             <a href="{{ route('index') }}#about" class="text-decoration-none">
-                                <span class="fs-6">{{ __('Tentang') }}</span>
+                                <span class="fs-6 text-decoration-none">{{ __('Tentang') }}</span>
                                 <i class="bi bi-chevron-down"></i>
                             </a>
                             <ul class="rounded">
                                 <li>
-                                    <a class="fs-6" href="{{ route('index') }}#about">{{ __('Tentang Kami') }}</a>
+                                    <a class="fs-6 text-decoration-none" href="{{ route('index') }}#about">
+                                        {{ __('Tentang Kami') }}
+                                    </a>
                                 </li>
-                                <li><a class="fs-6" href="{{ route('administrators') }}">{{ __('Pengurus') }}</a></li>
-                                <li><a class="fs-6" href="{{ route('calendar.index') }}">{{ __('Agenda') }}</a></li>
-                                <li><a class="fs-6" href="{{ route('news') }}">{{ __('Berita') }}</a></li>
+                                <li>
+                                    <a class="fs-6 text-decoration-none" href="{{ route('administrators') }}">
+                                        {{ __('Pengurus') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="fs-6 text-decoration-none" href="{{ route('calendar.index') }}">
+                                        {{ __('Agenda') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="fs-6 text-decoration-none" href="{{ route('news') }}">
+                                        {{ __('Berita') }}
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li>
                             <a
-                                class="nav-link fs-6 scrollto {{ request()->routeIs('calendar.index') ? 'active' : '' }}"
+                                class="nav-link fs-6 text-decoration-none scrollto {{ request()->routeIs('calendar.index') ? 'active' : '' }}"
                                 href="{{ route('calendar.index') }}"
                             >
                                 {{ __('Agenda') }}
@@ -58,7 +72,7 @@
                         </li>
                         <li>
                             <a
-                                class="nav-link fs-6 scrollto {{ request()->routeIs('news') || request()->routeIs('news.show') || request()->routeIs('categories') || request()->routeIs('tags') ? 'active' : '' }}"
+                                class="nav-link fs-6 text-decoration-none scrollto {{ request()->routeIs('news') || request()->routeIs('news.show') || request()->routeIs('categories') || request()->routeIs('tags') ? 'active' : '' }}"
                                 href="{{ route('news') }}"
                             >
                                 {{ __('Berita') }}
@@ -69,7 +83,7 @@
                             @if (in_array(auth()->user()->role_id, [1, 2]))
                                 <li>
                                     <a
-                                        class="nav-link fs-6 scrollto {{ request()->routeIs('dashboard') ? 'active' : '' }}"
+                                        class="nav-link fs-6 text-decoration-none scrollto {{ request()->routeIs('dashboard') ? 'active' : '' }}"
                                         href="{{ route('dashboard') }}"
                                     >
                                         {{ __('Dashboard') }}
@@ -82,7 +96,7 @@
                             @guest
                                 @if (Route::has('login'))
                                     <a
-                                        class="nav-link fs-6 scrollto {{ request()->routeIs('login') ? 'active' : '' }}"
+                                        class="nav-link fs-6 text-decoration-none scrollto {{ request()->routeIs('login') ? 'active' : '' }}"
                                         href="{{ route('login') }}"
                                     >
                                         {{ __('Masuk') }}
@@ -91,7 +105,7 @@
                             @else
                                 <li class="nav-item dropdown pe-3 pl-3">
                                     <a
-                                        class="nav-link fs-6 nav-profile d-flex align-items-center {{ request()->routeIs('profile') ? 'active' : '' }} pe-0"
+                                        class="nav-link fs-6 text-decoration-none nav-profile d-flex align-items-center {{ request()->routeIs('profile') ? 'active' : '' }} pe-0"
                                         href="#"
                                         data-bs-toggle="dropdown"
                                     >
@@ -114,7 +128,7 @@
                                         </li>
                                         <li class="profile-item">
                                             <a
-                                                class="profile-item fs-6 d-flex align-items-start {{ request()->routeIs('profile') ? 'active' : '' }}"
+                                                class="profile-item fs-6 text-decoration-none d-flex align-items-start {{ request()->routeIs('profile') ? 'active' : '' }}"
                                                 href="{{ route('profile') }}"
                                             >
                                                 <span>{{ __('Profilku') }}</span>
@@ -122,7 +136,7 @@
                                         </li>
                                         {{-- <li class="profile-item"> --}}
                                         {{-- <a --}}
-                                        {{-- class="profile-item fs-6 d-flex align-items-center" --}}
+                                        {{-- class="profile-item fs-6 text-decoration-none d-flex align-items-center" --}}
                                         {{-- href="{{ route('account') }}" --}}
                                         {{-- > --}}
                                         {{-- <span>{{ __('Pengaturan Akun') }}</span> --}}
@@ -133,7 +147,7 @@
                                             @if (in_array(auth()->user()->role_id, [1, 2, 3]))
                                                 <li class="profile-item">
                                                     <a
-                                                        class="profile-item fs-6 d-flex align-items-center"
+                                                        class="profile-item fs-6 text-decoration-none d-flex align-items-center"
                                                         href="{{ route('uploads') }}"
                                                     >
                                                         <span>{{ __('Unggahan') }}</span>
@@ -143,7 +157,10 @@
                                         @endauth
 
                                         <li class="border-top profile-item">
-                                            <a class="fs-6 d-flex align-items-center" href="{{ route('logout') }}">
+                                            <a
+                                                class="fs-6 text-decoration-none d-flex align-items-center"
+                                                href="{{ route('logout') }}"
+                                            >
                                                 <span>{{ __('Keluar') }}</span>
                                             </a>
                                         </li>

@@ -282,12 +282,12 @@ class UserController extends Controller
         //
     }
 
-    public function showAdministrators(Request $request)
+    public function showAdmins(Request $request)
     {
-        $administrator = User::whereIn('role_id', [1, 2])
+        $admins = User::whereIn('role_id', [1, 2])
             ->latest()
             ->paginate(10);
-        return view('admins.admins.index', compact('administrator'));
+        return view('admins.admins.index', compact('admins'));
     }
 
     public function showMakestaCadres(Request $request)

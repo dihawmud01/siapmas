@@ -7,16 +7,16 @@
 
         <link href="{{ asset('assets/images/favicon.png') }}" rel="icon" />
 
-        <link rel="stylesheet" href="{{ asset('css/login.css') }}" />
-
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
 
         <title>{{ __('Masuk') }}</title>
 
-        @vite(['resources/js/app.js'])
+        @vite(['resources/js/app.js', 'resources/css/login.css'])
     </head>
     <body>
+        <div id="preloader"></div>
+
         <section class="d-flex justify-content-center align-items-center bg-login">
             <div class="container">
                 <div class="row d-flex justify-content-center align-items-center">
@@ -138,7 +138,8 @@
             </div>
         </section>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="{{ asset('js/user.js') }}"></script>
+
         <script>
             var passwordInput = document.getElementById('form2Example27');
             var toggleButton = document.getElementById('togglePassword');

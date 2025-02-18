@@ -136,6 +136,44 @@
             </ul>
         </li>
 
+        @auth
+            @if (in_array(auth()->user()->role_id, [2, 3]))
+                <li class="nav-item">
+                    <a
+                        class="nav-link collapsible text-dark {{ request()->routeIs('dashboard.letters.incoming') || request()->routeIs('categories.index') || request()->routeIs('dashboard.letters.validation.index') ? '' : 'collapsed' }} bg-transparent"
+                        data-toggle="nav-collapse"
+                        data-target="#collapseLetter"
+                        href="#"
+                    >
+                        <i class="bi bi-envelope"></i>
+                        <span>{{ __('Surat-Menyurat') }}</span>
+                        <i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul
+                        id="collapseLetter"
+                        class="nav-content {{ request()->routeIs('dashboard.letters.incoming') || request()->routeIs('dashboard.letters.validation.index') ? 'show' : '' }}"
+                    >
+                        <li>
+                            <a
+                                href="{{ route('dashboard.letters.incoming') }} "
+                                class="text-dark text-decoration-none {{ request()->routeIs('dashboard.letters.incoming') ? 'active' : '' }}"
+                            >
+                                <span>{{ __('Surat Masuk') }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="{{ route('dashboard.letters.validation.index') }}"
+                                class="text-dark text-decoration-none {{ request()->routeIs('dashboard.letters.validation.index') ? 'active' : '' }}"
+                            >
+                                <span>{{ __('Pengajuan SP') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endif
+        @endauth
+
         <li class="nav-item">
             <a
                 class="nav-link {{ request()->routeIs('admin.calendar.*') ? ' active' : ' collapsed text-dark' }}"
@@ -160,8 +198,8 @@
             @if (in_array(auth()->user()->role_id, [1]))
                 <li class="nav-item">
                     <a
-                        class="nav-link {{ request()->routeIs('admins') ? ' active' : ' collapsed text-dark' }}"
-                        href="{{ route('admins') }}"
+                        class="nav-link {{ request()->routeIs('admins.index') ? ' active' : ' collapsed text-dark' }}"
+                        href="{{ route('admins.index') }}"
                     >
                         <i class="bi bi-people"></i>
                         <span>{{ __('Admin') }}</span>
