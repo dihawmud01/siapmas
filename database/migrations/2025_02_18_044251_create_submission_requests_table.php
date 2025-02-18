@@ -31,7 +31,7 @@ return new class extends Migration {
             $table->json('economy_institution');
             $table->json('press_institution');
             $table->json('brigade_institution');
-            $table->enum('status', SubmissionStatus::getAll())->default('pending');
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
         });
     }

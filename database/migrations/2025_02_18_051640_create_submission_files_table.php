@@ -14,7 +14,16 @@ return new class extends Migration {
         Schema::create('submission_files', function (Blueprint $table) {
             $table->id();
             $table->string('file_type', 50);
-            $table->enum('file_category', FileCategory::getAll());
+            $table->enum('file_category', [
+                'documentation',
+                'request_letter',
+                'mwc_recommendation',
+                'pac_recommendation',
+                'election_report',
+                'formation_report',
+                'management_structure',
+                'id_cv_photo_certificate',
+            ]);
             $table->string('file_path', 255);
             $table->decimal('file_size', 10, 2);
             $table
