@@ -2,7 +2,7 @@
     "private": true,
     "scripts": {
         "dev": "npm-run-all --parallel serve vite",
-        "serve": "php artisan serve --port=3000",
+        "serve": "php artisan serve",
         "vite": "vite",
         "build": "tsc && vite build && vite build --ssr"
     },
