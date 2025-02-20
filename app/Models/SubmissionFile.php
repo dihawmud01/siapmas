@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SubmissionFile extends Model
 {
-    protected $fillable = ['file_type', 'file_category', 'file_path', 'file_size', 'submission_id'];
+    protected $fillable = ['type', 'category', 'attachment', 'submission_id'];
 
     protected $casts = [
-        'file_category' => FileCategory::class,
+        'category' => FileCategory::class,
     ];
 
     public function submission(): BelongsTo

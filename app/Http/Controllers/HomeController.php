@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Home;
 use App\Models\News;
-use App\Models\User;
+use App\Models\Cadre;
 use App\Models\Quote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,10 +26,10 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(15);
 
-        // User counts by cadres level
+        // Cadre counts by cadres level
         $levels = ['Belum Makesta', 'Latinpel', 'Lakut', 'Lakmud', 'Makesta'];
 
-        $cadreLevels = User::selectRaw('cadre_level, COUNT(*) as count')
+        $cadreLevels = Cadre::selectRaw('cadre_level, COUNT(*) as count')
             ->whereIn('cadre_level', $levels)
             ->groupBy('cadre_level')
             ->pluck('count', 'cadre_level');
@@ -39,10 +39,10 @@ class HomeController extends Controller
             $cadreLevelCounts[$level] = $cadreLevels->get($level, 0);
         }
 
-        // User counts by gender
+        // Cadre counts by gender
         $genderLists = ['male', 'female'];
 
-        $genders = User::selectRaw('gender, COUNT(*) as count')
+        $genders = Cadre::selectRaw('gender, COUNT(*) as count')
             ->whereIn('gender', $genderLists)
             ->groupBy('gender')
             ->pluck('count', 'gender');
@@ -53,8 +53,8 @@ class HomeController extends Controller
             $genderCounts[$gender] = $genders->get($gender, 0);
         }
 
-        // User counts by PAC
-        $pacs = User::selectRaw('pac_id, COUNT(*) as count')
+        // Cadre counts by PAC
+        $pacs = Cadre::selectRaw('pac_id, COUNT(*) as count')
             ->whereIn('pac_id', range(1, 29))
             ->groupBy('pac_id')
             ->pluck('count', 'pac_id');
@@ -65,25 +65,25 @@ class HomeController extends Controller
             $pacCounts[$pacId] = $pacs->get($pacId, 0);
         }
 
-        // User counts by Makesta year
+        // Cadre counts by Makesta year
         $years = ['Sebelum 2017', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'];
 
-        $makestas = User::selectRaw('makesta_year, COUNT(*) as count')
+        $makestas = Cadre::selectRaw('makesta_year, COUNT(*) as count')
             ->whereIn('makesta_year', $years)
             ->groupBy('makesta_year')
             ->pluck('count', 'makesta_year');
 
-        $lakmuds = User::selectRaw('lakmud_year, COUNT(*) as count')
+        $lakmuds = Cadre::selectRaw('lakmud_year, COUNT(*) as count')
             ->whereIn('lakmud_year', $years)
             ->groupBy('lakmud_year')
             ->pluck('count', 'lakmud_year');
 
-        $lakuts = User::selectRaw('lakut_year, COUNT(*) as count')
+        $lakuts = Cadre::selectRaw('lakut_year, COUNT(*) as count')
             ->whereIn('lakut_year', $years)
             ->groupBy('lakut_year')
             ->pluck('count', 'lakut_year');
 
-        $latinpels = User::selectRaw('latinpel_year, COUNT(*) as count')
+        $latinpels = Cadre::selectRaw('latinpel_year, COUNT(*) as count')
             ->whereIn('latinpel_year', $years)
             ->groupBy('latinpel_year')
             ->pluck('count', 'latinpel_year');

@@ -6,13 +6,19 @@
 
 @section('content')
     <x-breadcrumb :values="[__('Surat-menyurat'), __('Pengajuan Surat Pengesahan (SP)')]">
-        <a href="{{ route('dashboard.letters.validation.create') }}" class="btn btn-success btn-lg">
+        <a href="{{ route('dashboard.letters.validation-submission.create') }}" class="btn btn-success btn-lg">
             <i class="bi bi-envelope-arrow-up me-2"></i>
             {{ __('Ajukan SP') }}
         </a>
     </x-breadcrumb>
 
-    @foreach ($data as $letter)
-        <x-letter-card :letter="$letter" />
+    @if ($submissionRequests->isEmpty())
+        <div class="d-flex align-items-center justify-content-center empty-content p-4">
+            <h1 class="text-secondary">{{ __('Belum ada pengajuan SP yang dilakukan') }}</h1>
+        </div>
+    @endif
+
+    @foreach ($submissionRequests as $submission)
+        <x-letter-card :submission="$submission" />
     @endforeach
 @endsection

@@ -12,26 +12,34 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('submission_requests', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->string('pac');
             $table->date('event_date');
             $table->string('event_location', 255);
             $table->string('mwc_letter_number', 100);
             $table->json('protectors');
             $table->json('advisors');
             $table->string('chairman', 100);
-            $table->json('vice_chairman');
+            $table->json('vice_chairmen');
             $table->string('secretary', 100);
             $table->json('vice_secretaries');
             $table->string('treasurer', 100);
             $table->json('vice_treasurers');
-            $table->json('organization_department');
-            $table->json('cadre_department');
-            $table->json('dakwah_department');
-            $table->json('culture_department');
-            $table->json('economy_institution');
-            $table->json('press_institution');
-            $table->json('brigade_institution');
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->string('organization_department_coordinator', 100);
+            $table->json('organization_department_members');
+            $table->string('cadre_department_coordinator', 100);
+            $table->json('cadre_department_members');
+            $table->string('dakwah_department_coordinator', 100);
+            $table->json('dakwah_department_members');
+            $table->string('culture_department_coordinator', 100);
+            $table->json('culture_department_members');
+            $table->string('economy_institution_director', 100);
+            $table->json('economy_institution_members');
+            $table->string('press_institution_director', 100);
+            $table->json('press_institution_members');
+            $table->string('brigade_institution_director', 100);
+            $table->json('brigade_institution_members');
+            $table->enum('status', SubmissionStatus::getAll())->default('pending');
             $table->timestamps();
         });
     }

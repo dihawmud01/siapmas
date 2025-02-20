@@ -2,16 +2,18 @@
 
 namespace Database\Factories;
 
-use Illuminate\Support\Arr;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends Factory<User>
  */
 class UserFactory extends Factory
 {
+    protected $model = User::class;
+
     /**
      * Define the model's default state.
      *
@@ -20,20 +22,17 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(15),
-            'username' => fake()
-                ->unique()
-                ->name(13),
-            'role_id' => Arr::random(['1', '2', '3', '4', '5']),
-            'makesta_year' => Arr::random(['2018', '2019', '2020', '2021', '2022', '2023', '2024']),
-            'gender' => Arr::random(['L', 'P']),
-            'email' => fake()->email(),
-            'pac_id' => Arr::random(['1', '2', '3', '4', '5', '6']),
-            'email_verified_at' => now(),
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'img' => 'default.png',
             'password' => Hash::make('password'),
-            'remember_token' => Str::random(10),
-            'cadre_level' => Arr::random(['Belum Makesta', 'Makesta', 'Lakmud', 'Lakut', 'Latinpel']),
-            'nim' => fake()->numberBetween(5, 9999),
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(60),
+            'check' => $this->faker->boolean(),
+            'role_id' => $this->faker->numberBetween(1, 4),
+            'bio' => $this->faker->text(),
+            'username' => $this->faker->unique()->username(),
+            'slug' => $this->faker->unique()->slug(),
         ];
     }
 

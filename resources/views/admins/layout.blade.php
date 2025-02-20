@@ -67,6 +67,7 @@
         @include('admins.partials._footer')
         @include('admins.partials._script')
 
+        <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
         <script src="{{ asset('js/admin.js') }}"></script>
 
         @include('sweetalert::alert')

@@ -23,7 +23,7 @@
                             <i class="bi bi-people"></i>
                         </div>
                         <div>
-                            <h6>{{ $cadreLevelCounts['Makesta'] }}</h6>
+                            <h6>{{ $cadreLevelCounts['makesta'] }}</h6>
                         </div>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                             <i class="bi bi-people"></i>
                         </div>
                         <div>
-                            <h6>{{ $cadreLevelCounts['Lakmud'] }}</h6>
+                            <h6>{{ $cadreLevelCounts['lakmud'] }}</h6>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                             <i class="bi bi-people"></i>
                         </div>
                         <div>
-                            <h6>{{ $cadreLevelCounts['Lakut'] }}</h6>
+                            <h6>{{ $cadreLevelCounts['lakut'] }}</h6>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                             <i class="bi bi-people"></i>
                         </div>
                         <div>
-                            <h6>{{ $cadreLevelCounts['Latinpel'] }}</h6>
+                            <h6>{{ $cadreLevelCounts['latinpel'] }}</h6>
                         </div>
                     </div>
                 </div>

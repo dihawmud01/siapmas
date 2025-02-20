@@ -131,7 +131,7 @@ Route::get('district', [LaravoltController::class, 'showDistrict'])->name('distr
 Route::get('village', [LaravoltController::class, 'showVillage'])->name('village');
 
 // Route Admin & Superadmin
-Route::middleware(['auth', 'role:1,2'])->group(function () {
+Route::middleware(['auth', 'role:1,2,3'])->group(function () {
     Route::get('/dashboard', [StatisticController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/libraries', [LibraryController::class, 'adminIndex'])->name('admin.libraries.index');
     Route::get('/dashboard/libraries/create', [LibraryController::class, 'create'])->name('admin.libraries.create');
@@ -265,7 +265,7 @@ Route::middleware(['auth', 'role: 2,3,4'])->group(function () {
                 ->as('letters.')
                 ->group(function () {
                     Route::get('incoming', [IncomingLetterController::class, 'index'])->name('incoming');
-                    Route::resource('validation', LetterOfValidation::class);
+                    Route::resource('validation-submission', LetterOfValidation::class);
                 });
         });
 });

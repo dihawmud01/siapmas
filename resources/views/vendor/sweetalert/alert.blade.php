@@ -9,6 +9,15 @@
         <script src="{{ $cdn ?? asset('vendor/sweetalert/sweetalert.all.js')  }}"></script>
     @endif
     <script>
-        Swal.fire({!! Session::pull('alert.config') !!});
+        let swalConfig = {!! Session::pull('alert.config') !!};
+
+        swalConfig.willOpen = () => {
+            document.querySelectorAll('.filepond--root').forEach(el => el.style.display = 'none');
+        };
+        swalConfig.didClose = () => {
+            document.querySelectorAll('.filepond--root').forEach(el => el.style.display = '');
+        };
+
+        Swal.fire(swalConfig);
     </script>
 @endif

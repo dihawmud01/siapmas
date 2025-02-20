@@ -80,7 +80,7 @@
                         </li>
 
                         @auth
-                            @if (in_array(auth()->user()->role_id, [1, 2]))
+                            @if (in_array(auth()->user()->role_id, [1, 2, 3]))
                                 <li>
                                     <a
                                         class="nav-link fs-6 text-decoration-none scrollto {{ request()->routeIs('dashboard') ? 'active' : '' }}"

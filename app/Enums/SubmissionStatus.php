@@ -16,4 +16,9 @@ enum SubmissionStatus: string
             self::REJECTED => __('Ditolak'),
         };
     }
+
+    public static function getAll(): array
+    {
+        return array_column(self::cases(), 'value');
+    }
 }

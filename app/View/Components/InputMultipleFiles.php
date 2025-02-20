@@ -2,20 +2,21 @@
 
 namespace App\View\Components;
 
-use App\Models\SubmissionRequest;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class LetterCard extends Component
+class InputMultipleFiles extends Component
 {
-    public SubmissionRequest $submission;
+    public string $label, $name, $accept;
     /**
      * Create a new component instance.
      */
-    public function __construct(SubmissionRequest $submission)
+    public function __construct(string $label, $name, $accept)
     {
-        $this->submission = $submission;
+        $this->label = $label;
+        $this->name = $name;
+        $this->accept = $accept;
     }
 
     /**
@@ -23,6 +24,6 @@ class LetterCard extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.letter-card');
+        return view('components.input-multiple-files');
     }
 }

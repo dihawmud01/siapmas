@@ -13,7 +13,7 @@
 }
 
 body {
-    background: #f6f9ff;
+    background: #f6f9ff !important;
     color: #444444;
     font-family: 'Open Sans', sans-serif;
 }
@@ -44,6 +44,7 @@ h6 {
     transition: all 0.5s;
     margin-top: 96px;
     padding: 20px 30px;
+    min-height: 106vh;
 }
 
 @media (max-width: 1199px) {
@@ -1409,4 +1410,27 @@ h6 {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.sp-label {
+    min-width: 348px;
+}
+
+.sp-input {
+    min-width: 512px;
+}
+
+.filepond--credits {
+    display: none !important;
+}
+
+.swal-custom-actions {
+    display: flex !important;
+    justify-content: space-between !important;
+    padding: 0 40px !important;
+    width: 100% !important;
+}
+
+.empty-content {
+    min-height: 93vh;
 }

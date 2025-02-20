@@ -14,8 +14,12 @@ class PAC extends Model
     protected $table = 'pac';
     protected $fillable = ['pac', 'slug'];
 
-    // Define the accessor for the slug
-    public function getSlugAttribute()
+    public function getPACNameAttribute(): string
+    {
+        return $this->pac;
+    }
+
+    public function getSlugAttribute(): string
     {
         return Str::slug($this->pac);
     }
@@ -29,8 +33,8 @@ class PAC extends Model
     {
         return [
             'slug' => [
-                'source' => 'pac'
-            ]
+                'source' => 'pac',
+            ],
         ];
     }
 }

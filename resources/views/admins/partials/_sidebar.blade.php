@@ -163,8 +163,8 @@
                         </li>
                         <li>
                             <a
-                                href="{{ route('dashboard.letters.validation.index') }}"
-                                class="text-dark text-decoration-none {{ request()->routeIs('dashboard.letters.validation.index') ? 'active' : '' }}"
+                                href="{{ route('dashboard.letters.validation-submission.index') }}"
+                                class="text-dark text-decoration-none {{ request()->routeIs('dashboard.letters.validation-submission.index') ? 'active' : '' }}"
                             >
                                 <span>{{ __('Pengajuan SP') }}</span>
                             </a>

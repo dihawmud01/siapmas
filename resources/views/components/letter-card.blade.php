@@ -1,118 +1,110 @@
-<div class="card mb-4">
-    <div class="card-header pb-0">
+<div class="card mb-4 p-4">
+    <div class="card-header bg-transparent pb-0">
         <div class="d-flex justify-content-between flex-column flex-sm-row">
             <div class="card-title">
-                <h5 class="fw-bold mb-0 text-nowrap">{{ $letter->reference_number }}</h5>
+                <h5 class="fw-bold mb-1 text-nowrap">{{ __('ID Pengajuan ') . $submission->id }}</h5>
                 <small class="text-black">
-                    {{ $letter->type == 'incoming' ? $letter->from : $letter->to }} |
-                    <span class="text-secondary">{{ __('model.letter.agenda_number') }}:</span>
-                    {{ $letter->agenda_number }} |
-                    {{ $letter->classification?->type }}
+                    <span class="text-secondary">{{ __('Diajukan oleh:') }}</span>
+                    {{ __('PAC ') }}
+                    {{ $submission->pac }}
                 </small>
             </div>
-            <div class="card-title d-flex flex-row">
-                <div class="d-inline-block mx-2 text-end text-black">
-                    <small class="d-block text-secondary">{{ __('model.letter.letter_date') }}</small>
-                    {{ $letter->formatted_letter_date }}
+
+            <div class="card-title d-flex align-items-center flex-row">
+                <div class="d-inline-block mx-2 mb-1 text-end text-black">
+                    <small class="d-block text-secondary mb-1">{{ __('Tanggal Pengajuan') }}</small>
+                    {{ $submission->formatted_submission_date }}
                 </div>
-                @if ($letter->type == 'incoming')
-                    <div class="mx-3">
-                        <a href="" class="btn btn-primary btn">
-                            {{ __('model.letter.dispose') }}
-                            <span>({{ $letter->dispositions->count() }})</span>
-                        </a>
-                    </div>
-                @endif
+                <div class="mx-3">
+                    <button href="" class="btn btn-success btn-lg" disabled>
+                        {{ __('Genersate SP') }}
+                    </button>
+                </div>
 
                 <div class="dropdown d-inline-block">
                     <button
                         class="btn p-0"
                         type="button"
-                        id="dropdown-{{ $letter->type }}-{{ $letter->id }}"
+                        id="dropdown-{{ $submission->id }}"
                         data-bs-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="false"
                     >
                         <i class="bx bx-dots-vertical-rounded"></i>
                     </button>
-                    @if ($letter->type == 'incoming')
-                        <div
-                            class="dropdown-menu dropdown-menu-end"
-                            aria-labelledby="dropdown-{{ $letter->type }}-{{ $letter->id }}"
-                        >
-{{--                            @if (! \Illuminate\Support\Facades\Route::is('*.show'))--}}
-{{--                                <a class="dropdown-item" href="{{ route('transaction.incoming.show', $letter) }}">--}}
-{{--                                    {{ __('menu.general.view') }}--}}
-{{--                                </a>--}}
-{{--                            @endif--}}
 
-                            <a class="dropdown-item" href=">
-                                {{ __('menu.general.edit') }}
-                            </a>
-                            <form
-                                action=""
-                                class="d-inline"
-                                method="post"
-                            >
-                                @csrf
-                                @method('DELETE')
-                                <span class="dropdown-item btn-delete cursor-pointer">
-                                    {{ __('menu.general.delete') }}
-                                </span>
-                            </form>
-                        </div>
-                    @else
-                        <div
-                            class="dropdown-menu dropdown-menu-end"
-                            aria-labelledby="dropdown-{{ $letter->type }}-{{ $letter->id }}"
-                        >
-{{--                            @if (! \Illuminate\Support\Facades\Route::is('*.show'))--}}
-{{--                                <a class="dropdown-item" href="{{ route('transaction.outgoing.show', $letter) }}">--}}
-{{--                                    {{ __('menu.general.view') }}--}}
-{{--                                </a>--}}
-{{--                            @endif--}}
+                    <div
+                        class="dropdown-menu dropdown-menu-end"
+                        aria-labelledby="dropdown-{{ $submission->type }}-{{ $submission->id }}"
+                    >
+                        <a class="dropdown-item" href="">
+                            {{ __('menu.general.view') }}
+                        </a>
 
-                            <a class="dropdown-item" href="">
-                                {{ __('menu.general.edit') }}
-                            </a>
-                            <form
-                                action=""
-                                class="d-inline"
-                                method="post"
-                            >
-                                @csrf
-                                @method('DELETE')
-                                <span class="dropdown-item btn-delete cursor-pointer">
-                                    {{ __('menu.general.delete') }}
-                                </span>
-                            </form>
-                        </div>
-                    @endif
+                        <a class="dropdown-item" href="">
+                            {{ __('menu.general.edit') }}
+                        </a>
+
+                        <form action="" method="post" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <span class="dropdown-item btn-delete cursor-pointer">
+                                {{ __('menu.general.delete') }}
+                            </span>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="card-body">
-        <hr />
-        <p>{{ $letter->description }}</p>
-        <div class="d-flex justify-content-between flex-column flex-sm-row">
-            <small class="text-secondary">{{ $letter->note }}</small>
-            @if (count($letter->attachments))
+        <div class="d-flex justify-content-between align-items-center">
+            <p class="mb-3">
+                <strong>{{ __('Status: ') }}</strong>
+
+                @if ($submission->status->value == 'pending')
+                    <span class="badge bg-warning text-dark fs-6 ms-2 p-2">{{ $submission->status->label() }}</span>
+                @elseif ($submission->status == 'approved')
+                    <span class="badge bg-success">{{ $submission->status->label() }}</span>
+                @elseif ($submission->status == 'rejected')
+                    <span class="badge bg-danger">{{ $submission->status->label() }}</span>
+                @endif
+            </p>
+
+            {{-- Tombol Persetujuan dan Penolakan --}}
+            @if ($submission->status == 'pending')
                 <div>
-                    @foreach ($letter->attachments as $attachment)
-                        <a href="{{ $attachment->path_url }}" target="_blank">
-                            @if ($attachment->extension == 'pdf')
-                                <i class="bx bxs-file-pdf display-6 text-primary cursor-pointer"></i>
-                            @elseif (in_array($attachment->extension, ['jpg', 'jpeg']))
-                                <i class="bx bxs-file-jpg display-6 text-primary cursor-pointer"></i>
-                            @elseif ($attachment->extension == 'png')
-                                <i class="bx bxs-file-png display-6 text-primary cursor-pointer"></i>
-                            @endif
-                        </a>
-                    @endforeach
+                    <form action="{{ route('letters.approve', $submission->id) }}" method="post" class="d-inline">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-sm btn-success">
+                            <i class="bx bx-check"></i>
+                            Setujui
+                        </button>
+                    </form>
+
+                    <form action="{{ route('letters.reject', $submission->id) }}" method="post" class="d-inline">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            <i class="bx bx-x"></i>
+                            Tolak
+                        </button>
+                    </form>
                 </div>
             @endif
         </div>
+
+        <p>
+            <strong>{{ __('Keterangan: ') }}</strong>
+            {{ __('Belum dapat melakukan generate SP karena belum disetujui oleh PC') }}
+        </p>
+
+        <div class="d-flex justify-content-between flex-column flex-sm-row">
+            <small class="text-secondary">{{ __('Disetujui pada: -') }}</small>
+        </div>
+
         {{ $slot }}
     </div>
 </div>

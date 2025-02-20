@@ -1,4 +1,12 @@
+@section('title')
+    {{ __('Surat Pengesahan (SP)') }}
+@endsection
+
 @extends('admins.layout')
+
+@push('script')
+    @vite('resources/js/plugins/alpine.js')
+@endpush
 
 @section('content')
     <x-breadcrumb
@@ -6,396 +14,507 @@
     ></x-breadcrumb>
 
     <div class="card">
-        <div class="card-body pt-3">
-            <ul class="nav nav-tabs nav-tabs-bordered">
-                <li class="nav-item">
-                    <button class="nav-link active tab" data-bs-toggle="tab" data-bs-target="#profileEdit">
-                        {{ __('Edit Profil') }}
-                    </button>
-                </li>
-
-                <li class="nav-item">
-                    <button class="nav-link tab" data-bs-toggle="tab" data-bs-target="#changePassword">
-                        {{ __('Ubah Kata Sandi') }}
-                    </button>
-                </li>
-            </ul>
-            <div class="tab-content pt-2">
-                <div class="tab-pane fade show active profile-edit pt-3" id="profileEdit">
-                    <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-
-                        <div class="row mb-3">
-                            <label for="profile-img" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('Foto Profil') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <img
-                                    src="{{ asset('storage/images/' . $user->img) }}"
-                                    alt="{{ __('Profil') }}"
-                                    style="height: 200px; width: 200px; object-fit: cover"
-                                    id="previewImg"
-                                    class="rounded-circle"
-                                />
-                                <div class="pt-2">
-                                    <div class="mb-3">
-                                        <div>
-                                            <input
-                                                class="form-control edit-profile"
-                                                id="formFileSm"
-                                                type="file"
-                                                name="img"
-                                                onchange="previewFile()"
-                                            />
-                                            <input type="hidden" name="remove_img" id="removeImg" value="0" />
-                                        </div>
-                                    </div>
-                                    <p class="text-danger mb-1">
-                                        {{ __('Maksimal 4 MB') }} |
-                                        {{ __('Format JPG/PNG/JPEG') }}
-                                    </p>
-                                    <div class="mb-3">
-                                        <button type="button" class="btn btn-secondary mt-2" onclick="cancelImg()">
-                                            {{ __('Batal') }}
-                                        </button>
-                                        <button type="button" class="btn btn-danger me-1 mt-2" onclick="removeImage()">
-                                            {{ __('Hapus') }}
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('Nama Lengkap') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <input
-                                    name="name"
-                                    type="text"
-                                    class="form-control edit-profile"
-                                    id="name"
-                                    value="{{ $user->name }}"
-                                    required
-                                />
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="bio" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('Biografi') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <input
-                                    name="bio"
-                                    type="text"
-                                    class="form-control edit-profile"
-                                    id="bio"
-                                    value="{{ $user->bio }}"
-                                    required
-                                />
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('Username') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <input
-                                    name="fullName"
-                                    type="text"
-                                    class="form-control edit-profile"
-                                    id="fullName"
-                                    value="{{ $user->username }}"
-                                    readonly
-                                />
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="nim" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('Nomor Induk Mahasiswa (NIM)') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <input
-                                    name="nim"
-                                    type="text"
-                                    class="form-control edit-profile"
-                                    id="nim"
-                                    value="{{ $user->nim }}"
-                                    readonly
-                                />
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="pac" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('PAC') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <input
-                                    name="pac"
-                                    type="text"
-                                    class="form-control edit-profile"
-                                    id="pac"
-                                    value="{{ $user->pac->pac }}"
-                                    readonly
-                                />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="level" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('Jenjang Kaderisasi') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <input
-                                    name="job"
-                                    type="text"
-                                    class="form-control edit-profile"
-                                    id="level"
-                                    value="{{ $user->cadre_level }}"
-                                    readonly
-                                />
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="gender" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('Jenis Kelamin') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <select class="form-select" name="gender" aria-label="gender">
-                                    <option disabled selected>{{ __('-- Pilih --') }}</option>
-                                    @foreach ($genders as $value => $label)
-                                        <option value="{{ $value }}" {{ $user->gender == $value ? 'selected' : '' }}>
-                                            {{ __($label) }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="address" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('Alamat Lengkap') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <textarea name="address" class="form-control edit-profile" id="address" required>
-{{ $user->address }}</textarea
-                                >
-                                <p class="text-danger"></p>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="date_of_birth" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('Tanggal Lahir') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <input
-                                    name="date_of_birth"
-                                    type="date"
-                                    class="form-control edit-profile"
-                                    id="dateOfBirth"
-                                    value="{{ $user->date_of_birth }}"
-                                    required
-                                />
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="highschool" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('SMA/SMK/MA/Sederajat') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <input
-                                    name="highschool"
-                                    type="text"
-                                    class="form-control edit-profile"
-                                    id="highschool"
-                                    value="{{ $user->highschool }}"
-                                    required
-                                />
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="grad_year" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('Tahun Lulus SMA/SMK/MA/Sederajat') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <select name="grad_year" class="edit-profile form-select" id="gradYear" required>
-                                    @for ($year = date('Y'); $year >= 1980; $year--)
-                                        <option value="{{ $year }}" {{ $user->grad_year == $year ? 'selected' : '' }}>
-                                            {{ $year }}
-                                        </option>
-                                    @endfor
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="bachelor_year" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('Tahun Masuk Kuliah') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <select
-                                    name="bachelor_year"
-                                    class="edit-profile form-select"
-                                    id="bachelorYear"
-                                    required
-                                >
-                                    @for ($year = date('Y'); $year >= 1980; $year--)
-                                        <option
-                                            value="{{ $year }}"
-                                            {{ $user->bachelor_year == $year ? 'selected' : '' }}
-                                        >
-                                            {{ $year }}
-                                        </option>
-                                    @endfor
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="wa" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('Nomor WhatsApp') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <input
-                                    name="wa"
-                                    type="text"
-                                    class="form-control edit-profile"
-                                    id="wa"
-                                    value="{{ $user->phone }}"
-                                    required
-                                />
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('Email') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <input
-                                    name="email"
-                                    type="email"
-                                    class="form-control edit-profile mb-4"
-                                    id="email"
-                                    value="{{ $user->email }}"
-                                    required
-                                    readonly
-                                />
-                                <p class="text-danger m-0">
-                                    {{ __('Pastikan semua data sudah terisi dengan benar') }}
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="text-end">
-                            <a href="{{ route('profile') }}">
-                                <button type="button" class="btn btn-secondary me-1">
-                                    {{ __('Batal') }}
-                                </button>
-                            </a>
-                            <button type="submit" class="btn btn-success">
-                                {{ __('Update') }}
-                            </button>
-                        </div>
-                    </form>
+        <div class="card-header bg-transparent">
+            <div class="d-flex align-items-center p-4">
+                <div class="d-flex flex-column w-100">
+                    <h3 class="fw-bold">{{ __('Form Pengajuan Surat Pengesahan PAC/PR/PK') }}</h3>
                 </div>
+            </div>
+        </div>
 
-                <div class="tab-pane fade pt-3" id="profileSettings">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">{{ __('Buat Postingan') }}</h3>
-                        </div>
+        <div class="card-body p-4">
+            <form
+                method="POST"
+                action="{{ route('dashboard.letters.validation-submission.store') }}"
+                enctype="multipart/form-data"
+                x-data="{
+                    step: 1,
+                    errors: {},
+                    validateStep1() {
+                        this.errors = {}
 
-                        <form
-                            role="form"
-                            method="POST"
-                            action="{{ route('profile.post.store') }}"
-                            enctype="multipart/form-data"
-                        >
-                            @csrf
-                            <div class="card-body">
-                                @include('admins.news.form')
-                            </div>
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Simpan') }}
-                                </button>
-                            </div>
-                        </form>
+                        let fields = [
+                            'event_date',
+                            'event_location',
+                            'documentation',
+                            'request_letter',
+                            'mwc_recommendation',
+                            'mwc_letter_number',
+                            'pac_recommendation',
+                            'election_report',
+                            'formation_report',
+                            'id_cv_photo_certificate',
+                            'management_structure',
+                        ]
+
+                        fields.forEach((name) => {
+                            let input = document.querySelector(`[name='${name}']`)
+                            if (input) {
+                                if (
+                                    (input.type === 'file' && input.files.length === 0) ||
+                                    (input.type !== 'file' && input.value.trim() === '')
+                                ) {
+                                    this.errors[name] = 'Field ini wajib diisi.'
+                                }
+                            }
+                        })
+
+                        if (Object.keys(this.errors).length === 0) {
+                            this.step = 2
+                        }
+                    },
+                    validateStep2() {
+                        this.errors = {}
+
+                        let fields = [
+                            'protectors',
+                            'advisors',
+                            'chairman',
+                            'vice_chairmen',
+                            'secretary',
+                            'vice_secretaries',
+                            'treasurer',
+                            'vice_treasurers',
+                            'organization_department_coordinator',
+                            'organization_department_members',
+                            'cadre_department_coordinator',
+                            'cadre_department_members',
+                            'dakwah_department_coordinator',
+                            'dakwah_department_members',
+                            'culture_department_coordinator',
+                            'culture_department_members',
+                            'economy_institution_director',
+                            'economy_institution_members',
+                            'press_institution_director',
+                            'press_institution_members',
+                            'brigade_institution_director',
+                            'brigade_institution_members',
+                        ]
+
+                        fields.forEach((name) => {
+                            let input = document.querySelector(`[name='${name}']`)
+                            let inputJSON = document.querySelector(`[name='${name}[]']`)
+
+                            if (
+                                (input && input.value.trim() === '') ||
+                                (inputJSON && inputJSON.value.trim() === '')
+                            ) {
+                                this.errors[name] = 'Field ini wajib diisi.'
+                            }
+                        })
+
+                        if (Object.keys(this.errors).length === 0) {
+                            Swal.fire({
+                                title: 'Apakah Anda yakin ingin mengirim data ini?',
+                                text: 'Pastikan semua data sudah benar sebelum dikirim.',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                cancelButtonText: 'Cek lagi',
+                                confirmButtonText: 'Kirim',
+                                reverseButtons: true,
+                                customClass: {
+                                    cancelButton: 'btn btn-secondary btn-lg',
+                                    confirmButton: 'btn btn-success btn-lg',
+                                    actions: 'swal-custom-actions',
+                                },
+                                buttonsStyling: false,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    document.querySelector('form').submit()
+                                }
+                            })
+                        }
+                    },
+                }"
+            >
+                @csrf
+
+                <div class="row" x-show="step === 1">
+                    <div class="my-4 px-5">
+                        <h3 class="fw-semibold">{{ __('Lampiran-lampiran') }}</h3>
+                    </div>
+                    <div class="col-md-6 mt-3 px-5">
+                        <p
+                            x-show="errors.event_date"
+                            class="text-danger mb-1 text-end"
+                            x-text="errors.event_date"
+                        ></p>
+                        <x-input-form
+                            name="event_date"
+                            label="{{ __('Tanggal Pelaksanaan Konferancab/Rapat Anggota') }}"
+                            type="date"
+                        />
+
+                        <p
+                            x-show="errors.event_location"
+                            class="text-danger mb-1 text-end"
+                            x-text="errors.event_location"
+                        ></p>
+                        <x-input-form
+                            name="event_location"
+                            label="{{ __('Tempat Pelaksanaan Konferancab/Rapat Anggota') }}"
+                            type="text"
+                        />
+
+                        <p
+                            x-show="errors.documentation"
+                            class="text-danger mb-1 text-end"
+                            x-text="errors.documentation"
+                        ></p>
+                        <x-input-multiple-files
+                            name="documentation"
+                            label="{{ __('Dokumentasi Pelaksanaan Konferancab/Rapat Anggota') }}"
+                            accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpeg, image/png, video/mp4"
+                        />
+
+                        <p
+                            x-show="errors.request_letter"
+                            class="text-danger mb-1 text-end"
+                            x-text="errors.request_letter"
+                        ></p>
+                        <x-input-form
+                            name="request_letter"
+                            label="{{ __('Surat Permohonan Pengesahan kepada PC IPNU Kabupaten Banyumas') }}"
+                            type="file"
+                            accept="application/pdf"
+                        />
+
+                        <p
+                            x-show="errors.mwc_recommendation"
+                            class="text-danger mb-1 text-end"
+                            x-text="errors.mwc_recommendation"
+                        ></p>
+                        <x-input-form
+                            name="mwc_recommendation"
+                            label="{{ __('Surat Rekomendasi dari MWC NU/PR NU Setempat') }}"
+                            type="file"
+                            accept="application/pdf"
+                        />
+
+                        <p
+                            x-show="errors.mwc_letter_number"
+                            class="text-danger mb-1 text-end"
+                            x-text="errors.mwc_letter_number"
+                        ></p>
+                        <x-input-form
+                            name="mwc_letter_number"
+                            label="{{ __('No. Surat Rekomendasi dari MWC NU/PR NU Setempat') }}"
+                            type="text"
+                        />
+                    </div>
+
+                    <div class="col-md-6 mt-3 px-5">
+                        <p
+                            x-show="errors.pac_recommendation"
+                            class="text-danger mb-1 text-end"
+                            x-text="errors.pac_recommendation"
+                        ></p>
+                        <x-input-form
+                            name="pac_recommendation"
+                            label="{{ __('Surat Rekomendasi PAC Setempat') }}"
+                            type="file"
+                            accept="application/pdf"
+                        />
+
+                        <p
+                            x-show="errors.election_report"
+                            class="text-danger mb-1 text-end"
+                            x-text="errors.election_report"
+                        ></p>
+                        <x-input-form
+                            name="election_report"
+                            label="{{ __('Berita Acara Pemilihan Ketua Hasil Konferancab/Rapat Anggota') }}"
+                            type="file"
+                            accept="application/pdf"
+                        />
+
+                        <p
+                            x-show="errors.formation_report"
+                            class="text-danger mb-1 text-end"
+                            x-text="errors.formation_report"
+                        ></p>
+                        <x-input-form
+                            name="formation_report"
+                            label="{{ __('Berita Acara Penyusunan Kepengurusan Oleh Tim Formatur') }}"
+                            type="file"
+                            accept="application/pdf"
+                        />
+
+                        <p
+                            x-show="errors.id_cv_photo_certificate"
+                            class="text-danger mb-1 text-end"
+                            x-text="errors.id_cv_photo_certificate"
+                        ></p>
+                        <x-input-form
+                            name="id_cv_photo_certificate"
+                            label="{{ __('Scan KTP, CV, Foto, Sertifikat Kaderisasi (Ketua, Sekretaris, dan Bendahara)') }}"
+                            type="file"
+                            accept="application/pdf"
+                        />
+
+                        <p
+                            x-show="errors.management_structure"
+                            class="text-danger mb-1 text-end"
+                            x-text="errors.management_structure"
+                        ></p>
+                        <x-input-form
+                            name="management_structure"
+                            label="{{ __('Susunan Pengurus Lengkap') }}"
+                            type="file"
+                            accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                        />
+                    </div>
+                    <div class="p-5 text-end">
+                        <button type="button" class="btn btn-success btn-lg" @click="validateStep1()">
+                            {{ __('Berikutnya') }}
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
 
-                <div class="tab-pane fade pt-3" id="profileChangePassword">
-                    <form method="POST" action="{{ route('change-password') }}">
-                        @csrf
-                        <div class="row mb-3">
-                            <label for="current_password" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('Kata Sandi Saat Ini') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <input
-                                    name="current_password"
-                                    type="password"
-                                    class="form-control edit-profile @error('current_password') is-invalid @enderror"
-                                    id="currentPassword"
-                                />
-                                @error('current_password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                <div class="row" x-show="step === 2">
+                    <h3 class="fw-semibold my-5 px-5">{{ __('Susunan Pengurus') }}</h3>
+                    <div class="col-md-6 mt-3 px-5">
+                        <div class="mb-5 mt-3">
+                            <p
+                                x-show="errors.protectors"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.protectors"
+                            ></p>
+                            <x-input-json name="protectors" label="{{ __('Pelindung') }}" count="10" />
+
+                            <p
+                                x-show="errors.advisors"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.advisors"
+                            ></p>
+                            <x-input-json name="advisors" label="{{ __('Pembina') }}" count="10" />
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="new_password" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('Kata Sandi Baru') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <input
-                                    name="new_password"
-                                    type="password"
-                                    class="form-control edit-profile @error('new_password') is-invalid @enderror"
-                                    id="newPassword"
-                                />
-                                @error('new_password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                        <div class="mb-5">
+                            <div class="border-bottom mb-4">
+                                <h5 class="fw-semibold">{{ __('Pengurus Harian') }}</h5>
                             </div>
+                            <p
+                                x-show="errors.chairman"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.chairman"
+                            ></p>
+                            <x-input-form name="chairman" label="{{ __('Ketua') }}" type="text" />
+
+                            <p
+                                x-show="errors.vice_chairmen"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.vice_chairmen"
+                            ></p>
+                            <x-input-json name="vice_chairmen" label="{{ __('Wakil Ketua') }}" />
+
+                            <p
+                                x-show="errors.secretary"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.secretary"
+                            ></p>
+                            <x-input-form name="secretary" label="{{ __('Sekretaris') }}" type="text" />
+
+                            <p
+                                x-show="errors.vice_secretaries"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.vice_secretaries"
+                            ></p>
+                            <x-input-json name="vice_secretaries" label="{{ __('Wakil Sekretaris') }}" />
+
+                            <p
+                                x-show="errors.treasurer"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.treasurer"
+                            ></p>
+                            <x-input-form name="treasurer" label="{{ __('Bendahara') }}" type="text" />
+
+                            <p
+                                x-show="errors.vice_treasurers"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.vice_treasurers"
+                            ></p>
+                            <x-input-json name="vice_treasurers" label="{{ __('Wakil Bendahara') }}" />
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="reenter_password" class="col-md-4 col-lg-3 col-form-label">
-                                {{ __('Masukkan Ulang Kata Sandi Baru') }}
-                            </label>
-                            <div class="col-md-8 col-lg-9">
-                                <input
-                                    name="reenter_password"
-                                    type="password"
-                                    class="form-control edit-profile @error('reenter_password') is-invalid @enderror"
-                                    id="reenterPassword"
-                                />
-                                @error('reenter_password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                        <div class="mb-5">
+                            <div class="border-bottom mb-4">
+                                <h5 class="fw-semibold">{{ __('Departemen Organisasi') }}</h5>
                             </div>
+
+                            <p
+                                x-show="errors.organization_department_coordinator"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.organization_department_coordinator"
+                            ></p>
+                            <x-input-form
+                                name="organization_department_coordinator"
+                                label="{{ __('Koordinator') }}"
+                                type="text"
+                            />
+
+                            <p
+                                x-show="errors.organization_department_members"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.organization_department_members"
+                            ></p>
+                            <x-input-json
+                                name="organization_department_members"
+                                label="{{ __('Anggota') }}"
+                                type="text"
+                            />
                         </div>
 
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary">
-                                {{ __('Ubah') }}
-                            </button>
+                        <div class="mb-5">
+                            <div class="border-bottom mb-4">
+                                <h5 class="fw-semibold">{{ __('Departemen Kaderisasi') }}</h5>
+                            </div>
+
+                            <p
+                                x-show="errors.cadre_department_coordinator"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.cadre_department_coordinator"
+                            ></p>
+                            <x-input-form
+                                name="cadre_department_coordinator"
+                                label="{{ __('Koordinator') }}"
+                                type="text"
+                            />
+
+                            <p
+                                x-show="errors.cadre_department_members"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.cadre_department_members"
+                            ></p>
+                            <x-input-json name="cadre_department_members" label="{{ __('Anggota') }}" />
                         </div>
-                    </form>
+                    </div>
+
+                    <div class="col-md-6 mt-3 px-5">
+                        <div class="mb-5">
+                            <h5 class="fw-semibold mb-4">{{ __('Departemen Dakwah') }}</h5>
+
+                            <p
+                                x-show="errors.dakwah_department_coordinator"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.dakwah_department_coordinator"
+                            ></p>
+                            <x-input-form
+                                name="dakwah_department_coordinator"
+                                label="{{ __('Koordinator') }}"
+                                type="text"
+                            />
+
+                            <p
+                                x-show="errors.dakwah_department_members"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.dakwah_department_members"
+                            ></p>
+                            <x-input-json name="dakwah_department_members" label="{{ __('Anggota') }}" />
+                        </div>
+                        <div class="mb-5">
+                            <div class="border-bottom mb-4">
+                                <h5 class="fw-semibold">{{ __('Departemen Olahraga, Seni, dan Budaya') }}</h5>
+                            </div>
+
+                            <p
+                                x-show="errors.culture_department_coordinator"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.culture_department_coordinator"
+                            ></p>
+                            <x-input-form
+                                name="culture_department_coordinator"
+                                label="{{ __('Koordinator') }}"
+                                type="text"
+                            />
+
+                            <p
+                                x-show="errors.culture_department_members"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.culture_department_members"
+                            ></p>
+                            <x-input-json name="culture_department_members" label="{{ __('Anggota') }}" />
+                        </div>
+                        <div class="mb-5">
+                            <div class="border-bottom mb-4">
+                                <h5 class="fw-semibold">{{ __('Lembaga Ekonomi dan Kewirausahaan') }}</h5>
+                            </div>
+
+                            <p
+                                x-show="errors.economy_institution_director"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.economy_institution_director"
+                            ></p>
+                            <x-input-form
+                                name="economy_institution_director"
+                                label="{{ __('Direktur') }}"
+                                type="text"
+                            />
+
+                            <p
+                                x-show="errors.economy_institution_members"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.economy_institution_members"
+                            ></p>
+                            <x-input-json name="economy_institution_members" label="{{ __('Anggota') }}" />
+                        </div>
+
+                        <div class="mb-5">
+                            <div class="border-bottom mb-4">
+                                <h5 class="fw-semibold">{{ __('Lembaga Pers dan Penerbitan') }}</h5>
+                            </div>
+
+                            <p
+                                x-show="errors.press_institution_director"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.press_institution_director"
+                            ></p>
+                            <x-input-form name="press_institution_director" label="{{ __('Direktur') }}" type="text" />
+
+                            <p
+                                x-show="errors.press_institution_members"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.press_institution_members"
+                            ></p>
+                            <x-input-json name="press_institution_members" label="{{ __('Anggota') }}" />
+                        </div>
+
+                        <div class="mb-5">
+                            <div class="border-bottom mb-4">
+                                <h5 class="fw-semibold">{{ __('Lembaga Corps Brigade Pembangunan') }}</h5>
+                            </div>
+
+                            <p
+                                x-show="errors.brigade_institution_director"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.brigade_institution_director"
+                            ></p>
+                            <x-input-form
+                                name="brigade_institution_director"
+                                label="{{ __('Direktur') }}"
+                                type="text"
+                            />
+
+                            <p
+                                x-show="errors.brigade_institution_members"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.brigade_institution_members"
+                            ></p>
+                            <x-input-json name="brigade_institution_members" label="{{ __('Anggota') }}" />
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between p-5">
+                        <button type="button" class="btn btn-secondary btn-lg" @click="step = 1">
+                            <i class="bi bi-chevron-left"></i>
+                            {{ __('Sebelumnya') }}
+                        </button>
+                        <button type="button" class="btn btn-success btn-lg" @click="validateStep2()">
+                            {{ __('Kirim') }}
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 @endsection

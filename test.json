@@ -1,0 +1,10 @@
+{
+    "department_organization": {
+        "leader": "Test",
+        "members": [
+
+                "member1": "Test2",
+                "member2": "Test3"
+            ]
+    }
+}
