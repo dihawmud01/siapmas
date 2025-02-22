@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -24,7 +25,7 @@ class PAC extends Model
         return Str::slug($this->pac);
     }
 
-    public function users()
+    public function users(): HasMany
     {
         return $this->hasMany(User::class, 'pac_id', 'id');
     }

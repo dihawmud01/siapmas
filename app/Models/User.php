@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -41,14 +43,19 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function posts()
+    public function posts(): HasMany
     {
         return $this->hasMany(News::class);
     }
 
-    public function pac()
+    public function pac(): BelongsTo
     {
         return $this->belongsTo(PAC::class, 'pac_id', 'id');
+    }
+
+    public function letterOfValidationSubmissions(): HasMany
+    {
+        return $this->hasMany(SubmissionRequest::class);
     }
 
     public function provinsi()
