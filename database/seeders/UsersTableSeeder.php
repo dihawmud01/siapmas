@@ -26,7 +26,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => 'Admin PC',
-                'role_id' => 1,
+                'role_id' => 2,
                 'bio' => 'Admin PC Account',
                 'username' => 'adminpc',
                 'slug' => 'adminpc',
