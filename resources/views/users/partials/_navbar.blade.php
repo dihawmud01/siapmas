@@ -122,7 +122,7 @@
                                                     class="rounded-circle"
                                                 />
                                                 <h6 class="text-uppercase fw-bold text-dark ms-2">
-                                                    {{ $user->username }}
+                                                    {{ Str::limit($user->username, 9) }}
                                                 </h6>
                                             </div>
                                         </li>
