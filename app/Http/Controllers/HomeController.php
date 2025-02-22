@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CadreLevel;
 use App\Models\Home;
 use App\Models\News;
 use App\Models\Cadre;
@@ -27,7 +28,7 @@ class HomeController extends Controller
             ->paginate(15);
 
         // Cadre counts by cadres level
-        $levels = ['Belum Makesta', 'Latinpel', 'Lakut', 'Lakmud', 'Makesta'];
+        $levels = CadreLevel::getAll();
 
         $cadreLevels = Cadre::selectRaw('cadre_level, COUNT(*) as count')
             ->whereIn('cadre_level', $levels)
