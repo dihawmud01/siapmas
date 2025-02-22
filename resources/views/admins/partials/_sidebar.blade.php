@@ -140,18 +140,18 @@
             @if (in_array(auth()->user()->role_id, [2, 3]))
                 <li class="nav-item">
                     <a
-                        class="nav-link collapsible text-dark {{ request()->routeIs('dashboard.letters.incoming') || request()->routeIs('categories.index') || request()->routeIs('dashboard.letters.validation.index') ? '' : 'collapsed' }} bg-transparent"
+                        class="nav-link collapsible text-dark {{ request()->routeIs('dashboard.letters.incoming') || request()->routeIs('dashboard.letters.validation-submission.show') || request()->routeIs('dashboard.letters.validation-submission.index') ? '' : 'collapsed' }} bg-transparent"
                         data-toggle="nav-collapse"
                         data-target="#collapseLetter"
                         href="#"
                     >
                         <i class="bi bi-envelope"></i>
-                        <span>{{ __('Surat-Menyurat') }}</span>
+                        <span>{{ __('Surat-menyurat') }}</span>
                         <i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul
                         id="collapseLetter"
-                        class="nav-content {{ request()->routeIs('dashboard.letters.incoming') || request()->routeIs('dashboard.letters.validation.index') ? 'show' : '' }}"
+                        class="nav-content {{ request()->routeIs('dashboard.letters.incoming') || request()->routeIs('dashboard.letters.validation-submission.index') || request()->routeIs('dashboard.letters.validation-submission.show') ? 'show' : '' }}"
                     >
                         <li>
                             <a
@@ -164,7 +164,7 @@
                         <li>
                             <a
                                 href="{{ route('dashboard.letters.validation-submission.index') }}"
-                                class="text-dark text-decoration-none {{ request()->routeIs('dashboard.letters.validation-submission.index') ? 'active' : '' }}"
+                                class="text-dark text-decoration-none {{ request()->routeIs('dashboard.letters.validation-submission.index') || request()->routeIs('dashboard.letters.validation-submission.show') ? 'active' : '' }}"
                             >
                                 <span>{{ __('Pengajuan SP') }}</span>
                             </a>

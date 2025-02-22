@@ -88,7 +88,7 @@
                 <div class="col text-center">
                     <span
                         data-purecounter-start="0"
-                        data-purecounter-end="{{ $cadreLevelCounts['Makesta'] }}"
+                        data-purecounter-end="{{ $cadreLevelCounts['makesta'] }}"
                         data-purecounter-duration="6"
                         class="purecounter"
                     ></span>
@@ -98,7 +98,7 @@
                 <div class="col text-center">
                     <span
                         data-purecounter-start="0"
-                        data-purecounter-end="{{ $cadreLevelCounts['Lakmud'] }}"
+                        data-purecounter-end="{{ $cadreLevelCounts['lakmud'] }}"
                         data-purecounter-duration="5"
                         class="purecounter"
                     ></span>
@@ -108,7 +108,7 @@
                 <div class="col text-center">
                     <span
                         data-purecounter-start="0"
-                        data-purecounter-end="{{ $cadreLevelCounts['Lakut'] }}"
+                        data-purecounter-end="{{ $cadreLevelCounts['lakut'] }}"
                         data-purecounter-duration="4"
                         class="purecounter"
                     ></span>
@@ -118,7 +118,7 @@
                 <div class="col text-center">
                     <span
                         data-purecounter-start="0"
-                        data-purecounter-end="{{ $cadreLevelCounts['Latinpel'] }}"
+                        data-purecounter-end="{{ $cadreLevelCounts['latinpel'] }}"
                         data-purecounter-duration="3"
                         class="purecounter"
                     ></span>
