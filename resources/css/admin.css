@@ -152,7 +152,7 @@ h6 {
 }
 
 .dropdown-menu .dropdown-item:hover {
-    background: none;
+    background: #f6f9ff;
     color: green;
     font-weight: 700;
 }
@@ -1288,21 +1288,6 @@ h6 {
     width: 136px;
 }
 
-.dropdown-item.active {
-    background-color: green !important;
-    color: white;
-    font-weight: 700;
-}
-
-.dropdown-item:active {
-    background-color: green !important;
-    color: #fff !important;
-}
-
-.dropdown-item.active:hover {
-    color: white;
-}
-
 .dropdown .dropdown-btn:hover {
     transition: all 0.3s;
     color: green !important;
@@ -1433,4 +1418,42 @@ h6 {
 
 .empty-content {
     min-height: 93vh;
+}
+
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.divider {
+    display: block;
+    margin: 1rem 0;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.divider .divider-text {
+    display: inline-block;
+    position: relative;
+    padding: 0 1rem;
+    font-size: 0.8rem;
+}
+
+.divider .divider-text:before {
+    right: 100%;
+}
+
+.divider .divider-text:after {
+    left: 100%;
+}
+
+.divider .divider-text:before,
+.divider .divider-text:after {
+    position: absolute;
+    top: 50%;
+    border-top: 1px solid rgba(67, 89, 113, 0.2);
+    width: 100vw;
+    content: '';
 }
