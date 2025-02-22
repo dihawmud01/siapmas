@@ -257,7 +257,7 @@ Route::middleware(['auth', 'role: 1'])->group(function () {
     );
 });
 
-Route::middleware(['auth', 'role: 2,3,4'])->group(function () {
+Route::middleware(['auth', 'role:2,3'])->group(function () {
     Route::prefix('dashboard')
         ->as('dashboard.')
         ->group(function () {
