@@ -6,11 +6,14 @@ use App\Enums\SubmissionStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class SubmissionRequest extends Model
 {
     use HasFactory;
+
     protected $table = 'submission_requests';
     public $incrementing = false;
     protected $keyType = 'string';
@@ -26,7 +29,7 @@ class SubmissionRequest extends Model
     }
 
     protected $fillable = [
-        'pac',
+        'user_id',
         'event_date',
         'event_location',
         'mwc_letter_number',
@@ -80,8 +83,20 @@ class SubmissionRequest extends Model
         return Carbon::parse($this->created_at)->isoFormat('dddd, D MMMM YYYY');
     }
 
-    public function files()
+    public function getFormattedEventDateAttribute(): string
+    {
+        Carbon::setLocale('id');
+
+        return Carbon::parse($this->event_date)->isoFormat('dddd, D MMMM YYYY');
+    }
+
+    public function files(): HasMany
     {
         return $this->hasMany(SubmissionFile::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
