@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Enums\FileCategory;
-use App\Enums\SubmissionStatus;
-use App\Models\Letter;
 use App\Models\SubmissionFile;
 use App\Models\SubmissionRequest;
 use Illuminate\Contracts\View\View;
@@ -16,7 +14,12 @@ class LetterOfValidation extends Controller
 {
     public function index(Request $request): View
     {
-        $submissionRequests = SubmissionRequest::all();
+        $user = Auth::user();
+        $submissionRequests = SubmissionRequest::where('user_id', $user->id)->get();
+
+        if ($user->id == 2) {
+            $submissionRequests = SubmissionRequest::all();
+        }
 
         return view(
             'admins.letters.sp.index',
@@ -69,7 +72,7 @@ class LetterOfValidation extends Controller
         ]);
 
         $user = Auth::user();
-        $validatedData['pac'] = $user->pac->pac;
+        $validatedData['user_id'] = $user->id;
 
         $submission = SubmissionRequest::create($validatedData);
 
@@ -104,7 +107,9 @@ class LetterOfValidation extends Controller
                     $extension = $file->getClientOriginalExtension();
                     $newFileName = $category . '-' . now()->timestamp . '.' . $extension;
                     $file->move(
-                        public_path('storage/sp/pac_' . strtolower($user->pac->pac) . '/' . $category),
+                        public_path(
+                            'storage/sp/' . strtolower(str_replace(' ', '-', $user->pac->pac)) . '/' . $category,
+                        ),
                         $newFileName,
                     );
 
@@ -120,5 +125,32 @@ class LetterOfValidation extends Controller
         Alert::success('Pengajuan berhasil dikirim', 'Data-data akan ditinjau terlebih dahulu oleh PC');
 
         return redirect()->route('dashboard.letters.validation-submission.index');
+    }
+
+    public function show($id): View
+    {
+        $submission = SubmissionRequest::where('id', $id)->firstOrFail();
+
+        $attachments = (object) SubmissionFile::where('submission_id', $submission->id)
+            ->whereIn('category', [
+                'request_letter',
+                'documentation',
+                'mwc_recommendation',
+                'pac_recommendation',
+                'election_report',
+                'formation_report',
+                'management_structure',
+            ])
+            ->get()
+            ->groupBy('category')
+            ->map(function ($group, $key) {
+                if ($key === 'documentation') {
+                    return $group->pluck('attachment');
+                }
+                return $group->pluck('attachment')->first();
+            })
+            ->toArray();
+
+        return view('admins.letters.sp.show', compact('submission', 'attachments'));
     }
 }
