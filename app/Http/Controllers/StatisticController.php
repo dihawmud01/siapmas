@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CadreLevel;
+use App\Enums\Gender;
 use App\Models\Cadre;
 use App\Models\Disposition;
 use App\Models\Letter;
@@ -52,7 +53,7 @@ class StatisticController extends Controller
         }
 
         // User counts by gender
-        $genderLists = ['L', 'P'];
+        $genderLists = Gender::getAll();
 
         $genders = Cadre::selectRaw('gender, COUNT(*) as count')
             ->whereIn('gender', $genderLists)
