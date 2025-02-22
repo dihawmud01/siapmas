@@ -13,7 +13,6 @@ return new class extends Migration {
     {
         Schema::create('submission_requests', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('pac');
             $table->date('event_date');
             $table->string('event_location', 255);
             $table->string('mwc_letter_number', 100);
@@ -40,6 +39,11 @@ return new class extends Migration {
             $table->string('brigade_institution_director', 100);
             $table->json('brigade_institution_members');
             $table->enum('status', SubmissionStatus::getAll())->default('pending');
+
+            $table
+                ->foreignId('user_id')
+                ->constrained()
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
