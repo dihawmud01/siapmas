@@ -43,11 +43,11 @@
                             },
                             data: [
                                 {
-                                    value: {{ $genderCounts['P'] }},
+                                    value: {{ $genderCounts['female'] }},
                                     name: '{{ __('Kader Perempuan') }}',
                                 },
                                 {
-                                    value: {{ $genderCounts['L'] }},
+                                    value: {{ $genderCounts['male'] }},
                                     name: '{{ __('Kader Laki-Laki') }}',
                                 },
                             ],
