@@ -286,4 +286,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    document.querySelectorAll('.dropdown-toggle').forEach((dropdown) => {
+        dropdown.addEventListener('click', function (event) {
+            event.preventDefault();
+            let dropdownInstance = bootstrap.Dropdown.getOrCreateInstance(dropdown);
+            dropdownInstance.toggle();
+        });
+    });
 });
