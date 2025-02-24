@@ -10,7 +10,7 @@
             :values="[__('Surat-menyurat'), __('Pengajuan Surat Pengesahan (SP)'), __('Detail Pengajuan')]"
         ></x-breadcrumb>
 
-        <x-letter-card :submission="$submission">
+        <x-letter-card :letter="$letter">
             <div class="mt-2">
                 <div class="row justify-content-between">
                     <div class="col-md-6 pe-5">
@@ -19,22 +19,22 @@
                         </div>
                         <dl class="row mt-3">
                             <dt class="col-sm-8 fs-5">{{ __('ID Pengajuan') }}</dt>
-                            <dd class="col-sm-4 fs-5 text-end">{{ $submission->id }}</dd>
+                            <dd class="col-sm-4 fs-5 text-end">{{ $letter->id }}</dd>
 
                             <dt class="col-sm-8 fs-5">{{ __('Pengirim (Asal PAC)') }}</dt>
                             <dd class="col-sm-4 fs-5 text-end">
-                                @if ($submission->user->pac_id == 28 || $submission->user->pac == '29')
-                                    {{ $submission->user->pac->pac }}
+                                @if ($letter->user->pac_id == 28 || $letter->user->pac == '29')
+                                    {{ $letter->user->pac->pac }}
                                 @else
-                                    {{ __('PAC ') . $submission->user->pac->pac }}
+                                    {{ __('PAC ') . $letter->user->pac->pac }}
                                 @endif
                             </dd>
 
                             <dt class="col-sm-8 fs-5">{{ __('Tanggal Pelaksanaan Konferancab/Rapat Anggota') }}</dt>
-                            <dd class="col-sm-4 fs-5 text-end">{{ $submission->formatted_event_date }}</dd>
+                            <dd class="col-sm-4 fs-5 text-end">{{ $letter->formatted_event_date }}</dd>
 
                             <dt class="col-sm-8 fs-5">{{ __('Tempat Pelaksanaan Konferancab/Rapat Anggota') }}</dt>
-                            <dd class="col-sm-4 fs-5 text-end">{{ $submission->event_location }}</dd>
+                            <dd class="col-sm-4 fs-5 text-end">{{ $letter->event_location }}</dd>
                         </dl>
                     </div>
 
@@ -45,10 +45,10 @@
 
                         <dl class="row mt-3">
                             @foreach ($attachments->documentation as $doc)
-                                <dt class="col-sm-9 fs-5 mb-2">
+                                <dt class="col-sm-10 fs-5 mb-2">
                                     <a
                                         target="_blank"
-                                        href="{{ asset('storage/sp/' . strtolower($submission->user->pac->pac) . '/documentation/' . $doc) }}"
+                                        href="{{ asset('storage/sp/' . strtolower($letter->user->pac->pac) . '/documentation/' . $doc) }}"
                                         class="text-success text-decoration-none fw-normal"
                                     >
                                         @switch($doc)
@@ -69,9 +69,9 @@
                                         {{ __('Dokumentasi Pelaksanaan Konferancab/Rapat Anggota ' . $loop->iteration . '.' . pathinfo($doc, PATHINFO_EXTENSION)) }}
                                     </a>
                                 </dt>
-                                <dd class="col-sm-3 fs-5 text-end">
+                                <dd class="col-sm-2 fs-5 text-end">
                                     <a
-                                        href="{{ asset('storage/sp/' . strtolower($submission->user->pac->pac) . '/documentation/' . $doc) }}"
+                                        href="{{ asset('storage/sp/' . strtolower($letter->user->pac->pac) . '/documentation/' . $doc) }}"
                                         download
                                         class="btn btn-sm btn-success"
                                     >
@@ -80,19 +80,19 @@
                                 </dd>
                             @endforeach
 
-                            <dt class="col-sm-9 fs-5 mb-2">
+                            <dt class="col-sm-10 fs-5 mb-2">
                                 <a
                                     target="_blank"
-                                    href="{{ asset('storage/sp/' . strtolower($submission->user->pac->pac) . '/request_letter/' . $attachments->request_letter) }}"
+                                    href="{{ asset('storage/sp/' . strtolower($letter->user->pac->pac) . '/request_letter/' . $attachments->request_letter) }}"
                                     class="text-success text-decoration-none fw-normal"
                                 >
                                     <i class="bi bi-file-earmark-pdf-fill text-danger"></i>
                                     {{ __('Surat Permohonan Pengesahan Kepada PC IPNU Kab. Banyumas.' . pathinfo($attachments->request_letter, PATHINFO_EXTENSION)) }}
                                 </a>
                             </dt>
-                            <dd class="col-sm-3 fs-5 text-end">
+                            <dd class="col-sm-2 fs-5 text-end">
                                 <a
-                                    href="{{ asset('storage/sp/' . strtolower($submission->user->pac->pac) . '/request_letter/' . $attachments->request_letter) }}"
+                                    href="{{ asset('storage/sp/' . strtolower($letter->user->pac->pac) . '/request_letter/' . $attachments->request_letter) }}"
                                     download
                                     class="btn btn-sm btn-success"
                                 >
@@ -100,19 +100,19 @@
                                 </a>
                             </dd>
 
-                            <dt class="col-sm-9 fs-5 mb-2">
+                            <dt class="col-sm-10 fs-5 mb-2">
                                 <a
                                     target="_blank"
-                                    href="{{ asset('storage/sp/' . strtolower($submission->user->pac->pac) . '/mwc_recommendation/' . $attachments->mwc_recommendation) }}"
+                                    href="{{ asset('storage/sp/' . strtolower($letter->user->pac->pac) . '/mwc_recommendation/' . $attachments->mwc_recommendation) }}"
                                     class="text-success text-decoration-none fw-normal"
                                 >
                                     <i class="bi bi-file-earmark-pdf-fill text-danger"></i>
                                     {{ __('Surat Rekomendasi MWC NU/PR NU Setempat.' . pathinfo($attachments->mwc_recommendation, PATHINFO_EXTENSION)) }}
                                 </a>
                             </dt>
-                            <dd class="col-sm-3 fs-5 text-end">
+                            <dd class="col-sm-2 fs-5 text-end">
                                 <a
-                                    href="{{ asset('storage/sp/' . strtolower($submission->user->pac->pac) . '/mwc_recommendation/' . $attachments->mwc_recommendation) }}"
+                                    href="{{ asset('storage/sp/' . strtolower($letter->user->pac->pac) . '/mwc_recommendation/' . $attachments->mwc_recommendation) }}"
                                     download
                                     class="btn btn-sm btn-success"
                                 >
@@ -120,19 +120,19 @@
                                 </a>
                             </dd>
 
-                            <dt class="col-sm-9 fs-5 mb-2">
+                            <dt class="col-sm-10 fs-5 mb-2">
                                 <a
                                     target="_blank"
-                                    href="{{ asset('storage/sp/' . strtolower($submission->user->pac->pac) . '/pac_recommendation/' . $attachments->pac_recommendation) }}"
+                                    href="{{ asset('storage/sp/' . strtolower($letter->user->pac->pac) . '/pac_recommendation/' . $attachments->pac_recommendation) }}"
                                     class="text-success text-decoration-none fw-normal"
                                 >
                                     <i class="bi bi-file-earmark-pdf-fill text-danger"></i>
                                     {{ __('Surat Rekomendasi PAC Setempat.' . pathinfo($attachments->pac_recommendation, PATHINFO_EXTENSION)) }}
                                 </a>
                             </dt>
-                            <dd class="col-sm-3 fs-5 text-end">
+                            <dd class="col-sm-2 fs-5 text-end">
                                 <a
-                                    href="{{ asset('storage/sp/' . strtolower($submission->user->pac->pac) . '/pac_recommendation/' . $attachments->pac_recommendation) }}"
+                                    href="{{ asset('storage/sp/' . strtolower($letter->user->pac->pac) . '/pac_recommendation/' . $attachments->pac_recommendation) }}"
                                     download
                                     class="btn btn-sm btn-success"
                                 >
@@ -140,19 +140,19 @@
                                 </a>
                             </dd>
 
-                            <dt class="col-sm-9 fs-5 mb-2">
+                            <dt class="col-sm-10 fs-5 mb-2">
                                 <a
                                     target="_blank"
-                                    href="{{ asset('storage/sp/' . strtolower($submission->user->pac->pac) . '/election_report/' . $attachments->election_report) }}"
+                                    href="{{ asset('storage/sp/' . strtolower($letter->user->pac->pac) . '/election_report/' . $attachments->election_report) }}"
                                     class="text-success text-decoration-none fw-normal"
                                 >
                                     <i class="bi bi-file-earmark-pdf-fill text-danger"></i>
                                     {{ __('Berita Acara Pemilihan Ketua Konferancab/Rapat Anggota.' . pathinfo($attachments->election_report, PATHINFO_EXTENSION)) }}
                                 </a>
                             </dt>
-                            <dd class="col-sm-3 fs-5 text-end">
+                            <dd class="col-sm-2 fs-5 text-end">
                                 <a
-                                    href="{{ asset('storage/sp/' . strtolower($submission->user->pac->pac) . '/election_report/' . $attachments->election_report) }}"
+                                    href="{{ asset('storage/sp/' . strtolower($letter->user->pac->pac) . '/election_report/' . $attachments->election_report) }}"
                                     download
                                     class="btn btn-sm btn-success"
                                 >
@@ -160,19 +160,19 @@
                                 </a>
                             </dd>
 
-                            <dt class="col-sm-9 fs-5">
+                            <dt class="col-sm-10 fs-5">
                                 <a
                                     target="_blank"
-                                    href="{{ asset('storage/sp/' . strtolower($submission->user->pac->pac) . '/formation_report/' . $attachments->formation_report) }}"
+                                    href="{{ asset('storage/sp/' . strtolower($letter->user->pac->pac) . '/formation_report/' . $attachments->formation_report) }}"
                                     class="text-success text-decoration-none fw-normal"
                                 >
                                     <i class="bi bi-file-earmark-pdf-fill text-danger"></i>
                                     {{ __('Berita Acara Penyusunan Kepengurusan oleh Tim Formatur.' . pathinfo($attachments->formation_report, PATHINFO_EXTENSION)) }}
                                 </a>
                             </dt>
-                            <dd class="col-sm-3 fs-5 text-end">
+                            <dd class="col-sm-2 fs-5 text-end">
                                 <a
-                                    href="{{ asset('storage/sp/' . strtolower($submission->user->pac->pac) . '/formation_report/' . $attachments->formation_report) }}"
+                                    href="{{ asset('storage/sp/' . strtolower($letter->user->pac->pac) . '/formation_report/' . $attachments->formation_report) }}"
                                     download
                                     class="btn btn-sm btn-success"
                                 >
@@ -180,19 +180,39 @@
                                 </a>
                             </dd>
 
-                            <dt class="col-sm-9 fs-5">
+                            <dt class="col-sm-10 fs-5">
                                 <a
                                     target="_blank"
-                                    href="{{ asset('storage/sp/' . strtolower($submission->user->pac->pac) . '/management_structure/' . $attachments->management_structure) }}"
+                                    href="{{ asset('storage/sp/' . strtolower($letter->user->pac->pac) . '/management_structure/' . $attachments->management_structure) }}"
                                     class="text-success text-decoration-none fw-normal"
                                 >
                                     <i class="bi bi-file-earmark-text-fill text-primary"></i>
                                     {{ __('Susunan Pengurus Lengkap.' . pathinfo($attachments->management_structure, PATHINFO_EXTENSION)) }}
                                 </a>
                             </dt>
-                            <dd class="col-sm-3 fs-5 text-end">
+                            <dd class="col-sm-2 fs-5 text-end">
                                 <a
-                                    href="{{ asset('storage/sp/' . strtolower($submission->user->pac->pac) . '/management_structure/' . $attachments->management_structure) }}"
+                                    href="{{ asset('storage/sp/' . strtolower($letter->user->pac->pac) . '/management_structure/' . $attachments->management_structure) }}"
+                                    download
+                                    class="btn btn-sm btn-success"
+                                >
+                                    <i class="bi bi-download"></i>
+                                </a>
+                            </dd>
+
+                            <dt class="col-sm-10 fs-5">
+                                <a
+                                    target="_blank"
+                                    href="{{ asset('storage/sp/' . strtolower($letter->user->pac->pac) . '/id_cv_photo_certificate/' . $attachments->id_cv_photo_certificate) }}"
+                                    class="text-success text-decoration-none fw-normal"
+                                >
+                                    <i class="bi bi-file-earmark-text-fill text-primary"></i>
+                                    {{ __('Scan KTP, CV, Pas Foto, & Sertifikat Kaderisasi (Ketua, Sekretaris, & Bendahara).' . pathinfo($attachments->id_cv_photo_certificate, PATHINFO_EXTENSION)) }}
+                                </a>
+                            </dt>
+                            <dd class="col-sm-2 fs-5 text-end">
+                                <a
+                                    href="{{ asset('storage/sp/' . strtolower($letter->user->pac->pac) . '/id_cv_photo_certificate/' . $attachments->id_cv_photo_certificate) }}"
                                     download
                                     class="btn btn-sm btn-success"
                                 >
@@ -212,7 +232,7 @@
                                 <dt class="fs-5 mb-1">{{ __('Pelindung') }}</dt>
                                 <hr class="m-0" />
                                 <dd class="fs-5 mb-4 mt-2">
-                                    @foreach ($submission->protectors as $protector)
+                                    @foreach ($letter->protectors as $protector)
                                         <div>
                                             {{ $loop->iteration . '. ' . $protector }}
                                         </div>
@@ -222,7 +242,7 @@
                                 <dt class="fs-5 mb-1">{{ __('Pembina') }}</dt>
                                 <hr class="m-0" />
                                 <dd class="fs-5 mb-4 mt-2">
-                                    @foreach ($submission->advisors as $advisor)
+                                    @foreach ($letter->advisors as $advisor)
                                         <div>
                                             {{ $loop->iteration . '. ' . $advisor }}
                                         </div>
@@ -241,7 +261,7 @@
                                                 </strong>
                                             </div>
 
-                                            @foreach ($submission->vice_chairmen as $vice_chairman)
+                                            @foreach ($letter->vice_chairmen as $vice_chairman)
                                                 <div>
                                                     {{ __('Wakil Ketua ') . $loop->iteration }}
                                                 </div>
@@ -253,7 +273,7 @@
                                                 </strong>
                                             </div>
 
-                                            @foreach ($submission->vice_secretaries as $vice_secretary)
+                                            @foreach ($letter->vice_secretaries as $vice_secretary)
                                                 <div>
                                                     {{ __('Wakil Sekretaris ') . $loop->iteration }}
                                                 </div>
@@ -265,31 +285,31 @@
                                                 </strong>
                                             </div>
 
-                                            @foreach ($submission->vice_treasurers as $vice_treasurer)
+                                            @foreach ($letter->vice_treasurers as $vice_treasurer)
                                                 <div>
                                                     {{ __('Wakil Bendahara ') . $loop->iteration }}
                                                 </div>
                                             @endforeach
                                         </div>
                                         <div class="col-md-7">
-                                            <div class="mb-0 text-end">{{ $submission->chairman }}</div>
-                                            @foreach ($submission->vice_chairmen as $vice_chairman)
+                                            <div class="mb-0 text-end">{{ $letter->chairman }}</div>
+                                            @foreach ($letter->vice_chairmen as $vice_chairman)
                                                 <div>
                                                     <div class="mb-0 text-end">{{ $vice_chairman }}</div>
                                                 </div>
                                             @endforeach
 
-                                            <div class="mb-0 mt-2 text-end">{{ $submission->secretary }}</div>
+                                            <div class="mb-0 mt-2 text-end">{{ $letter->secretary }}</div>
 
-                                            @foreach ($submission->vice_secretaries as $vice_secretary)
+                                            @foreach ($letter->vice_secretaries as $vice_secretary)
                                                 <div class="text-end">
                                                     {{ $vice_secretary }}
                                                 </div>
                                             @endforeach
 
-                                            <div class="mb-0 mt-2 text-end">{{ $submission->treasurer }}</div>
+                                            <div class="mb-0 mt-2 text-end">{{ $letter->treasurer }}</div>
 
-                                            @foreach ($submission->vice_treasurers as $vice_treasurer)
+                                            @foreach ($letter->vice_treasurers as $vice_treasurer)
                                                 <div class="text-end">
                                                     {{ $vice_treasurer }}
                                                 </div>
@@ -316,9 +336,9 @@
                                         </div>
                                         <div class="col-md-7">
                                             <div class="fs-5 mb-0 text-end">
-                                                {{ $submission->organization_department_coordinator }}
+                                                {{ $letter->organization_department_coordinator }}
                                             </div>
-                                            @foreach ($submission->organization_department_members as $member)
+                                            @foreach ($letter->organization_department_members as $member)
                                                 <div class="text-end">
                                                     {{ $member }}
                                                 </div>
@@ -339,9 +359,9 @@
                                         </div>
                                         <div class="col-md-7">
                                             <div class="fs-5 mb-0 text-end">
-                                                {{ $submission->dakwah_department_coordinator }}
+                                                {{ $letter->dakwah_department_coordinator }}
                                             </div>
-                                            @foreach ($submission->dakwah_department_members as $member)
+                                            @foreach ($letter->dakwah_department_members as $member)
                                                 <div class="text-end">
                                                     {{ $member }}
                                                 </div>
@@ -362,9 +382,9 @@
                                         </div>
                                         <div class="col-md-7">
                                             <div class="fs-5 mb-0 text-end">
-                                                {{ $submission->economy_institution_director }}
+                                                {{ $letter->economy_institution_director }}
                                             </div>
-                                            @foreach ($submission->economy_institution_members as $member)
+                                            @foreach ($letter->economy_institution_members as $member)
                                                 <div class="text-end">
                                                     {{ $member }}
                                                 </div>
@@ -385,9 +405,9 @@
                                         </div>
                                         <div class="col-md-7">
                                             <div class="fs-5 mb-0 text-end">
-                                                {{ $submission->brigade_institution_director }}
+                                                {{ $letter->brigade_institution_director }}
                                             </div>
-                                            @foreach ($submission->brigade_institution_members as $member)
+                                            @foreach ($letter->brigade_institution_members as $member)
                                                 <div class="text-end">
                                                     {{ $member }}
                                                 </div>
@@ -409,9 +429,9 @@
                                         </div>
                                         <div class="col-md-7">
                                             <div class="fs-5 mb-0 text-end">
-                                                {{ $submission->cadre_department_coordinator }}
+                                                {{ $letter->cadre_department_coordinator }}
                                             </div>
-                                            @foreach ($submission->cadre_department_members as $member)
+                                            @foreach ($letter->cadre_department_members as $member)
                                                 <div class="text-end">
                                                     {{ $member }}
                                                 </div>
@@ -432,9 +452,9 @@
                                         </div>
                                         <div class="col-md-7">
                                             <div class="fs-5 mb-0 text-end">
-                                                {{ $submission->culture_department_coordinator }}
+                                                {{ $letter->culture_department_coordinator }}
                                             </div>
-                                            @foreach ($submission->culture_department_members as $member)
+                                            @foreach ($letter->culture_department_members as $member)
                                                 <div class="text-end">
                                                     {{ $member }}
                                                 </div>
@@ -455,9 +475,9 @@
                                         </div>
                                         <div class="col-md-7">
                                             <div class="fs-5 mb-0 text-end">
-                                                {{ $submission->press_institution_director }}
+                                                {{ $letter->press_institution_director }}
                                             </div>
-                                            @foreach ($submission->press_institution_members as $member)
+                                            @foreach ($letter->press_institution_members as $member)
                                                 <div class="text-end">
                                                     {{ $member }}
                                                 </div>

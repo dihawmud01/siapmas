@@ -212,7 +212,7 @@ return [
     'aliases' => Facade::defaultAliases()
         ->merge([
             'Html' => Spatie\Html\Facades\Html::class,
-            'PDF' => Barryvdh\DomPDF\Facade::class,
+            'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
             'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         ])
         ->toArray(),

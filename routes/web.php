@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\IncomingLetterController;
-use App\Http\Controllers\LetterOfValidation;
+use App\Http\Controllers\SPController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HBNController;
 use App\Http\Controllers\PDFController;
@@ -265,7 +265,10 @@ Route::middleware(['auth', 'role:2,3'])->group(function () {
                 ->as('letters.')
                 ->group(function () {
                     Route::get('incoming', [IncomingLetterController::class, 'index'])->name('incoming');
-                    Route::resource('validation-submission', LetterOfValidation::class);
+                    Route::get('validation-submission/generate/{id}', [SPController::class, 'generate'])->name(
+                        'validation-submission.generate',
+                    );
+                    Route::resource('validation-submission', SPController::class);
                 });
         });
 });

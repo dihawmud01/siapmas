@@ -106,7 +106,7 @@
                         if (Object.keys(this.errors).length === 0) {
                             Swal.fire({
                                 title: 'Apakah Anda yakin ingin mengirim data ini?',
-                                text: 'Pastikan semua data sudah benar sebelum dikirim.',
+                                text: 'Pastikan semua data sudah sesuai sebelum dikirim.',
                                 icon: 'warning',
                                 showCancelButton: true,
                                 cancelButtonText: 'Cek lagi',

@@ -14,13 +14,13 @@
         @endif
     </x-breadcrumb>
 
-    @if ($submissionRequests->isEmpty())
+    @if ($letters->isEmpty())
         <div class="d-flex align-items-center justify-content-center empty-content p-4">
             <h1 class="text-secondary">{{ __('Belum ada pengajuan SP yang dilakukan') }}</h1>
         </div>
     @endif
 
-    @foreach ($submissionRequests as $submission)
-        <x-letter-card :submission="$submission" />
+    @foreach ($letters as $letter)
+        <x-letter-card :letter="$letter" />
     @endforeach
 @endsection

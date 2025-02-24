@@ -4,25 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Enums\FileCategory;
 use App\Enums\SubmissionStatus;
-use App\Models\SubmissionFile;
-use App\Models\LetterOfValidation;
+use App\Models\SPSubmissionFile;
+use App\Models\SP;
+use Barryvdh\DomPDF\Facade\Pdf;
+use iio\libmergepdf\Merger;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class LetterOfValidationController extends Controller
+class SPController extends Controller
 {
     public function index(Request $request): View
     {
         $user = Auth::user();
-        $submissionRequests = LetterOfValidationController::where('user_id', $user->id)
+        $letters = SP::where('user_id', $user->id)
             ->orderBy('updated_at', 'desc')
             ->get();
 
         if ($user->id == 2) {
-            $submissionRequests = LetterOfValidationController::orderBy('updated_at', 'asc')->get();
+            $letters = SP::orderBy('updated_at', 'asc')->get();
         }
 
         return view(
@@ -31,7 +33,7 @@ class LetterOfValidationController extends Controller
                 //                'data' => Letter::incoming()->render($request->search),
                 'search' => $request->search,
             ],
-            compact('submissionRequests'),
+            compact('letters', 'user'),
         );
     }
 
@@ -78,7 +80,7 @@ class LetterOfValidationController extends Controller
         $user = Auth::user();
         $validatedData['user_id'] = $user->id;
 
-        $submission = LetterOfValidationController::create($validatedData);
+        $letter = SP::create($validatedData);
 
         $request->only([
             'documentation' => 'nullable|array',
@@ -112,13 +114,18 @@ class LetterOfValidationController extends Controller
                     $newFileName = $category . '-' . now()->timestamp . '.' . $extension;
                     $file->move(
                         public_path(
-                            'storage/sp/' . strtolower(str_replace(' ', '-', $user->pac->pac)) . '/' . $category,
+                            'storage/sp/' .
+                                strtolower(str_replace(' ', '-', $user->pac->pac)) .
+                                '/' .
+                                $category .
+                                '/' .
+                                $letter->id,
                         ),
                         $newFileName,
                     );
 
-                    SubmissionFile::create([
-                        'submission_id' => $submission->id,
+                    SPSubmissionFile::create([
+                        'sp_id' => $letter->id,
                         'attachment' => $newFileName,
                         'category' => FileCategory::tryFrom($category),
                     ]);
@@ -133,9 +140,9 @@ class LetterOfValidationController extends Controller
 
     public function show($id): View
     {
-        $submission = LetterOfValidationController::where('id', $id)->firstOrFail();
+        $letter = SP::findOrFail($id);
 
-        $attachments = (object) SubmissionFile::where('submission_id', $submission->id)
+        $attachments = (object) SPSubmissionFile::where('sp_id', $letter->id)
             ->whereIn('category', [
                 'request_letter',
                 'documentation',
@@ -144,6 +151,7 @@ class LetterOfValidationController extends Controller
                 'election_report',
                 'formation_report',
                 'management_structure',
+                'id_cv_photo_certificate',
             ])
             ->get()
             ->groupBy('category')
@@ -154,22 +162,57 @@ class LetterOfValidationController extends Controller
                 return $group->pluck('attachment')->first();
             })
             ->toArray();
-
-        return view('admins.letters.sp.show', compact('submission', 'attachments'));
+        //        dd($letter->id);
+        return view('admins.letters.sp.show', compact('letter', 'attachments'));
     }
 
     public function update($id, Request $request): RedirectResponse
     {
-        $submission = LetterOfValidationController::where('id', $id)->firstOrFail();
-
         $validatedLetterNum = $request->validate(['letter_number' => 'required|string|max:255']);
-        $submission->letter_number = $validatedLetterNum['letter_number'];
-        $submission->status = SubmissionStatus::APPROVED;
 
-        $submission->save();
+        $letter = SP::findOrFail($id);
+
+        $letter->update([
+            'letter_number' => $validatedLetterNum['letter_number'],
+            'status' => SubmissionStatus::APPROVED,
+        ]);
 
         Alert::success('Pengajuan SP Berhasil disetujui');
 
         return redirect()->route('dashboard.letters.validation-submission.index');
+    }
+
+    public function generate($id)
+    {
+        $coverPath = public_path('assets/documents/sp-cover.pdf');
+
+        $contentPdf = Pdf::setPaper('A4', 'portrait')->loadView('admins.letters.sp.pdf.content');
+        $content = $contentPdf->output();
+        $contentPath = public_path('storage/sp/content.pdf');
+        file_put_contents($contentPath, $content);
+
+        $merger = new Merger();
+        $merger->addFile($coverPath);
+        $merger->addFile($contentPath);
+        $mergedPdf = $merger->merge();
+
+        $user = Auth::user();
+        $letter = SP::findOrFail($id);
+
+        $mergedDirectory = public_path(
+            'storage/sp/' . strtolower(str_replace(' ', '-', $user->pac->pac)) . '/generated/' . $letter->id,
+        );
+
+        if (! is_dir($mergedDirectory)) {
+            mkdir($mergedDirectory, 0755, true);
+        }
+
+        $mergedPath = $mergedDirectory . '/surat-pengesahan-' . now()->timestamp . '.pdf';
+
+        file_put_contents($mergedPath, $mergedPdf);
+
+        return response($mergedPdf)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="surat-pengesahan.pdf"');
     }
 }

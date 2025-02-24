@@ -117,3 +117,44 @@ MENU:
 	- Mengajukan SP (Menunggu di Acc oleh admin PC lalu bisa print to pdf)
    c) Anggota (mengelola Anggota dari daerahnya sendiri)
    d) Agenda (Memposting agenda untuk PAC nya sendiri)
+
+*ALUR PENGAJUAN SP:*
+PAC (ACTOR) MENGISI FORM:
+A. Lampiran A
+B. LAMPIRAN REKOMENDASI MWC, FILE PDF DIBAWAHNYA ADA TEKS UNTUK MENGETIKKAN NOMOR SURAT
+C. Lampiran C, DST
+D. Susunan Pengurus lengkap
+- Pelindung : sediakan field 10 baris
+- Pembina : Sediakan field 10 baris
+- Pengurus Harian :
+a. Ketua
+b. Wakil ketua 1 s.d 5
+g. Sekretaris
+h. Wakil sekretaris 1 s.d 5
+m. Bendahara
+n. Wakil Bendahara 1 s.d 5
+- Departemen-departemen
+a. Departemen organisasi
+- Koordinator
+- anggota
+
+Departemen Kaderisasi
+Departemen Dakwah
+Departemen Olahraga, Seni, dan Budaya
+- Lembaga-lembaga
+Lembaga Ekonomi dan Kewirausahaan
+Lembaga Pers dan Penerbitan
+Lembaga Corps Brigade Pembangunan
+
+Tambahan field:
+1. PAC --> Biar di sp langsung ada keterangan kecamatan (tanda warna krem)
+2. Tanggal sidang pleno / tanggal konferensi anak cabang
+3. Surat rekomendasi MWC
+4. Berita acara pemilihan ketua dan formatur
+5. Buat agar tanggal otomatis generate tanggal waktu itu
+
+*SURAT-MENYURAT*
+Dibikin untuk manajemen saja, jadi kalau ada surat masuk manual dari WA nanti baru di masukkan kesitu untuk di manaje atau di arsipkan!
+
+*ANGGOTA*
+Filter / Sort

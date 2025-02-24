@@ -55,7 +55,7 @@ class User extends Authenticatable
 
     public function letterOfValidationSubmissions(): HasMany
     {
-        return $this->hasMany(SubmissionRequest::class);
+        return $this->hasMany(SP::class);
     }
 
     public function provinsi()

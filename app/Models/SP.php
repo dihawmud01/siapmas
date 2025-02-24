@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
-class LetterOfValidation extends Model
+class SP extends Model
 {
     use HasFactory;
 
-    protected $table = 'letter_of_validations';
+    protected $table = 'sp';
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -56,6 +56,7 @@ class LetterOfValidation extends Model
         'press_institution_members',
         'brigade_institution_director',
         'brigade_institution_members',
+        'status',
     ];
 
     protected $casts = [
@@ -75,9 +76,9 @@ class LetterOfValidation extends Model
         'created_at' => 'datetime',
     ];
 
-    protected $appends = ['formatted_submission_date'];
+    protected $appends = ['formatted_letter_submission_date'];
 
-    public function getFormattedSubmissionDateAttribute(): string
+    public function getFormattedLetterSubmissionDateAttribute(): string
     {
         Carbon::setLocale('id');
 
@@ -91,9 +92,19 @@ class LetterOfValidation extends Model
         return Carbon::parse($this->event_date)->isoFormat('dddd, D MMMM YYYY');
     }
 
+    public function getFormattedApprovedDateAttribute(): string
+    {
+        Carbon::setLocale('id');
+
+        return Carbon::parse($this->updated_at)->isoFormat('dddd, D MMMM YYYY') .
+            ' | ' .
+            Carbon::parse($this->updated_at)->isoFormat('HH:mm') .
+            ' WIB';
+    }
+
     public function files(): HasMany
     {
-        return $this->hasMany(SubmissionFile::class);
+        return $this->hasMany(SPSubmissionFile::class);
     }
 
     public function user(): BelongsTo

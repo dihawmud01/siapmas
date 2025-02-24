@@ -2,20 +2,20 @@
 
 namespace App\View\Components;
 
-use App\Models\SubmissionRequest;
+use App\Models\SP;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class LetterCard extends Component
 {
-    public SubmissionRequest $submission;
+    public SP $letter;
     /**
      * Create a new component instance.
      */
-    public function __construct(SubmissionRequest $submission)
+    public function __construct(SP $letter)
     {
-        $this->submission = $submission;
+        $this->letter = $letter;
     }
 
     /**

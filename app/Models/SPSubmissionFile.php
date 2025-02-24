@@ -2,21 +2,22 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\LetterOfValidationController;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\FileCategory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class SubmissionFile extends Model
+class SPSubmissionFile extends Model
 {
-    protected $fillable = ['type', 'category', 'attachment', 'submission_id'];
+    protected $table = 'sp_submission_files';
+
+    protected $fillable = ['type', 'category', 'attachment', 'sp_id'];
 
     protected $casts = [
         'category' => FileCategory::class,
     ];
 
-    public function submission(): BelongsTo
+    public function sp(): BelongsTo
     {
-        return $this->belongsTo(LetterOfValidationController::class);
+        return $this->belongsTo(SP::class);
     }
 }

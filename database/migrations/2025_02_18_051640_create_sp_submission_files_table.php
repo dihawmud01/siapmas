@@ -11,16 +11,16 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('submission_files', function (Blueprint $table) {
+        Schema::create('sp_submission_files', function (Blueprint $table) {
             $table->id();
             $table->enum('category', FileCategory::getAll());
             $table->string('attachment', 255);
 
-            $table->uuid('letter_of_validation_id');
+            $table->uuid('sp_id');
             $table
-                ->foreign('letter_of_validation_id')
+                ->foreign('sp_id')
                 ->references('id')
-                ->on('letter_of_validations')
+                ->on('sp')
                 ->onDelete('cascade');
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('submission_files');
+        Schema::dropIfExists('sp_submission_files');
     }
 };

@@ -11,9 +11,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('letter_of_validations', function (Blueprint $table) {
+        Schema::create('sp', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('letter_number', 100);
+            $table->string('letter_number', 100)->nullable();
             $table->date('event_date');
             $table->string('event_location', 255);
             $table->string('mwc_letter_number', 100);
@@ -54,6 +54,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('submission_requests');
+        Schema::dropIfExists('sp');
     }
 };

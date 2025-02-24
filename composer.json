@@ -10,10 +10,11 @@
     "require": {
         "php": "^8.3",
         "azure-oss/storage-blob-flysystem": "^1.2",
-        "barryvdh/laravel-dompdf": "^2.0",
+        "barryvdh/laravel-dompdf": "^2.2",
         "cviebrock/eloquent-sluggable": "^10.0",
         "dompdf/dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
+        "iio/libmergepdf": "^4.0",
         "inertiajs/inertia-laravel": "^0.6.3",
         "itsgoingd/clockwork": "^5.1",
         "laravel/framework": "^10.0",
