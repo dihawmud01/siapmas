@@ -16,11 +16,11 @@ return new class extends Migration {
             $table->enum('category', FileCategory::getAll());
             $table->string('attachment', 255);
 
-            $table->uuid('submission_id');
+            $table->uuid('letter_of_validation_id');
             $table
-                ->foreign('submission_id')
+                ->foreign('letter_of_validation_id')
                 ->references('id')
-                ->on('submission_requests')
+                ->on('letter_of_validations')
                 ->onDelete('cascade');
             $table->timestamps();
         });

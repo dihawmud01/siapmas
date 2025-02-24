@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\LetterOfValidationController;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\FileCategory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +17,6 @@ class SubmissionFile extends Model
 
     public function submission(): BelongsTo
     {
-        return $this->belongsTo(SubmissionRequest::class);
+        return $this->belongsTo(LetterOfValidationController::class);
     }
 }

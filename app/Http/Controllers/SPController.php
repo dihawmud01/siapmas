@@ -3,22 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Enums\FileCategory;
+use App\Enums\SubmissionStatus;
 use App\Models\SubmissionFile;
-use App\Models\SubmissionRequest;
+use App\Models\LetterOfValidation;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class LetterOfValidation extends Controller
+class LetterOfValidationController extends Controller
 {
     public function index(Request $request): View
     {
         $user = Auth::user();
-        $submissionRequests = SubmissionRequest::where('user_id', $user->id)->get();
+        $submissionRequests = LetterOfValidationController::where('user_id', $user->id)
+            ->orderBy('updated_at', 'desc')
+            ->get();
 
         if ($user->id == 2) {
-            $submissionRequests = SubmissionRequest::all();
+            $submissionRequests = LetterOfValidationController::orderBy('updated_at', 'asc')->get();
         }
 
         return view(
@@ -74,7 +78,7 @@ class LetterOfValidation extends Controller
         $user = Auth::user();
         $validatedData['user_id'] = $user->id;
 
-        $submission = SubmissionRequest::create($validatedData);
+        $submission = LetterOfValidationController::create($validatedData);
 
         $request->only([
             'documentation' => 'nullable|array',
@@ -129,7 +133,7 @@ class LetterOfValidation extends Controller
 
     public function show($id): View
     {
-        $submission = SubmissionRequest::where('id', $id)->firstOrFail();
+        $submission = LetterOfValidationController::where('id', $id)->firstOrFail();
 
         $attachments = (object) SubmissionFile::where('submission_id', $submission->id)
             ->whereIn('category', [
@@ -152,5 +156,20 @@ class LetterOfValidation extends Controller
             ->toArray();
 
         return view('admins.letters.sp.show', compact('submission', 'attachments'));
+    }
+
+    public function update($id, Request $request): RedirectResponse
+    {
+        $submission = LetterOfValidationController::where('id', $id)->firstOrFail();
+
+        $validatedLetterNum = $request->validate(['letter_number' => 'required|string|max:255']);
+        $submission->letter_number = $validatedLetterNum['letter_number'];
+        $submission->status = SubmissionStatus::APPROVED;
+
+        $submission->save();
+
+        Alert::success('Pengajuan SP Berhasil disetujui');
+
+        return redirect()->route('dashboard.letters.validation-submission.index');
     }
 }

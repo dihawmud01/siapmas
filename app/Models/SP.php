@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
-class SubmissionRequest extends Model
+class LetterOfValidation extends Model
 {
     use HasFactory;
 
-    protected $table = 'submission_requests';
+    protected $table = 'letter_of_validations';
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -30,6 +30,7 @@ class SubmissionRequest extends Model
 
     protected $fillable = [
         'user_id',
+        'letter_number',
         'event_date',
         'event_location',
         'mwc_letter_number',

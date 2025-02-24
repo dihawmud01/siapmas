@@ -11,8 +11,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('submission_requests', function (Blueprint $table) {
+        Schema::create('letter_of_validations', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('letter_number', 100);
             $table->date('event_date');
             $table->string('event_location', 255);
             $table->string('mwc_letter_number', 100);
