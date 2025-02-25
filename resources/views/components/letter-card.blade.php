@@ -22,12 +22,17 @@
                     @if (in_array(auth()->user()->role_id, [3]))
                         <div class="d-flex align-items-center">
                             <a
-                                href="{{ route('dashboard.letters.validation-submission.generate', $letter) }}"
-                                class="btn btn-success btn-lg"
-                                {{ $letter->status->value == 'approved' ? '' : 'disabled' }}
+                                href="{{ $letter->status->value == 'approved' ? route('dashboard.letters.validation-submission.generate', $letter) : '' }}"
+                                class="{{ $letter->status->value == 'approved' ? '' : 'disabled-link' }}"
+                                target="_blank"
                             >
-                                <i class="bi bi-download"></i>
-                                {{ __('Generate SP') }}
+                                <button
+                                    class="btn btn-success btn-lg"
+                                    {{ $letter->status->value == 'approved' ? '' : 'disabled' }}
+                                >
+                                    <i class="bi bi-download"></i>
+                                    {{ __('Generate SP') }}
+                                </button>
                             </a>
                             @if (request()->routeIs('dashboard.letters.validation-submission.index'))
                                 <div class="dropdown-center">
@@ -44,7 +49,6 @@
                                             <a
                                                 class="dropdown-item"
                                                 href="{{ route('dashboard.letters.validation-submission.show', $letter) }}"
-                                                target="_blank"
                                             >
                                                 <i class="bi bi-eye-fill"></i>
                                                 {{ __('Lihat Detail') }}
@@ -117,9 +121,9 @@
                 @if ($letter->status->value == 'pending')
                     {{ __('Belum dapat melakukan generate SP karena belum disetujui oleh PC') }}
                 @elseif ($letter->status->value == 'approved')
-                    {{ __('Pengajuan sp sudah disetujui oleh PC. SP sudah dapat digenerate') }}
+                    {{ __('Pengajuan SP sudah disetujui oleh PC. SP sudah dapat digenerate') }}
                 @elseif ($letter->status->value == 'rejected')
-                    {{ __('Mohon maaf pengajuan anda ditolak oleh PC') }}
+                    {{ __('Mohon maaf pengajuan SP anda ditolak oleh PC') }}
                 @endif
             </p>
         @endif

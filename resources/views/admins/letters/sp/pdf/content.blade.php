@@ -5,10 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Surat Pengesahan PC IPNU</title>
         <style>
-            /* Ukuran halaman dan margin sesuai format surat */
             @page {
                 size: A4;
-                margin: 2.5cm 3cm 2.5cm 3cm; /* Atas, kanan, bawah, kiri */
+                margin: 2.5cm 3cm 2.5cm 3cm;
             }
 
             body {
@@ -19,7 +18,6 @@
                 text-align: justify;
             }
 
-            /* Judul dan Nomor Surat */
             .judul-surat {
                 position: relative;
                 align-items: center;
@@ -40,19 +38,16 @@
                 text-align: center;
             }
 
-            /* Separator */
             .separator {
                 margin: 15px 0;
                 border-top: 2px solid black;
                 width: 100%;
             }
 
-            /* Konten Surat */
             .content {
                 margin-top: 20px;
             }
 
-            /* Bagian yang ditampilkan dalam format poin */
             .section-title {
                 margin-bottom: 5px;
                 font-weight: bold;
@@ -62,7 +57,6 @@
                 margin-left: 20px;
             }
 
-            /* Bagian keputusan */
             .decision {
                 margin: 20px 0;
                 font-weight: bold;
@@ -70,13 +64,11 @@
                 text-align: center;
             }
 
-            /* Identitas Tanda Tangan */
             .signature {
                 margin-top: 40px;
                 text-align: center;
             }
 
-            /* Format daftar untuk poin */
             ol {
                 margin: 0;
                 padding-left: 20px;
@@ -90,7 +82,6 @@
         </style>
     </head>
     <body>
-        <!-- Judul Surat -->
         <div class="judul-surat">SURAT PENGESAHAN PC IPNU</div>
         <div class="nomor-surat">Nomor: 022/PC/SP/XIII/7354/X/24</div>
         <div class="about">Tentang</div>
@@ -100,10 +91,8 @@
             MASA KHIDMAT 2023-2025
         </div>
 
-        <!-- Separator -->
         <div class="separator"></div>
 
-        <!-- Konten Surat -->
         <div class="content">
             <p><strong>Bismillahirrahmanirrahim</strong></p>
             <p>Pimpinan Cabang Ikatan Pelajar Nahdlatul Ulama Kabupaten Banyumas setelah:</p>
