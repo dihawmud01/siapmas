@@ -233,7 +233,8 @@
                                     perkembangan menuju tercapainya misi dan tujuan organisasi;
                                 </li>
                                 <li>
-                                    Bahwa untuk menjalankan kepengurusan PAC IPNU {{ ucwords(strtolower($pac)) }}, maka
+                                    Bahwa untuk menjalankan kepengurusan PAC IPNU
+                                    {{ str_replace(['Uin', 'Unu'], ['UIN', 'UNU'], ucwords(strtolower($pac))) }}, maka
                                     perlu menerbitkan Surat Pengesahan ini.
                                 </li>
                             </ol>
@@ -266,11 +267,13 @@
                         <div>
                             <ol>
                                 <li>
-                                    Sidang Pleno IPNU {{ ucwords(strtolower($pac)) }} tanggal
-                                    {{ $letter->formatted_event_date_without_day }};
+                                    Sidang Pleno IPNU
+                                    {{ str_replace(['Uin', 'Unu'], ['UIN', 'UNU'], ucwords(strtolower($pac))) }}
+                                    tanggal {{ $letter->formatted_event_date_without_day }};
                                 </li>
                                 <li>
-                                    Surat Rekomendasi MWC NU {{ ucwords(strtolower($pac)) }} Nomor:
+                                    Surat Rekomendasi MWC NU
+                                    {{ str_replace(['Uin', 'Unu'], ['UIN', 'UNU'], ucwords(strtolower($pac))) }} Nomor:
                                     {{ $letter->mwc_letter_number }} tanggal
                                     {{ $letter->formatted_event_date_without_day }};
                                 </li>
@@ -292,12 +295,14 @@
                             <ol>
                                 <li>
                                     Mengesahkan susunan Pimpinan Anak Cabang Ikatan Pelajar Nahdlatul Ulama
-                                    {{ ucwords(strtolower($pac)) }}, Masa Khidmat 2023-2025 sebagaimana terlampir;
+                                    {{ str_replace(['Uin', 'Unu'], ['UIN', 'UNU'], ucwords(strtolower($pac))) }}, Masa
+                                    Khidmat 2023-2025 sebagaimana terlampir;
                                 </li>
                                 <li>
                                     Menugaskan kepada semua pengurus Pimpinan Anak Cabang Ikatan Pelajar Nahdlatul Ulama
-                                    {{ ucwords(strtolower($pac)) }} untuk melaksanakan amanat organisasi, sesuai hasil
-                                    keputusan konferensi dan peraturan yang ada;
+                                    {{ str_replace(['Uin', 'Unu'], ['UIN', 'UNU'], ucwords(strtolower($pac))) }} untuk
+                                    melaksanakan amanat organisasi, sesuai hasil keputusan konferensi dan peraturan yang
+                                    ada;
                                 </li>
                                 <li>
                                     Surat Pengesahan ini berlaku mulai tanggal ditetapkan sampai dengan tanggal 30 Juli
@@ -384,7 +389,9 @@
             <p>Ditembuskan kepada</p>
             <ol>
                 <li>Yth. Pengurus Cabang NU Kabupaten Banyumas;</li>
-                <li>Yth. Pengurus MWC NU {{ ucwords(strtolower($pac)) }};</li>
+                <li>
+                    Yth. Pengurus MWC NU {{ str_replace(['Uin', 'Unu'], ['UIN', 'UNU'], ucwords(strtolower($pac))) }};
+                </li>
                 <li>Arsip</li>
             </ol>
         </div>
