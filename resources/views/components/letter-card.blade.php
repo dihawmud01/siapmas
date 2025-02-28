@@ -130,7 +130,8 @@
 
         <div class="d-flex justify-content-between flex-column flex-sm-row">
             <small class="text-secondary">
-                {{ __('Disetujui pada: ') . $letter->status->value == 'pending' || $letter->status->value == 'rejected' ? '-' : $letter->formatted_approved_date }}
+                {{ __('Disetujui pada: ') }}
+                {{ $letter->status->value == 'pending' || $letter->status->value == 'rejected' ? '-' : $letter->formatted_approved_date }}
             </small>
         </div>
 

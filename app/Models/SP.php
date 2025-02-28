@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use Alkoumi\LaravelHijriDate\Hijri;
 use App\Enums\SubmissionStatus;
+use biladina\hijridatetime\HijriDateTime;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
+use IntlDateFormatter;
 
 class SP extends Model
 {
@@ -92,6 +95,13 @@ class SP extends Model
         return Carbon::parse($this->event_date)->isoFormat('dddd, D MMMM YYYY');
     }
 
+    public function getFormattedEventDateWithoutDayAttribute(): string
+    {
+        Carbon::setLocale('id');
+
+        return Carbon::parse($this->event_date)->isoFormat('D MMMM YYYY');
+    }
+
     public function getFormattedApprovedDateAttribute(): string
     {
         Carbon::setLocale('id');
@@ -100,6 +110,19 @@ class SP extends Model
             ' | ' .
             Carbon::parse($this->updated_at)->isoFormat('HH:mm') .
             ' WIB';
+    }
+
+    public function getFormattedNowGeorgiaDateAttribute(): string
+    {
+        Carbon::setLocale('id');
+
+        return Carbon::parse(now())->isoFormat('D MMMM YYYY') . ' M';
+    }
+
+    public function getFormattedNowHijriDateAttribute(): string
+    {
+        $hijri = new HijriDateTime();
+        return $hijri->date('d F Y', time(), 'id') . ' H';
     }
 
     public function files(): HasMany

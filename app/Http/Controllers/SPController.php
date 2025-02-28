@@ -12,7 +12,9 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use setasign\Fpdi\Tcpdf\Fpdi;
 
 class SPController extends Controller
 {
@@ -24,7 +26,7 @@ class SPController extends Controller
             ->get();
 
         if ($user->id == 2) {
-            $letters = SP::orderBy('updated_at', 'asc')->get();
+            $letters = SP::orderBy('updated_at', 'desc')->get();
         }
 
         return view(
@@ -185,19 +187,51 @@ class SPController extends Controller
     public function generate($id)
     {
         $coverPath = public_path('assets/documents/sp-cover.pdf');
-
-        $contentPdf = Pdf::setPaper('A4', 'portrait')->loadView('admins.letters.sp.pdf.content');
-        $content = $contentPdf->output();
-        $contentPath = public_path('storage/sp/content.pdf');
-        file_put_contents($contentPath, $content);
-
-        $merger = new Merger();
-        $merger->addFile($coverPath);
-        $merger->addFile($contentPath);
-        $mergedPdf = $merger->merge();
-
         $user = Auth::user();
         $letter = SP::findOrFail($id);
+
+        $modifiedCoverDir = public_path('storage/sp/' . strtolower(str_replace(' ', '-', $user->pac->pac)));
+
+        if (! is_dir($modifiedCoverDir)) {
+            mkdir($modifiedCoverDir, 0755, true);
+        }
+
+        $modifiedCoverPath = $modifiedCoverDir . '/sp-cover.pdf';
+
+        $pac = '';
+
+        if (in_array($user->pac_id, [28, 29])) {
+            $pac = $user->pac->pac;
+        } else {
+            $pac = 'KECAMATAN ' . $user->pac->pac;
+        }
+
+        if (! file_exists($modifiedCoverPath)) {
+            $cover = new Fpdi();
+            $cover->setSourceFile($coverPath);
+            $tplIdx = $cover->importPage(1);
+            $size = $cover->getTemplateSize($tplIdx);
+            $cover->AddPage('P', [$size['width'], $size['height']]);
+            $cover->useTemplate($tplIdx, 0, 0, $size['width'], $size['height']);
+            $cover->setFont('Helvetica', 'B', 26);
+            $cover->setTextColor(255, 255, 255);
+            $cover->SetXY(59.5, 190);
+            $cover->Cell(100, 10, $pac, 0, 0, 'C');
+
+            $cover->Output($modifiedCoverPath, 'F');
+        }
+
+        $contentPdf = Pdf::setPaper('A4', 'portrait')->loadView(
+            'admins.letters.sp.pdf.content',
+            compact('letter', 'pac'),
+        );
+        $contentPath = public_path('storage/sp/content.pdf');
+        file_put_contents($contentPath, $contentPdf->output());
+
+        $merger = new Merger();
+        $merger->addFile($modifiedCoverPath);
+        $merger->addFile($contentPath);
+        $mergedPdf = $merger->merge();
 
         $mergedDirectory = public_path(
             'storage/sp/' . strtolower(str_replace(' ', '-', $user->pac->pac)) . '/generated/' . $letter->id,
@@ -210,6 +244,8 @@ class SPController extends Controller
         $mergedPath = $mergedDirectory . '/surat-pengesahan-' . now()->timestamp . '.pdf';
 
         file_put_contents($mergedPath, $mergedPdf);
+
+        Storage::delete($contentPath);
 
         return response($mergedPdf)
             ->header('Content-Type', 'application/pdf')

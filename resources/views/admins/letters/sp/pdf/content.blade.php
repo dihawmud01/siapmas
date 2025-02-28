@@ -6,67 +6,175 @@
         <title>Surat Pengesahan PC IPNU</title>
         <style>
             @page {
-                size: A4;
-                margin: 2.5cm 3cm 2.5cm 3cm;
+                size: 215.91mm 330.22mm;
+                margin: 5cm 1.5cm 2cm 1.5cm;
+            }
+
+            .header,
+            .footer {
+                position: fixed;
+                right: 0;
+                left: 0;
+            }
+
+            .header {
+                top: -4cm;
+                width: 100%;
+                text-align: center;
+            }
+
+            .footer {
+                bottom: -1.5cm;
+                width: 40%;
+                text-align: left;
+            }
+
+            .header img,
+            .footer img {
+                max-width: 100%;
+                height: auto;
             }
 
             body {
                 margin: 0;
-                font-size: 12pt;
+                font-size: 9pt;
                 line-height: 1.5;
-                font-family: 'Arial', sans-serif;
+                font-family: 'Helvetica', sans-serif;
                 text-align: justify;
             }
 
-            .judul-surat {
+            .main-title {
+                display: inline-block;
                 position: relative;
-                align-items: center;
                 font-weight: bold;
-                font-size: 12pt;
+                font-size: 9pt;
                 text-align: center;
                 text-transform: uppercase;
             }
 
+            .main-title::after {
+                display: block;
+                margin: 5px auto;
+                border-top: 2px solid #1e1e1e;
+                width: auto;
+                content: '';
+            }
+
             .nomor-surat {
                 margin-bottom: 15px;
-                font-size: 12pt;
+                font-size: 9pt;
                 text-align: center;
             }
 
             .about {
-                font-size: 12pt;
                 text-align: center;
             }
 
-            .separator {
-                margin: 15px 0;
-                border-top: 2px solid black;
-                width: 100%;
+            p {
+                margin: 0;
             }
 
-            .content {
-                margin-top: 20px;
+            .secondary-title {
+                position: relative;
+                align-items: center;
+                border-bottom: 2px solid #1e1e1e;
+                font-weight: bold;
+                font-size: 9pt;
+                text-align: center;
+                text-transform: uppercase;
             }
 
             .section-title {
-                margin-bottom: 5px;
                 font-weight: bold;
             }
 
-            .section-content {
-                margin-left: 20px;
+            .latin-arabic {
+                margin-top: 8px;
+                font-style: italic;
+            }
+
+            .content-table td {
+                vertical-align: top;
+                text-align: justify;
+            }
+
+            .attachment-title {
+                margin-bottom: 12px;
+                font-style: italic;
+            }
+
+            .attachment-subtitle {
+                margin-top: 8px;
+            }
+
+            .attachment-content {
+                margin-top: 12px;
             }
 
             .decision {
-                margin: 20px 0;
                 font-weight: bold;
-                font-size: 12pt;
+                font-size: 9pt;
                 text-align: center;
             }
 
+            .date {
+                margin-top: 20px;
+            }
+
+            .date-table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            .date-table td {
+                vertical-align: top;
+                text-align: left;
+            }
+
             .signature {
-                margin-top: 40px;
                 text-align: center;
+            }
+
+            .signature-table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            .signature-table td {
+                position: relative;
+                vertical-align: middle;
+                width: 50%;
+                text-align: center;
+            }
+
+            .signature-space {
+                display: block;
+                min-height: 20px;
+            }
+
+            .chairman-signature-img {
+                display: block;
+                opacity: 0.9;
+                margin: -53px auto -28px 0;
+                height: 100px;
+            }
+
+            .secretary-signature-img {
+                display: block;
+                opacity: 0.9;
+                margin: -53px auto -28px -88px;
+                height: 100px;
+            }
+
+            .bordered-td {
+                padding-top: 20px;
+                font-weight: bold;
+            }
+
+            .bordered-td p {
+                display: inline-block;
+                position: relative;
+                border-bottom: 1px solid #1e1e1e;
             }
 
             ol {
@@ -74,246 +182,651 @@
                 padding-left: 20px;
             }
 
-            .lampiran {
-                margin-top: 40px;
-                border-top: 1px solid black;
-                padding-top: 20px;
+            ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
             }
         </style>
     </head>
+
     <body>
-        <div class="judul-surat">SURAT PENGESAHAN PC IPNU</div>
-        <div class="nomor-surat">Nomor: 022/PC/SP/XIII/7354/X/24</div>
+        <div class="header">
+            <img src="{{ public_path('assets/images/sp/header-kop.png') }}" alt="Header" />
+        </div>
+
+        <div style="text-align: center">
+            <div class="main-title">SURAT PENGESAHAN PC IPNU</div>
+            <div class="nomor-surat">Nomor: {{ $letter->letter_number }}</div>
+        </div>
+
         <div class="about">Tentang</div>
-        <div class="judul-surat">
-            SUSUNAN PENGURUS PIMPINAN ANAK CABANG IKATAN PELAJAR NAHDLATUL ULAMA KECAMATAN BATURRADEN KABUPATEN BANYUMAS
+        <div class="secondary-title" style="padding-bottom: 4px">
+            SUSUNAN PENGURUS PIMPINAN ANAK CABANG
+            <br />
+            IKATAN PELAJAR NAHDLATUL ULAMA {{ $pac }} KABUPATEN BANYUMAS
             <br />
             MASA KHIDMAT 2023-2025
         </div>
-
-        <div class="separator"></div>
+        <div class="secondary-title" style="margin: 5px auto"></div>
 
         <div class="content">
-            <p><strong>Bismillahirrahmanirrahim</strong></p>
+            <p class="latin-arabic">Bismillahirrahmanirrahim</p>
             <p>Pimpinan Cabang Ikatan Pelajar Nahdlatul Ulama Kabupaten Banyumas setelah:</p>
 
-            <p class="section-title">Menimbang:</p>
-            <div class="section-content">
-                <ol>
-                    <li>
-                        Ikatan Pelajar Nahdlatul Ulama sebagai organisasi kader yang terus mengalami peningkatan dan
-                        perkembangan baik secara organisatoris maupun program yang dicanangkan, maka perlu terus
-                        dilakukan pembaharuan dan regenerasi pengurus melalui pergantian pengurus secara periodik;
-                    </li>
-                    <li>
-                        Dalam upaya menjalankan kepengurusan untuk semua tingkatan maka diperlukan adanya kesiapan dan
-                        kecakapan pengurus dalam rangka mengantisipasi setiap perubahan dan perkembangan menuju
-                        tercapainya misi dan tujuan organisasi;
-                    </li>
-                    <li>
-                        Bahwa untuk menjalankan kepengurusan PAC IPNU Kecamatan Baturraden, maka perlu menerbitkan Surat
-                        Pengesahan ini.
-                    </li>
-                </ol>
-            </div>
+            <table class="content-table">
+                <tr>
+                    <td><p class="section-title">Menimbang</p></td>
+                    <td><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</p></td>
+                    <td class="section-content">
+                        <div>
+                            <ol>
+                                <li>
+                                    Ikatan Pelajar Nahdlatul Ulama sebagai organisasi kader yang terus mengalami
+                                    peningkatan dan perkembangan baik secara organisatoris maupun program yang
+                                    dicanangkan, maka perlu terus dilakukan pembaharuan dan regenerasi pengurus melalui
+                                    pergantian pengurus secara periodik;
+                                </li>
+                                <li>
+                                    Dalam upaya menjalankan kepengurusan untuk semua tingkatan maka diperlukan adanya
+                                    kesiapan dan kecakapan pengurus dalam rangka mengantisipasi setiap perubahan dan
+                                    perkembangan menuju tercapainya misi dan tujuan organisasi;
+                                </li>
+                                <li>
+                                    Bahwa untuk menjalankan kepengurusan PAC IPNU {{ ucwords(strtolower($pac)) }}, maka
+                                    perlu menerbitkan Surat Pengesahan ini.
+                                </li>
+                            </ol>
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
-            <p class="section-title">Mengingat:</p>
-            <div class="section-content">
-                <ol>
-                    <li>Peraturan Dasar (PD) IPNU BAB I Pasal 1, BAB VII Pasal 12, BAB VIII Pasal 16;</li>
-                    <li>Peraturan Rumah Tangga (PRT) IPNU Bab IX Pasal 20, Ayat 4;</li>
-                    <li>Peraturan Organisasi IPNU Bab IV Pasal 8.</li>
-                </ol>
-            </div>
+            <table class="content-table">
+                <tr>
+                    <td><p class="section-title">Mengingat</p></td>
+                    <td><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</p></td>
+                    <td class="section-content">
+                        <div>
+                            <ol>
+                                <li>Peraturan Dasar (PD) IPNU BAB I Pasal 1, BAB VII Pasal 12, BAB VIII Pasal 16;</li>
+                                <li>Peraturan Rumah Tangga (PRT) IPNU Bab IX Pasal 20, Ayat 4;</li>
+                                <li>Peraturan Organisasi IPNU Bab IV Pasal 8.</li>
+                            </ol>
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
-            <p class="section-title">Memperhatikan:</p>
-            <div class="section-content">
-                <ol>
-                    <li>Sidang Pleno IPNU Kecamatan Baturraden tanggal 21 Juli 2024;</li>
-                    <li>
-                        Surat Rekomendasi MWC NU Kecamatan Baturraden Nomor: 049/MWCNU/A.I/VII/2024 tanggal 25 Juli
-                        2024;
-                    </li>
-                    <li>Berita Acara Pemilihan Ketua dan Tim Formatur.</li>
-                </ol>
-            </div>
+            <table class="content-table">
+                <tr>
+                    <td><p class="section-title">Memperhatikan</p></td>
+                    <td><p>:</p></td>
+                    <td class="section-content">
+                        <div>
+                            <ol>
+                                <li>
+                                    Sidang Pleno IPNU {{ ucwords(strtolower($pac)) }} tanggal
+                                    {{ $letter->formatted_event_date_without_day }};
+                                </li>
+                                <li>
+                                    Surat Rekomendasi MWC NU {{ ucwords(strtolower($pac)) }} Nomor:
+                                    {{ $letter->mwc_letter_number }} tanggal
+                                    {{ $letter->formatted_event_date_without_day }};
+                                </li>
+                                <li>Berita Acara Pemilihan Ketua dan Tim Formatur.</li>
+                            </ol>
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
             <div class="decision">M E M U T U S K A N</div>
 
-            <p class="section-title">Menetapkan:</p>
-            <div class="section-content">
-                <ol>
-                    <li>
-                        Mengesahkan susunan Pimpinan Anak Cabang Ikatan Pelajar Nahdlatul Ulama Kecamatan Baturraden,
-                        Masa Khidmat 2023-2025 sebagaimana terlampir;
-                    </li>
-                    <li>
-                        Menugaskan kepada semua pengurus Pimpinan Anak Cabang Ikatan Pelajar Nahdlatul Ulama Kecamatan
-                        Baturraden untuk melaksanakan amanat organisasi, sesuai hasil keputusan konferensi dan peraturan
-                        yang ada;
-                    </li>
-                    <li>
-                        Surat Pengesahan ini berlaku mulai tanggal ditetapkan sampai dengan tanggal 30 Juli 2025 dan
-                        apabila terdapat kekeliruan di kemudian hari akan ditinjau kembali.
-                    </li>
-                </ol>
+            <table class="content-table">
+                <tr>
+                    <td><p class="section-title">Menetapkan</p></td>
+                    <td><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</p></td>
+                    <td class="section-content">
+                        <div>
+                            <ol>
+                                <li>
+                                    Mengesahkan susunan Pimpinan Anak Cabang Ikatan Pelajar Nahdlatul Ulama
+                                    {{ ucwords(strtolower($pac)) }}, Masa Khidmat 2023-2025 sebagaimana terlampir;
+                                </li>
+                                <li>
+                                    Menugaskan kepada semua pengurus Pimpinan Anak Cabang Ikatan Pelajar Nahdlatul Ulama
+                                    {{ ucwords(strtolower($pac)) }} untuk melaksanakan amanat organisasi, sesuai hasil
+                                    keputusan konferensi dan peraturan yang ada;
+                                </li>
+                                <li>
+                                    Surat Pengesahan ini berlaku mulai tanggal ditetapkan sampai dengan tanggal 30 Juli
+                                    2025 dan apabila terdapat kekeliruan di kemudian hari akan ditinjau kembali.
+                                </li>
+                            </ol>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <p class="latin-arabic">Wallahulmuwaffiq ilaa aqwamith-tharieq</p>
+            <div class="date">
+                <table class="date-table">
+                    <tr>
+                        <td width="50%"></td>
+                        <td width="88px"><p class="col-1">Ditetapkan di</p></td>
+                        <td width="8px"><p class="bracket-pair">:</p></td>
+                        <td width="128px"><p>Purwokerto</p></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><p class="col-1">Pada tanggal</p></td>
+                        <td><p class="bracket-pair">:</p></td>
+                        <td class="bordered-td" style="padding: 0">
+                            <p style="width: 100%; font-weight: normal; padding: 0">
+                                {{ $letter->formatted_now_hijri_date }}
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <p style="width: 100%">{{ $letter->formatted_now_georgia_date }}</p>
+                        </td>
+                    </tr>
+                </table>
             </div>
 
-            <p>Wallahulmuwaffiq ilaa aqwamith-tharieq</p>
-
-            <!-- Identitas Tanda Tangan -->
             <div class="signature">
-                <p>Ditetapkan di: Purwokerto</p>
-                <p>
-                    Pada tanggal: 11 Rabi’ul Akhir 1446 H
-                    <br />
-                    13 Oktober 2024 M
-                </p>
                 <p>
                     <strong>PIMPINAN CABANG</strong>
                     <br />
-                    IKATAN PELAJAR NAHDLATUL ULAMA
+                    <strong>IKATAN PELAJAR NAHDLATUL ULAMA</strong>
                     <br />
-                    KABUPATEN BANYUMAS
+                    <strong>KABUPATEN BANYUMAS</strong>
                 </p>
-                <p>Ketua, Sekretaris, Sekretaris,</p>
+                <table class="signature-table">
+                    <tr>
+                        <td><p>Ketua,</p></td>
+                        <td><p>Sekretaris,</p></td>
+                    </tr>
+                    <tr>
+                        <td class="bordered-td">
+                            <div class="signature-space">
+                                <img
+                                    src="{{ public_path('assets/images/sp/signatures/chairman-signature.png') }}"
+                                    class="chairman-signature-img"
+                                    alt="Tanda Tangan Ketua"
+                                />
+                            </div>
+                            <p><strong>FAHMI ABDURRAHMAN</strong></p>
+                        </td>
+                        <td class="bordered-td">
+                            <div class="signature-space">
+                                <img
+                                    src="{{ public_path('assets/images/sp/signatures/secretary-signature.png') }}"
+                                    class="secretary-signature-img"
+                                    alt="Tanda Tangan Sekretaris"
+                                />
+                            </div>
+                            <p><strong>AKHMAD AINUN NAJIB</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p>NIA. 11.20.99.00002</p></td>
+                        <td><p>NIA. 11.20.99.00032</p></td>
+                    </tr>
+                </table>
+            </div>
+
+            <p>Ditembuskan kepada</p>
+            <ol>
+                <li>Yth. Pengurus Cabang NU Kabupaten Banyumas;</li>
+                <li>Yth. Pengurus MWC NU {{ ucwords(strtolower($pac)) }};</li>
+                <li>Arsip</li>
+            </ol>
+        </div>
+
+        <div class="footer">
+            <img src="{{ public_path('assets/images/sp/footer.jpeg') }}" alt="Footer" />
+        </div>
+
+        <div class="attachment">
+            <p class="attachment-title">
+                Lampiran Surat Pengesahan
                 <br />
-                <p><strong>FAHMI ABDURRAHMAN &nbsp;&nbsp;&nbsp; AKHMAD AINUN NAJIB</strong></p>
-                <p>NIA. 11.20.99.00002 &nbsp;&nbsp;&nbsp; NIA. 11.20.99.00032</p>
+                Pimpinan Cabang Ikatan Pelajar Nahdlatul Ulama Kabupaten Banyumas
+                <br />
+                Nomor: {{ $letter->letter_number }}
+            </p>
+            <div class="secondary-title" style="padding-bottom: 4px">
+                SUSUNAN PENGURUS PIMPINAN ANAK CABANG
+                <br />
+                IKATAN PELAJAR NAHDLATUL ULAMA {{ $pac }} KABUPATEN BANYUMAS
+                <br />
+                MASA KHIDMAT 2023-2025
+            </div>
+            <div class="secondary-title" style="margin-top: 5px; margin-bottom: 10px"></div>
+            <div class="attachment-content">
+                <table class="content-table">
+                    <tr>
+                        <td>
+                            <p><strong>PEMBINA</strong></p>
+                        </td>
+                        <td>
+                            <p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                            </p>
+                        </td>
+                        <td class="section-content">
+                            @if (count($letter->protectors) <= 1)
+                                @foreach ($letter->protectors as $protector)
+                                    <p>{{ $protector }}</p>
+                                @endforeach
+                            @else
+                                <div>
+                                    <ol>
+                                        @foreach ($letter->protectors as $protector)
+                                            <li><p>{{ $protector }}</p></li>
+                                        @endforeach
+                                    </ol>
+                                </div>
+                            @endif
+                        </td>
+                    </tr>
+                </table>
+                <table class="content-table">
+                    <tr>
+                        <td>
+                            <p><strong>PELINDUNG</strong></p>
+                        </td>
+                        <td>
+                            <p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                            </p>
+                        </td>
+                        <td class="section-content">
+                            @if (count($letter->advisors) <= 1)
+                                @foreach ($letter->advisors as $advisor)
+                                    <p>{{ $advisor }}</p>
+                                @endforeach
+                            @else
+                                <div>
+                                    <ol>
+                                        @foreach ($letter->advisors as $advisor)
+                                            <li><p>{{ $advisor }}</p></li>
+                                        @endforeach
+                                    </ol>
+                                </div>
+                            @endif
+                        </td>
+                    </tr>
+                </table>
+                <table class="content-table">
+                    <tr>
+                        <td>
+                            <p class="attachment-subtitle"><strong>PENGURUS HARIAN</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="position"><strong>Ketua</strong></p>
+                        </td>
+                        <td>
+                            <p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                            </p>
+                        </td>
+                        <td class="section-content"><p>{{ $letter->chairman }}</p></td>
+                    </tr>
+                    @foreach ($letter->vice_chairmen as $vice)
+                        <tr>
+                            <td>
+                                <p>Wakil Ketua</p>
+                            </td>
+                            <td>
+                                <p>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                                </p>
+                            </td>
+                            <td class="section-content"><p>{{ $vice }}</p></td>
+                        </tr>
+                    @endforeach
+
+                    <tr>
+                        <td>
+                            <p class="position"><strong>Sekretaris</strong></p>
+                        </td>
+                        <td>
+                            <p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                            </p>
+                        </td>
+                        <td class="section-content"><p>{{ $letter->secretary }}</p></td>
+                    </tr>
+                    @foreach ($letter->vice_secretaries as $vice)
+                        <tr>
+                            <td>
+                                <p>Wakil Sekretaris</p>
+                            </td>
+                            <td>
+                                <p>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                                </p>
+                            </td>
+                            <td class="section-content"><p>{{ $vice }}</p></td>
+                        </tr>
+                    @endforeach
+
+                    <tr>
+                        <td>
+                            <p class="position"><strong>Bendahara</strong></p>
+                        </td>
+                        <td>
+                            <p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                            </p>
+                        </td>
+                        <td class="section-content"><p>{{ $letter->treasurer }}</p></td>
+                    </tr>
+                    @foreach ($letter->vice_treasurers as $vice)
+                        <tr>
+                            <td>
+                                <p>Wakil Bendahara</p>
+                            </td>
+                            <td>
+                                <p>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                                </p>
+                            </td>
+                            <td class="section-content"><p>{{ $vice }}</p></td>
+                        </tr>
+                    @endforeach
+                </table>
+
+                <table class="content-table">
+                    <tr>
+                        <td>
+                            <p class="attachment-subtitle"><strong>DEPARTEMEN-DEPARTEMEN</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="position"><strong>A. Departemen Organisasi</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p>Koordinator</p></td>
+                        <td>
+                            <p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                            </p>
+                        </td>
+                        <td class="section-content"><p>{{ $letter->organization_department_coordinator }}</p></td>
+                    </tr>
+
+                    <tr>
+                        <td><p>Anggota</p></td>
+                        <td>
+                            <p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                            </p>
+                        </td>
+                        <td class="section-content">
+                            <ul>
+                                @foreach ($letter->organization_department_members as $member)
+                                    <li><p>{{ $member }}</p></li>
+                                @endforeach
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="position"><strong>B. Departemen Kaderisasi</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p>Koordinator</p></td>
+                        <td>
+                            <p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                            </p>
+                        </td>
+                        <td class="section-content"><p>{{ $letter->cadre_department_coordinator }}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Anggota</p></td>
+                        <td>
+                            <p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                            </p>
+                        </td>
+                        <td class="section-content">
+                            <ul>
+                                @foreach ($letter->cadre_department_members as $member)
+                                    <li><p>{{ $member }}</p></li>
+                                @endforeach
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p class="position"><strong>C. Departemen Dakwah</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p>Koordinator</p></td>
+                        <td>
+                            <p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                            </p>
+                        </td>
+                        <td class="section-content"><p>{{ $letter->dakwah_department_coordinator }}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Anggota</p></td>
+                        <td>
+                            <p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                            </p>
+                        </td>
+                        <td class="section-content">
+                            <ul>
+                                @foreach ($letter->dakwah_department_members as $member)
+                                    <li><p>{{ $member }}</p></li>
+                                @endforeach
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p class="position"><strong>D. Olahraga, Seni dan Budaya</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p>Koordinator</p></td>
+                        <td>
+                            <p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                            </p>
+                        </td>
+                        <td class="section-content"><p>{{ $letter->culture_department_coordinator }}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Anggota</p></td>
+                        <td>
+                            <p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                            </p>
+                        </td>
+                        <td class="section-content">
+                            <ul>
+                                @foreach ($letter->culture_department_members as $member)
+                                    <li><p>{{ $member }}</p></li>
+                                @endforeach
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="content-table">
+                    <tr>
+                        <td>
+                            <p class="attachment-subtitle"><strong>LEMBAGA-LEMBAGA</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="position"><strong>A. Lembaga Ekonomi dan Kewirausahaan</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p>Direktur</p></td>
+                        <td><p>:</p></td>
+                        <td class="section-content"><p>{{ $letter->economy_institution_director }}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Anggota</p></td>
+                        <td><p>:</p></td>
+                        <td class="section-content">
+                            <ul>
+                                @foreach ($letter->economy_institution_members as $member)
+                                    <li><p>{{ $member }}</p></li>
+                                @endforeach
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p class="position"><strong>B. Lembaga Pers dan Penerbitan</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p>Direktur</p></td>
+                        <td><p>:</p></td>
+                        <td class="section-content"><p>{{ $letter->press_institution_director }}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Anggota</p></td>
+                        <td><p>:</p></td>
+                        <td class="section-content">
+                            <ul>
+                                @foreach ($letter->press_institution_members as $member)
+                                    <li><p>{{ $member }}</p></li>
+                                @endforeach
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p class="position">
+                                <strong>
+                                    C. Lembaga Corps Brigade Pembangunan
+                                    <br />
+                                    DEWAN KOORDINASI ANAK CABANG (DKAC)
+                                </strong>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p>Direktur</p></td>
+                        <td><p>:</p></td>
+                        <td class="section-content"><p>{{ $letter->brigade_institution_director }}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Anggota</p></td>
+                        <td><p>:</p></td>
+                        <td class="section-content">
+                            <ul>
+                                @foreach ($letter->brigade_institution_members as $member)
+                                    <li><p>{{ $member }}</p></li>
+                                @endforeach
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="date">
+                <table class="date-table">
+                    <tr>
+                        <td width="50%"></td>
+                        <td width="88px"><p class="col-1">Ditetapkan di</p></td>
+                        <td width="8px"><p class="bracket-pair">:</p></td>
+                        <td width="128px"><p>Purwokerto</p></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><p class="col-1">Pada tanggal</p></td>
+                        <td><p class="bracket-pair">:</p></td>
+                        <td class="bordered-td" style="padding: 0">
+                            <p style="width: 100%; font-weight: normal; padding: 0">
+                                {{ $letter->formatted_now_hijri_date }}
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <p style="width: 100%">{{ $letter->formatted_now_georgia_date }}</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="signature">
+                <p>
+                    <strong>PIMPINAN CABANG</strong>
+                    <br />
+                    <strong>IKATAN PELAJAR NAHDLATUL ULAMA</strong>
+                    <br />
+                    <strong>KABUPATEN BANYUMAS</strong>
+                </p>
+                <table class="signature-table">
+                    <tr>
+                        <td><p>Ketua,</p></td>
+                        <td><p>Sekretaris,</p></td>
+                    </tr>
+                    <tr>
+                        <td class="bordered-td">
+                            <div class="signature-space">
+                                <img
+                                    src="{{ public_path('assets/images/sp/signatures/chairman-signature.png') }}"
+                                    class="chairman-signature-img"
+                                    alt="Tanda Tangan Ketua"
+                                />
+                            </div>
+                            <p><strong>FAHMI ABDURRAHMAN</strong></p>
+                        </td>
+                        <td class="bordered-td">
+                            <div class="signature-space">
+                                <img
+                                    src="{{ public_path('assets/images/sp/signatures/secretary-signature.png') }}"
+                                    class="secretary-signature-img"
+                                    alt="Tanda Tangan Sekretaris"
+                                />
+                            </div>
+                            <p><strong>AKHMAD AINUN NAJIB</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p>NIA. 11.20.99.00002</p></td>
+                        <td><p>NIA. 11.20.99.00032</p></td>
+                    </tr>
+                </table>
             </div>
         </div>
 
-        <div class="lampiran">
-            <h3>Lampiran Surat Pengesahan</h3>
-            <p>
-                Pimpinan Cabang Ikatan Pelajar Nahdlatul Ulama Kabupaten Banyumas
-                <br />
-                Nomor: 022/PC/SP/XIII/7354/IX/24
-            </p>
-            <h3>
-                SUSUNAN PENGURUS PIMPINAN ANAK CABANG
-                <br />
-                IKATAN PELAJAR NAHDLATUL ULAMA
-                <br />
-                KECAMATAN BATURRADEN KABUPATEN BANYUMAS
-            </h3>
-            <p>MASA KHIDMAT 2023-2025</p>
-            <p>
-                <strong>PELINDUNG:</strong>
-                MWC NU Kecamatan Baturraden
-                <br />
-                <strong>PEMBINA:</strong>
-                <br />
-                1. M. Afandri Awal
-                <br />
-                2. Fathurrohman, S.Pd.
-                <br />
-                3. Suyitno, S.Ag.
-                <br />
-                4. Zainurrochman, S.H.
-                <br />
-                5. Ustadz Agus Setiawan, S.H.I., M.H.
-                <br />
-                6. Akhmad Faiz
-                <br />
-                7. Muhammad Makhdum Wahid
-            </p>
-            <p>
-                <strong>PENGURUS HARIAN:</strong>
-                <br />
-                Ketua: Tri Rafli Ikhsanudin
-                <br />
-                Wakil Ketua: Haydar Firman Jamaludin
-                <br />
-                Wakil Ketua: Sahrul Hidayat
-                <br />
-                Sekretaris: Zulfan Ulinnuha
-                <br />
-                Wakil Sekretaris: Ranto Wijiono
-                <br />
-                Bendahara: Bagus Muwaafiqul Aufa
-                <br />
-                Wakil Bendahara: Divan Anggis Saputra
-            </p>
-            <p>
-                <strong>DEPARTEMEN-DEPARTEMEN:</strong>
-                <br />
-                A. Departemen Organisasi
-                <br />
-                &nbsp;&nbsp;&nbsp; Koordinator: Faizal Adi Purnomo
-                <br />
-                &nbsp;&nbsp;&nbsp; Anggota: Zola Adittya Saputra
-                <br />
-                B. Departemen Kaderisasi
-                <br />
-                &nbsp;&nbsp;&nbsp; Koordinator: M. Niam Hidayat
-                <br />
-                &nbsp;&nbsp;&nbsp; Anggota: Tegar Barep Saputra
-                <br />
-                C. Departemen Dakwah
-                <br />
-                &nbsp;&nbsp;&nbsp; Koordinator: Reza Alfani
-                <br />
-                &nbsp;&nbsp;&nbsp; Anggota: Saefurrohman
-                <br />
-                D. Departemen Olahraga, Seni dan Budaya
-                <br />
-                &nbsp;&nbsp;&nbsp; Koordinator: M. Zidanuddin Hidayat
-                <br />
-                &nbsp;&nbsp;&nbsp; Anggota: Rohalim, Wahyu Adi Saputra, Wahyu Nur Hidayat, Lutfi Hidayat, Razid Fikri
-                Fani Putra
-                <br />
-                E. Departemen Hubungan dan Pengabdian Masyarakat
-                <br />
-                &nbsp;&nbsp;&nbsp; Koordinator: Akhmad Faozi
-                <br />
-                &nbsp;&nbsp;&nbsp; Anggota: David Amri Solikhin
-            </p>
-            <p>
-                <strong>LEMBAGA-LEMBAGA:</strong>
-                <br />
-                A. Lembaga Ekonomi dan Kewirausahaan
-                <br />
-                &nbsp;&nbsp;&nbsp; Direktur: Muhammad Mukhson
-                <br />
-                &nbsp;&nbsp;&nbsp; Anggota: Dennis Fairliano
-                <br />
-                B. Lembaga Pers dan Penerbitan
-                <br />
-                &nbsp;&nbsp;&nbsp; Direktur: Muhammad Nasiruddin
-                <br />
-                &nbsp;&nbsp;&nbsp; Anggota: Revian Aziana P., Kukuh Prasetya
-                <br />
-                C. Lembaga Corps Brigade Pembangunan
-                <br />
-                &nbsp;&nbsp;&nbsp; DEWAN KOORDINASI ANAK CABANG (DKAC)
-                <br />
-                &nbsp;&nbsp;&nbsp; Koordinator: Ridho Ma’i Pratama
-                <br />
-                &nbsp;&nbsp;&nbsp; Anggota: Sugeng
-            </p>
-            <p>
-                Ditetapkan di: Purwokerto
-                <br />
-                Pada tanggal: 11 Rabi’ul Akhir 1446 H
-                <br />
-                : 13 Oktober 2024 M
-            </p>
-            <p>
-                PIMPINAN CABANG
-                <br />
-                IKATAN PELAJAR NAHDLATUL ULAMA
-                <br />
-                KABUPATEN BANYUMAS
-            </p>
-            <p>Ketua, Sekretaris, Sekretaris,</p>
-            <br />
-            <br />
-            <p>
-                FAHMI ABDURRAHMAN AKHMAD AINUN NAJIB
-                <br />
-                NIA. 11.20.99.00002 &nbsp;&nbsp;&nbsp; NIA. 11.20.99.00032
-            </p>
+        <div class="footer">
+            <img src="{{ public_path('assets/images/sp/footer.jpeg') }}" alt="Footer" />
         </div>
     </body>
 </html>
