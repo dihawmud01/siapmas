@@ -38,7 +38,7 @@
                     @foreach ($home as $value)
                         <div
                             class="carousel-item"
-                            style="background-image: url({{ asset('assets/images/' . $value->img) }})"
+                            style="background-image: url({{ asset('storage/images/' . $value->img) }})"
                         >
                             <div class="carousel-container">
                                 <div class="position-absolute top-50 start-50 translate-middle container">

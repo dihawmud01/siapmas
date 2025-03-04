@@ -101,6 +101,8 @@ class HomeController extends Controller
             $latinpelCounts[$year] = $latinpels->get($year, 0);
         }
 
+        // dd($home);
+
         return view(
             'users.home',
             compact([
@@ -135,18 +137,19 @@ class HomeController extends Controller
     public function update($id, Request $request)
     {
         $pagesToUpdate = Home::findOrFail($id);
+        // dd($request->img);
 
         $pagesData = $request->all();
-        if ($request->file) {
-            $extension = $request->file->getClientOriginalExtension();
+        if ($request->img) {
+            $extension = $request->img->getClientOriginalExtension();
             $newFileName = 'banner_update' . '_' . $request->name . '-' . now()->timestamp . '.' . $extension;
-            $request->file('file')->move(public_path('/storage/images'), $newFileName);
-            $pagesData['file'] = $newFileName;
+            $request->file('img')->move(public_path('/storage/images'), $newFileName);
+            $pagesData['img'] = $newFileName;
         }
 
         $pagesToUpdate->update($pagesData);
 
-        Alert::success('Mantap Sahabat', 'Banner Berhasil Di Ubah');
+        Alert::success('Mantap Rekan', 'Banner Berhasil Di Ubah');
         return redirect()->route('pages.index');
     }
 }
