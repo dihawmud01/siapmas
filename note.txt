@@ -158,3 +158,8 @@ Dibikin untuk manajemen saja, jadi kalau ada surat masuk manual dari WA nanti ba
 
 *ANGGOTA*
 Filter / Sort
+
+
+*SURAT PENGESAHAN*
+1. MASA KHIDMAT (DIBIKIN DINAMIS) PAKE STRING BOLEH, PAKE INT YEAR BOLEH JUGA
+2 
