@@ -30,6 +30,11 @@ class PAC extends Model
         return $this->hasMany(User::class, 'pac_id', 'id');
     }
 
+    public function members(): HasMany
+    {
+        return $this->hasMany(Member::class);
+    }
+
     public function sluggable(): array
     {
         return [

@@ -34,27 +34,6 @@ class UserController extends Controller
         return view('admins.users.index', compact('user', 'userCounts', 'firstItem'));
     }
 
-    public function showList($slug, Request $request)
-    {
-        $pac = PAC::where('slug', $slug)
-            ->with('users')
-            ->latest()
-            ->paginate(25);
-
-        if ($request->has('search')) {
-            $user = User::Where('username', 'LIKE', '%' . $request->search . '%')
-                ->orWhere('name', 'LIKE', '%' . $request->search . '%')
-                ->get();
-        } else {
-            $user = User::with('pac')
-                ->latest()
-                ->paginate(25);
-            $userCounts = User::count();
-        }
-
-        return view('admins.pac.show', compact('pac', 'user', 'userCounts'));
-    }
-
     /**
      * Show the form for creating a new resource.
      */

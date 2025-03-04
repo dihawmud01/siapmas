@@ -3,7 +3,7 @@
 @endpush
 
 <div class="d-flex align-items-center mb-4">
-    <label for="{{ $name }}" class="form-label sp-label me-3 text-start">{{ $label }}</label>
+    <label for="{{ $name }}" class="form-label label me-3 text-start">{{ $label }}</label>
     <div class="d-flex flex-column w-100">
         <input
             type="file"

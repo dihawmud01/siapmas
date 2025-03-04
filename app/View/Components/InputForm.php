@@ -8,16 +8,25 @@ use Illuminate\View\Component;
 
 class InputForm extends Component
 {
-    public string $name, $label, $type, $value, $accept;
+    public string $name, $label, $type, $accept, $placeholder;
+    public ?string $value;
+
     /**
      * Create a new component instance.
      */
-    public function __construct(string $name, $label, $type = 'text', $value = '', $accept = '')
-    {
+    public function __construct(
+        string $name,
+        $label,
+        $type = 'text',
+        $placeholder = '',
+        ?string $value = null,
+        $accept = '',
+    ) {
         $this->name = $name;
         $this->label = $label;
         $this->type = $type;
-        $this->value = $value;
+        $this->placeholder = $placeholder;
+        $this->value = $value ?? old($name);
         $this->accept = $accept;
     }
 

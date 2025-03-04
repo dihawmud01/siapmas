@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Cadre;
+use App\Models\Member;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class CadresTableSeeder extends Seeder
+class MembersTableSeeder extends Seeder
 {
     /**
      * Auto generated seed file
@@ -16,9 +16,9 @@ class CadresTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('cadres')->truncate();
+        \DB::table('members')->truncate();
 
-        Cadre::factory()
+        Member::factory()
             ->count(50)
             ->create();
     }

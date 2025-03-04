@@ -6,20 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Cadre extends Model
+class Member extends Model
 {
     use HasFactory;
-    protected $table = 'cadres';
+    protected $table = 'members';
     protected $guarded = [];
 
     protected $fillable = [
         'name',
         'address',
-        'nim',
         'gender',
         'place_of_birth',
         'date_of_birth',
-        'telephone',
+        'phone',
         'highschool',
         'grad_year',
         'boarding_school',
@@ -35,11 +34,20 @@ class Cadre extends Model
         'organizer_nonformal',
         'img',
         'pac_id',
-        'cadre_level',
+        'cadre_levels',
     ];
 
-    //    public function user(): BelongsTo
-    //    {
-    //        return $this->belongsTo(User::class);
-    //    }
+    protected $casts = ['cadre_levels' => 'array'];
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->when($search, function ($q) use ($search) {
+            $q->where('name', 'like', '%' . $search . '%');
+        });
+    }
+
+    public function pac(): BelongsTo
+    {
+        return $this->belongsTo(PAC::class);
+    }
 }

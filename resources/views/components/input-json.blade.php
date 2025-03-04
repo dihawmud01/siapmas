@@ -1,5 +1,5 @@
 <div class="d-flex align-items-start mb-4" x-data="{ inputs: [''], maxCount: {{ $count }} }">
-    <label class="form-label sp-label me-3 text-start">{{ $label }}</label>
+    <label class="form-label label me-3 text-start">{{ $label }}</label>
 
     <div class="d-flex flex-column w-100">
         <template x-for="(input, idx) in inputs" :key="idx">

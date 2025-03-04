@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CommentsTableSeeder::class);
         $this->call(ContactsTableSeeder::class);
         $this->call(HBNTableSeeder::class);
-        $this->call(CadresTableSeeder::class);
+        $this->call(MembersTableSeeder::class);
         $this->call(AdministratorsTableSeeder::class);
         $this->call(NewsTableSeeder::class);
         $this->call(TagsTableSeeder::class);

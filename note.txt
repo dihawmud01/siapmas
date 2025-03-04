@@ -158,3 +158,51 @@ Dibikin untuk manajemen saja, jadi kalau ada surat masuk manual dari WA nanti ba
 
 *ANGGOTA*
 Filter / Sort
+
+LIST BUGS (ADMIN PAC):
+1. DATA ANGGOTA ISINYA MASIH NAMA-NAMA PAC, BELUM NAMA-NAMA ANGGOTA / ORANGNYA
+2. NIM DI FIELD TAMBAH ANGGOTA KOSONGKAN SAJA
+3. SURAT - MENYURAT BELUM BISA ACTION APAPUN
+4. PENGAJUAN SP PERAPIHAN DAN FIX KAN
+5. HARI BESAR BELUM BISA DIAKSES
+6. KADERISASI (SEMUANYA BELUM BISA DIAKSES)
+7. DATA ANGGOTA DI SETIAP PAC HANYA MEMUNCULKAN ANGGOTA DI PAC NYA MASING-MASING
+
+LIST BUGS (ADMIN PC):
+1. DATA ANGGOTA ISINYA MASIH NAMA-NAMA PAC, BELUM NAMA-NAMA ANGGOTA / ORANGNYA
+2. KADERISASI (SEMUANYA BELUM BISA DIAKSES)
+3. HARI BESAR BELUM BISA DIAKSES
+4. MENU PAC BELUM BISA LIHAT DETAILNYA
+
+LIST BUGS (SUPERADMIN):
+1. MENU ADMIN TIDAK BISA DIAKSES
+2. DATA ANGGOTA ISINYA MASIH NAMA-NAMA PAC, BELUM NAMA-NAMA ANGGOTA / ORANGNYA
+3. KADERISASI (SEMUANYA BELUM BISA DIAKSES)
+4. HARI BESAR BELUM BISA DIAKSES
+5. MENU PAC BELUM BISA LIHAT DETAILNYA
+
+Anggota:
+Nama
+Jenis Kelamin
+Tempat Tanggal Lahir
+Alamat
+PAC (drop down)
+kaderisasi formal (drop down)
+- makesta
+- Lakmud
+- Lakut
+Jika sudah makesta maka ada menu makesta tahun berapa?
+Jika sudah lakmud maka ada menu makesta dan lakmud tahun berapa?
+Jika sudah lakut maka ada menu lakut tahun berapa?
+
+Kaderisasi Non-Formal (drop-down):
+- Diklatama
+- Diklatmad
+- Diklatnas
+
+Nomor HP
+Status Keanggotaan (Drop down): (Admin PC)
+- Anggota PAC
+- Anggota PC
+Status Keanggotaan (Drop down): (Admin PAC)
+* Anggota PAC

@@ -18,4 +18,11 @@ enum Gender: string
     {
         return array_column(self::cases(), 'value');
     }
+
+    public static function getLabels(): array
+    {
+        return collect(self::cases())
+            ->mapWithKeys(fn ($gender) => [$gender->value => $gender->label()])
+            ->toArray();
+    }
 }

@@ -121,7 +121,8 @@ class SPController extends Controller
                                 '/' .
                                 $category .
                                 '/' .
-                                $letter->id,
+                                $letter->id .
+                                '/',
                         ),
                         $newFileName,
                     );
@@ -164,7 +165,7 @@ class SPController extends Controller
                 return $group->pluck('attachment')->first();
             })
             ->toArray();
-        //        dd($letter->id);
+
         return view('admins.letters.sp.show', compact('letter', 'attachments'));
     }
 
