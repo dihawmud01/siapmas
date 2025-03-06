@@ -32,8 +32,8 @@
                         <br />
                     </div>
                     <div class="mb-3">
-                        <label for="time" class="form-label">{{ __('Waktu') }}</label>
-                        <input type="datetime-local" name="time" class="form-control mb-3" id="time" required />
+                        <label for="date" class="form-label">{{ __('Waktu') }}</label>
+                        <input type="datetime-local" name="date" class="form-control mb-3" id="date" required />
                     </div>
                     <div class="mb-3">
                         <label for="place" class="form-label">{{ __('Tempat') }}</label>
@@ -52,8 +52,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="img" class="form-label">{{ __('Pamflet (Bila Ada)') }}</label>
-                        <input type="file" name="img" class="form-control mb-3" id="img" />
+                        <label for="pamphlet" class="form-label">{{ __('Pamflet (Bila Ada)') }}</label>
+                        <input type="file" name="pamphlet" class="form-control mb-3" id="pamphlet" />
                     </div>
 
                     <div class="mb-3">

@@ -9,7 +9,7 @@
         <div class="container my-3">
             <h4 class="my-5 text-center">{{ __('Hari Besar Nasional') }}</h4>
 
-            <a class="btn btn-primary mx-3 mb-3" href="/admin/national_day/create">{{ __('Tambah') }}</a>
+            <a class="btn btn-primary mx-3 mb-3" href="{{ route('hbn.create') }}">{{ __('Tambah') }}</a>
 
             <table class="table-striped table-hover table">
                 <thead>
@@ -22,16 +22,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($days as $day => $national_day)
+                    @foreach ($hbns as $day => $national_day)
                         <tr>
-                            <td class="text-center">{{ $day + $days->firstItem() }}</td>
+                            <td class="text-center">{{ $day + $hbns->firstItem() }}</td>
                             <td>{{ $national_day->title }}</td>
                             <td>{{ date('Y-m-d', strtotime($national_day->date)) }}</td>
                             <td class="text-center">
                                 <div id="countdown-{{ $loop->iteration }}"></div>
                             </td>
                             <td class="text-center">
-                                <form action="{{ route('national_day.destroy', $national_day->id) }}" method="POST">
+                                <form action="{{ route('hbn.destroy', $national_day->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button
@@ -48,12 +48,12 @@
                 </tbody>
             </table>
             <div class="mt-4">
-                {{ $days->links() }}
+                {{ $hbns->links() }}
             </div>
         </div>
     </div>
 
-    @foreach ($days as $national_day)
+    @foreach ($hbns as $national_day)
         <script>
             var targetDate{{ $loop->iteration }} = new Date('{{ date('Y-m-d', strtotime($national_day->date)) }}');
 
