@@ -11,8 +11,8 @@
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling.
 
-## About PMII UNINUS 
-Aplikasi sistem informasi anggota organisasi Pergerakan Mahasiswa Islam Indonesia (PMII) Universitas Islam Nusantara adalah sebuah platform digital berbasis website yang dirancang khusus untuk memudahkan manajemen anggota PMII di Komisariat Universitas Islam Nusanatara. Aplikasi ini menyediakan berbagai fitur dan fungsionalitas yang bertujuan untuk meningkatkan efisiensi, transparansi, dan kolaborasi dalam mengelola anggota organisasi.
+## About SIAPMAS 
+Sistem Informasi Administrasi Pelajar NU Banyumas (SIAPMAS) adalah sebuah platform digital berbasis website yang dirancang khusus untuk memudahkan manajemen administrasi IPNU IPPNU di Kabupaten Banyumas. Aplikasi ini menyediakan berbagai fitur dan fungsionalitas yang bertujuan untuk meningkatkan efisiensi, transparansi, dan kolaborasi dalam mengelola anggota organisasi.
 
 ## Fitur Yang Dimiliki 
 -   Informasi Umum:

@@ -12,38 +12,38 @@
             <form action="{{ route('hbn.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="my-3">
-                    <label for="day">{{ __('Hari Besar') }}</label>
+                    <label for="title">{{ __('Hari Besar') }}</label>
                     <input
-                            type="text"
-                            class="form-control my-4"
-                            name="day"
-                            id="day"
-                            placeholder="ex:Idul Fitri"
-                            required
+                        type="text"
+                        class="form-control my-4"
+                        name="title"
+                        id="title"
+                        placeholder="ex:Idul Fitri"
+                        required
                     />
                 </div>
 
                 <div class="my-3">
                     <label for="date">{{ __('Tanggal') }}</label>
                     <input
-                            type="date"
-                            class="form-control my-4"
-                            name="date"
-                            id="date"
-                            placeholder="ex:2023-07-01"
-                            required
+                        type="date"
+                        class="form-control my-4"
+                        name="date"
+                        id="date"
+                        placeholder="ex:2023-07-01"
+                        required
                     />
                 </div>
 
                 <div class="my-3">
                     <label for="description">{{ __('Deskripsi') }}</label>
                     <textarea
-                            name="description"
-                            class="form-control my-4"
-                            id="description"
-                            placeholder="{{ __('Opsional') }}"
-                            cols="30"
-                            rows="3"
+                        name="description"
+                        class="form-control my-4"
+                        id="description"
+                        placeholder="{{ __('Opsional') }}"
+                        cols="30"
+                        rows="3"
                     ></textarea>
                 </div>
 

@@ -129,14 +129,11 @@ h6 {
 # Header
 --------------------------------------------------------------*/
 #header {
-    z-index: 997;
-    transition: all 0.5s;
-    background: rgba(255, 255, 255, 0.9);
-    height: 100px;
+    transition: all 0.3s;
 }
 
 #header.header-transparent {
-    background: rgba(255, 255, 255, 0.9);
+    background: transparent;
 }
 
 #header.header-scrolled {

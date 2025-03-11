@@ -48,6 +48,7 @@ class AgendaController extends Controller
     public function create()
     {
         $organizers = [
+            'PC IPNU IPPNU BANYUMAS',
             'PAC BATURRADEN',
             'PAC CILONGOK',
             'PAC KEDUNGBANTENG',
@@ -88,16 +89,16 @@ class AgendaController extends Controller
     {
         $events = $request->all();
 
-        if ($request->pamflet) {
-            $extension = $request->pamflet->getClientOriginalExtension();
+        if ($request->pamphlet) {
+            $extension = $request->pamphlet->getClientOriginalExtension();
             $newFileName = 'agenda' . '_' . $request->organizer . '-' . now()->timestamp . '.' . $extension;
-            $request->file('pamflet')->move(public_path('/storage/images'), $newFileName);
-            $events['pamflet'] = $newFileName;
+            $request->file('pamphlet')->move(public_path('/storage/images'), $newFileName);
+            $events['pamphlet'] = $newFileName;
         }
 
         Agenda::create($events);
 
-        Alert::success('Mantap Sahabat', 'Agenda Berhasil Ditambahkan');
+        Alert::success('Mantap Rekan', 'Agenda Berhasil Ditambahkan');
 
         return redirect()->route('admin.calendar.index');
     }
@@ -107,6 +108,7 @@ class AgendaController extends Controller
         $event = Agenda::find($id);
 
         $organizers = [
+            'PC IPNU IPPNU BANYUMAS',
             'PAC BATURRADEN',
             'PAC CILONGOK',
             'PAC KEDUNGBANTENG',
@@ -154,7 +156,7 @@ class AgendaController extends Controller
 
         $eventToUpdate->update($event);
 
-        Alert::success('Mantap Sahabat', 'Agenda Berhasil Di Ubah');
+        Alert::success('Mantap Rekan', 'Agenda Berhasil Di Ubah');
 
         return redirect()->route('admin.calendar.index');
     }
@@ -164,7 +166,7 @@ class AgendaController extends Controller
         $events = Agenda::findOrFail($id);
         $events->delete();
 
-        Alert::success('Mantap Sahabat', 'Agenda Berhasil Dihapus');
+        Alert::success('Mantap Rekan', 'Agenda Berhasil Dihapus');
 
         return redirect()->route('admin.calendar.index');
     }
