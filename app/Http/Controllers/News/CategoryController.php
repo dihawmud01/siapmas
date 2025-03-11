@@ -46,8 +46,9 @@ class CategoryController extends Controller
             ->news()
             ->with('category', 'user')
             ->where('active', '1')
-            ->orderBy('created_at', 'desc')
-            ->paginate(4)->map(function ($post) {
+            ->latest()
+            ->paginate(4)
+            ->map(function ($post) {
                 $post->formatted_date = Carbon::parse($post->created_at)->format('d M Y H:i');
 
                 return $post;
@@ -60,9 +61,6 @@ class CategoryController extends Controller
             ->orderBy('title')
             ->get();
 
-        return view(
-            'users.news.categories',
-            compact('category', 'news', 'tags', 'newsCategories', 'user', 'trending'),
-        );
+        return view('users.news.categories', compact('category', 'news', 'tags', 'newsCategories', 'user', 'trending'));
     }
 }

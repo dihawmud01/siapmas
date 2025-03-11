@@ -1,7 +1,8 @@
 import GLightbox from 'glightbox';
+import 'glightbox/dist/css/glightbox.css';
 
-export function Glightbox() {
-    return GLightbox({
+document.addEventListener('DOMContentLoaded', function () {
+    const lightbox = GLightbox({
         selector: '.quote-lightbox',
         openEffect: 'fade',
         closeEffect: 'fade',
@@ -9,4 +10,4 @@ export function Glightbox() {
         preload: true,
         zoomable: true,
     });
-}
+});

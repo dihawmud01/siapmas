@@ -22,8 +22,8 @@
         </li>
         <li class="nav-item">
             <a
-                class="nav-link {{ request()->routeIs('members.*') ? ' active' : ' collapsed text-dark' }}"
-                href="{{ route('members.index') }}"
+                class="nav-link {{ request()->routeIs('dashboard.members.*') ? ' active' : ' collapsed text-dark' }}"
+                href="{{ route('dashboard.members.index') }}"
             >
                 <i class="bi bi-people"></i>
                 <span>{{ __('Anggota') }}</span>

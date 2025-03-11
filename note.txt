@@ -162,4 +162,29 @@ Filter / Sort
 
 *SURAT PENGESAHAN*
 1. MASA KHIDMAT (DIBIKIN DINAMIS) PAKE STRING BOLEH, PAKE INT YEAR BOLEH JUGA
-2 
+
+Anggota:
+Nama
+Jenis Kelamin
+Tempat Tanggal Lahir
+Alamat
+PAC (drop down)
+kaderisasi formal (drop down)
+- makesta
+- Lakmud
+- Lakut
+Jika sudah makesta maka ada menu makesta tahun berapa?
+Jika sudah lakmud maka ada menu makesta dan lakmud tahun berapa?
+Jika sudah lakut maka ada menu lakut tahun berapa?
+
+Kaderisasi Non-Formal (drop-down):
+- Diklatama
+- Diklatmad
+- Diklatnas
+
+Nomor HP
+Status Keanggotaan (Drop down): (Admin PC)
+- Anggota PAC
+- Anggota PC
+Status Keanggotaan (Drop down): (Admin PAC)
+* Anggota PAC

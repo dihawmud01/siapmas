@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Member extends Model
 {
     use HasFactory;
+
     protected $table = 'members';
     protected $guarded = [];
 
@@ -18,26 +20,38 @@ class Member extends Model
         'gender',
         'place_of_birth',
         'date_of_birth',
-        'phone',
-        'highschool',
-        'grad_year',
-        'boarding_school',
-        'college_year',
-        'organizer_makesta',
+        'is_makesta',
+        'is_lakmud',
+        'is_lakut',
         'makesta_year',
         'lakmud_year',
         'lakut_year',
-        'latinpel_year',
-        'informal',
-        'organizer_informal',
-        'nonformal',
-        'organizer_nonformal',
-        'img',
+        'is_diklatama',
+        'is_diklatnas',
+        'is_diklatmad',
+        'is_latinpel',
+        'phone',
+        'photo',
         'pac_id',
-        'cadre_levels',
     ];
 
-    protected $casts = ['cadre_levels' => 'array'];
+    protected $casts = [
+        'non_formal_cadre_levels' => 'array',
+        'is_makesta' => 'boolean',
+        'is_lakmud' => 'boolean',
+        'is_lakut' => 'boolean',
+        'is_diklatama' => 'boolean',
+        'is_diklatnas' => 'boolean',
+        'is_diklatmad' => 'boolean',
+        'is_latinpel' => 'boolean',
+    ];
+
+    public function getFormattedDateOfBirthAttribute(): string
+    {
+        Carbon::setLocale('id');
+
+        return Carbon::parse($this->date_of_birth)->isoFormat('D MMMM YYYY');
+    }
 
     public function scopeSearch($query, $search)
     {

@@ -2,10 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Enums\CadreLevel;
 use App\Enums\Gender;
 use App\Models\Member;
-use App\Models\PAC;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +18,17 @@ class MemberFactory extends Factory
      */
     public function definition(): array
     {
-        $cadreLevels = $this->faker->randomElements(array_filter(CadreLevel::getAll()), rand(1, 4));
+        $isMakesta = $this->faker->boolean();
+        $isLakmud = $this->faker->boolean();
+        $isLakut = $this->faker->boolean();
+        $isDiklatama = $this->faker->boolean();
+        $isDiklatnas = $this->faker->boolean();
+        $isDiklatmad = $this->faker->boolean();
+        $isLatinpel = $this->faker->boolean();
+
+        if ($isLakmud) {
+            $isMakesta = true;
+        }
 
         return [
             'name' => $this->faker->name(),
@@ -28,24 +36,18 @@ class MemberFactory extends Factory
             'gender' => $this->faker->randomElement(Gender::getAll()),
             'place_of_birth' => $this->faker->city(),
             'date_of_birth' => $this->faker->date(),
+            'is_makesta' => $isMakesta,
+            'is_lakmud' => $isDiklatnas,
+            'is_lakut' => $isLakut,
+            'makesta_year' => $isMakesta ? $this->faker->numberBetween(2016, 2025) : null,
+            'lakmud_year' => $isLakmud ? $this->faker->numberBetween(2016, 2025) : null,
+            'lakut_year' => $isLakut ? $this->faker->numberBetween(2016, 2025) : null,
+            'is_diklatama' => $isDiklatama,
+            'is_diklatnas' => $isDiklatnas,
+            'is_diklatmad' => $isDiklatmad,
+            'is_latinpel' => $isLatinpel,
             'phone' => $this->faker->numerify('08###########'),
-            'cadre_levels' => json_encode($cadreLevels),
-            'makesta_year' => in_array(CadreLevel::MAKESTA->value, $cadreLevels)
-                ? $this->faker->numberBetween(2016, 2025)
-                : null,
-            'lakmud_year' => in_array(CadreLevel::LAKMUD->value, $cadreLevels)
-                ? $this->faker->numberBetween(2016, 2025)
-                : null,
-            'lakut_year' => in_array(CadreLevel::LAKUT->value, $cadreLevels)
-                ? $this->faker->numberBetween(2016, 2025)
-                : null,
-            'latinpel_year' => in_array(CadreLevel::LATINPEL->value, $cadreLevels)
-                ? $this->faker->numberBetween(2016, 2025)
-                : null,
-            'nonformal' => strval(rand(1, 9)),
-            'organizer_informal' => $this->faker->optional()->company(),
-            'organizer_nonformal' => $this->faker->optional()->company(),
-            'img' => 'default.png',
+            'photo' => 'default.png',
             'pac_id' => $this->faker->numberBetween(1, 29),
         ];
     }

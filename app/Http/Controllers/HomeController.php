@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\CadreLevel;
 use App\Models\Home;
 use App\Models\News;
 use App\Models\Member;
@@ -24,84 +23,58 @@ class HomeController extends Controller
 
         $recentNews = News::with('category', 'user')
             ->where('active', '1')
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->paginate(15);
 
-        // Cadre counts by cadres level
-        $levels = CadreLevel::getAll();
+        // Member counts by cadres level
+        $formalMemberLevels = Member::selectRaw(
+            "
+        SUM(CASE WHEN is_makesta = 1 THEN 1 ELSE 0 END) AS makesta,
+        SUM(CASE WHEN is_lakmud = 1 THEN 1 ELSE 0 END) AS lakmud,
+        SUM(CASE WHEN is_lakut = 1 THEN 1 ELSE 0 END) AS lakut
+        ",
+        )->first();
 
-        $cadreLevels = Member::selectRaw('cadre_level, COUNT(*) as count')
-            ->whereIn('cadre_level', $levels)
-            ->groupBy('cadre_level')
-            ->pluck('count', 'cadre_level');
+        $formalMemberLevelCounts = [
+            'makesta' => $formalMemberLevels->makesta,
+            'lakmud' => $formalMemberLevels->lakmud,
+            'lakut' => $formalMemberLevels->lakut,
+        ];
 
-        $cadreLevelCounts = [];
-        foreach ($levels as $level) {
-            $cadreLevelCounts[$level] = $cadreLevels->get($level, 0);
-        }
-
-        // Cadre counts by gender
-        $genderLists = ['male', 'female'];
-
-        $genders = Member::selectRaw('gender, COUNT(*) as count')
-            ->whereIn('gender', $genderLists)
+        // Member counts by gender
+        $genderCounts = Member::selectRaw(
+            "
+        gender, COUNT(*) AS count
+        ",
+        )
             ->groupBy('gender')
-            ->pluck('count', 'gender');
+            ->pluck('count', 'gender')
+            ->toArray();
 
-        $genderCounts = [];
-
-        foreach ($genderLists as $gender) {
-            $genderCounts[$gender] = $genders->get($gender, 0);
-        }
-
-        // Cadre counts by PAC
-        $pacs = Member::selectRaw('pac_id, COUNT(*) as count')
-            ->whereIn('pac_id', range(1, 29))
+        // Member counts by PAC
+        $pacCounts = Member::selectRaw('pac_id, COUNT(*) as count')
             ->groupBy('pac_id')
-            ->pluck('count', 'pac_id');
+            ->pluck('count', 'pac_id')
+            ->toArray();
 
-        $pacCounts = [];
-
-        foreach (range(1, 29) as $pacId) {
-            $pacCounts[$pacId] = $pacs->get($pacId, 0);
-        }
-
-        // Cadre counts by Makesta year
-        $years = ['Sebelum 2017', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'];
-
-        $makestas = Member::selectRaw('makesta_year, COUNT(*) as count')
-            ->whereIn('makesta_year', $years)
+        // Member counts by formal cadre level year
+        $makestaCounts = Member::selectRaw('makesta_year, COUNT(*) as count')
+            ->whereNotNull('makesta_year')
             ->groupBy('makesta_year')
-            ->pluck('count', 'makesta_year');
+            ->pluck('count', 'makesta_year')
+            ->toArray();
 
-        $lakmuds = Member::selectRaw('lakmud_year, COUNT(*) as count')
-            ->whereIn('lakmud_year', $years)
+        $lakmudCounts = Member::selectRaw('lakmud_year, COUNT(*) as count')
+            ->whereNotNull('lakmud_year')
             ->groupBy('lakmud_year')
-            ->pluck('count', 'lakmud_year');
+            ->pluck('count', 'lakmud_year')
+            ->toArray();
 
-        $lakuts = Member::selectRaw('lakut_year, COUNT(*) as count')
-            ->whereIn('lakut_year', $years)
+        $lakutCounts = Member::selectRaw('lakut_year, COUNT(*) as count')
+            ->whereNotNull('lakut_year')
             ->groupBy('lakut_year')
-            ->pluck('count', 'lakut_year');
-
-        $latinpels = Member::selectRaw('latinpel_year, COUNT(*) as count')
-            ->whereIn('latinpel_year', $years)
-            ->groupBy('latinpel_year')
-            ->pluck('count', 'latinpel_year');
-
-        $makestaCounts = [];
-        $lakmudCounts = [];
-        $lakutCounts = [];
-        $latinpelCounts = [];
-
-        foreach ($years as $year) {
-            $makestaCounts[$year] = $makestas->get($year, 0);
-            $lakmudCounts[$year] = $lakmuds->get($year, 0);
-            $lakutCounts[$year] = $lakuts->get($year, 0);
-            $latinpelCounts[$year] = $latinpels->get($year, 0);
-        }
-
-        // dd($home);
+            ->pluck('count', 'lakut_year')
+            ->toArray();
 
         return view(
             'users.home',
@@ -110,13 +83,12 @@ class HomeController extends Controller
                 'user',
                 'quotes',
                 'recentNews',
-                'cadreLevelCounts',
+                'formalMemberLevelCounts',
                 'genderCounts',
                 'pacCounts',
                 'makestaCounts',
                 'lakmudCounts',
                 'lakutCounts',
-                'latinpelCounts',
             ]),
         );
     }

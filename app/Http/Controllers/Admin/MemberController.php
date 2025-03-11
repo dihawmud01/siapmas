@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\CadreLevel;
 use App\Enums\Gender;
+use App\Enums\MembershipStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
 use App\Models\PAC;
@@ -11,10 +11,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Laravolt\Indonesia\Models\Province;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class CadreController extends Controller
+class MemberController extends Controller
 {
     public function index(Request $request)
     {
@@ -22,25 +21,22 @@ class CadreController extends Controller
 
         $members = Member::where('pac_id', $user->pac_id)
             ->search($request->search)
+            ->orderBy('name', 'asc')
             ->paginate(10);
 
         return view('admins.members.index', compact('members'));
     }
 
-    public function showStatistic(Request $request)
-    {
-        $statistic = Member::all();
-
-        return view('admins.index', compact(['statistic']));
-    }
+    //    public function showStatistic(Request $request)
+    //    {
+    //        $statistic = Member::all();
+    //
+    //        return view('admins.index', compact(['statistic']));
+    //    }
 
     public function create()
     {
-        $user = Auth();
-
-        $province = Province::all()
-            ->sortBy('name')
-            ->pluck('name', 'id');
+        $user = Auth::user();
 
         $years = [
             '2016' => 'Sebelum 2017',
@@ -53,28 +49,15 @@ class CadreController extends Controller
             '2023' => '2023',
             '2024' => '2024',
         ];
-
-        $attendanceCount = [
-            'Belum Pernah',
-            'Pernah 1 kali',
-            'Pernah 2 Kali',
-            'Pernah 3 Kali',
-            'Pernah 4 Kali',
-            'Pernah 5 Kali',
-            'Pernah 6 Kali',
-            'Pernah 7 Kali',
-            'Pernah 8 Kali',
-            'Pernah 9 Kali',
-            'Lebih dari 9 Kali',
-        ];
-
-        $cadreLevels = CadreLevel::getLabels();
+        $formalCadreLevels = ['makesta', 'lakmud', 'lakut'];
+        $nonFormalCadreLevels = ['diklatama', 'diklatnas', 'diklatmad', 'latinpel'];
 
         $genders = Gender::getLabels();
+        $membershipStatus = MembershipStatus::getLabels();
 
         return view(
             'admins.members.create',
-            compact('province', 'user', 'cadreLevels', 'years', 'attendanceCount', 'genders'),
+            compact('user', 'formalCadreLevels', 'nonFormalCadreLevels', 'years', 'genders', 'membershipStatus'),
         );
     }
 
@@ -82,45 +65,89 @@ class CadreController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'gender' => 'required|string',
             'place_of_birth' => 'required|string',
             'date_of_birth' => 'required|date',
             'address' => 'required|string',
-            'boarding_school' => 'nullable|string',
-            'highschool' => 'required|string',
-            'college_year' => 'required|integer',
-            'phone' => 'required|string|max:15',
-            'informal' => 'required|string',
-            'cadre_levels' => 'required|array',
-            'cadre_levels.*' => 'string|in:makesta,lakmud,lakut,latinpel',
+            'formal_cadre_levels' => 'required|array|min:1',
+            'formal_cadre_levels.*' => 'string|in:makesta,lakmud,lakut',
+            'non_formal_cadre_levels' => 'nullable|array|min:1',
+            'non_formal_cadre_levels.*' => 'string|in:diklatama,diklatmad,diklatnas,latinpel',
             'makesta_year' => 'nullable|integer',
             'lakmud_year' => 'nullable|integer',
             'lakut_year' => 'nullable|integer',
-            'latinpel_year' => 'nullable|integer',
-            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'phone' => 'required|string|max:15',
         ]);
 
         $user = Auth::user();
         $validatedData['pac_id'] = $user->pac_id;
 
-        if ($request->hasFile('img')) {
-            $extension = $request->img->getClientOriginalExtension();
-            $newFileName = 'profile_' . $request->name . '_' . now()->timestamp . '.' . $extension;
-            $request->file->move(
-                public_path('storage/cadre/' . strtolower(str_replace(' ', '-', $user->pac->pac)) . '/photo/'),
-                $newFileName,
-            );
+        $formalCadres = $request->input('formal_cadre_levels', []);
+        $validatedData['is_makesta'] = in_array('makesta', $formalCadres);
+        $validatedData['is_lakmud'] = in_array('lakmud', $formalCadres);
+        $validatedData['is_lakut'] = in_array('lakut', $formalCadres);
 
-            $validatedData['img'] = $newFileName;
+        $nonFormalCadres = $request->input('non_formal_cadre_levels', []);
+        $validatedData['is_diklatama'] = in_array('diklatama', $nonFormalCadres);
+        $validatedData['is_diklatnas'] = in_array('diklatnas', $nonFormalCadres);
+        $validatedData['is_diklatmad'] = in_array('diklatmad', $nonFormalCadres);
+        $validatedData['is_latinpel'] = in_array('latinpel', $nonFormalCadres);
+
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $filename =
+                'photo_' .
+                strtolower(str_replace(' ', '-', $request->name)) .
+                '_' .
+                now()->timestamp .
+                '.' .
+                $file->getClientOriginalExtension();
+            $path = 'images/members/' . strtolower(str_replace(' ', '-', $user->pac->pac)) . '/photo/';
+            $file->storeAs('public/' . $path, $filename);
+
+            $validatedData['photo'] = $filename;
         } else {
-            $validatedData['img'] = 'default.png';
+            $validatedData['photo'] = 'default.png';
         }
 
         Member::create($validatedData);
 
         Alert::success('Penambahan Anggota Berhasil');
 
-        return redirect()->route('members.index');
+        return redirect()->route('dashboard.members.index');
+    }
+
+    public function show($id, Request $request)
+    {
+        $member = Member::findOrFail($id);
+
+        //        $detailUser = [
+        //            'Nama Lengkap' => $member->name,
+        //            'NIM' => $member->nim,
+        //            'Alamat' =>
+        //                ($provinsi->name ?? '') .
+        //                ', ' .
+        //                ($city->name ?? '') .
+        //                ', ' .
+        //                ($district->name ?? '') .
+        //                ', ' .
+        //                ($village->name ?? '') .
+        //                ',' .
+        //                ($member->address ?? ''),
+        //            'Pesantren' => $member->boarding_school,
+        //            'Tempat, Tanggal Lahir' => $member->place_of_birth . ', ' . $member->date_of_birth,
+        //            'SMA/SMK/MA/Sederajat' => $member->highschool,
+        //            'Tahun Lulus' => $member->grad_year,
+        //            'Tahun Kuliah' => $member->bachelor_year,
+        //            'PAC' => $member->pac->pac,
+        //            'Tahun Makesta' => $member->makesta_year,
+        //            'Tahun Lakmud' => $member->lakmud_year,
+        //            'Tahun Lakut' => $member->lakut,
+        //            'Tahun Latinpel' => $member->latinpel,
+        //        ];
+
+        return view('admins.members.detail', compact('member'));
     }
 
     public function edit($id)
@@ -138,7 +165,7 @@ class CadreController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'img' => 'required',
+            'photo' => 'required',
             'simtimes|image:gif,png,jpg,jpeg',
         ]);
 
@@ -166,11 +193,11 @@ class CadreController extends Controller
         $cadre->organizer_nonformal = $request->organizer_nonformal;
         $cadre->update();
 
-        if ($request->img) {
-            $extension = $request->img->getClientOriginalExtension();
-            $newFileName = 'profile' . '_' . $request->name . '-' . now()->timestamp . '.' . $extension;
-            $request->file('img')->storeAs('/uploads', $newFileName);
-            $cadre['img'] = $newFileName;
+        if ($request->photo) {
+            $extension = $request->photo->getClientOriginalExtension();
+            $filename = 'profile' . '_' . $request->name . '-' . now()->timestamp . '.' . $extension;
+            $request->file('photo')->storeAs('/uploads', $filename);
+            $cadre['photo'] = $filename;
             $cadre->update();
         }
 
@@ -195,7 +222,7 @@ class CadreController extends Controller
 
     public function showMakestaCadres(Request $request)
     {
-        $makestaCadres = User::whereIn('cadre_levels', ['Makesta', 'Lakmud', 'Lakut', 'Latinpel'])
+        $makestaCadres = User::whereIn('formal_cadre_levels', ['Makesta', 'Lakmud', 'Lakut', 'Latinpel'])
             ->latest()
             ->paginate(10);
 
@@ -204,7 +231,7 @@ class CadreController extends Controller
 
     public function showLakmudCadres(Request $request)
     {
-        $lakmudCadres = User::whereIn('cadre_levels', ['Lakmud', 'Lakut', 'Latinpel'])
+        $lakmudCadres = User::whereIn('formal_cadre_levels', ['Lakmud', 'Lakut', 'Latinpel'])
             ->latest()
             ->paginate(10);
 
@@ -213,7 +240,7 @@ class CadreController extends Controller
 
     public function showLakutCadres(Request $request)
     {
-        $lakutCadres = User::whereIn('cadre_levels', ['Lakut', 'Latinpel'])
+        $lakutCadres = User::whereIn('formal_cadre_levels', ['Lakut', 'Latinpel'])
             ->latest()
             ->paginate(10);
 
@@ -222,7 +249,7 @@ class CadreController extends Controller
 
     public function showLatinpelCadres(Request $request)
     {
-        $latinpelCadres = User::where('cadre_levels', 'Latinpel')
+        $latinpelCadres = User::where('formal_cadre_levels', 'Latinpel')
             ->latest()
             ->paginate(10);
         return view('admins.users.latinpel', compact('latinpelCadres'));

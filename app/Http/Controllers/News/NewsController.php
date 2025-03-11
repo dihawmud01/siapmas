@@ -28,7 +28,7 @@ class NewsController extends Controller
 
         $recentNews = News::with('category', 'user')
             ->where('active', '1')
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->paginate(15);
         $trending = News::with('category', 'user')
             ->where('active', '1')
@@ -36,7 +36,7 @@ class NewsController extends Controller
             ->paginate(15);
         $oldNews = News::with('category', 'user')
             ->where('active', '1')
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->paginate(8);
         $newsCategories = Category::with('news')
             ->whereHas('news', function ($query) {
@@ -78,8 +78,9 @@ class NewsController extends Controller
         $news = News::where('slug', $slug)
             ->with('category', 'comments', 'user')
             ->where('active', 1)
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->firstOrFail();
+
         $newsCategories = Category::with('news')
             ->whereHas('news', function ($query) {
                 $query->where('active', 1);

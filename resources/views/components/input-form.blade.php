@@ -15,15 +15,18 @@
             @else
                 accept="{{ $accept }}"
             @endif
+            required
         />
 
         @if ($type == "file")
             <small class="text-muted">
-                {{ __("Maks. 10 MB | Format") }}
+                {{ __("Maks. 2 MB | Format") }}
 
                 @switch($accept)
                     @case("application/pdf")
                         <span>{{ __(".pdf") }}</span>
+                    @case("image/jpeg,image/png")
+                        <span>{{ __(".jpg, .jpeg, atau .png") }}</span>
 
                         @break
                     @case("application/vnd.openxmlformats-officedocument.wordprocessingml.document")

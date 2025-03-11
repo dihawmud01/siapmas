@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\CadreController;
+use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Admin\News\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\News\NewsController as AdminPostController;
 use App\Http\Controllers\Admin\News\TagController as AdminTagController;
@@ -180,18 +180,23 @@ Route::middleware(['auth', 'role:1,2,3'])->group(function () {
         'admin.calendar.destroy',
     );
 
-    Route::get('/dashboard/members', [CadreController::class, 'index'])->name('members.index');
-    Route::get('/dashboard/members/create', [CadreController::class, 'create'])->name('members.create');
-    Route::get('/dashboard/users/{id}/detail', [ProfileController::class, 'showDetail'])->name('members.detail');
-
     Route::get('/dashboard/users/download-pdf/{id}', [PDFController::class, 'cadrePDF'])->name('users.cadre-pdf');
     Route::get('/dashboard/users/pac/pdf/{slug}', [PDFController::class, 'pacPDF'])->name('users.pac-pdf');
 
-    Route::post('/dashboard/members/store', [CadreController::class, 'store'])->name('members.store');
-    Route::get('/dashboard/members/{id}/edit', [CadreController::class, 'edit'])->name('members.edit');
-    Route::put('/dashboard/members/{id}', [CadreController::class, 'update'])->name('members.update');
-    Route::delete('/dashboard/members/{id}', [CadreController::class, 'destroy'])->name('members.destroy');
-    Route::get('/dashboard/members/pac/{slug}', [CadreController::class, 'showList'])->name('members.pac.list');
+    Route::prefix('dashboard')
+        ->as('dashboard.')
+        ->group(function () {
+            Route::resource('members', MemberController::class);
+        });
+
+    //    Route::get('/dashboard/members', [MemberController::class, 'index'])->name('members.index');
+    //    Route::get('/dashboard/members/create', [MemberController::class, 'create'])->name('members.create');
+    //    Route::get('/dashboard/users/{id}', [ProfileController::class, 'showDetail'])->name('members.detail');
+    //    Route::post('/dashboard/members/store', [MemberController::class, 'store'])->name('members.store');
+    //    Route::get('/dashboard/members/{id}/edit', [MemberController::class, 'edit'])->name('members.edit');
+    //    Route::put('/dashboard/members/{id}', [MemberController::class, 'update'])->name('members.update');
+    //    Route::delete('/dashboard/members/{id}', [MemberController::class, 'destroy'])->name('members.destroy');
+    Route::get('/dashboard/members/pac/{slug}', [MemberController::class, 'showList'])->name('members.pac.list');
 
     Route::get('/dashboard/pac', [PACController::class, 'index'])->name('pac.index');
     Route::get('/dashboard/pac/{slug}', [PACController::class, 'show'])->name('pac.show');
@@ -214,13 +219,13 @@ Route::middleware(['auth', 'role:1,2,3'])->group(function () {
 
 // Route Superadmin only
 Route::middleware(['auth', 'role: 1'])->group(function () {
-    Route::get('/dashboard/cadres', [CadreController::class, 'index'])->name('cadres.index');
-    Route::get('/dashboard/cadres/create', [CadreController::class, 'create'])->name('cadres.create');
-    Route::post('/dashboard/cadres/store', [CadreController::class, 'store'])->name('cadres.store');
-    Route::get('/dashboard/cadres/{id}/edit', [CadreController::class, 'edit'])->name('cadres.edit');
-    Route::put('/dashboard/cadres/{id}', [CadreController::class, 'update'])->name('cadres.update');
-    Route::delete('/dashboard/cadres/{id}', [CadreController::class, 'destroy'])->name('cadres.destroy');
-    Route::get('/dashboard/cadres/{id}/view', [CadreController::class, 'view'])->name('cadres.view');
+    Route::get('/dashboard/cadres', [MemberController::class, 'index'])->name('cadres.index');
+    Route::get('/dashboard/cadres/create', [MemberController::class, 'create'])->name('cadres.create');
+    Route::post('/dashboard/cadres/store', [MemberController::class, 'store'])->name('cadres.store');
+    Route::get('/dashboard/cadres/{id}/edit', [MemberController::class, 'edit'])->name('cadres.edit');
+    Route::put('/dashboard/cadres/{id}', [MemberController::class, 'update'])->name('cadres.update');
+    Route::delete('/dashboard/cadres/{id}', [MemberController::class, 'destroy'])->name('cadres.destroy');
+    Route::get('/dashboard/cadres/{id}/view', [MemberController::class, 'view'])->name('cadres.view');
 
     Route::get('/dashboard/pages', [HomeController::class, 'adminIndex'])->name('pages.index');
     Route::get('/dashboard/pages/{id}/edit', [HomeController::class, 'edit'])->name('pages.edit');

@@ -1,5 +1,5 @@
 @section('title')
-    {{ __('Surat Pengesahan (SP)') }}
+    {{ __('Anggota') }}
 @endsection
 
 @extends('admins.layout')
@@ -22,10 +22,15 @@
 
         <div class="card-body d-flex flex-column justify-content-center align-items-center">
             <div class="row mt-5 pt-4">
-                <form action="{{ route('members.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('dashboard.members.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-
                     <x-input-form name="name" label="{{ __('Nama Lengkap sesuai KTP') }}" />
+                    <x-input-form
+                        name="photo"
+                        label="{{ __('Foto Profil') }}"
+                        type="file"
+                        accept="image/jpeg,image/png"
+                    />
 
                     <x-input-select name="gender" label="{{ __('Jenis Kelamin') }}" :options="$genders" />
 
@@ -35,73 +40,108 @@
 
                     <x-input-textarea name="address" label="{{ __('Alamat Lengkap') }}" />
 
-                    <x-input-form
-                        name="boarding_school"
-                        label="{{ __('Pesantren') }}"
-                        placeholder="{{ __('Jika sempat tinggal di Pesantren') }}"
-                    />
-
-                    <x-input-form name="highschool" label="{{ __('SMA/SMK/MA/Sederajat') }}" />
-
-                    <x-input-form name="grad_year" label="{{ __('Tahun Lulus SMA/SMK/MA/Sederajat') }}" type="number" />
-
-                    <x-input-form name="college_year" label="{{ __('Tahun Masuk Kuliah') }}" type="number" />
-
-                    <div x-data="{ cadreLevels: [], options: {{ json_encode($cadreLevels) }} }">
+                    <div
+                        x-data="{ formalCadreLevels: @json(old('formal_cadre_levels', [])) }"
+                        x-init="
+                            $watch('formalCadreLevels', (value) => {
+                                if (value.includes('lakmud') && ! value.includes('makesta')) {
+                                    value.push('makesta')
+                                }
+                            })
+                        "
+                    >
                         <div class="d-flex align-items-start mb-4">
-                            <label class="form-label label me-3 text-start">{{ __('Jenjang Kaderisasi') }}</label>
+                            <label class="form-label label me-3 text-start">
+                                {{ __('Jenjang Kaderisasi Formal') }}
+                            </label>
                             <div class="d-flex flex-column w-100">
-                                <template x-for="[key, label] in Object.entries(options)" :key="key">
+                                @foreach ($formalCadreLevels as $level)
                                     <div class="form-check">
                                         <input
                                             type="checkbox"
-                                            name="cadre_levels[]"
-                                            :id="'cadre_levels_' + key"
-                                            :value="key"
+                                            id="formal_cadre_levels_{{ $level }}"
+                                            name="formal_cadre_levels[]"
+                                            value="{{ $level }}"
                                             class="form-check-input"
-                                            x-model="cadreLevels"
+                                            x-model="formalCadreLevels"
+                                            @change="$dispatch('checkbox-changed', '{{ $level }}')"
+                                            :disabled="('{{ $level }}' === 'makesta' && formalCadreLevels.includes('lakmud'))"
+                                            {{ in_array($level, old('formal_cadre_levels[]', [])) ? 'checked' : '' }}
                                         />
-                                        <label
-                                            :for="'cadre_levels_' + key"
-                                            class="form-check-label"
-                                            x-text="label"
-                                        ></label>
+                                        <label for="formal_cadre_levels_{{ $level }}" class="form-check-label">
+                                            {{ ucfirst($level) }}
+                                        </label>
                                     </div>
+                                @endforeach
+
+                                <template x-if="formalCadreLevels.includes('makesta')">
+                                    <input type="hidden" name="formal_cadre_levels[]" value="makesta" />
                                 </template>
                             </div>
                         </div>
 
-                        <template x-if="cadreLevels.includes('makesta')">
+                        <div x-show="formalCadreLevels.includes('makesta')">
                             <x-input-select name="makesta_year" label="{{ __('Tahun Makesta') }}" :options="$years" />
-                        </template>
+                        </div>
 
-                        <template x-if="cadreLevels.includes('lakmud')">
+                        <div x-show="formalCadreLevels.includes('lakmud')">
                             <x-input-select name="lakmud_year" label="{{ __('Tahun Lakmud') }}" :options="$years" />
-                        </template>
+                        </div>
 
-                        <template x-if="cadreLevels.includes('lakut')">
+                        <div x-show="formalCadreLevels.includes('lakut')">
                             <x-input-select name="lakut_year" label="{{ __('Tahun Lakut') }}" :options="$years" />
-                        </template>
-
-                        <template x-if="cadreLevels.includes('latinpel')">
-                            <x-input-select
-                                name="latinpel_year"
-                                label="{{ __('Tahun Latinpel') }}"
-                                :options="$years"
-                            />
-                        </template>
+                        </div>
                     </div>
 
-                    <x-input-select
-                        name="informal"
-                        label="{{ __('Mengikuti Sekolah Informal') }}"
-                        :options="$attendanceCount"
-                    />
+                    <div x-data="{ nonFormalCadreLevels: [] }">
+                        <div class="d-flex align-items-start mb-4">
+                            <label class="form-label label me-3 text-start">
+                                {{ __('Jenjang Kaderisasi Non-Formal') }}
+                            </label>
+                            <div class="d-flex flex-column w-100">
+                                @foreach ($nonFormalCadreLevels as $level)
+                                    <div class="form-check">
+                                        <input
+                                            type="checkbox"
+                                            id="non_formal_cadre_levels_{{ $level }}"
+                                            name="non_formal_cadre_levels[]"
+                                            value="{{ $level }}"
+                                            class="form-check-input"
+                                            x-model="nonFormalCadreLevels"
+                                            {{ in_array($level, old('non_formal_cadre_levels[]', [])) ? 'checked' : '' }}
+                                        />
+                                        <label for="non_formal_cadre_levels_{{ $level }}" class="form-check-label">
+                                            {{ ucfirst($level) }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
 
-                    <x-input-form name="phone" label="{{ __('Nomor WhatsApp') }}" />
+                    <script>
+                        document.querySelectorAll('input[name="non_formal_cadre_levels[]"]').forEach((input) => {
+                            input.addEventListener('change', () => {
+                                console.log(input.value, input.checked);
+                            });
+                        });
+                    </script>
+
+                    <x-input-form name="phone" label="{{ __('No. HP') }}" />
+
+                    @if (auth()->user()->role_id == 2)
+                        <x-input-select
+                            name="membership_status"
+                            label="{{ __('Status Keanggotaan') }}"
+                            :options="$membershipStatus"
+                        />
+                    @endif
 
                     <div class="d-flex align-items-center justify-content-end">
-                        <a href="{{ route('members.index') }}" class="text-secondary text-decoration-none me-3">
+                        <a
+                            href="{{ route('dashboard.members.index') }}"
+                            class="text-secondary text-decoration-none me-3"
+                        >
                             {{ __('Kembali') }}
                         </a>
                         <button type="submit" class="btn btn-success">

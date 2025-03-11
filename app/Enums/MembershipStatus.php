@@ -2,20 +2,16 @@
 
 namespace App\Enums;
 
-enum CadreLevel: string
+enum MembershipStatus: string
 {
-    case MAKESTA = 'makesta';
-    case LAKMUD = 'lakmud';
-    case LAKUT = 'lakut';
-    case LATINPEL = 'latinpel';
+    case PAC_MEMBER = 'pac_member';
+    case PC_MEMBER = 'pc_member';
 
     public function label(): string
     {
         return match ($this) {
-            self::MAKESTA => 'Makesta',
-            self::LAKMUD => 'Lakmud',
-            self::LAKUT => 'Lakut',
-            self::LATINPEL => 'Latinpel',
+            self::PAC_MEMBER => 'Anggota PAC',
+            self::PC_MEMBER => 'Anggota PC',
         };
     }
 

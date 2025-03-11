@@ -11,7 +11,7 @@ class ApiController extends Controller
     {
         $data_post = News::with(['categories', 'users:id,name,images'])
             ->where('active', '1')
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->take(10)
             ->get();
 
@@ -30,7 +30,7 @@ class ApiController extends Controller
         $show_post = News::where('slug', $slug)
             ->with(['categories', 'comments', 'users:id,name,images'])
             ->where('active', 1)
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->firstOrFail();
 
         // Add base URL to 'image'

@@ -88,7 +88,7 @@
                 <div class="col text-center">
                     <span
                         data-purecounter-start="0"
-                        data-purecounter-end="{{ $cadreLevelCounts['makesta'] }}"
+                        data-purecounter-end="{{ $formalMemberLevelCounts['makesta'] }}"
                         data-purecounter-duration="6"
                         class="purecounter"
                     ></span>
@@ -98,7 +98,7 @@
                 <div class="col text-center">
                     <span
                         data-purecounter-start="0"
-                        data-purecounter-end="{{ $cadreLevelCounts['lakmud'] }}"
+                        data-purecounter-end="{{ $formalMemberLevelCounts['lakmud'] }}"
                         data-purecounter-duration="5"
                         class="purecounter"
                     ></span>
@@ -108,21 +108,11 @@
                 <div class="col text-center">
                     <span
                         data-purecounter-start="0"
-                        data-purecounter-end="{{ $cadreLevelCounts['lakut'] }}"
+                        data-purecounter-end="{{ $formalMemberLevelCounts['lakut'] }}"
                         data-purecounter-duration="4"
                         class="purecounter"
                     ></span>
                     <p>{{ __('Kader Lakut') }}</p>
-                </div>
-
-                <div class="col text-center">
-                    <span
-                        data-purecounter-start="0"
-                        data-purecounter-end="{{ $cadreLevelCounts['latinpel'] }}"
-                        data-purecounter-duration="3"
-                        class="purecounter"
-                    ></span>
-                    <p>{{ __('Kader Latinpel') }}</p>
                 </div>
             </div>
         </div>
@@ -143,7 +133,6 @@
                         const makestaCounts = @json($makestaCounts);
                         const lakmudCounts = @json($lakmudCounts);
                         const lakutCounts = @json($lakutCounts);
-                        const latinpelCounts = @json($latinpelCounts);
 
                         const years = [
                             '2016',
@@ -161,7 +150,6 @@
                         const makestaData = years.map((year) => makestaCounts[year] || 0);
                         const lakmudData = years.map((year) => lakmudCounts[year] || 0);
                         const lakutData = years.map((year) => lakutCounts[year] || 0);
-                        const latinpelData = years.map((year) => latinpelCounts[year] || 0);
 
                         new ApexCharts(document.querySelector('#reportsChart'), {
                             series: [
@@ -177,10 +165,6 @@
                                     name: '{{ __('Lakut') }}',
                                     data: lakutData,
                                 },
-                                {
-                                    name: '{{ __('Latinpel') }}',
-                                    data: latinpelData,
-                                },
                             ],
                             chart: {
                                 height: 350,
@@ -192,7 +176,7 @@
                             markers: {
                                 size: 4,
                             },
-                            colors: ['#5CB338', '#ECE852', '#FFC145', '#FB4141'],
+                            colors: ['#5CB338', '#ECE852', '#FB4141'],
                             fill: {
                                 type: 'gradient',
                                 gradient: {

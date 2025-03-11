@@ -39,7 +39,7 @@ class TagController extends Controller
             ->news()
             ->with('category', 'user')
             ->where('active', '1')
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->paginate(4)
             ->map(function ($post) {
                 $post->formatted_date = Carbon::parse($post->created_at)->format('d M Y H:i');

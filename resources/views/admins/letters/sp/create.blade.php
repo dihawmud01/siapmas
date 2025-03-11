@@ -393,7 +393,9 @@
 
                     <div class="col-md-6 mt-3 px-5">
                         <div class="mb-5">
-                            <h5 class="fw-semibold mb-4">{{ __('Departemen Dakwah') }}</h5>
+                            <div class="border-bottom mb-4">
+                                <h5 class="fw-semibold">{{ __('Departemen Dakwah') }}</h5>
+                            </div>
 
                             <p
                                 x-show="errors.dakwah_department_coordinator"
