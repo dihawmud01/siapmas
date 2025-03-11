@@ -11,7 +11,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                    {{ __('Team IT PC IPNU IPPNU Banyumas Komisariat') }}
+                    {{ __('Media Pelajar NU Banyumas') }}
                 </h1>
                 <button
                     type="button"
@@ -27,25 +27,25 @@
 
                 {{
                     __('Tim IT PC IPNU IPPNU Banyumas adalah kelompok kader PC IPNU IPPNU Banyumas yang terdiri dari para
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                profesional berpengalaman, ahli TI, terampil dan berdedikasi dalam bidang teknologi informasi (TI). Kami
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                bertugas menyediakan, mengelola, dan mendukung sistem kaderisasi digital di lingkungan PC IPNU IPPNU
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Banyumas Komisariat.')
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    profesional berpengalaman, ahli TI, terampil dan berdedikasi dalam bidang teknologi informasi (TI). Kami
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    bertugas menyediakan, mengelola, dan mendukung sistem kaderisasi digital di lingkungan PC IPNU IPPNU
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Banyumas Komisariat.')
                 }}
                 <br />
                 <br />
 
                 {{
                     __('Tim IT PC IPNU IPPNU Banyumas memiliki fokus pada kualitas, keandalan, dan keamanan dalam setiap tugas
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                yang kami jalankan. Kami menyadari pentingnya infrastruktur TI yang stabil dan efisien dalam mendukung
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                kegiatan kaderisasi di lingkungan PC IPNU IPPNU Banyumas.')
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    yang kami jalankan. Kami menyadari pentingnya infrastruktur TI yang stabil dan efisien dalam mendukung
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    kegiatan kaderisasi di lingkungan PC IPNU IPPNU Banyumas.')
                 }}
                 <br />
                 <br />
 
                 {{
                     __('Komitmen kami adalah memberikan pelayanan yang ramah dan responsif kepada kader PC IPNU IPPNU Banyumas .
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Kami siap membantu kader dalam menjalani pengalaman kaderisasi digital yang lancar, aman, dan bermanfaat
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                di ruang lingkup PC IPNU IPPNU Banyumas Komisariat.')
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Kami siap membantu kader dalam menjalani pengalaman kaderisasi digital yang lancar, aman, dan bermanfaat
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    di ruang lingkup PC IPNU IPPNU Banyumas Komisariat.')
                 }}
                 <br />
                 <br />
@@ -71,11 +71,10 @@
                         {{ __('PC IPNU IPPNU') }}
                         <span>{{ __('BANYUMAS') }}</span>
                     </h3>
-                    <p class="text-light">
+                    <p class="text-light" style="text-align: justify">
                         {{
-                            __('Pergerakan Mahasiswa Islam Indonesia (PC IPNU IPPNU Banyumas) adalah organisasi mahasiswa Islam
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        terbesar dan tertua di Indonesia. PC IPNU IPPNU Banyumas didirikan pada tanggal 17 April 1960 di
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Surabaya')
+__('IPNU (Ikatan Pelajar Nahdlatul Ulama) dan IPPNU (Ikatan Pelajar Putri Nahdlatul Ulama) adalah organisasi pelajar di bawah naungan Nahdlatul Ulama yang berperan dalam pengembangan intelektual, spiritual, dan sosial bagi generasi muda. Berkomitmen mencetak kader yang berakhlakul karimah, berilmu, dan berdaya saing, IPNU-IPPNU aktif dalam berbagai kegiatan pendidikan, dakwah, dan kepemimpinan.
+                            ')
                         }}
                     </p>
                 </div>
@@ -111,31 +110,29 @@
                 <div class="col-lg-3 col-md-6 footer-contact">
                     <h4>{{ __('Hubungi Kami') }}</h4>
                     <p class="text-light">
-                        {{
-                            __('Jl. Soekarno Hatta No.530,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Sekejati, Kec. Buahbatu,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Kota Bandung, Jawa Barat 40286')
-                        }}
+                        {{ __('Jl. Sultan Agung No. 42 Karangklesem, Purwokerto Selatan (53143)') }}
                         <br />
                         <strong>{{ __('Telepon:') }}</strong>
-                        083822751029
+                        085726202097 (Fahmi)
+                        <br />
+                        0895360586296 (Yeni)
                         <br />
                         <strong>{{ __('Email:') }}</strong>
-                        pkpmiiuninus.official@gmail.com
+                        pelajarnubanyumas@gmail.com
                         <br />
                     </p>
 
                     <div class="social-links">
-                        <a class="text-light" href="https://www.instagram.com/pkpmiiuninus/" class="twitter">
+                        <a class="text-light" href="https://www.instagram.com/pcipnuippnubms/" class="twitter">
                             <i class="bi bi-twitter"></i>
                         </a>
-                        <a class="text-light" href="https://www.instagram.com/pkpmiiuninus/" class="facebook">
+                        <a class="text-light" href="https://www.instagram.com/pcipnuippnubms/" class="facebook">
                             <i class="bi bi-facebook"></i>
                         </a>
-                        <a class="text-light" href="https://www.instagram.com/pkpmiiuninus/" class="instagram">
+                        <a class="text-light" href="https://www.instagram.com/pcipnuippnubms/" class="instagram">
                             <i class="bi bi-instagram"></i>
                         </a>
-                        <a class="text-light" href="https://www.instagram.com/pkpmiiuninus/" class="linkedin">
+                        <a class="text-light" href="https://www.instagram.com/pcipnuippnubms/" class="linkedin">
                             <i class="bi bi-linkedin"></i>
                         </a>
                     </div>
@@ -144,7 +141,7 @@
                 <div class="col-lg-3 col-md-6 footer-newsletter">
                     <h4>{{ __('Unduh Sekarang') }}</h4>
                     <p class="text-light">
-                        {{ __('Unduh dan install aplikasi PC IPNU IPPNU Banyumas di Play Store') }}
+                        {{ __('Unduh dan install aplikasi SIAPMAS di Play Store') }}
                     </p>
                     <a class="text-light" href="https://play.google.com/store/apps">
                         <img
@@ -167,7 +164,7 @@
         <div class="credits">
             {{ __('Created by') }}
             <a href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="author text-decoration-none">
-                <strong>{{ __('Team IT PC IPNU IPPNU Banyumas') }}</strong>
+                <strong>{{ __('Media Pelajar NU Banyumas') }}</strong>
             </a>
         </div>
     </div>

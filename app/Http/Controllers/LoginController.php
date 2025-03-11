@@ -29,7 +29,7 @@ class LoginController extends Controller
         $user = User::where('email', $credentials['email'])->first();
 
         if (Auth::attempt($credentials) && $user) {
-            Alert::success('Mantap Sahabat', 'Anda Berhasil Masuk');
+            Alert::success('Mantap Rekan', 'Anda Berhasil Masuk');
 
             return redirect()->intended(route('index'));
         } else {
@@ -143,7 +143,7 @@ class LoginController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
 
-        Alert::success('Mantap Sahabat', 'Anda Berhasil Register');
+        Alert::success('Mantap Rekaj', 'Anda Berhasil Register');
 
         return redirect()->route('login');
     }
