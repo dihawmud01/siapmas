@@ -29,6 +29,7 @@
                                     width="60"
                                     class="img-fluid img-thumbnail"
                                     style="max-height: 60px"
+                                    alt="{{ __('Gambar Page') }}"
                                 />
                             </td>
                             <td class="text-center">

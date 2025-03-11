@@ -10,6 +10,8 @@
 @endpush
 
 @section('content')
+    <x-breadcrumb :values="[__('Overview')]"></x-breadcrumb>
+
     <div class="row">
         <div class="col">
             <div class="card info-card sales-card">
@@ -23,7 +25,7 @@
                             <i class="bi bi-people"></i>
                         </div>
                         <div>
-                            <h6>{{ $cadreLevelCounts['makesta'] }}</h6>
+                            <h6>{{ $formalMemberLevelCounts['makesta'] }}</h6>
                         </div>
                     </div>
                 </div>
@@ -41,7 +43,7 @@
                             <i class="bi bi-people"></i>
                         </div>
                         <div>
-                            <h6>{{ $cadreLevelCounts['lakmud'] }}</h6>
+                            <h6>{{ $formalMemberLevelCounts['lakmud'] }}</h6>
                         </div>
                     </div>
                 </div>
@@ -60,26 +62,7 @@
                             <i class="bi bi-people"></i>
                         </div>
                         <div>
-                            <h6>{{ $cadreLevelCounts['lakut'] }}</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card info-card revenue-card">
-                <div class="card-body p-4">
-                    <h5 class="card-title fw-bold align-items-baseline fs-5 mb-3">
-                        {{ __('Kader Latinpel') }}
-                    </h5>
-
-                    <div class="d-flex align-items-center">
-                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center me-3">
-                            <i class="bi bi-people"></i>
-                        </div>
-                        <div>
-                            <h6>{{ $cadreLevelCounts['latinpel'] }}</h6>
+                            <h6>{{ $formalMemberLevelCounts['lakut'] }}</h6>
                         </div>
                     </div>
                 </div>
@@ -93,7 +76,7 @@
                         <h5 class="card-title fw-bold d-flex align-items-baseline fs-4 mb-0">
                             {{ __('Data Kader') }}
                         </h5>
-                        <div class="dropdown rounded filter" data-target="cadre">
+                        <div class="dropdown rounded filter" data-target="member">
                             <button
                                 class="btn text-secondary fs-6 border-secondary-subtle dropdown-btn"
                                 data-bs-toggle="dropdown"
@@ -125,7 +108,6 @@
                             const makestaCounts = @json($makestaCounts);
                             const lakmudCounts = @json($lakmudCounts);
                             const lakutCounts = @json($lakutCounts);
-                            const latinpelCounts = @json($latinpelCounts);
 
                             const years = [
                                 '2016',
@@ -149,14 +131,10 @@
                                     },
                                     { name: '{{ __('Lakmud') }}', data: years.map((year) => lakmudCounts[year] || 0) },
                                     { name: '{{ __('Lakut') }}', data: years.map((year) => lakutCounts[year] || 0) },
-                                    {
-                                        name: '{{ __('Latinpel') }}',
-                                        data: years.map((year) => latinpelCounts[year] || 0),
-                                    },
                                 ],
                                 chart: { height: 350, type: 'area', toolbar: { show: false } },
                                 markers: { size: 4 },
-                                colors: ['#5CB338', '#ECE852', '#FFC145', '#FB4141'],
+                                colors: ['#5CB338', '#ECE852', '#FB4141'],
                                 fill: {
                                     type: 'gradient',
                                     gradient: {
@@ -173,9 +151,9 @@
                                 legend: { offsetY: 20, height: 52 },
                             };
 
-                            const cadreChart = new ApexCharts(document.querySelector('#reportsChart'), option);
+                            const memberChart = new ApexCharts(document.querySelector('#reportsChart'), option);
 
-                            cadreChart.render();
+                            memberChart.render();
 
                             document.querySelectorAll('.dropdown-item').forEach((item) => {
                                 item.addEventListener('click', (event) => {
@@ -200,8 +178,8 @@
                                     dropdownMenu.classList.remove('show');
 
                                     let targetType = dropdown.getAttribute('data-target');
-                                    if (targetType === 'cadre') {
-                                        filterCadres(filterValue);
+                                    if (targetType === 'member') {
+                                        filterMember(filterValue);
                                         updateRowNumbers();
                                     } else if (targetType === 'news') {
                                         filterNews(filterValue);
@@ -210,7 +188,7 @@
                                 });
                             });
 
-                            function filterCadres(filter) {
+                            function filterMember(filter) {
                                 const now = new Date();
                                 let filteredYears = [];
 
@@ -227,7 +205,7 @@
                                         break;
                                 }
 
-                                cadreChart.updateOptions({
+                                memberChart.updateOptions({
                                     xaxis: { categories: filteredYears },
                                     series: [
                                         {
@@ -241,10 +219,6 @@
                                         {
                                             name: '{{ __('Lakut') }}',
                                             data: filteredYears.map((year) => lakutCounts[year] || 0),
-                                        },
-                                        {
-                                            name: '{{ __('Latinpel') }}',
-                                            data: filteredYears.map((year) => latinpelCounts[year] || 0),
                                         },
                                     ],
                                 });
@@ -295,7 +269,7 @@
                         <h5 class="card-title fw-bold d-flex align-items-baseline fs-4 mb-0">
                             {{ __('Data Transaksi Surat Hari ini') }}
                         </h5>
-                        <div class="dropdown rounded filter" data-target="cadre">
+                        <div class="dropdown rounded filter" data-target="member">
                             <button
                                 class="btn text-secondary fs-6 border-secondary-subtle dropdown-btn"
                                 data-bs-toggle="dropdown"

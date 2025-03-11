@@ -189,6 +189,7 @@
                                     <i class="bi bi-file-earmark-text-fill text-primary"></i>
                                     {{ __('Susunan Pengurus Lengkap.' . pathinfo($attachments->management_structure, PATHINFO_EXTENSION)) }}
                                 </a>
+                                {{-- @dd($attachments->management_structure) --}}
                             </dt>
                             <dd class="col-sm-2 fs-5 text-end">
                                 <a

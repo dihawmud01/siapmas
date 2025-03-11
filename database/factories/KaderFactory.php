@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Cadre>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Member>
  */
 class KaderFactory extends Factory
 {
@@ -23,10 +23,7 @@ class KaderFactory extends Factory
             'nama' => $faker->name(),
             'gender' => Arr::random(['L', 'P']),
             'fakultas' => Arr::random(['Teknik', 'Fai', 'Fikom', 'Fkip', 'Hukum', 'Ekonomi']),
-            'photo' => Arr::random([
-                '1 (1).jpg',
-            ]),
-
+            'photo' => Arr::random(['1 (1).jpg']),
         ];
     }
 }

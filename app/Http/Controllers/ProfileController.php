@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Member;
 use App\Models\Tag;
 use App\Models\News;
 use App\Models\User;
@@ -32,7 +33,7 @@ class ProfileController extends Controller
         $news = News::where('user_id', '=', $profile->id)
             ->with('category', 'comments', 'user')
             ->where('active', 1)
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->get();
 
         // Count the number of picture and book news uploaded by users
@@ -197,41 +198,37 @@ class ProfileController extends Controller
         return redirect()->route('profile');
     }
 
-    public function showDetail($id, Request $request)
-    {
-        $user = User::findOrFail($id);
-        $province = Province::find($user->province_id);
-        $city = City::find($user->city_id);
-        $district = District::find($user->district_id);
-        $village = Village::find($user->village_id);
-
-        $detailUser = [
-            'Nama Lengkap' => $user->name,
-            'NIM' => $user->nim,
-            'Alamat' =>
-                ($provinsi->name ?? '') .
-                ', ' .
-                ($city->name ?? '') .
-                ', ' .
-                ($district->name ?? '') .
-                ', ' .
-                ($village->name ?? '') .
-                ',' .
-                ($user->address ?? ''),
-            'Pesantren' => $user->boarding_school,
-            'Tempat, Tanggal Lahir' => $user->place_of_birth . ', ' . $user->date_of_birth,
-            'SMA/SMK/MA/Sederajat' => $user->highschool,
-            'Tahun Lulus' => $user->grad_year,
-            'Tahun Kuliah' => $user->bachelor_year,
-            'PAC' => $user->pac->pac,
-            'Tahun Makesta' => $user->makesta_year,
-            'Tahun Lakmud' => $user->lakmud_year,
-            'Tahun Lakut' => $user->lakut,
-            'Tahun Latinpel' => $user->latinpel,
-        ];
-
-        return view('admins.users.detail', compact('user', 'detailUser', 'province', 'city', 'district', 'village'));
-    }
+    //    public function showDetail($id, Request $request)
+    //    {
+    //        $member = Member::findOrFail($id);
+    //
+    //        //        $detailUser = [
+    //        //            'Nama Lengkap' => $member->name,
+    //        //            'NIM' => $member->nim,
+    //        //            'Alamat' =>
+    //        //                ($provinsi->name ?? '') .
+    //        //                ', ' .
+    //        //                ($city->name ?? '') .
+    //        //                ', ' .
+    //        //                ($district->name ?? '') .
+    //        //                ', ' .
+    //        //                ($village->name ?? '') .
+    //        //                ',' .
+    //        //                ($member->address ?? ''),
+    //        //            'Pesantren' => $member->boarding_school,
+    //        //            'Tempat, Tanggal Lahir' => $member->place_of_birth . ', ' . $member->date_of_birth,
+    //        //            'SMA/SMK/MA/Sederajat' => $member->highschool,
+    //        //            'Tahun Lulus' => $member->grad_year,
+    //        //            'Tahun Kuliah' => $member->bachelor_year,
+    //        //            'PAC' => $member->pac->pac,
+    //        //            'Tahun Makesta' => $member->makesta_year,
+    //        //            'Tahun Lakmud' => $member->lakmud_year,
+    //        //            'Tahun Lakut' => $member->lakut,
+    //        //            'Tahun Latinpel' => $member->latinpel,
+    //        //        ];
+    //
+    //        return view('admins.members.detail', compact('member'));
+    //    }
 
     public function show($slug, Request $request)
     {
@@ -241,7 +238,7 @@ class ProfileController extends Controller
         $news = News::where('user_id', '=', $profile->id)
             ->with('category', 'comments', 'user')
             ->where('active', 1)
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->get();
 
         //        $libraryProfiles = Library::where('user_id', $profile->id)->get();

@@ -6,28 +6,23 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class InputForm extends Component
+class InputCheckbox extends Component
 {
-    public string $name, $label, $type, $accept, $placeholder;
+    public string $id, $name, $label, $xModel;
     public ?string $value;
+    public bool $checked;
 
     /**
      * Create a new component instance.
      */
-    public function __construct(
-        string $name,
-        $label,
-        $type = 'text',
-        $placeholder = '',
-        ?string $value = null,
-        $accept = '',
-    ) {
+    public function __construct(string $id, $name, $label, $xModel = '', ?string $value = null, bool $checked = false)
+    {
+        $this->id = $id;
         $this->name = $name;
         $this->label = $label;
-        $this->type = $type;
-        $this->placeholder = $placeholder;
+        $this->xModel = $xModel;
         $this->value = $value ?? old($name);
-        $this->accept = $accept;
+        $this->checked = $checked;
     }
 
     /**
@@ -35,6 +30,6 @@ class InputForm extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.input-form');
+        return view('components.input-checkbox');
     }
 }

@@ -267,7 +267,7 @@
                         <div>
                             <ol>
                                 <li>
-                                    Sidang Pleno IPNU
+                                    Konferensi Anak Cabang IPNU
                                     {{ str_replace(['Uin', 'Unu'], ['UIN', 'UNU'], ucwords(strtolower($pac))) }}
                                     tanggal {{ $letter->formatted_event_date_without_day }};
                                 </li>

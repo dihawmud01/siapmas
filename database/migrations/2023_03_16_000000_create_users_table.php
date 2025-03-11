@@ -10,7 +10,7 @@ return new class extends Migration {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('img')->default('default.png');
+            $table->string('photo')->default('default.png');
             $table->string('bio');
             $table->string('username')->unique();
             $table->string('slug')->nullable();

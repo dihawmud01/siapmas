@@ -6,28 +6,21 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class InputForm extends Component
+class InputTextarea extends Component
 {
-    public string $name, $label, $type, $accept, $placeholder;
+    public string $name, $label;
     public ?string $value;
+    public int $rows;
 
     /**
      * Create a new component instance.
      */
-    public function __construct(
-        string $name,
-        $label,
-        $type = 'text',
-        $placeholder = '',
-        ?string $value = null,
-        $accept = '',
-    ) {
+    public function __construct(string $name, $label, ?string $value = null, int $rows = 4)
+    {
         $this->name = $name;
         $this->label = $label;
-        $this->type = $type;
-        $this->placeholder = $placeholder;
         $this->value = $value ?? old($name);
-        $this->accept = $accept;
+        $this->rows = $rows;
     }
 
     /**
@@ -35,6 +28,6 @@ class InputForm extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.input-form');
+        return view('components.input-textarea');
     }
 }

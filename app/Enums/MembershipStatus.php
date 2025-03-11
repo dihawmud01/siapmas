@@ -2,15 +2,16 @@
 
 namespace App\Enums;
 
-enum Gender: string
+enum MembershipStatus: string
 {
-    case MALE = 'male';
-    case FEMALE = 'female';
+    case PAC_MEMBER = 'pac_member';
+    case PC_MEMBER = 'pc_member';
+
     public function label(): string
     {
         return match ($this) {
-            self::MALE => __('Laki-laki'),
-            self::FEMALE => __('Perempuan'),
+            self::PAC_MEMBER => 'Anggota PAC',
+            self::PC_MEMBER => 'Anggota PC',
         };
     }
 
@@ -22,7 +23,7 @@ enum Gender: string
     public static function getLabels(): array
     {
         return collect(self::cases())
-            ->mapWithKeys(fn ($gender) => [$gender->value => $gender->label()])
+            ->mapWithKeys(fn ($cadreLevel) => [$cadreLevel->value => $cadreLevel->label()])
             ->toArray();
     }
 }

@@ -178,69 +178,6 @@ function updateRowNumbers() {
 
 updateRowNumbers();
 
-document.querySelectorAll('.search-input').forEach((input) => {
-    const clearIcon = input.nextElementSibling;
-
-    input.addEventListener('keyup', function() {
-        const searchTerm = input.value.toLowerCase();
-        const tableId = input.getAttribute('data-table-id');
-        const columnsToSearch = input.getAttribute('data-columns').split(',').map(Number);
-        const table = document.getElementById(tableId);
-        const rows = table.getElementsByTagName('tr');
-
-        clearIcon.style.display = searchTerm ? 'inline' : 'none';
-
-        for (let i = 1; i < rows.length; i++) {
-            let isMatch = false;
-
-            columnsToSearch.forEach((colIdx) => {
-                const cell = rows[i].cells[colIdx];
-                const cellText = cell ? cell.textContent.toLowerCase() : '';
-
-                if (cellText.includes(searchTerm)) {
-                    isMatch = true;
-                }
-            });
-
-            rows[i].style.display = isMatch ? '' : 'none';
-            updateRowNumbers();
-        }
-    });
-
-    clearIcon.addEventListener('click', function() {
-        input.value = '';
-        clearIcon.style.display = 'none';
-        const tableId = input.getAttribute('data-table-id');
-        const table = document.getElementById('table');
-        const rows = table.getElementsByTagName('tr');
-
-        for (let i = 1; i < rows.length; i++) {
-            rows[i].style.display = '';
-            updateRowNumbers();
-        }
-    });
-
-});
-
-// function clearSearch() {
-//     const input = document.getElementById('searchInput');
-//     const clearIcon = document.getElementById('clearSearch');
-//
-//     if (input) {
-//         input.value = '';
-//         clearIcon.style.display = 'none';
-//
-//         const tableId = input.getAttribute('data-table-id');
-//         const table = document.getElementById('table');
-//         const rows = table.getElementsByTagName('tr');
-//
-//         for (let i = 0; i < rows.length; i++) {
-//             rows[i].style.display = '';
-//         }
-//     }
-//
-// }
-
 // Sort table
 function sortTable(colIdx) {
     const table = document.getElementById('table');
@@ -292,56 +229,6 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();
             let dropdownInstance = bootstrap.Dropdown.getOrCreateInstance(dropdown);
             dropdownInstance.toggle();
-        });
-    });
-
-    document.getElementById('approveBtn').addEventListener('click', function (event) {
-        Swal.fire({
-            title: 'Apakah Anda yakin ingin menyetujui pengajuan ini?',
-            text: 'Pastikan semua data sudah sesuai sebelum disetujui.',
-            icon: 'warning',
-            showCancelButton: true,
-            cancelButtonText: 'Cek lagi',
-            confirmButtonText: 'Ya',
-            reverseButtons: true,
-            customClass: {
-                cancelButton: 'btn btn-secondary btn-lg',
-                confirmButton: 'btn btn-success btn-lg',
-                actions: 'swal-custom-actions',
-            },
-            buttonsStyling: false,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: 'Masukkan Nomor Surat',
-                    input: 'text',
-                    inputPlaceholder: 'Masukkan nomor surat...',
-                    inputAttributes: {
-                        required: true
-                    },
-                    showCancelButton: true,
-                    confirmButtonText: 'Setujui',
-                    cancelButtonText: 'Batal',
-                    reverseButtons: true,
-                    customClass: {
-                        cancelButton: 'btn btn-secondary btn-lg',
-                        confirmButton: 'btn btn-success btn-lg',
-                        actions: 'swal-custom-actions',
-                    },
-                    buttonsStyling: false,
-                    preConfirm: (letterNumber) => {
-                        if (!letterNumber) {
-                            Swal.showValidationMessage('Nomor surat harus diisi!');
-                        }
-                        return letterNumber;
-                    }
-                }).then((inputResult) => {
-                    if (inputResult.isConfirmed) {
-                        document.getElementById('letterNumber').value = inputResult.value;
-                        document.getElementById('approvalForm').submit();
-                    }
-                });
-            }
         });
     });
 });
