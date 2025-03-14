@@ -192,7 +192,7 @@
 
     <body>
         <div class="header">
-            <img src="{{ public_path('assets/images/sp/header-kop.png') }}" alt="Header" />
+            <img src="{{ public_path('assets/images/sp/header-logo.png') }}" alt="Header" />
         </div>
 
         <div style="text-align: center">

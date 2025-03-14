@@ -185,21 +185,26 @@ class SPController extends Controller
 
     public function generate(SP $letter)
     {
-        $user = Auth::user();
-        $pacSlug = Str::slug($user->pac->pac);
-        $basePath = "sp/{$pacSlug}";
-        $generatedPath = "{$basePath}/generated/{$letter->id}";
-
-        Storage::disk('public')->makeDirectory($generatedPath);
-
         $coverPath = public_path('assets/documents/sp-cover.pdf');
-        $modifiedCoverPath = "{$basePath}/sp-cover.pdf";
-        $contentPath = "{$basePath}/content.pdf";
-        $mergedPath = "{$generatedPath}/surat-pengesahan-" . now()->timestamp . '.pdf';
+        $user = Auth::user();
 
-        $pac = in_array($user->pac_id, [28, 29]) ? $user->pac->pac : 'KECAMATAN ' . $user->pac->pac;
+        $modifiedCoverDir = public_path('storage/sp/' . strtolower(str_replace(' ', '-', $user->pac->pac)));
 
-        if (! Storage::disk('public')->exists($modifiedCoverPath)) {
+        if (! is_dir($modifiedCoverDir)) {
+            mkdir($modifiedCoverDir, 0755, true);
+        }
+
+        $modifiedCoverPath = $modifiedCoverDir . '/sp-cover.pdf';
+
+        $pac = '';
+
+        if (in_array($user->pac_id, [28, 29])) {
+            $pac = $user->pac->pac;
+        } else {
+            $pac = 'KECAMATAN ' . $user->pac->pac;
+        }
+
+        if (! file_exists($modifiedCoverPath)) {
             $cover = new Fpdi();
             $cover->setSourceFile($coverPath);
             $tplIdx = $cover->importPage(1);
@@ -211,24 +216,37 @@ class SPController extends Controller
             $cover->SetXY(59.5, 190);
             $cover->Cell(100, 10, $pac, 0, 0, 'C');
 
-            Storage::disk('public')->put($modifiedCoverPath, $cover->Output('S'));
+            $cover->Output($modifiedCoverPath, 'F');
         }
 
         $contentPdf = Pdf::setPaper('A4', 'portrait')->loadView(
             'admins.letters.sp.pdf.content',
             compact('letter', 'pac'),
         );
-
-        Storage::disk('public')->put($contentPath, $contentPdf->output());
+        $contentPath = public_path('storage/sp/content.pdf');
+        file_put_contents($contentPath, $contentPdf->output());
 
         $merger = new Merger();
-        $merger->addFile(Storage::disk('public')->path($modifiedCoverPath));
-        $merger->addFile(Storage::disk('public')->path($contentPath));
+        $merger->addFile($modifiedCoverPath);
+        $merger->addFile($contentPath);
         $mergedPdf = $merger->merge();
 
-        Storage::disk('public')->put($mergedPath, $mergedPdf);
-        Storage::disk('public')->delete($contentPath);
+        $mergedDirectory = public_path(
+            'storage/sp/' . strtolower(str_replace(' ', '-', $user->pac->pac)) . '/generated/' . $letter->id,
+        );
 
-        return response()->file(Storage::disk('public')->path($mergedPath));
+        if (! is_dir($mergedDirectory)) {
+            mkdir($mergedDirectory, 0755, true);
+        }
+
+        $mergedPath = $mergedDirectory . '/surat-pengesahan-' . now()->timestamp . '.pdf';
+
+        file_put_contents($mergedPath, $mergedPdf);
+
+        Storage::delete($contentPath);
+
+        return response($mergedPdf)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="surat-pengesahan.pdf"');
     }
 }
