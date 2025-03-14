@@ -8,19 +8,20 @@ use Illuminate\View\Component;
 
 class InputTextarea extends Component
 {
-    public string $name, $label;
+    public string $name;
+    public string $label;
     public ?string $value;
     public int $rows;
 
     /**
      * Create a new component instance.
      */
-    public function __construct(string $name, $label, ?string $value = null, int $rows = 4)
+    public function __construct(string $name, string $label, ?string $value = null, int $rows = 4)
     {
         $this->name = $name;
         $this->label = $label;
         $this->value = $value ?? old($name);
-        $this->rows = $rows;
+        $this->rows = intval($rows);
     }
 
     /**

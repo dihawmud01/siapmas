@@ -8,18 +8,20 @@ use Illuminate\View\Component;
 
 class InputJson extends Component
 {
-    public string $label, $name;
+    public string $label;
+    public string $name;
     public int $count;
     public array $values;
+
     /**
      * Create a new component instance.
      */
-    public function __construct(string $label, $name, int $count = 5, array $values = [])
+    public function __construct(string $label, string $name, int $count = 5, array $values = [])
     {
         $this->name = $name;
         $this->label = $label;
-        $this->count = $count;
-        $this->values = $values;
+        $this->count = intval($count);
+        $this->values = is_array($values) ? $values : [];
     }
 
     /**

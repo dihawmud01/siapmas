@@ -196,7 +196,7 @@ Route::middleware(['auth', 'role:1,2,3'])->group(function () {
     //    Route::get('/dashboard/members/{id}/edit', [MemberController::class, 'edit'])->name('members.edit');
     //    Route::put('/dashboard/members/{id}', [MemberController::class, 'update'])->name('members.update');
     //    Route::delete('/dashboard/members/{id}', [MemberController::class, 'destroy'])->name('members.destroy');
-    Route::get('/dashboard/members/pac/{slug}', [MemberController::class, 'showList'])->name('members.pac.list');
+    Route::get('/dashboard/members/pac/{slug}', [MemberController::class, 'showByPAC'])->name('members.pac.list');
 
     Route::get('/dashboard/pac', [PACController::class, 'index'])->name('pac.index');
     Route::get('/dashboard/pac/{slug}', [PACController::class, 'show'])->name('pac.show');
@@ -208,7 +208,6 @@ Route::middleware(['auth', 'role:1,2,3'])->group(function () {
     Route::get('/dashboard/latinpel/', [UserController::class, 'showLatinpelCadres'])->name('latinpel');
     Route::get('/dashboard/unverification/', [UserController::class, 'showUnverification'])->name('unverification');
     Route::get('/dashboard/noncadres/', [UserController::class, 'showNoncadres'])->name('noncadre');
-
     Route::get('/dashboard/national-days/', [HBNController::class, 'index'])->name('hbn.index');
     Route::get('/dashboard/national-days/create', [HBNController::class, 'create'])->name('hbn.create');
     Route::post('/dashboard/national-days/store', [HBNController::class, 'store'])->name('hbn.store');
@@ -270,10 +269,16 @@ Route::middleware(['auth', 'role:2,3'])->group(function () {
                 ->as('letters.')
                 ->group(function () {
                     Route::get('incoming', [IncomingLetterController::class, 'index'])->name('incoming');
-                    Route::get('validation-submission/generate/{id}', [SPController::class, 'generate'])->name(
+                    Route::get('validation-submission/generate/{letter}', [SPController::class, 'generate'])->name(
                         'validation-submission.generate',
                     );
                     Route::resource('validation-submission', SPController::class);
+                    Route::prefix('validation-submission')
+                        ->as('validation-submission.')
+                        ->group(function () {
+                            Route::patch('{letter}/approve', [SPController::class, 'approve'])->name('approve');
+                            Route::delete('{letter}/reject', [SPController::class, 'reject'])->name('reject');
+                        });
                 });
         });
 });

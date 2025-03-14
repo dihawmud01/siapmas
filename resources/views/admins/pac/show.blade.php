@@ -1,9 +1,8 @@
 @section('title')
-    {{ 'PAC' }}
+    {{  }}
 @endsection
 
 @extends('admins.layout')
-@extends('layouts.app')
 
 @section('content')
     <div class="card info-card sales-card">
@@ -13,14 +12,14 @@
                 <br />
                 {{ __('PAC') }}
 
-                @foreach ($pacs as $pac)
+                @foreach ($pacList as $pac)
                     @foreach ($pac->users->take(1) as $item)
                         {{ $item->pac->pac }}
                     @endforeach
                 @endforeach
             </h2>
 
-            @foreach ($pacs as $pac)
+            @foreach ($pacList as $pac)
                 <h5>{{ __('Total Anggota PAC') }} {{ $pac->pac }}: {{ $pac->users->count() }}</h5>
             @endforeach
 
@@ -33,12 +32,12 @@
                 </form>
             </div>
 
-            <div class="text-end">
-                <a href="{{ route('pac-pdf', ['slug' => $pac->slug]) }}" class="btn btn-warning m-3">
-                    <i class="bi bi-printer"></i>
-                    {{ __('Unduh Data') }}
-                </a>
-            </div>
+            {{-- <div class="text-end"> --}}
+            {{-- <a href="{{ route('pac-pdf', ['slug' => $pac->slug]) }}" class="btn btn-warning m-3"> --}}
+            {{-- <i class="bi bi-printer"></i> --}}
+            {{-- {{ __('Unduh Data') }} --}}
+            {{-- </a> --}}
+            {{-- </div> --}}
 
             <div class="row">
                 <table class="table" id="table">
@@ -49,7 +48,7 @@
                         <td class="text-center">{{ __('Aksi') }}</td>
                     </tr>
 
-                    @foreach ($pacs as $pac)
+                    @foreach ($pacList as $pac)
                         @foreach ($pac->users as $item)
                             <tr data-row>
                                 <td class="text-center"></td>
@@ -58,19 +57,19 @@
                                 <td class="text-center">
                                     <form action="">
                                         <a
-                                            href="{{ route('users.detail', ['id' => $item->id]) }}"
+                                            href="{{ route('dashboard.members.show', $item) }}"
                                             class="btn btn-success btn-sm"
                                         >
                                             {{ __('Detail') }}
                                         </a>
+                                        {{-- <a --}}
+                                        {{-- href="{{ route('profile.user', ['slug' => $item->slug]) }}" --}}
+                                        {{-- class="btn btn-secondary btn-sm" --}}
+                                        {{-- > --}}
+                                        {{-- {{ __('Profil') }} --}}
+                                        {{-- </a> --}}
                                         <a
-                                            href="{{ route('rofile.user', ['slug' => $item->slug]) }}"
-                                            class="btn btn-secondary btn-sm"
-                                        >
-                                            {{ __('Profil') }}
-                                        </a>
-                                        <a
-                                            href="{{ route('users.edit', ['id' => $item->id]) }}"
+                                            href="{{ route('dashboard.members.edit', $item) }}"
                                             class="btn btn-warning btn-sm"
                                         >
                                             {{ __('Edit') }}
@@ -83,7 +82,7 @@
                     @endforeach
                 </table>
 
-                {{ $pacs->links() }}
+                {{ $pacList->links() }}
             </div>
         </div>
     </div>

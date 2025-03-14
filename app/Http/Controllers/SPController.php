@@ -13,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 use setasign\Fpdi\Tcpdf\Fpdi;
 
@@ -29,14 +30,7 @@ class SPController extends Controller
             $letters = SP::orderBy('updated_at', 'desc')->get();
         }
 
-        return view(
-            'admins.letters.sp.index',
-            [
-                //                'data' => Letter::incoming()->render($request->search),
-                'search' => $request->search,
-            ],
-            compact('letters', 'user'),
-        );
+        return view('admins.letters.sp.index', compact('letters', 'user'));
     }
 
     public function create()
@@ -48,53 +42,58 @@ class SPController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            // Attachments
-            'event_date' => 'required|date',
-            'event_location' => 'required|string|max:255',
-            'mwc_letter_number' => 'required|string|max:255',
+        $validatedData = $request->validate(
+            array_merge(
+                [
+                    'start_period' => 'required|integer',
+                    'end_period' => 'required|integer',
+                    'event_date' => 'required|date',
+                    'event_location' => 'required|string|max:255',
+                    'mwc_letter_number' => 'required|string|max:255',
 
-            // Management Structure
-            'protectors' => 'nullable|array',
-            'advisors' => 'nullable|array',
-            'chairman' => 'required|string|max:255',
-            'vice_chairmen' => 'nullable|array',
-            'secretary' => 'required|string|max:255',
-            'vice_secretaries' => 'nullable|array',
-            'treasurer' => 'required|string|max:255',
-            'vice_treasurers' => 'nullable|array',
-            'organization_department_coordinator' => 'required|string|max:255',
-            'organization_department_members' => 'nullable|array',
-            'cadre_department_coordinator' => 'required|string|max:255',
-            'cadre_department_members' => 'nullable|array',
-            'dakwah_department_coordinator' => 'required|string|max:255',
-            'dakwah_department_members' => 'nullable|array',
-            'culture_department_coordinator' => 'required|string|max:255',
-            'culture_department_members' => 'nullable|array',
-            'economy_institution_director' => 'required|string|max:255',
-            'economy_institution_members' => 'nullable|array',
-            'press_institution_director' => 'required|string|max:255',
-            'press_institution_members' => 'nullable|array',
-            'brigade_institution_director' => 'required|string|max:255',
-            'brigade_institution_members' => 'nullable|array',
-        ]);
+                    'protectors' => 'nullable|array',
+                    'advisors' => 'nullable|array',
+                    'chairman' => 'required|string|max:255',
+                    'vice_chairmen' => 'nullable|array',
+                    'secretary' => 'required|string|max:255',
+                    'vice_secretaries' => 'nullable|array',
+                    'treasurer' => 'required|string|max:255',
+                    'vice_treasurers' => 'nullable|array',
+                    'organization_department_coordinator' => 'required|string|max:255',
+                    'organization_department_members' => 'nullable|array',
+                    'cadre_department_coordinator' => 'required|string|max:255',
+                    'cadre_department_members' => 'nullable|array',
+                    'dakwah_department_coordinator' => 'required|string|max:255',
+                    'dakwah_department_members' => 'nullable|array',
+                    'culture_department_coordinator' => 'required|string|max:255',
+                    'culture_department_members' => 'nullable|array',
+                    'economy_institution_director' => 'required|string|max:255',
+                    'economy_institution_members' => 'nullable|array',
+                    'press_institution_director' => 'required|string|max:255',
+                    'press_institution_members' => 'nullable|array',
+                    'brigade_institution_director' => 'required|string|max:255',
+                    'brigade_institution_members' => 'nullable|array',
+                ],
+                [
+                    'documentation' => 'nullable|array',
+                    'documentation.*' => 'file|mimes:docx,jpeg,png,mp4|max:10240',
+                    'request_letter' => 'required|file|mimes:pdf|max:10240',
+                    'mwc_recommendation' => 'required|file|mimes:pdf|max:10240',
+                    'pac_recommendation' => 'required|file|mimes:pdf|max:10240',
+                    'election_report' => 'required|file|mimes:pdf|max:10240',
+                    'formation_report' => 'required|file|mimes:pdf|max:10240',
+                    'id_cv_photo_certificate' => 'required|file|mimes:pdf|max:10240',
+                    'management_structure' => 'required|file|mimes:docx|max:10240',
+                ],
+            ),
+        );
 
         $user = Auth::user();
         $validatedData['user_id'] = $user->id;
 
         $letter = SP::create($validatedData);
 
-        $request->only([
-            'documentation' => 'nullable|array',
-            'documentation.*' => 'required|file|mimes:docx,jpeg,png,mp4|max:10240',
-            'request_letter' => 'required|file|mimes:pdf|max:10240',
-            'mwc_recommendation' => 'required|file|mimes:pdf|max:10240',
-            'pac_recommendation' => 'required|file|mimes:pdf|max:10240',
-            'election_report' => 'required|file|mimes:pdf|max:10240',
-            'formation_report' => 'required|file|mimes:pdf|max:10240',
-            'id_cv_photo_certificate' => 'required|file|mimes:pdf|max:10240',
-            'management_structure' => 'required|file|mimes:docx|max:10240',
-        ]);
+        $pacSlug = Str::slug($user->pac->pac);
 
         $fileCategories = [
             'documentation',
@@ -107,34 +106,24 @@ class SPController extends Controller
             'management_structure',
         ];
 
-        foreach ($fileCategories as $category) {
+        collect($fileCategories)->each(function ($category) use ($request, $letter, $pacSlug) {
+            $path = "sp/{$pacSlug}/{$category}/{$letter->id}/";
+
             if ($request->hasFile($category)) {
                 $files = is_array($request->file($category)) ? $request->file($category) : [$request->file($category)];
 
                 foreach ($files as $file) {
-                    $extension = $file->getClientOriginalExtension();
-                    $newFileName = $category . '-' . now()->timestamp . '.' . $extension;
-                    $file->move(
-                        public_path(
-                            'storage/sp/' .
-                                strtolower(str_replace(' ', '-', $user->pac->pac)) .
-                                '/' .
-                                $category .
-                                '/' .
-                                $letter->id .
-                                '/',
-                        ),
-                        $newFileName,
-                    );
+                    $filename = "{$category}-" . Str::uuid() . '.' . $file->getClientOriginalExtension();
+                    $file->storeAs($path, $filename, 'public');
 
                     SPSubmissionFile::create([
                         'sp_id' => $letter->id,
-                        'attachment' => $newFileName,
+                        'attachment' => $filename,
                         'category' => FileCategory::tryFrom($category),
                     ]);
                 }
             }
-        }
+        });
 
         Alert::success('Pengajuan berhasil dikirim', 'Data-data akan ditinjau terlebih dahulu oleh PC');
 
@@ -169,45 +158,48 @@ class SPController extends Controller
         return view('admins.letters.sp.show', compact('letter', 'attachments'));
     }
 
-    public function update($id, Request $request): RedirectResponse
+    public function approve(Request $request, SP $letter): RedirectResponse
     {
         $validatedLetterNum = $request->validate(['letter_number' => 'required|string|max:255']);
-
-        $letter = SP::findOrFail($id);
 
         $letter->update([
             'letter_number' => $validatedLetterNum['letter_number'],
             'status' => SubmissionStatus::APPROVED,
         ]);
 
-        Alert::success('Pengajuan SP Berhasil disetujui');
+        Alert::success('Pengajuan SP berhasil disetujui');
 
         return redirect()->route('dashboard.letters.validation-submission.index');
     }
 
-    public function generate($id)
+    public function reject(SP $letter): RedirectResponse
     {
-        $coverPath = public_path('assets/documents/sp-cover.pdf');
+        $letter->update([
+            'status' => SubmissionStatus::REJECTED,
+        ]);
+
+        Alert::success('Pengajuan SP berhasil ditolak');
+
+        return redirect()->route('dashboard.letters.validation-submission.index');
+    }
+
+    public function generate(SP $letter)
+    {
         $user = Auth::user();
-        $letter = SP::findOrFail($id);
+        $pacSlug = Str::slug($user->pac->pac);
+        $basePath = "sp/{$pacSlug}";
+        $generatedPath = "{$basePath}/generated/{$letter->id}";
 
-        $modifiedCoverDir = public_path('storage/sp/' . strtolower(str_replace(' ', '-', $user->pac->pac)));
+        Storage::disk('public')->makeDirectory($generatedPath);
 
-        if (! is_dir($modifiedCoverDir)) {
-            mkdir($modifiedCoverDir, 0755, true);
-        }
+        $coverPath = public_path('assets/documents/sp-cover.pdf');
+        $modifiedCoverPath = "{$basePath}/sp-cover.pdf";
+        $contentPath = "{$basePath}/content.pdf";
+        $mergedPath = "{$generatedPath}/surat-pengesahan-" . now()->timestamp . '.pdf';
 
-        $modifiedCoverPath = $modifiedCoverDir . '/sp-cover.pdf';
+        $pac = in_array($user->pac_id, [28, 29]) ? $user->pac->pac : 'KECAMATAN ' . $user->pac->pac;
 
-        $pac = '';
-
-        if (in_array($user->pac_id, [28, 29])) {
-            $pac = $user->pac->pac;
-        } else {
-            $pac = 'KECAMATAN ' . $user->pac->pac;
-        }
-
-        if (! file_exists($modifiedCoverPath)) {
+        if (! Storage::disk('public')->exists($modifiedCoverPath)) {
             $cover = new Fpdi();
             $cover->setSourceFile($coverPath);
             $tplIdx = $cover->importPage(1);
@@ -219,37 +211,24 @@ class SPController extends Controller
             $cover->SetXY(59.5, 190);
             $cover->Cell(100, 10, $pac, 0, 0, 'C');
 
-            $cover->Output($modifiedCoverPath, 'F');
+            Storage::disk('public')->put($modifiedCoverPath, $cover->Output('S'));
         }
 
         $contentPdf = Pdf::setPaper('A4', 'portrait')->loadView(
             'admins.letters.sp.pdf.content',
             compact('letter', 'pac'),
         );
-        $contentPath = public_path('storage/sp/content.pdf');
-        file_put_contents($contentPath, $contentPdf->output());
+
+        Storage::disk('public')->put($contentPath, $contentPdf->output());
 
         $merger = new Merger();
-        $merger->addFile($modifiedCoverPath);
-        $merger->addFile($contentPath);
+        $merger->addFile(Storage::disk('public')->path($modifiedCoverPath));
+        $merger->addFile(Storage::disk('public')->path($contentPath));
         $mergedPdf = $merger->merge();
 
-        $mergedDirectory = public_path(
-            'storage/sp/' . strtolower(str_replace(' ', '-', $user->pac->pac)) . '/generated/' . $letter->id,
-        );
+        Storage::disk('public')->put($mergedPath, $mergedPdf);
+        Storage::disk('public')->delete($contentPath);
 
-        if (! is_dir($mergedDirectory)) {
-            mkdir($mergedDirectory, 0755, true);
-        }
-
-        $mergedPath = $mergedDirectory . '/surat-pengesahan-' . now()->timestamp . '.pdf';
-
-        file_put_contents($mergedPath, $mergedPdf);
-
-        Storage::delete($contentPath);
-
-        return response($mergedPdf)
-            ->header('Content-Type', 'application/pdf')
-            ->header('Content-Disposition', 'inline; filename="surat-pengesahan.pdf"');
+        return response()->file(Storage::disk('public')->path($mergedPath));
     }
 }

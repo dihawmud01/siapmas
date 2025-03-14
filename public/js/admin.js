@@ -203,6 +203,7 @@ function sortTable(colIdx) {
 
 // Collapse nav
 document.addEventListener('DOMContentLoaded', function() {
+    // Collapse sidebar nav
     var toggles = document.querySelectorAll('.nav-link[data-toggle="nav-collapse"]');
 
     toggles.forEach(function(toggle) {

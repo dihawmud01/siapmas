@@ -8,21 +8,30 @@ use Illuminate\View\Component;
 
 class InputCheckbox extends Component
 {
-    public string $id, $name, $label, $xModel;
+    public string $id;
+    public string $name;
+    public string $label;
+    public ?string $xModel;
     public ?string $value;
     public bool $checked;
 
     /**
      * Create a new component instance.
      */
-    public function __construct(string $id, $name, $label, $xModel = '', ?string $value = null, bool $checked = false)
-    {
+    public function __construct(
+        string $id,
+        string $name,
+        string $label,
+        ?string $xModel = '',
+        ?string $value = null,
+        bool $checked = false,
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->label = $label;
         $this->xModel = $xModel;
-        $this->value = $value ?? old($name);
-        $this->checked = $checked;
+        $this->value = $value ?? old($name); // Ambil old value jika ada
+        $this->checked = boolval($checked); // Pastikan selalu boolean
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\SP;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -24,6 +25,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        parent::boot();
+
+        Route::bind('letter', function ($value) {
+            return SP::where('id', $value)->firstOrFail();
+        });
+
         $this->configureRateLimiting();
 
         $this->routes(function () {
@@ -31,11 +38,9 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
 
-            Route::middleware('web')
-                ->group(base_path('routes/web.php'));
+            Route::middleware('web')->group(base_path('routes/web.php'));
 
-            Route::middleware('web')
-                ->group(base_path('routes/mobile.php'));
+            Route::middleware('web')->group(base_path('routes/mobile.php'));
         });
     }
 

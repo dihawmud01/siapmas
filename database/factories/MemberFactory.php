@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\Gender;
+use App\Enums\MembershipStatus;
 use App\Models\Member;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -33,11 +34,11 @@ class MemberFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'address' => $this->faker->address(),
-            'gender' => $this->faker->randomElement(Gender::getAll()),
+            'gender' => $this->faker->randomElement([Gender::MALE, Gender::FEMALE]),
             'place_of_birth' => $this->faker->city(),
             'date_of_birth' => $this->faker->date(),
             'is_makesta' => $isMakesta,
-            'is_lakmud' => $isDiklatnas,
+            'is_lakmud' => $isLakmud,
             'is_lakut' => $isLakut,
             'makesta_year' => $isMakesta ? $this->faker->numberBetween(2016, 2025) : null,
             'lakmud_year' => $isLakmud ? $this->faker->numberBetween(2016, 2025) : null,
@@ -48,6 +49,10 @@ class MemberFactory extends Factory
             'is_latinpel' => $isLatinpel,
             'phone' => $this->faker->numerify('08###########'),
             'photo' => 'default.png',
+            'membership_status' => $this->faker->randomElement([
+                MembershipStatus::PAC_MEMBER,
+                MembershipStatus::PC_MEMBER,
+            ]),
             'pac_id' => $this->faker->numberBetween(1, 29),
         ];
     }

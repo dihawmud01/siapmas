@@ -31,6 +31,8 @@ class SP extends Model
 
     protected $fillable = [
         'user_id',
+        'start_period',
+        'end_period',
         'letter_number',
         'event_date',
         'event_location',

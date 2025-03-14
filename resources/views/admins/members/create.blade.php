@@ -14,6 +14,11 @@
     <div class="card">
         <div class="card-header bg-transparent text-center">
             <div class="d-flex align-items-center p-4">
+                <div class="text-start">
+                    <a href="{{ route('dashboard.members.index') }}" class="btn fs-4">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
+                </div>
                 <div class="d-flex flex-column w-100">
                     <h3 class="fw-bold">{{ __('Tambah Anggota') }}</h3>
                 </div>
@@ -30,6 +35,7 @@
                         label="{{ __('Foto Profil') }}"
                         type="file"
                         accept="image/jpeg,image/png"
+                        required="0"
                     />
 
                     <x-input-select name="gender" label="{{ __('Jenis Kelamin') }}" :options="$genders" />
@@ -41,7 +47,9 @@
                     <x-input-textarea name="address" label="{{ __('Alamat Lengkap') }}" />
 
                     <div
-                        x-data="{ formalCadreLevels: @json(old('formal_cadre_levels', [])) }"
+                        x-data="{
+                            formalCadreLevels: {{ json_encode(old('formal_cadre_levels', []) ?: []) }},
+                        }"
                         x-init="
                             $watch('formalCadreLevels', (value) => {
                                 if (value.includes('lakmud') && ! value.includes('makesta')) {
@@ -81,19 +89,39 @@
                         </div>
 
                         <div x-show="formalCadreLevels.includes('makesta')">
-                            <x-input-select name="makesta_year" label="{{ __('Tahun Makesta') }}" :options="$years" />
+                            <x-input-select
+                                name="makesta_year"
+                                label="{{ __('Tahun Makesta') }}"
+                                :options="$years"
+                                required="0"
+                            />
                         </div>
 
                         <div x-show="formalCadreLevels.includes('lakmud')">
-                            <x-input-select name="lakmud_year" label="{{ __('Tahun Lakmud') }}" :options="$years" />
+                            <x-input-select
+                                name="lakmud_year"
+                                label="{{ __('Tahun Lakmud') }}"
+                                :options="$years"
+                                required="0"
+                            />
                         </div>
 
                         <div x-show="formalCadreLevels.includes('lakut')">
-                            <x-input-select name="lakut_year" label="{{ __('Tahun Lakut') }}" :options="$years" />
+                            <x-input-select
+                                name="lakut_year"
+                                label="{{ __('Tahun Lakut') }}"
+                                :options="$years"
+                                required="0"
+                            />
                         </div>
                     </div>
 
-                    <div x-data="{ nonFormalCadreLevels: [] }">
+                    <div
+                        x-data="{
+                            nonFormalCadreLevels:
+                                {{ json_encode(old('non_formal_cadre_levels', []) ?: []) }},
+                        }"
+                    >
                         <div class="d-flex align-items-start mb-4">
                             <label class="form-label label me-3 text-start">
                                 {{ __('Jenjang Kaderisasi Non-Formal') }}
@@ -119,17 +147,10 @@
                         </div>
                     </div>
 
-                    <script>
-                        document.querySelectorAll('input[name="non_formal_cadre_levels[]"]').forEach((input) => {
-                            input.addEventListener('change', () => {
-                                console.log(input.value, input.checked);
-                            });
-                        });
-                    </script>
-
                     <x-input-form name="phone" label="{{ __('No. HP') }}" />
 
                     @if (auth()->user()->role_id == 2)
+                        <x-input-select name="pac_id" label="{{ __('PAC') }}" :options="$pacList" />
                         <x-input-select
                             name="membership_status"
                             label="{{ __('Status Keanggotaan') }}"

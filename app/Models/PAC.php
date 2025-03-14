@@ -32,7 +32,7 @@ class PAC extends Model
 
     public function members(): HasMany
     {
-        return $this->hasMany(Member::class);
+        return $this->hasMany(Member::class, 'pac_id');
     }
 
     public function sluggable(): array

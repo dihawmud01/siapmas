@@ -68,25 +68,118 @@
                                 {{ __('Review') }}
                             </a>
                         @else
-                            <form
-                                method="POST"
-                                action="{{ route('dashboard.letters.validation-submission.update', $letter) }}"
-                                id="approvalForm"
-                            >
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="letter_number" id="letterNumber" />
-
-                                <button
-                                    class="btn btn-success btn-lg"
-                                    type="button"
-                                    id="approveBtn"
-                                    {{ $letter->status->value == 'approved' ? 'disabled' : '' }}
+                            <div class="d-flex">
+                                <form
+                                    method="POST"
+                                    action="{{ route('dashboard.letters.validation-submission.approve', $letter) }}"
+                                    id="approvalForm"
+                                    class="me-2"
                                 >
-                                    <i class="bi bi-check"></i>
-                                    {{ __('Setujui') }}
-                                </button>
-                            </form>
+                                    @csrf
+                                    @method('PATCH')
+                                    <input type="hidden" name="letter_number" id="letterNumber" />
+
+                                    <button
+                                        class="btn btn-success btn-lg"
+                                        type="button"
+                                        id="approveBtn"
+                                        {{ $letter->status->value == 'approved' ? 'disabled' : '' }}
+                                    >
+                                        {{ __('Setujui') }}
+                                    </button>
+                                </form>
+                                <form
+                                    method="POST"
+                                    action="{{ route('dashboard.letters.validation-submission.reject', $letter) }}"
+                                    id="rejectionForm"
+                                >
+                                    @csrf
+                                    @method('DELETE')
+                                    <button
+                                        class="btn btn-danger btn-lg"
+                                        type="button"
+                                        id="rejectBtn"
+                                        {{ $letter->status->value == 'rejected' ? 'disabled' : '' }}
+                                    >
+                                        {{ __('Tolak') }}
+                                    </button>
+                                </form>
+                            </div>
+
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    document.getElementById('approveBtn').addEventListener('click', function (event) {
+                                        Swal.fire({
+                                            title: 'Apakah Anda yakin ingin menyetujui pengajuan ini?',
+                                            text: 'Pastikan semua data sudah sesuai sebelum disetujui.',
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            cancelButtonText: 'Cek lagi',
+                                            confirmButtonText: 'Ya',
+                                            reverseButtons: true,
+                                            customClass: {
+                                                cancelButton: 'btn btn-secondary btn-lg',
+                                                confirmButton: 'btn btn-success btn-lg',
+                                                actions: 'swal-custom-actions',
+                                            },
+                                            buttonsStyling: false,
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                Swal.fire({
+                                                    title: 'Masukkan Nomor Surat',
+                                                    input: 'text',
+                                                    inputPlaceholder: 'Masukkan nomor surat...',
+                                                    inputAttributes: {
+                                                        required: true,
+                                                    },
+                                                    showCancelButton: true,
+                                                    confirmButtonText: 'Setujui',
+                                                    cancelButtonText: 'Batal',
+                                                    reverseButtons: true,
+                                                    customClass: {
+                                                        cancelButton: 'btn btn-secondary btn-lg',
+                                                        confirmButton: 'btn btn-success btn-lg',
+                                                        actions: 'swal-custom-actions',
+                                                    },
+                                                    buttonsStyling: false,
+                                                    preConfirm: (letterNumber) => {
+                                                        if (!letterNumber) {
+                                                            Swal.showValidationMessage('Nomor surat harus diisi!');
+                                                        }
+                                                        return letterNumber;
+                                                    },
+                                                }).then((inputResult) => {
+                                                    if (inputResult.isConfirmed) {
+                                                        document.getElementById('letterNumber').value =
+                                                            inputResult.value;
+                                                        document.getElementById('approvalForm').submit();
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    });
+                                    document.getElementById('rejectBtn').addEventListener('click', function (event) {
+                                        Swal.fire({
+                                            title: 'Apakah Anda yakin ingin menolak pengajuan ini?',
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            cancelButtonText: 'Cek lagi',
+                                            confirmButtonText: 'Ya',
+                                            reverseButtons: true,
+                                            customClass: {
+                                                cancelButton: 'btn btn-secondary btn-lg',
+                                                confirmButton: 'btn btn-success btn-lg',
+                                                actions: 'swal-custom-actions',
+                                            },
+                                            buttonsStyling: false,
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                document.getElementById('rejectionForm').submit();
+                                            }
+                                        });
+                                    });
+                                });
+                            </script>
                         @endif
                     @endif
                 </div>
@@ -138,57 +231,3 @@
         {{ $slot }}
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById('approveBtn').addEventListener('click', function (event) {
-            Swal.fire({
-                title: 'Apakah Anda yakin ingin menyetujui pengajuan ini?',
-                text: 'Pastikan semua data sudah sesuai sebelum disetujui.',
-                icon: 'warning',
-                showCancelButton: true,
-                cancelButtonText: 'Cek lagi',
-                confirmButtonText: 'Ya',
-                reverseButtons: true,
-                customClass: {
-                    cancelButton: 'btn btn-secondary btn-lg',
-                    confirmButton: 'btn btn-success btn-lg',
-                    actions: 'swal-custom-actions',
-                },
-                buttonsStyling: false,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: 'Masukkan Nomor Surat',
-                        input: 'text',
-                        inputPlaceholder: 'Masukkan nomor surat...',
-                        inputAttributes: {
-                            required: true,
-                        },
-                        showCancelButton: true,
-                        confirmButtonText: 'Setujui',
-                        cancelButtonText: 'Batal',
-                        reverseButtons: true,
-                        customClass: {
-                            cancelButton: 'btn btn-secondary btn-lg',
-                            confirmButton: 'btn btn-success btn-lg',
-                            actions: 'swal-custom-actions',
-                        },
-                        buttonsStyling: false,
-                        preConfirm: (letterNumber) => {
-                            if (!letterNumber) {
-                                Swal.showValidationMessage('Nomor surat harus diisi!');
-                            }
-                            return letterNumber;
-                        },
-                    }).then((inputResult) => {
-                        if (inputResult.isConfirmed) {
-                            document.getElementById('letterNumber').value = inputResult.value;
-                            document.getElementById('approvalForm').submit();
-                        }
-                    });
-                }
-            });
-        });
-    });
-</script>

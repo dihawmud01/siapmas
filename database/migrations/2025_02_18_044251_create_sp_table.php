@@ -12,6 +12,8 @@ return new class extends Migration {
     {
         Schema::create('sp', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->year('start_period');
+            $table->year('end_period');
             $table->string('letter_number', 100)->nullable();
             $table->date('event_date');
             $table->string('event_location', 255);
@@ -28,7 +30,7 @@ return new class extends Migration {
             $table->json('organization_department_members');
             $table->string('cadre_department_coordinator', 100);
             $table->json('cadre_department_members');
-            $table->string(self::DAKWAH_DEPARTMENT_COORDINATOR, 100);
+            $table->string('dakwah_department_coordinator', 100);
             $table->json('dakwah_department_members');
             $table->string('culture_department_coordinator', 100);
             $table->json('culture_department_members');
@@ -38,7 +40,7 @@ return new class extends Migration {
             $table->json('press_institution_members');
             $table->string('brigade_institution_director', 100);
             $table->json('brigade_institution_members');
-            $table->enum('status', SubmissionStatus::getAll())->default('pending');
+            $table->enum('status', SubmissionStatus::getAll())->default(SubmissionStatus::PENDING);
 
             $table
                 ->foreignId('user_id')

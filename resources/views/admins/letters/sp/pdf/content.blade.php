@@ -206,7 +206,7 @@
             <br />
             IKATAN PELAJAR NAHDLATUL ULAMA {{ $pac }} KABUPATEN BANYUMAS
             <br />
-            MASA KHIDMAT 2023-2025
+            MASA KHIDMAT {{ $letter->start_period . '-' . $letter->end_period }}
         </div>
         <div class="secondary-title" style="margin: 5px auto"></div>
 
@@ -296,7 +296,8 @@
                                 <li>
                                     Mengesahkan susunan Pimpinan Anak Cabang Ikatan Pelajar Nahdlatul Ulama
                                     {{ str_replace(['Uin', 'Unu'], ['UIN', 'UNU'], ucwords(strtolower($pac))) }}, Masa
-                                    Khidmat 2023-2025 sebagaimana terlampir;
+                                    Khidmat {{ $letter->start_period . '-' . $letter->end_period }} sebagaimana
+                                    terlampir;
                                 </li>
                                 <li>
                                     Menugaskan kepada semua pengurus Pimpinan Anak Cabang Ikatan Pelajar Nahdlatul Ulama
@@ -413,7 +414,7 @@
                 <br />
                 IKATAN PELAJAR NAHDLATUL ULAMA {{ $pac }} KABUPATEN BANYUMAS
                 <br />
-                MASA KHIDMAT 2023-2025
+                MASA KHIDMAT {{ $letter->start_period . '-' . $letter->end_period }}
             </div>
             <div class="secondary-title" style="margin-top: 5px; margin-bottom: 10px"></div>
             <div class="attachment-content">

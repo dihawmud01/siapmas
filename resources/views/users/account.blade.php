@@ -498,23 +498,11 @@
     </div>
 
     <script>
-        {{-- $('textarea#summernote').summernote({ --}}
-        {{-- placeholder: '{{ __('Sahabat bisa membuat tulisan disini') }}', --}}
-        {{-- tabsize: 2, --}}
-        {{-- height: 100, --}}
-        {{-- toolbar: [ --}}
-        {{-- ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']], --}}
-        {{-- ['color', ['color']], --}}
-        {{-- ['para', ['ul', 'ol', 'paragraph']], --}}
-        {{-- ['insert', ['link', 'picture', 'hr']], --}}
-        {{-- ['view', ['fullscreen', 'codeview']], --}}
-        {{-- ], --}}
-        {{-- }); --}}
         const cancelImg = () => {
             const preview = document.getElementById('previewImg');
             const fileInput = document.getElementById('formFileSm');
             preview.src = '{{ asset('storage/images/' . $user->img) }}';
             fileInput.value = '';
-        }
+        };
     </script>
 @endsection

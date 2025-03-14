@@ -67,6 +67,8 @@
                         this.errors = {}
 
                         let fields = [
+                            'start_period',
+                            'end_period',
                             'protectors',
                             'advisors',
                             'chairman',
@@ -275,6 +277,35 @@
                 <div class="row" x-show="step === 2">
                     <h3 class="fw-semibold my-5 px-5">{{ __('Susunan Pengurus') }}</h3>
                     <div class="col-md-6 mt-3 px-5">
+                        <div class="mb-5 mt-3">
+                            <p
+                                x-show="errors.start_period"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.start_period"
+                            ></p>
+
+                            <x-input-form
+                                name="start_period"
+                                label="{{ __('Tahun Mulai Masa Khidmat') }}"
+                                type="number"
+                                min="1900"
+                                max="2100"
+                            />
+
+                            <p
+                                x-show="errors.end_period"
+                                class="text-danger mb-1 text-end"
+                                x-text="errors.end_period"
+                            ></p>
+                            <x-input-form
+                                name="end_period"
+                                label="{{ __('Tahun Berakhir Masa Khidmat') }}"
+                                type="number"
+                                min="1900"
+                                max="2100"
+                            />
+                        </div>
+
                         <div class="mb-5 mt-3">
                             <p
                                 x-show="errors.protectors"

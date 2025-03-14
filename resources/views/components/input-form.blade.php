@@ -10,12 +10,15 @@
             class="form-control sp-input @error($name) is-invalid @enderror"
             name="{{ $name }}"
             placeholder="{{ $placeholder }}"
-            @if ($type != "file")
-                value="{{ old($name, $value) }}"
-            @else
+            value="{{ $type != "file" ? old($name, $value) : "" }}"
+            @if ($type == "file")
                 accept="{{ $accept }}"
             @endif
-            required
+            @if ($type == "number")
+                min="{{ $min }}"
+                max="{{ $max }}"
+            @endif
+            {{ $required ? "required" : "" }}
         />
 
         @if ($type == "file")

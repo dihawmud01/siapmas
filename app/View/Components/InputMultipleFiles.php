@@ -8,15 +8,18 @@ use Illuminate\View\Component;
 
 class InputMultipleFiles extends Component
 {
-    public string $label, $name, $accept;
+    public string $label;
+    public string $name;
+    public ?string $accept;
+
     /**
      * Create a new component instance.
      */
-    public function __construct(string $label, $name, $accept)
+    public function __construct(string $label, string $name, ?string $accept = null)
     {
         $this->label = $label;
         $this->name = $name;
-        $this->accept = $accept;
+        $this->accept = $accept ?? '*/*';
     }
 
     /**

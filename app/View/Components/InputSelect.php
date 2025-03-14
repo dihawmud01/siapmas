@@ -8,18 +8,27 @@ use Illuminate\View\Component;
 
 class InputSelect extends Component
 {
-    public string $name, $label;
+    public string $name;
+    public string $label;
     public array $options;
     public ?string $selected;
+    public bool $required;
+
     /**
      * Create a new component instance.
      */
-    public function __construct(string $name, $label, array $options = [], ?string $selected = '')
-    {
+    public function __construct(
+        string $name,
+        string $label,
+        array $options = [],
+        ?string $selected = null,
+        bool $required = true,
+    ) {
         $this->name = $name;
         $this->label = $label;
-        $this->options = $options;
+        $this->options = is_array($options) ? $options : [];
         $this->selected = $selected ?? old($name);
+        $this->required = $required;
     }
 
     /**

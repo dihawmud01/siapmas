@@ -5,10 +5,11 @@
             name="{{ $name }}"
             id="{{ $name }}"
             class="@error($name) is-invalid @enderror form-select"
+            {{ $required ? 'required' : '' }}
         >
             <option value="" disabled selected>{{ __('-- Pilih --') }}</option>
             @foreach ($options as $value => $text)
-                <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }}>
+                <option value="{{ $value }}" {{ old($name, $selected) == $value ? 'selected' : '' }}>
                     {{ $text }}
                 </option>
             @endforeach

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\Gender;
+use App\Enums\MembershipStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,9 +35,11 @@ class Member extends Model
         'phone',
         'photo',
         'pac_id',
+        'membership_status',
     ];
 
     protected $casts = [
+        'gender' => Gender::class,
         'non_formal_cadre_levels' => 'array',
         'is_makesta' => 'boolean',
         'is_lakmud' => 'boolean',
@@ -44,6 +48,7 @@ class Member extends Model
         'is_diklatnas' => 'boolean',
         'is_diklatmad' => 'boolean',
         'is_latinpel' => 'boolean',
+        'membership_status' => MembershipStatus::class,
     ];
 
     public function getFormattedDateOfBirthAttribute(): string
@@ -56,7 +61,12 @@ class Member extends Model
     public function scopeSearch($query, $search)
     {
         return $query->when($search, function ($q) use ($search) {
-            $q->where('name', 'like', '%' . $search . '%');
+            $q->where('name', 'like', '%' . $search . '%')->orWhereIn('pac_id', function ($subQuery) use ($search) {
+                $subQuery
+                    ->select('id')
+                    ->from('pac')
+                    ->where('pac', 'like', '%' . $search . '%');
+            });
         });
     }
 
