@@ -13,8 +13,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        Alert::error('Maaf Sahabat....', 'Anda Belum Login');
-        return
-        $request->expectsJson() ? null : route('login');
+        Alert::error('Maaf Rekan/Rekanita....', 'Anda Belum Login');
+        return $request->expectsJson() ? null : route('login');
     }
 }

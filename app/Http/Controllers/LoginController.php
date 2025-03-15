@@ -29,7 +29,7 @@ class LoginController extends Controller
         $user = User::where('email', $credentials['email'])->first();
 
         if (Auth::attempt($credentials) && $user) {
-            Alert::success('Mantap Rekan', 'Anda Berhasil Masuk');
+            Alert::success('Mantap Rekan/Rekanita', 'Anda Berhasil Masuk');
 
             return redirect()->intended(route('index'));
         } else {
