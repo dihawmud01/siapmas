@@ -31,18 +31,18 @@ class AdministratorController extends Controller
     public function store(Request $request)
     {
         $administrators = $request->all();
-        $request->file('images')->getClientOriginalExtension();
-        if ($request->img) {
-            $extension = $request->img->getClientOriginalExtension();
+
+        if ($request->hasFile('images')) {
+            // Pastikan file ada
+            $extension = $request->file('images')->getClientOriginalExtension();
             $newFileName = 'administrators' . '_' . $request->name . '-' . now()->timestamp . '.' . $extension;
             $request->file('images')->move(public_path('/storage/images'), $newFileName);
             $administrators['images'] = $newFileName;
         }
 
-        $administrators = Administrator::create($administrators);
+        Administrator::create($administrators);
 
         Alert::success('Mantap Sahabat', 'Administrator Berhasil Ditambahkan');
-
         return redirect()->route('administrators.index');
     }
 
@@ -67,7 +67,7 @@ class AdministratorController extends Controller
 
         $administratorToUpdate->update($administratorData);
 
-        Alert::success('Mantap Sahabat', 'administrators Berhasil Di Ubah');
+        Alert::success('Mantap Rekan/Rekanita', 'Data Pengurus Berhasil Di Ubah');
 
         return redirect()->route('administrators.index');
     }

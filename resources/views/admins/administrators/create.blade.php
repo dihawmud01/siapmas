@@ -8,7 +8,7 @@
     <div class="card info-card sales-card">
         <div class="container">
             <h4 class="mb-2 mt-5 text-center">{{ __('Tambah Pengurus') }}</h4>
-            <form action="{{ route('administrator.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('administrators.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="my-3">
