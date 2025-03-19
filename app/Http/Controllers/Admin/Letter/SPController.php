@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Letter;
 
 use App\Enums\FileCategory;
 use App\Enums\SubmissionStatus;
-use App\Models\SPSubmissionFile;
+use App\Http\Controllers\Controller;
 use App\Models\SP;
+use App\Models\SPSubmissionFile;
 use Barryvdh\DomPDF\Facade\Pdf;
 use iio\libmergepdf\Merger;
 use Illuminate\Contracts\View\View;

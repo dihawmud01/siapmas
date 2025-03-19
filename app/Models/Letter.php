@@ -108,7 +108,7 @@ class Letter extends Model
             ->with(['attachments', 'classification'])
             ->search($search)
             ->latest('letter_date')
-            ->paginate(25)
+            ->paginate(10)
             ->appends([
                 'search' => $search,
             ]);
