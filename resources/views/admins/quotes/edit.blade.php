@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <form
-                        action="{{ route('quote.update', ['id' => $quote->id]) }}"
+                        action="{{ route('quotes.update', ['id' => $quote->id]) }}"
                         method="POST"
                         enctype="multipart/form-data"
                     >
@@ -24,13 +24,7 @@
 
                         <div class="my-3">
                             <label for="name">{{ __('Nama Tokoh') }}</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                name="name"
-                                id="name"
-                                value="{{ $quotes->name }}"
-                            />
+                            <input type="text" class="form-control" name="name" id="name" value="{{ $quote->name }}" />
                         </div>
 
                         <div class="my-3">
@@ -41,14 +35,15 @@
                                 name="who"
                                 id="who"
                                 placeholder="{{ __('ex:Pahlawan Nasional / Ketua PC IPNU IPPNU Banyumas 2025') }}"
-                                value="{{ $quotes->who }}"
+                                value="{{ $quote->who }}"
                             />
                         </div>
 
                         <div class="my-3">
                             <label for="quote">{{ __('Quote/Kata-kata') }}</label>
                             <textarea class="form-control" id="floatingTextarea2" name="quote" style="height: 100px">
-{{ $quotes->quote }}</textarea
+
+                                {{ $quote->quote }}</textarea
                             >
                         </div>
 
@@ -64,7 +59,7 @@
                     <div class="text-center">
                         <img
                             class="pt-4"
-                            src="{{ asset('storage/images/' . $quotes->img) }}"
+                            src="{{ asset('storage/images/' . $quote->img) }}"
                             alt="{{ __('Tokoh') }}"
                             style="width: 300px; height: 300px; object-fit: contain"
                         />
