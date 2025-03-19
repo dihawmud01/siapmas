@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\Letter\IncomingLetterController;
+use App\Http\Controllers\Admin\Letter\SPController;
 use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Admin\News\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\News\NewsController as AdminPostController;
@@ -11,7 +13,6 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ForgetPasswordControler;
 use App\Http\Controllers\HBNController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\IncomingLetterController;
 use App\Http\Controllers\LaravoltController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\LoginController;
@@ -23,7 +24,6 @@ use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\QuoteController;
-use App\Http\Controllers\SPController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -268,7 +268,9 @@ Route::middleware(['auth', 'role:2,3'])->group(function () {
             Route::prefix('letters')
                 ->as('letters.')
                 ->group(function () {
-                    Route::get('incoming', [IncomingLetterController::class, 'index'])->name('incoming');
+                    Route::resource('incoming', IncomingLetterController::class);
+
+                    // SP
                     Route::get('validation-submission/generate/{letter}', [
                         SPController::class,
                         'generateIPPNUSP',

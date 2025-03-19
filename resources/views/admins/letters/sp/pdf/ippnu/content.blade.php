@@ -172,6 +172,7 @@
                 list-style: none;
             }
         </style>
+        <title></title>
     </head>
 
     <body>
@@ -185,8 +186,6 @@
                 <br />
                 PIMPINAN CABANG IKATAN PELAJAR PUTRI NAHDLATUL ULAMA
                 <br />
-                {{ $pac }}
-                <br />
                 KABUPATEN BANYUMAS
                 <br />
                 <span class="letter-number">Nomor: {{ $letter->letter_number }}</span>
@@ -198,6 +197,8 @@
             PIMPINAN ANAK CABANG
             <br />
             IKATAN PELAJAR PUTRI NAHDLATUL ULAMA
+            <br />
+            {{ $pac }}
             <br />
             KABUPATEN BANYUMAS
             <br />
@@ -574,7 +575,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <p class="position"><strong>D. Departemen Olahraga, Seni dan Budaya</strong></p>
+                            <p class="position"><strong>D. Departemen Olahraga, Seni, dan Budaya</strong></p>
                         </td>
                     </tr>
                     <tr>

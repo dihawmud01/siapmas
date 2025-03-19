@@ -27,47 +27,42 @@
 
             <div class="container-fluid p-5">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-                    <!-- Bagian Kiri: Total Surat Masuk -->
-                    <h5 class="fw-semibold mb-0">{{ __('Total Surat Masuk: ') }} {{ count($incomings) }}</h5>
-
-                    <!-- Bagian Kanan: Form Filter -->
+                    <h5 class="fw-semibold mb-0">{{ __('Total Surat Masuk: ') }} {{ $totalIncomings }}</h5>
                     <form action="{{ url()->current() }}" method="GET" class="d-flex align-items-end flex-wrap gap-2">
-                        <div class="col-auto">
-                            <x-input-filter
-                                name="since"
-                                label="{{__('Dari Tanggal')}}"
-                                type="date"
-                                :value="$since ? date('Y-m-d', strtotime($since)) : ''"
-                            />
+                        <x-input-filter
+                            name="since"
+                            label="{{__('Dari Tanggal')}}"
+                            type="date"
+                            :value="$since ? date('Y-m-d', strtotime($since)) : ''"
+                        />
+                        <x-input-filter
+                            name="until"
+                            label="{{__('Sampai Tanggal')}}"
+                            type="date"
+                            :value="$until ? date('Y-m-d', strtotime($until)) : ''"
+                        />
+                        <div class="mb-3">
+                            <label for="filter" class="form-label">{{ __('Filter Berdasarkan') }}</label>
+                            <select class="form-select" id="filter" name="filter">
+                                <option value="letter_date" @selected(old('filter', $filter) == 'letter_date')>
+                                    {{ __('Tanggal Surat') }}
+                                </option>
+                                <option value="received_date" @selected(old('filter', $filter) == 'received_date')>
+                                    {{ __('Tanggal Diterima') }}
+                                </option>
+                                <option value="created_at" @selected(old('filter', $filter) == 'created_at')>
+                                    {{ __('Tanggal Dibuat') }}
+                                </option>
+                            </select>
                         </div>
-                        <div class="col-auto">
-                            <x-input-filter
-                                name="until"
-                                label="{{__('Sampai Tanggal')}}"
-                                type="date"
-                                :value="$until ? date('Y-m-d', strtotime($until)) : ''"
-                            />
-                        </div>
-                        <div class="col-auto">
-                            <div class="mb-3">
-                                <label for="filter" class="form-label mb-0">{{ __('Filter Berdasarkan') }}</label>
-                                <select class="form-select" id="filter" name="filter">
-                                    <option value="letter_date" @selected(old('filter', $filter) == 'letter_date')>
-                                        {{ __('Tanggal Surat') }}
-                                    </option>
-                                    <option value="received_date" @selected(old('filter', $filter) == 'received_date')>
-                                        {{ __('Tanggal Diterima') }}
-                                    </option>
-                                    <option value="created_at" @selected(old('filter', $filter) == 'created_at')>
-                                        {{ __('Tanggal Dibuat') }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-auto">
+                        <div class="mb-3">
                             <button class="btn btn-success" type="submit">
                                 <i class="bi bi-filter"></i>
-                                Filter
+                                {{ __('Saring') }}
+                            </button>
+                            <button class="btn btn-success" type="submit">
+                                <i class="bi bi-printer-fill"></i>
+                                {{ __('Cetak') }}
                             </button>
                         </div>
                     </form>
@@ -79,9 +74,9 @@
                             <tr class="fw-bold text-center">
                                 <td>{{ __('No.') }}</td>
                                 <td>{{ __('No. Agenda') }}</td>
-                                <td>{{ __('No. Surat') }}</td>
-                                <td>{{ __('Pengirim') }}</td>
-                                <td>{{ __('Tanggal') }}</td>
+                                <td class="text-center">{{ __('No. Surat') }}</td>
+                                <td class="text-start">{{ __('Pengirim') }}</td>
+                                <td class="text-start">{{ __('Tanggal') }}</td>
                                 <td>{{ __('Aksi') }}</td>
                             </tr>
                         </thead>
@@ -91,8 +86,8 @@
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">{{ $incoming->agenda_number }}</td>
-                                    <td>
-                                        <a href="#" class="text-decoration-none text-success fw-semibold">
+                                    <td class="text-center">
+                                        <a href="" class="text-decoration-none text-success fw-semibold">
                                             {{ $incoming->reference_number }}
                                         </a>
                                     </td>

@@ -606,7 +606,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <p class="position"><strong>D. Departemen Olahraga, Seni dan Budaya</strong></p>
+                            <p class="position"><strong>D. Departemen Olahraga, Seni, dan Budaya</strong></p>
                         </td>
                     </tr>
                     <tr>
