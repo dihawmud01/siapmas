@@ -41,6 +41,8 @@ return new class extends Migration {
             $table->string('brigade_institution_director', 100);
             $table->json('brigade_institution_members');
             $table->enum('status', SubmissionStatus::getAll())->default(SubmissionStatus::PENDING);
+            $table->dateTime('generated_at')->nullable();
+            $table->dateTime('expired_at')->nullable();
 
             $table
                 ->foreignId('user_id')

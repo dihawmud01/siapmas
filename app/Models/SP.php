@@ -60,6 +60,8 @@ class SP extends Model
         'brigade_institution_director',
         'brigade_institution_members',
         'status',
+        'generated_at',
+        'expired_at',
     ];
 
     protected $casts = [
@@ -112,17 +114,32 @@ class SP extends Model
             ' WIB';
     }
 
-    public function getFormattedNowGeorgiaDateAttribute(): string
+    public function getFormattedExpiredDateAttribute(): string
     {
         Carbon::setLocale('id');
 
-        return Carbon::parse(now())->isoFormat('D MMMM YYYY') . ' M';
+        return Carbon::parse($this->expired_at)->isoFormat('D MMMM YYYY');
     }
 
-    public function getFormattedNowHijriDateAttribute(): string
+    public function getFormattedGeneratedGeorgiaDateAttribute(): string
     {
-        $hijri = new HijriDateTime();
-        return $hijri->date('d F Y', time(), 'id') . ' H';
+        Carbon::setLocale('id');
+
+        return Carbon::parse($this->generated_at)->isoFormat('D MMMM YYYY') . ' M';
+    }
+
+    public function getFormattedGeneratedHijriDateAttribute(): string
+    {
+        $hijri = \IntlDateFormatter::create(
+            'id_SA@calendar=islamic',
+            \IntlDateFormatter::FULL,
+            \IntlDateFormatter::NONE,
+            'Asia/Riyadh',
+            \IntlDateFormatter::TRADITIONAL,
+            'd MMMM yyyy',
+        );
+
+        return $hijri->format(Carbon::parse($this->generated_at)->timestamp) . ' H';
     }
 
     public function files(): HasMany

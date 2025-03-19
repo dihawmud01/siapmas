@@ -3,7 +3,6 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Surat Pengesahan PC IPNU</title>
         <style>
             @page {
                 size: 215.91mm 330.22mm;
@@ -60,7 +59,7 @@
                 content: '';
             }
 
-            .nomor-surat {
+            .letter-number {
                 margin-bottom: 15px;
                 font-size: 9pt;
                 text-align: center;
@@ -192,12 +191,12 @@
 
     <body>
         <div class="header">
-            <img src="{{ public_path('assets/images/sp/header-logo.png') }}" alt="Header" />
+            <img src="{{ public_path('assets/images/sp/ipnu/header.png') }}" alt="Header" />
         </div>
 
         <div style="text-align: center">
             <div class="main-title">SURAT PENGESAHAN PC IPNU</div>
-            <div class="nomor-surat">Nomor: {{ $letter->letter_number }}</div>
+            <div class="letter-number">Nomor: {{ $letter->letter_number }}</div>
         </div>
 
         <div class="about">Tentang</div>
@@ -217,7 +216,7 @@
             <table class="content-table">
                 <tr>
                     <td><p class="section-title">Menimbang</p></td>
-                    <td><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</p></td>
+                    <td><p>:</p></td>
                     <td class="section-content">
                         <div>
                             <ol>
@@ -241,12 +240,9 @@
                         </div>
                     </td>
                 </tr>
-            </table>
-
-            <table class="content-table">
                 <tr>
                     <td><p class="section-title">Mengingat</p></td>
-                    <td><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</p></td>
+                    <td><p>:</p></td>
                     <td class="section-content">
                         <div>
                             <ol>
@@ -257,9 +253,7 @@
                         </div>
                     </td>
                 </tr>
-            </table>
 
-            <table class="content-table">
                 <tr>
                     <td><p class="section-title">Memperhatikan</p></td>
                     <td><p>:</p></td>
@@ -306,8 +300,9 @@
                                     ada;
                                 </li>
                                 <li>
-                                    Surat Pengesahan ini berlaku mulai tanggal ditetapkan sampai dengan tanggal 30 Juli
-                                    2025 dan apabila terdapat kekeliruan di kemudian hari akan ditinjau kembali.
+                                    Surat Pengesahan ini berlaku mulai tanggal ditetapkan sampai dengan tanggal
+                                    {{ $letter->formatted_expired_date }} dan apabila terdapat kekeliruan di kemudian
+                                    hari akan ditinjau kembali.
                                 </li>
                             </ol>
                         </div>
@@ -330,7 +325,7 @@
                         <td><p class="bracket-pair">:</p></td>
                         <td class="bordered-td" style="padding: 0">
                             <p style="width: 100%; font-weight: normal; padding: 0">
-                                {{ $letter->formatted_now_hijri_date }}
+                                {{ $letter->formatted_generated_hijri_date }}
                             </p>
                         </td>
                     </tr>
@@ -339,7 +334,7 @@
                         <td></td>
                         <td></td>
                         <td>
-                            <p style="width: 100%">{{ $letter->formatted_now_georgia_date }}</p>
+                            <p style="width: 100%">{{ $letter->formatted_generated_georgia_date }}</p>
                         </td>
                     </tr>
                 </table>
@@ -398,7 +393,7 @@
         </div>
 
         <div class="footer">
-            <img src="{{ public_path('assets/images/sp/footer.jpeg') }}" alt="Footer" />
+            <img src="{{ public_path('assets/images/sp/ipnu/footer.jpeg') }}" alt="Footer" />
         </div>
 
         <div class="attachment">
@@ -421,58 +416,42 @@
                 <table class="content-table">
                     <tr>
                         <td>
-                            <p><strong>PEMBINA</strong></p>
+                            <p><strong>PELINDUNG</strong></p>
                         </td>
+                        <td><p>:</p></td>
                         <td>
-                            <p>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-                            </p>
-                        </td>
-                        <td class="section-content">
                             @if (count($letter->protectors) <= 1)
                                 @foreach ($letter->protectors as $protector)
                                     <p>{{ $protector }}</p>
                                 @endforeach
                             @else
-                                <div>
-                                    <ol>
-                                        @foreach ($letter->protectors as $protector)
-                                            <li><p>{{ $protector }}</p></li>
-                                        @endforeach
-                                    </ol>
-                                </div>
+                                <ol>
+                                    @foreach ($letter->protectors as $protector)
+                                        <li><p>{{ $protector }}</p></li>
+                                    @endforeach
+                                </ol>
                             @endif
                         </td>
                     </tr>
-                </table>
-                <table class="content-table">
                     <tr>
                         <td>
-                            <p><strong>PELINDUNG</strong></p>
+                            <p><strong>PEMBINA</strong></p>
                         </td>
+                        <td><p>:</p></td>
                         <td>
-                            <p>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-                            </p>
-                        </td>
-                        <td class="section-content">
                             @if (count($letter->advisors) <= 1)
                                 @foreach ($letter->advisors as $advisor)
                                     <p>{{ $advisor }}</p>
                                 @endforeach
                             @else
-                                <div>
-                                    <ol>
-                                        @foreach ($letter->advisors as $advisor)
-                                            <li><p>{{ $advisor }}</p></li>
-                                        @endforeach
-                                    </ol>
-                                </div>
+                                <ol>
+                                    @foreach ($letter->advisors as $advisor)
+                                        <li><p>{{ $advisor }}</p></li>
+                                    @endforeach
+                                </ol>
                             @endif
                         </td>
                     </tr>
-                </table>
-                <table class="content-table">
                     <tr>
                         <td>
                             <p class="attachment-subtitle"><strong>PENGURUS HARIAN</strong></p>
@@ -482,24 +461,18 @@
                         <td>
                             <p class="position"><strong>Ketua</strong></p>
                         </td>
-                        <td>
-                            <p>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-                            </p>
-                        </td>
-                        <td class="section-content"><p>{{ $letter->chairman }}</p></td>
+                        <td><p>:</p></td>
+                        <td><p>{{ $letter->chairman }}</p></td>
                     </tr>
                     @foreach ($letter->vice_chairmen as $vice)
                         <tr>
                             <td>
-                                <p>Wakil Ketua</p>
-                            </td>
-                            <td>
                                 <p>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                                    Wakil Ketua{{ count($letter->vice_chairmen) <= 1 ? '' : ' ' . $loop->iteration }}
                                 </p>
                             </td>
-                            <td class="section-content"><p>{{ $vice }}</p></td>
+                            <td><p>:</p></td>
+                            <td><p>{{ $vice }}</p></td>
                         </tr>
                     @endforeach
 
@@ -507,24 +480,19 @@
                         <td>
                             <p class="position"><strong>Sekretaris</strong></p>
                         </td>
-                        <td>
-                            <p>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-                            </p>
-                        </td>
-                        <td class="section-content"><p>{{ $letter->secretary }}</p></td>
+                        <td><p>:</p></td>
+                        <td><p>{{ $letter->secretary }}</p></td>
                     </tr>
                     @foreach ($letter->vice_secretaries as $vice)
                         <tr>
                             <td>
-                                <p>Wakil Sekretaris</p>
-                            </td>
-                            <td>
                                 <p>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                                    Wakil
+                                    Sekretaris{{ count($letter->vice_secretaries) <= 1 ? '' : ' ' . $loop->iteration }}
                                 </p>
                             </td>
-                            <td class="section-content"><p>{{ $vice }}</p></td>
+                            <td><p>:</p></td>
+                            <td><p>{{ $vice }}</p></td>
                         </tr>
                     @endforeach
 
@@ -532,29 +500,22 @@
                         <td>
                             <p class="position"><strong>Bendahara</strong></p>
                         </td>
-                        <td>
-                            <p>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-                            </p>
-                        </td>
-                        <td class="section-content"><p>{{ $letter->treasurer }}</p></td>
+                        <td><p>:</p></td>
+                        <td><p>{{ $letter->treasurer }}</p></td>
                     </tr>
                     @foreach ($letter->vice_treasurers as $vice)
                         <tr>
                             <td>
-                                <p>Wakil Bendahara</p>
-                            </td>
-                            <td>
                                 <p>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                                    Wakil
+                                    Bendahara{{ count($letter->vice_treasurers) <= 1 ? '' : ' ' . $loop->iteration }}
                                 </p>
                             </td>
-                            <td class="section-content"><p>{{ $vice }}</p></td>
+                            <td><p>:</p></td>
+                            <td><p>{{ $vice }}</p></td>
                         </tr>
                     @endforeach
-                </table>
 
-                <table class="content-table">
                     <tr>
                         <td>
                             <p class="attachment-subtitle"><strong>DEPARTEMEN-DEPARTEMEN</strong></p>
@@ -567,27 +528,25 @@
                     </tr>
                     <tr>
                         <td><p>Koordinator</p></td>
-                        <td>
-                            <p>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-                            </p>
-                        </td>
-                        <td class="section-content"><p>{{ $letter->organization_department_coordinator }}</p></td>
+                        <td><p>:</p></td>
+                        <td><p>{{ $letter->organization_department_coordinator }}</p></td>
                     </tr>
 
                     <tr>
                         <td><p>Anggota</p></td>
+                        <td><p>:</p></td>
                         <td>
-                            <p>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-                            </p>
-                        </td>
-                        <td class="section-content">
-                            <ul>
+                            @if (count($letter->organization_department_members) <= 1)
                                 @foreach ($letter->organization_department_members as $member)
-                                    <li><p>{{ $member }}</p></li>
+                                    <p>{{ $member }}</p>
                                 @endforeach
-                            </ul>
+                            @else
+                                <ol>
+                                    @foreach ($letter->organization_department_members as $member)
+                                        <li><p>{{ $member }}</p></li>
+                                    @endforeach
+                                </ol>
+                            @endif
                         </td>
                     </tr>
                     <tr>
@@ -597,26 +556,24 @@
                     </tr>
                     <tr>
                         <td><p>Koordinator</p></td>
-                        <td>
-                            <p>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-                            </p>
-                        </td>
-                        <td class="section-content"><p>{{ $letter->cadre_department_coordinator }}</p></td>
+                        <td><p>:</p></td>
+                        <td><p>{{ $letter->cadre_department_coordinator }}</p></td>
                     </tr>
                     <tr>
                         <td><p>Anggota</p></td>
+                        <td><p>:</p></td>
                         <td>
-                            <p>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-                            </p>
-                        </td>
-                        <td class="section-content">
-                            <ul>
+                            @if (count($letter->cadre_department_members) <= 1)
                                 @foreach ($letter->cadre_department_members as $member)
-                                    <li><p>{{ $member }}</p></li>
+                                    <p>{{ $member }}</p>
                                 @endforeach
-                            </ul>
+                            @else
+                                <ol>
+                                    @foreach ($letter->cadre_department_members as $member)
+                                        <li><p>{{ $member }}</p></li>
+                                    @endforeach
+                                </ol>
+                            @endif
                         </td>
                     </tr>
 
@@ -627,61 +584,54 @@
                     </tr>
                     <tr>
                         <td><p>Koordinator</p></td>
-                        <td>
-                            <p>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-                            </p>
-                        </td>
-                        <td class="section-content"><p>{{ $letter->dakwah_department_coordinator }}</p></td>
+                        <td><p>:</p></td>
+                        <td><p>{{ $letter->dakwah_department_coordinator }}</p></td>
                     </tr>
                     <tr>
                         <td><p>Anggota</p></td>
+                        <td><p>:</p></td>
                         <td>
-                            <p>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-                            </p>
-                        </td>
-                        <td class="section-content">
-                            <ul>
+                            @if (count($letter->dakwah_department_members) <= 1)
                                 @foreach ($letter->dakwah_department_members as $member)
-                                    <li><p>{{ $member }}</p></li>
+                                    <p>{{ $member }}</p>
                                 @endforeach
-                            </ul>
+                            @else
+                                <ol>
+                                    @foreach ($letter->dakwah_department_members as $member)
+                                        <li><p>{{ $member }}</p></li>
+                                    @endforeach
+                                </ol>
+                            @endif
                         </td>
                     </tr>
-
                     <tr>
                         <td>
-                            <p class="position"><strong>D. Olahraga, Seni dan Budaya</strong></p>
+                            <p class="position"><strong>D. Departemen Olahraga, Seni dan Budaya</strong></p>
                         </td>
                     </tr>
                     <tr>
                         <td><p>Koordinator</p></td>
-                        <td>
-                            <p>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-                            </p>
-                        </td>
-                        <td class="section-content"><p>{{ $letter->culture_department_coordinator }}</p></td>
+                        <td><p>:</p></td>
+                        <td><p>{{ $letter->culture_department_coordinator }}</p></td>
                     </tr>
                     <tr>
                         <td><p>Anggota</p></td>
+                        <td><p>:</p></td>
                         <td>
-                            <p>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-                            </p>
-                        </td>
-                        <td class="section-content">
-                            <ul>
+                            @if (count($letter->culture_department_members) <= 1)
                                 @foreach ($letter->culture_department_members as $member)
-                                    <li><p>{{ $member }}</p></li>
+                                    <p>{{ $member }}</p>
                                 @endforeach
-                            </ul>
+                            @else
+                                <ol>
+                                    @foreach ($letter->culture_department_members as $member)
+                                        <li><p>{{ $member }}</p></li>
+                                    @endforeach
+                                </ol>
+                            @endif
                         </td>
                     </tr>
-                </table>
 
-                <table class="content-table">
                     <tr>
                         <td>
                             <p class="attachment-subtitle"><strong>LEMBAGA-LEMBAGA</strong></p>
@@ -695,20 +645,25 @@
                     <tr>
                         <td><p>Direktur</p></td>
                         <td><p>:</p></td>
-                        <td class="section-content"><p>{{ $letter->economy_institution_director }}</p></td>
+                        <td><p>{{ $letter->economy_institution_director }}</p></td>
                     </tr>
                     <tr>
                         <td><p>Anggota</p></td>
                         <td><p>:</p></td>
-                        <td class="section-content">
-                            <ul>
+                        <td>
+                            @if (count($letter->economy_institution_members) <= 1)
                                 @foreach ($letter->economy_institution_members as $member)
-                                    <li><p>{{ $member }}</p></li>
+                                    <p>{{ $member }}</p>
                                 @endforeach
-                            </ul>
+                            @else
+                                <ol>
+                                    @foreach ($letter->economy_institution_members as $member)
+                                        <li><p>{{ $member }}</p></li>
+                                    @endforeach
+                                </ol>
+                            @endif
                         </td>
                     </tr>
-
                     <tr>
                         <td>
                             <p class="position"><strong>B. Lembaga Pers dan Penerbitan</strong></p>
@@ -717,20 +672,25 @@
                     <tr>
                         <td><p>Direktur</p></td>
                         <td><p>:</p></td>
-                        <td class="section-content"><p>{{ $letter->press_institution_director }}</p></td>
+                        <td><p>{{ $letter->press_institution_director }}</p></td>
                     </tr>
                     <tr>
                         <td><p>Anggota</p></td>
                         <td><p>:</p></td>
-                        <td class="section-content">
-                            <ul>
+                        <td>
+                            @if (count($letter->press_institution_members) <= 1)
                                 @foreach ($letter->press_institution_members as $member)
-                                    <li><p>{{ $member }}</p></li>
+                                    <p>{{ $member }}</p>
                                 @endforeach
-                            </ul>
+                            @else
+                                <ol>
+                                    @foreach ($letter->ress_institution_members as $member)
+                                        <li><p>{{ $member }}</p></li>
+                                    @endforeach
+                                </ol>
+                            @endif
                         </td>
                     </tr>
-
                     <tr>
                         <td>
                             <p class="position">
@@ -745,17 +705,23 @@
                     <tr>
                         <td><p>Direktur</p></td>
                         <td><p>:</p></td>
-                        <td class="section-content"><p>{{ $letter->brigade_institution_director }}</p></td>
+                        <td><p>{{ $letter->press_institution_director }}</p></td>
                     </tr>
                     <tr>
                         <td><p>Anggota</p></td>
                         <td><p>:</p></td>
-                        <td class="section-content">
-                            <ul>
-                                @foreach ($letter->brigade_institution_members as $member)
-                                    <li><p>{{ $member }}</p></li>
+                        <td>
+                            @if (count($letter->press_institution_members) <= 1)
+                                @foreach ($letter->press_institution_members as $member)
+                                    <p>{{ $member }}</p>
                                 @endforeach
-                            </ul>
+                            @else
+                                <ol>
+                                    @foreach ($letter->ress_institution_members as $member)
+                                        <li><p>{{ $member }}</p></li>
+                                    @endforeach
+                                </ol>
+                            @endif
                         </td>
                     </tr>
                 </table>
@@ -775,7 +741,7 @@
                         <td><p class="bracket-pair">:</p></td>
                         <td class="bordered-td" style="padding: 0">
                             <p style="width: 100%; font-weight: normal; padding: 0">
-                                {{ $letter->formatted_now_hijri_date }}
+                                {{ $letter->formatted_generated_hijri_date }}
                             </p>
                         </td>
                     </tr>
@@ -784,7 +750,7 @@
                         <td></td>
                         <td></td>
                         <td>
-                            <p style="width: 100%">{{ $letter->formatted_now_georgia_date }}</p>
+                            <p style="width: 100%">{{ $letter->formatted_generated_georgia_date }}</p>
                         </td>
                     </tr>
                 </table>
