@@ -182,29 +182,23 @@ class SPController extends Controller
 
         return redirect()->route('dashboard.letters.validation-submission.index');
     }
-
-    public function generate(SP $letter)
+    public function generateIPNUSP(SP $letter)
     {
-        $coverPath = public_path('assets/documents/sp-cover.pdf');
         $user = Auth::user();
+        $pacSlug = Str::slug($user->pac->pac);
+        $pac = in_array($user->pac_id, [28, 29]) ? $user->pac->pac : 'KECAMATAN ' . $user->pac->pac;
 
-        $modifiedCoverDir = public_path('storage/sp/' . strtolower(str_replace(' ', '-', $user->pac->pac)));
+        $letter->update(['generated_at' => now()]);
 
-        if (! is_dir($modifiedCoverDir)) {
-            mkdir($modifiedCoverDir, 0755, true);
+        $dynamicCoverPath = public_path('storage/sp/ipnu/' . $pacSlug);
+        $dynamicCover = $dynamicCoverPath . '/ipnu-sp-cover.pdf';
+
+        if (! is_dir($dynamicCoverPath)) {
+            mkdir($dynamicCoverPath, 0755, true);
         }
 
-        $modifiedCoverPath = $modifiedCoverDir . '/sp-cover.pdf';
-
-        $pac = '';
-
-        if (in_array($user->pac_id, [28, 29])) {
-            $pac = $user->pac->pac;
-        } else {
-            $pac = 'KECAMATAN ' . $user->pac->pac;
-        }
-
-        if (! file_exists($modifiedCoverPath)) {
+        if (! file_exists($dynamicCover)) {
+            $coverPath = public_path('assets/documents/ipnu-sp-cover.pdf');
             $cover = new Fpdi();
             $cover->setSourceFile($coverPath);
             $tplIdx = $cover->importPage(1);
@@ -215,38 +209,67 @@ class SPController extends Controller
             $cover->setTextColor(255, 255, 255);
             $cover->SetXY(59.5, 190);
             $cover->Cell(100, 10, $pac, 0, 0, 'C');
-
-            $cover->Output($modifiedCoverPath, 'F');
+            $cover->Output($dynamicCover, 'F');
         }
 
         $contentPdf = Pdf::setPaper('A4', 'portrait')->loadView(
-            'admins.letters.sp.pdf.content',
+            'admins.letters.sp.pdf.ipnu.layout',
             compact('letter', 'pac'),
         );
+
         $contentPath = public_path('storage/sp/content.pdf');
         file_put_contents($contentPath, $contentPdf->output());
 
         $merger = new Merger();
-        $merger->addFile($modifiedCoverPath);
+        $merger->addFile($dynamicCover);
         $merger->addFile($contentPath);
         $mergedPdf = $merger->merge();
 
-        $mergedDirectory = public_path(
-            'storage/sp/' . strtolower(str_replace(' ', '-', $user->pac->pac)) . '/generated/' . $letter->id,
-        );
-
-        if (! is_dir($mergedDirectory)) {
-            mkdir($mergedDirectory, 0755, true);
+        $spDirectory = public_path('storage/sp/ipnu/' . $pacSlug . '/generated/' . $letter->id);
+        if (! is_dir($spDirectory)) {
+            mkdir($spDirectory, 0755, true);
         }
 
-        $mergedPath = $mergedDirectory . '/surat-pengesahan-' . now()->timestamp . '.pdf';
+        $filename = 'surat-pengesahan-ipnu-' . now()->timestamp . '.pdf';
+        $mergedPath = $spDirectory . '/' . $filename;
 
         file_put_contents($mergedPath, $mergedPdf);
 
         Storage::delete($contentPath);
 
-        return response($mergedPdf)
-            ->header('Content-Type', 'application/pdf')
-            ->header('Content-Disposition', 'inline; filename="surat-pengesahan.pdf"');
+        return response()->file($mergedPath, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $filename . '"',
+        ]);
+    }
+
+    public function generateIPPNUSP(SP $letter)
+    {
+        $user = Auth::user();
+        $pacSlug = Str::slug($user->pac->pac);
+        $pac = in_array($user->pac_id, [28, 29]) ? $user->pac->pac : 'KECAMATAN ' . $user->pac->pac;
+
+        $letter->update(['generated_at' => now()]);
+
+        $path = public_path("storage/sp/ippnu/{$pacSlug}/generated/{$letter->id}");
+
+        if (! is_dir($path)) {
+            mkdir($path, 0755, true);
+        }
+
+        $pdf = Pdf::setPaper('A4', 'portrait')->loadView(
+            'admins.letters.sp.pdf.ippnu.layout',
+            compact('letter', 'pac'),
+        );
+
+        $filename = 'surat-pengesahan-ippnu-' . now()->timestamp . '.pdf';
+        $filePath = $path . '/' . $filename;
+
+        file_put_contents($filePath, $pdf->output());
+
+        return response()->file($filePath, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $filename . '"',
+        ]);
     }
 }

@@ -14,7 +14,7 @@
             required
         />
         <small class="text-muted">
-            {{ __('Maks. 2 MB tiap file | Format .docx, .jpg, .jpeg, .png, atau .mp4') }}
+            {{ __('Maks. 2 MB tiap file | Format .docx, .jpg, .jpeg, atau .png') }}
         </small>
     </div>
     <span class="error invalid-feedback">{{ $errors->first($name) }}</span>

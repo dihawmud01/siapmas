@@ -269,9 +269,10 @@ Route::middleware(['auth', 'role:2,3'])->group(function () {
                 ->as('letters.')
                 ->group(function () {
                     Route::get('incoming', [IncomingLetterController::class, 'index'])->name('incoming');
-                    Route::get('validation-submission/generate/{letter}', [SPController::class, 'generate'])->name(
-                        'validation-submission.generate',
-                    );
+                    Route::get('validation-submission/generate/{letter}', [
+                        SPController::class,
+                        'generateIPPNUSP',
+                    ])->name('validation-submission.generate');
                     Route::resource('validation-submission', SPController::class);
                     Route::prefix('validation-submission')
                         ->as('validation-submission.')

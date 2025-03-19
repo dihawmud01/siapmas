@@ -8,7 +8,7 @@ use Illuminate\View\Component;
 
 class InputForm extends Component
 {
-    public string $name, $label, $type, $accept, $placeholder;
+    public string $name, $label, $id, $type, $accept, $placeholder;
     public ?string $value;
     public bool $required;
     public ?int $min, $max;
@@ -19,6 +19,7 @@ class InputForm extends Component
     public function __construct(
         string $name,
         string $label,
+        string $id = '',
         string $type = 'text',
         string $placeholder = '',
         ?string $value = null,
@@ -36,6 +37,7 @@ class InputForm extends Component
         $this->required = $required;
         $this->min = $min;
         $this->max = $max;
+        $this->id = $id;
     }
 
     /**

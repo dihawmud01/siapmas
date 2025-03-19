@@ -28,6 +28,8 @@
                 @switch($accept)
                     @case("application/pdf")
                         <span>{{ __(".pdf") }}</span>
+
+                        @break
                     @case("image/jpeg,image/png")
                         <span>{{ __(".jpg, .jpeg, atau .png") }}</span>
 

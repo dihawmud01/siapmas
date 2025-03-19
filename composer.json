@@ -11,7 +11,6 @@
         "php": "^8.3",
         "azure-oss/storage-blob-flysystem": "^1.2",
         "barryvdh/laravel-dompdf": "^2.2",
-        "biladina/hijridatetime": "^1.0",
         "cviebrock/eloquent-sluggable": "^10.0",
         "dompdf/dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
@@ -34,7 +33,8 @@
         "spatie/laravel-html": "^3.11",
         "symfony/serializer-pack": "^1.2",
         "symfony/twig-pack": "^1.0",
-        "tightenco/ziggy": "^1.0"
+        "tightenco/ziggy": "^1.0",
+        "ext-intl": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.21",
