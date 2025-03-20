@@ -87,14 +87,20 @@
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">{{ $incoming->agenda_number }}</td>
                                     <td class="text-center">
-                                        <a href="" class="text-decoration-none text-success fw-semibold">
+                                        <a
+                                            href="{{ route('dashboard.letters.incoming.show', $incoming) }}"
+                                            class="text-decoration-none text-success fw-semibold"
+                                        >
                                             {{ $incoming->reference_number }}
                                         </a>
                                     </td>
                                     <td>{{ $incoming->from }}</td>
                                     <td>{{ $incoming->formatted_letter_date }}</td>
                                     <td class="text-center">
-                                        <a href="#" class="btn btn-success btn-sm me-1">
+                                        <a
+                                            href="{{ route('dashboard.letters.incoming.show', $incoming) }}"
+                                            class="btn btn-success btn-sm me-1"
+                                        >
                                             <i class="bi bi-eye-fill"></i>
                                         </a>
                                         <a href="#" class="btn btn-warning btn-sm me-1">

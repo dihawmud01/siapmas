@@ -28,4 +28,9 @@ class IncomingLetterController extends Controller
             compact(['incomings', 'totalIncomings', 'search', 'since', 'until', 'filter', 'query']),
         );
     }
+
+    public function show(Letter $incoming): View
+    {
+        return view('admins.letters.incomings.show', compact('incoming'));
+    }
 }

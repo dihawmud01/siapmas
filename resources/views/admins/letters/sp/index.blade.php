@@ -29,6 +29,6 @@
     @endif
 
     @foreach ($letters as $letter)
-        <x-letter-card :letter="$letter" />
+        <x-sp-card :letter="$letter" />
     @endforeach
 @endsection

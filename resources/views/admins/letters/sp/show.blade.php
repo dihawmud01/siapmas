@@ -10,7 +10,7 @@
             :values="[__('Surat-menyurat'), __('Pengajuan Surat Pengesahan (SP)'), __('Detail Pengajuan')]"
         ></x-breadcrumb>
 
-        <x-letter-card :letter="$letter">
+        <x-sp-card :letter="$letter">
             <div class="mt-2">
                 <div class="row justify-content-between">
                     <div class="col-md-6 pe-5">
@@ -495,6 +495,6 @@
                     </div>
                 </div>
             </div>
-        </x-letter-card>
+        </x-sp-card>
     @endsection
 @endsection

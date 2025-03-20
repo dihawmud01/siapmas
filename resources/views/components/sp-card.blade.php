@@ -2,7 +2,7 @@
     <div class="card-header mb-2 bg-transparent pb-0">
         <div class="d-flex justify-content-between flex-column flex-sm-row">
             <div class="card-title">
-                <h5 class="fw-bold mb-1 text-nowrap">{{ $letter->reference_number }}</h5>
+                <h5 class="fw-bold mb-1 text-nowrap">{{ __('ID Pengajuan ') . $letter->id }}</h5>
                 <small class="text-black">
                     <span class="text-secondary">{{ __('Diajukan oleh:') }}</span>
                     @if ($letter->user->pac_id == 28 || $letter->user->pac_id == 29)
@@ -16,24 +16,24 @@
             <div class="card-title d-flex align-items-center flex-row">
                 <div class="d-inline-block mx-2 mb-1 text-end text-black">
                     <small class="d-block text-secondary mb-1">{{ __('Tanggal Pengajuan') }}</small>
-                    {{-- {{ $letter->formatted_letter_submission_date }} --}}
+                    {{ $letter->formatted_letter_submission_date }}
                 </div>
                 <div class="ms-3">
                     @if (in_array(auth()->user()->role_id, [3]))
                         <div class="d-flex align-items-center">
-                            {{-- <a --}}
-                            {{-- href="{{ $letter->status->value == 'approved' ? route('dashboard.letters.validation-submission.generate', $letter) : '' }}" --}}
-                            {{-- class="{{ $letter->status->value == 'approved' ? '' : 'disabled-link' }}" --}}
-                            {{-- target="_blank" --}}
-                            {{-- > --}}
-                            {{-- <button --}}
-                            {{-- class="btn btn-success btn-lg" --}}
-                            {{-- {{ $letter->status->value == 'approved' ? '' : 'disabled' }} --}}
-                            {{-- > --}}
-                            {{-- <i class="bi bi-download"></i> --}}
-                            {{-- {{ __('Generate SP') }} --}}
-                            {{-- </button> --}}
-                            {{-- </a> --}}
+                            <a
+                                href="{{ $letter->status->value == 'approved' ? route('dashboard.letters.validation-submission.generate', $letter) : '' }}"
+                                class="{{ $letter->status->value == 'approved' ? '' : 'disabled-link' }}"
+                                target="_blank"
+                            >
+                                <button
+                                    class="btn btn-success btn-lg"
+                                    {{ $letter->status->value == 'approved' ? '' : 'disabled' }}
+                                >
+                                    <i class="bi bi-download"></i>
+                                    {{ __('Generate SP') }}
+                                </button>
+                            </a>
                             @if (request()->routeIs('dashboard.letters.validation-submission.index'))
                                 <div class="dropdown-center">
                                     <button
@@ -192,39 +192,39 @@
             <p class="fs-5 mb-3">
                 <strong>{{ __('Status: ') }}</strong>
 
-                {{-- @if ($letter->status->value == 'pending') --}}
-                {{-- <span class="badge bg-warning text-dark fs-6 fw-normal ms-2 p-2"> --}}
-                {{-- {{ $letter->status->label() }} --}}
-                {{-- </span> --}}
-                {{-- @elseif ($letter->status->value == 'approved') --}}
-                {{-- <span class="badge bg-success text-light fs-6 fw-normal ms-2 p-2"> --}}
-                {{-- {{ $letter->status->label() }} --}}
-                {{-- </span> --}}
-                {{-- @elseif ($letter->status->value == 'rejected') --}}
-                {{-- <span class="badge bg-danger text-light fs-6 fw-normal ms-2 p-2"> --}}
-                {{-- {{ $letter->status->label() }} --}}
-                {{-- </span> --}}
-                {{-- @endif --}}
+                @if ($letter->status->value == 'pending')
+                    <span class="badge bg-warning text-dark fs-6 fw-normal ms-2 p-2">
+                        {{ $letter->status->label() }}
+                    </span>
+                @elseif ($letter->status->value == 'approved')
+                    <span class="badge bg-success text-light fs-6 fw-normal ms-2 p-2">
+                        {{ $letter->status->label() }}
+                    </span>
+                @elseif ($letter->status->value == 'rejected')
+                    <span class="badge bg-danger text-light fs-6 fw-normal ms-2 p-2">
+                        {{ $letter->status->label() }}
+                    </span>
+                @endif
             </p>
         </div>
 
         @if (in_array(auth()->user()->role_id, [3]))
             <p class="fs-5">
                 <strong>{{ __('Keterangan: ') }}</strong>
-                {{-- @if ($letter->status->value == 'pending') --}}
-                {{-- {{ __('Belum dapat melakukan generate SP karena belum disetujui oleh PC') }} --}}
-                {{-- @elseif ($letter->status->value == 'approved') --}}
-                {{-- {{ __('Pengajuan SP sudah disetujui oleh PC. SP sudah dapat digenerate') }} --}}
-                {{-- @elseif ($letter->status->value == 'rejected') --}}
-                {{-- {{ __('Mohon maaf pengajuan SP anda ditolak oleh PC') }} --}}
-                {{-- @endif --}}
+                @if ($letter->status->value == 'pending')
+                    {{ __('Belum dapat melakukan generate SP karena belum disetujui oleh PC') }}
+                @elseif ($letter->status->value == 'approved')
+                    {{ __('Pengajuan SP sudah disetujui oleh PC. SP sudah dapat digenerate') }}
+                @elseif ($letter->status->value == 'rejected')
+                    {{ __('Mohon maaf pengajuan SP anda ditolak oleh PC') }}
+                @endif
             </p>
         @endif
 
         <div class="d-flex justify-content-between flex-column flex-sm-row">
             <small class="text-secondary">
                 {{ __('Disetujui pada: ') }}
-                {{-- {{ $letter->status->value == 'pending' || $letter->status->value == 'rejected' ? '-' : $letter->formatted_approved_date }} --}}
+                {{ $letter->status->value == 'pending' || $letter->status->value == 'rejected' ? '-' : $letter->formatted_approved_date }}
             </small>
         </div>
 

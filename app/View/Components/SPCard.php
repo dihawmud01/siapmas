@@ -2,18 +2,18 @@
 
 namespace App\View\Components;
 
-use App\Models\Letter;
+use App\Models\SP;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class LetterCard extends Component
+class SPCard extends Component
 {
-    public Letter $letter;
+    public SP $letter;
     /**
      * Create a new component instance.
      */
-    public function __construct(Letter $letter)
+    public function __construct(SP $letter)
     {
         $this->letter = $letter;
     }
@@ -23,6 +23,6 @@ class LetterCard extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.letter-card');
+        return view('components.sp-card');
     }
 }
