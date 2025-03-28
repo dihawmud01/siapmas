@@ -50,7 +50,6 @@
                                                 class="dropdown-item"
                                                 href="{{ route('dashboard.letters.validation-submission.show', $letter) }}"
                                             >
-                                                <i class="bi bi-eye-fill"></i>
                                                 {{ __('Lihat Detail') }}
                                             </a>
                                         </li>

@@ -12,11 +12,11 @@ return new class extends Migration {
     {
         Schema::create('letters', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table
                 ->string('reference_number')
                 ->unique()
                 ->comment('Nomor Surat');
-            $table->string('agenda_number');
             $table->string('from')->nullable();
             $table->string('to')->nullable();
             $table->date('letter_date')->nullable();
@@ -28,6 +28,10 @@ return new class extends Migration {
                 ->default('incoming')
                 ->comment('Surat Masuk (incoming)/Surat Keluar (outgoing)');
             $table->string('classification_code');
+            $table
+                ->string('file')
+                ->nullable()
+                ->comment('File Soft Copy Surat');
             $table
                 ->foreign('classification_code')
                 ->references('code')

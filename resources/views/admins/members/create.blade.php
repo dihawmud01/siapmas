@@ -15,7 +15,7 @@
         <div class="card-header bg-transparent text-center">
             <div class="d-flex align-items-center p-4">
                 <div class="text-start">
-                    <a href="{{ route('dashboard.members.index') }}" class="btn fs-4">
+                    <a href="{{ route('dashboard.members.index') }}" class="btn fs-4 border-0">
                         <i class="bi bi-chevron-left"></i>
                     </a>
                 </div>

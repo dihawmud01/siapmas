@@ -1,5 +1,7 @@
 <div class="d-flex align-items-start mb-4">
-    <label for="{{ $name }}" class="form-label label me-3 text-start">{{ $label }}</label>
+    <label for="{{ $name }}" class="form-label label me-3 text-start">
+        {{ $label }}
+    </label>
     <div class="d-flex flex-column w-100">
         <textarea
             name="{{ $name }}"
@@ -9,6 +11,9 @@
         >
 {{ $value }}</textarea
         >
+
+        @error($name)
+            <div class="invalid-feedback d-block" role="alert">{{ $message }}</div>
+        @enderror
     </div>
-    <span class="error invalid-feedback">{{ $errors->first($name) }}</span>
 </div>

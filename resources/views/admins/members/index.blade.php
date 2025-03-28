@@ -31,7 +31,7 @@
                         <h3 class="fw-bold">
                             {{ __('Data Anggota') }}
                             @if (auth()->user()->role_id == 3)
-                                {{ in_array(auth()->user()->pac_id, [28, 29]) ? ' ' . ucwords(strtolower(auth()->user()->pac->pac)) : ' PAC ' . ucwords(strtolower(auth()->user()->pac->pac)) }}
+                                {{ in_array(auth()->user()->pac_id, [28, 29]) ? ' ' . str_replace(['Uin', 'Unu'], ['UIN', 'UNU'], ucwords(strtolower(auth()->user()->pac->pac))) : ' PAC ' . ucwords(strtolower(auth()->user()->pac->pac)) }}
                             @endif
                         </h3>
                     </div>
@@ -240,7 +240,7 @@
                                         >
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" class="btn btn-danger btn-sm delete-btn">
+                                            <button type="button" class="btn btn-danger btn-sm btn-delete">
                                                 <i class="bi bi-trash-fill"></i>
                                             </button>
                                         </form>
@@ -282,7 +282,7 @@
                 });
 
                 // Sweetalert
-                document.querySelectorAll('.delete-btn').forEach((btn, idx) => {
+                document.querySelectorAll('.btn-delete').forEach((btn, idx) => {
                     btn.addEventListener('click', function (event) {
                         Swal.fire({
                             title: 'Apakah Anda yakin ingin menghapus anggota ini?',
@@ -300,7 +300,6 @@
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 let form = btn.closest('form');
-                                console.log('Form ditemukan:', form);
                                 if (form) {
                                     form.submit();
                                 } else {

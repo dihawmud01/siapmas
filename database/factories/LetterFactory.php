@@ -18,8 +18,8 @@ class LetterFactory extends Factory
     public function definition(): array
     {
         return [
+            'name' => 'Surat ' . $this->faker->sentence(1),
             'reference_number' => $this->faker->ean13(),
-            'agenda_number' => $this->faker->randomNumber(5),
             'from' => $this->faker->name('male'),
             'to' => $this->faker->name('female'),
             'letter_date' => $this->faker->date(),

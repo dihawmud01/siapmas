@@ -82,69 +82,6 @@
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
-    /**
-     * Initiate quill editors
-     */
-    if (select('.quill-editor-default')) {
-        new Quill('.quill-editor-default', {
-            theme: 'snow',
-        });
-    }
-
-    if (select('.quill-editor-bubble')) {
-        new Quill('.quill-editor-bubble', {
-            theme: 'bubble',
-        });
-    }
-
-    if (select('.quill-editor-full')) {
-        new Quill('.quill-editor-full', {
-            modules: {
-                toolbar: [
-                    [{
-                        font: [],
-                    }, {
-                        size: [],
-                    }],
-                    ['bold', 'italic', 'underline', 'strike'],
-                    [{
-                        color: [],
-                    },
-                        {
-                            background: [],
-                        },
-                    ],
-                    [{
-                        script: 'super',
-                    },
-                        {
-                            script: 'sub',
-                        },
-                    ],
-                    [{
-                        list: 'ordered',
-                    },
-                        {
-                            list: 'bullet',
-                        },
-                        {
-                            indent: '-1',
-                        },
-                        {
-                            indent: '+1',
-                        },
-                    ],
-                    ['direction', {
-                        align: [],
-                    }],
-                    ['link', 'image', 'video'],
-                    ['clean'],
-                ],
-            },
-            theme: 'snow',
-        });
-    }
-
     var needsValidation = document.querySelectorAll('.needs-validation');
 
     Array.prototype.slice.call(needsValidation)
@@ -164,19 +101,6 @@
         new simpleDatatables.DataTable(datatable);
     });
 })();
-
-function updateRowNumbers() {
-    let rows = document.querySelectorAll('#table tbody tr');
-    let counter = 1;
-
-    rows.forEach(row => {
-        if (row.style.display !== 'none') {
-            row.cells[0].textContent = counter++;
-        }
-    });
-}
-
-updateRowNumbers();
 
 // Sort table
 function sortTable(colIdx) {
@@ -232,4 +156,28 @@ document.addEventListener('DOMContentLoaded', function() {
             dropdownInstance.toggle();
         });
     });
+
+    const removeBtn = document.getElementById('remove-file-btn');
+    const cancelRemoveBtn = document.getElementById('cancel-remove-btn');
+    const fileLink = document.getElementById('file-link');
+    const flagInput = document.getElementById('delete-file-flag');
+
+    if (removeBtn && cancelRemoveBtn && fileLink && flagInput) {
+        removeBtn.addEventListener('click', function () {
+            flagInput.value = '1';
+
+            removeBtn.style.display = 'none';
+            cancelRemoveBtn.style.display = 'inline-block';
+
+            fileLink.style.display = 'none';
+        });
+
+        cancelRemoveBtn.addEventListener('click', function () {
+            flagInput.value = '0';
+
+            cancelRemoveBtn.style.display = 'none';
+            fileLink.style.display = 'inline-block';
+            removeBtn.style.display = 'inline-block';
+        });
+    }
 });

@@ -159,7 +159,8 @@ class MemberController extends Controller
             $path = "images/members/{$pacSlug}/photo/";
 
             $file = $request->file('photo');
-            $filename = Str::slug($request->name) . '_' . now()->timestamp . '.' . $file->getClientOriginalExtension();
+            $filename =
+                Str::slug($validatedData['name']) . '-' . now()->timestamp . '.' . $file->getClientOriginalExtension();
             $file->storeAs($path, $filename, 'public');
 
             $validatedData['photo'] = $filename;
@@ -192,10 +193,8 @@ class MemberController extends Controller
         return view('admins.members.show', compact('member', 'detailMember'));
     }
 
-    public function edit($id)
+    public function edit(Member $member)
     {
-        $member = Member::find($id);
-
         $years = [
             '2016' => 'Sebelum 2017',
             '2017' => '2017',
@@ -342,7 +341,7 @@ class MemberController extends Controller
             }
 
             $file = $request->file('photo');
-            $filename = Str::slug($request->name) . '_' . now()->timestamp . '.' . $file->getClientOriginalExtension();
+            $filename = Str::slug($request->name) . '-' . now()->timestamp . '.' . $file->getClientOriginalExtension();
             $file->storeAs("images/members/{$pacSlug}/photo/", $filename, 'public');
             $validatedData['photo'] = $filename;
         }
@@ -356,7 +355,7 @@ class MemberController extends Controller
     public function destroy(Member $member)
     {
         if ($member->photo && $member->photo !== 'default.png') {
-            $pacSlug = strtolower(str_replace(' ', '-', optional($member->pac)->pac));
+            $pacSlug = Str::slug(PAC::find($member->pac_id)?->pac);
             $path = "images/members/{$pacSlug}/photo/{$member->photo}";
 
             if (Storage::disk('public')->exists($path)) {

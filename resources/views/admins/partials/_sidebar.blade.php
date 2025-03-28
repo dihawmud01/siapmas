@@ -140,7 +140,7 @@
             @if (in_array(auth()->user()->role_id, [2, 3]))
                 <li class="nav-item">
                     <a
-                        class="nav-link collapsible text-dark {{ request()->routeIs('dashboard.letters.incoming.index') || request()->routeIs('dashboard.letters.validation-submission.show') || request()->routeIs('dashboard.letters.validation-submission.index') || request()->routeIs('dashboard.letters.validation-submission.create') ? '' : 'collapsed' }} bg-transparent"
+                        class="nav-link collapsible text-dark {{ request()->routeIs('dashboard.letters.incoming.*') || request()->routeIs('dashboard.letters.outgoing.*') || request()->routeIs('dashboard.letters.validation-submission.*') ? '' : 'collapsed' }} bg-transparent"
                         data-toggle="nav-collapse"
                         data-target="#collapseLetter"
                         href="#"
@@ -151,20 +151,28 @@
                     </a>
                     <ul
                         id="collapseLetter"
-                        class="nav-content {{ request()->routeIs('dashboard.letters.incoming.index') || request()->routeIs('dashboard.letters.validation-submission.index') || request()->routeIs('dashboard.letters.validation-submission.show') || request()->routeIs('dashboard.letters.validation-submission.create') ? 'show' : '' }}"
+                        class="nav-content {{ request()->routeIs('dashboard.letters.*') ? 'show' : '' }}"
                     >
                         <li>
                             <a
                                 href="{{ route('dashboard.letters.incoming.index') }} "
-                                class="text-dark text-decoration-none {{ request()->routeIs('dashboard.letters.incoming.index') ? 'active' : '' }}"
+                                class="text-dark text-decoration-none {{ request()->routeIs('dashboard.letters.incoming.*') ? 'active' : '' }}"
                             >
                                 <span>{{ __('Surat Masuk') }}</span>
                             </a>
                         </li>
                         <li>
                             <a
+                                href="{{ route('dashboard.letters.outgoing.index') }} "
+                                class="text-dark text-decoration-none {{ request()->routeIs('dashboard.letters.outgoing.*') ? 'active' : '' }}"
+                            >
+                                <span>{{ __('Surat Keluar') }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a
                                 href="{{ route('dashboard.letters.validation-submission.index') }}"
-                                class="text-dark text-decoration-none {{ request()->routeIs('dashboard.letters.validation-submission.index') || request()->routeIs('dashboard.letters.validation-submission.show') || request()->routeIs('dashboard.letters.validation-submission.create') ? 'active' : '' }}"
+                                class="text-dark text-decoration-none {{ request()->routeIs('dashboard.letters.validation-submission.*') ? 'active' : '' }}"
                             >
                                 <span>{{ __('Pengajuan SP') }}</span>
                             </a>
@@ -234,11 +242,5 @@
                 </li>
             @endif
         @endauth
-
-        {{-- <li class="nav-item"> --}}
-        {{-- <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"> --}}
-        {{-- <i class="bi bi-box-arrow-right btn btn-success m-4"><span>{{ __('Keluar') }}</span></i> --}}
-        {{-- </a> --}}
-        {{-- </li> --}}
     </ul>
 </aside>

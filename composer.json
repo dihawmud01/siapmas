@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "ext-intl": "*",
         "azure-oss/storage-blob-flysystem": "^1.2",
         "barryvdh/laravel-dompdf": "^2.2",
         "cviebrock/eloquent-sluggable": "^10.0",
@@ -31,10 +32,10 @@
         "simplesoftwareio/simple-qrcode": "^4.2",
         "smalot/pdfparser": "^2.11",
         "spatie/laravel-html": "^3.11",
+        "spatie/pdf-to-image": "^3.1",
         "symfony/serializer-pack": "^1.2",
         "symfony/twig-pack": "^1.0",
-        "tightenco/ziggy": "^1.0",
-        "ext-intl": "*"
+        "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.21",

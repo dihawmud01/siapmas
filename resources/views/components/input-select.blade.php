@@ -1,5 +1,8 @@
 <div class="d-flex align-items-center mb-4">
-    <label for="{{ $name }}" class="form-label label me-3 text-start">{{ $label }}</label>
+    <label for="{{ $name }}" class="form-label label me-3 text-start">
+        {{ $label }}
+        <span class="text-danger">*</span>
+    </label>
     <div class="d-flex flex-column w-100">
         <select
             name="{{ $name }}"
@@ -8,13 +11,15 @@
             {{ $required ? 'required' : '' }}
         >
             <option value="" disabled selected>{{ __('-- Pilih --') }}</option>
-            @foreach ($options as $value => $text)
+            @foreach ($options as $value => $optionLabel)
                 <option value="{{ $value }}" {{ old($name, $selected) == $value ? 'selected' : '' }}>
-                    {{ $text }}
+                    {{ $optionLabel }}
                 </option>
             @endforeach
         </select>
-    </div>
 
-    <span class="error invalid-feedback">{{ $errors->first($name) }}</span>
+        @error($name)
+            <div class="invalid-feedback d-block" role="alert">{{ $message }}</div>
+        @enderror
+    </div>
 </div>

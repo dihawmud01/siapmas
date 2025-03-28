@@ -11,15 +11,17 @@ class InputMultipleFiles extends Component
     public string $label;
     public string $name;
     public ?string $accept;
+    public bool $required;
 
     /**
      * Create a new component instance.
      */
-    public function __construct(string $label, string $name, ?string $accept = null)
+    public function __construct(string $label, string $name, ?string $accept = null, bool $required = true)
     {
         $this->label = $label;
         $this->name = $name;
         $this->accept = $accept ?? '*/*';
+        $this->required = $required;
     }
 
     /**

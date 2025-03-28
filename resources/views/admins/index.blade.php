@@ -295,7 +295,7 @@
                         </div>
                     </div>
 
-                    @if ($todayIncomingLetter || $todayDispositionLetter || $todayOutgoingLetter)
+                    @if ($todayIncomingLetter || $todayOutgoingLetter)
                         <div id="letterChart"></div>
 
                         <script>
@@ -315,11 +315,7 @@
                                     series: [
                                         {
                                             name: '{{ __('Transaksi Surat Hari Ini') }}',
-                                            data: [
-                                                {{ $todayIncomingLetter }},
-                                                {{ $todayOutgoingLetter }},
-                                                {{ $todayDispositionLetter }},
-                                            ],
+                                            data: [{{ $todayIncomingLetter }}, {{ $todayOutgoingLetter }}],
                                         },
                                     ],
 
@@ -327,11 +323,7 @@
                                         curve: 'smooth',
                                     },
                                     xaxis: {
-                                        categories: [
-                                            '{{ __('Surat Masuk') }}',
-                                            '{{ __('Surat Keluar') }}',
-                                            '{{ __('Surat Disposisi') }}',
-                                        ],
+                                        categories: ['{{ __('Surat Masuk') }}', '{{ __('Surat Keluar') }}'],
                                     },
                                 };
 

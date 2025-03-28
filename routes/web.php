@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Letter\IncomingLetterController;
+use App\Http\Controllers\Admin\Letter\OutgoingLetterController;
 use App\Http\Controllers\Admin\Letter\SPController;
 use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Admin\News\CategoryController as AdminCategoryController;
@@ -268,12 +269,26 @@ Route::middleware(['auth', 'role:2,3'])->group(function () {
             Route::prefix('letters')
                 ->as('letters.')
                 ->group(function () {
+                    // Incoming
+                    Route::get('incoming/print', [IncomingLetterController::class, 'print'])->name('incoming.print');
+                    Route::delete('incoming/attachments/{attachment}', [
+                        IncomingLetterController::class,
+                        'destroyAttachment',
+                    ])->name('incoming.attachments.destroy');
                     Route::resource('incoming', IncomingLetterController::class);
+
+                    // Outgoing
+                    Route::get('outgoing/print', [OutgoingLetterController::class, 'print'])->name('outgoing.print');
+                    Route::delete('outgoing/attachments/{attachment}', [
+                        OutgoingLetterController::class,
+                        'destroyAttachment',
+                    ])->name('outgoing.attachments.destroy');
+                    Route::resource('outgoing', OutgoingLetterController::class);
 
                     // SP
                     Route::get('validation-submission/generate/{letter}', [
                         SPController::class,
-                        'generateIPPNUSP',
+                        'generateIPNUSP',
                     ])->name('validation-submission.generate');
                     Route::resource('validation-submission', SPController::class);
                     Route::prefix('validation-submission')

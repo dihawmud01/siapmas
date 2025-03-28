@@ -7,5 +7,4 @@
         name="{{ $name }}"
         value="{{ old($name, $value) }}"
     />
-    <span class="error invalid-feedback">{{ $errors->first($name) }}</span>
 </div>

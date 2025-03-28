@@ -31,6 +31,5 @@ class DatabaseSeeder extends Seeder
         $this->call(ClassificationTableSeeder::class);
         $this->call(LetterStatusTableSeeder::class);
         $this->call(LetterTableSeeder::class);
-        $this->call(DispositionTableSeeder::class);
     }
 }

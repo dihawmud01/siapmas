@@ -13,13 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
         inputEl.forEach((input) => {
             FilePond.create(input, {
                 allowMultiple: input.hasAttribute('multiple'),
-                maxFileSize: '10MB',
-                maxTotalFileSize: '50MB',
+                maxFileSize: '2MB',
+                maxTotalFileSize: '10MB',
                 acceptedFileTypes: input
                     .getAttribute('accept')
                     ?.split(',')
                     .map((type) => type.trim()) || ['*'],
-                labelMaxFileSizeExceeded: 'Ukuran file terlalu besar! Maksimal 10MB.',
+                labelMaxFileSizeExceeded: 'Ukuran file terlalu besar! Maksimal 2MB.',
                 labelFileTypeNotAllowed: 'Jenis file tidak diperbolehkan.',
                 fileValidateTypeLabelExpectedTypes: '',
                 storeAsFile: true,

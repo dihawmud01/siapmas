@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Attachment extends Model
+class LetterAttachment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['path', 'filename', 'extension', 'letter_id', 'user_id'];
+    protected $table = 'letter_attachments';
+
+    protected $fillable = ['path', 'file', 'extension', 'letter_id', 'user_id'];
 
     protected $appends = ['path_url'];
 

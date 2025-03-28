@@ -10,10 +10,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('attachments', function (Blueprint $table) {
+        Schema::create('letter_attachments', function (Blueprint $table) {
             $table->id();
-            $table->string('path')->nullable();
-            $table->string('filename');
+            $table->string('file');
             $table->string('extension')->default('pdf');
             $table
                 ->foreignId('letter_id')

@@ -14,12 +14,9 @@ class Letter extends Model
 {
     use HasFactory;
 
-    /**
-     * @var string[]
-     */
     protected $fillable = [
+        'name',
         'reference_number',
-        'agenda_number',
         'from',
         'to',
         'letter_date',
@@ -28,12 +25,10 @@ class Letter extends Model
         'note',
         'type',
         'classification_code',
+        'file',
         'user_id',
     ];
 
-    /**
-     * @var string[]
-     */
     protected $casts = [
         'letter_date' => 'date',
         'received_date' => 'date',
@@ -48,11 +43,13 @@ class Letter extends Model
 
     public function getFormattedLetterDateAttribute(): string
     {
+        Carbon::setLocale('id');
         return Carbon::parse($this->letter_date)->isoFormat('dddd, D MMMM YYYY');
     }
 
     public function getFormattedReceivedDateAttribute(): string
     {
+        Carbon::setLocale('id');
         return Carbon::parse($this->received_date)->isoFormat('dddd, D MMMM YYYY');
     }
 
@@ -91,6 +88,25 @@ class Letter extends Model
         return $query->whereDate('created_at', now()->addDays(-1));
     }
 
+    public function scopeAgenda($query, $since, $until, $filter)
+    {
+        return $query->when($since && $until && $filter, function ($query) use ($since, $until, $filter) {
+            return $query->whereBetween(DB::raw('DATE(' . $filter . ')'), [$since, $until]);
+        });
+    }
+
+    public function scopeRender($query, $since, $until, $filter)
+    {
+        return $query
+            ->latest('letter_date')
+            ->paginate(10)
+            ->appends([
+                'since' => $since,
+                'until' => $until,
+                'filter' => $filter,
+            ]);
+    }
+
     public function scopeSearch($query, $search)
     {
         return $query->when($search, function ($query, $find) {
@@ -102,54 +118,23 @@ class Letter extends Model
         });
     }
 
-    public function scopeRender($query, $search)
-    {
-        return $query
-            ->with(['attachments', 'classification'])
-            ->search($search)
-            ->latest('letter_date')
-            ->paginate(10)
-            ->appends([
-                'search' => $search,
-            ]);
-    }
-
-    public function scopeAgenda($query, $since, $until, $filter)
-    {
-        return $query->when($since && $until && $filter, function ($query, $condition) use ($since, $until, $filter) {
-            return $query->whereBetween(DB::raw('DATE(' . $filter . ')'), [$since, $until]);
-        });
-    }
-
-    /**
-     * @return BelongsTo
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function classification(): BelongsTo
     {
         return $this->belongsTo(Classification::class, 'classification_code', 'code');
     }
 
-    /**
-     * @return HasMany
-     */
     public function dispositions(): HasMany
     {
         return $this->hasMany(Disposition::class, 'letter_id', 'id');
     }
 
-    /**
-     * @return HasMany
-     */
     public function attachments(): HasMany
     {
-        return $this->hasMany(Attachment::class, 'letter_id', 'id');
+        return $this->hasMany(LetterAttachment::class, 'letter_id', 'id');
     }
 }

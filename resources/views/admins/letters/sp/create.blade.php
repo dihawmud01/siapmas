@@ -164,7 +164,7 @@
                             x-text="errors.documentation"
                         ></p>
                         <x-input-multiple-files
-                            name="documentation"
+                            name="documentations"
                             label="{{ __('Dokumentasi Pelaksanaan Konferancab/Rapat Anggota') }}"
                             accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpeg, image/png, video/mp4"
                         />

@@ -13,7 +13,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 use setasign\Fpdi\Tcpdf\Fpdi;
@@ -76,15 +75,15 @@ class SPController extends Controller
                     'brigade_institution_members' => 'nullable|array',
                 ],
                 [
-                    'documentation' => 'nullable|array',
-                    'documentation.*' => 'file|mimes:docx,jpeg,png,mp4|max:10240',
-                    'request_letter' => 'required|file|mimes:pdf|max:10240',
-                    'mwc_recommendation' => 'required|file|mimes:pdf|max:10240',
-                    'pac_recommendation' => 'required|file|mimes:pdf|max:10240',
-                    'election_report' => 'required|file|mimes:pdf|max:10240',
-                    'formation_report' => 'required|file|mimes:pdf|max:10240',
-                    'id_cv_photo_certificate' => 'required|file|mimes:pdf|max:10240',
-                    'management_structure' => 'required|file|mimes:docx|max:10240',
+                    'documentations' => 'required|array|min:1',
+                    'documentations.*' => 'file|mimes:docx,jpeg,png|max:2048',
+                    'request_letter' => 'required|file|mimes:pdf|max:2048',
+                    'mwc_recommendation' => 'required|file|mimes:pdf|max:2048',
+                    'pac_recommendation' => 'required|file|mimes:pdf|max:2048',
+                    'election_report' => 'required|file|mimes:pdf|max:2048',
+                    'formation_report' => 'required|file|mimes:pdf|max:2048',
+                    'id_cv_photo_certificate' => 'required|file|mimes:pdf|max:2048',
+                    'management_structure' => 'required|file|mimes:docx|max:2048',
                 ],
             ),
         );
@@ -97,24 +96,26 @@ class SPController extends Controller
         $pacSlug = Str::slug($user->pac->pac);
 
         $fileCategories = [
-            'documentation',
-            'request_letter',
-            'mwc_recommendation',
-            'pac_recommendation',
-            'election_report',
-            'formation_report',
-            'id_cv_photo_certificate',
-            'management_structure',
+            'documentations' => 'documentation',
+            'request_letter' => 'request_letter',
+            'mwc_recommendation' => 'mwc_recommendation',
+            'pac_recommendation' => 'pac_recommendation',
+            'election_report' => 'election_report',
+            'formation_report' => 'formation_report',
+            'id_cv_photo_certificate' => 'id_cv_photo_certificate',
+            'management_structure' => 'management_structure',
         ];
 
-        collect($fileCategories)->each(function ($category) use ($request, $letter, $pacSlug) {
-            $path = "sp/{$pacSlug}/{$category}/{$letter->id}/";
+        foreach ($fileCategories as $field => $category) {
+            if ($request->hasFile($field)) {
+                $files = is_array($request->file($field)) ? $request->file($field) : [$request->file($field)];
 
-            if ($request->hasFile($category)) {
-                $files = is_array($request->file($category)) ? $request->file($category) : [$request->file($category)];
+                $folder = Str::plural($category);
+
+                $path = "documents/letters/sp/{$pacSlug}/{$folder}/{$letter->id}/";
 
                 foreach ($files as $file) {
-                    $filename = "{$category}-" . Str::uuid() . '.' . $file->getClientOriginalExtension();
+                    $filename = $category . '-' . Str::uuid() . '.' . $file->getClientOriginalExtension();
                     $file->storeAs($path, $filename, 'public');
 
                     SPSubmissionFile::create([
@@ -124,7 +125,7 @@ class SPController extends Controller
                     ]);
                 }
             }
-        });
+        }
 
         Alert::success('Pengajuan berhasil dikirim', 'Data-data akan ditinjau terlebih dahulu oleh PC');
 
@@ -191,8 +192,8 @@ class SPController extends Controller
 
         $letter->update(['generated_at' => now()]);
 
-        $dynamicCoverPath = public_path('storage/sp/ipnu/' . $pacSlug);
-        $dynamicCover = $dynamicCoverPath . '/ipnu-sp-cover.pdf';
+        $dynamicCoverPath = public_path("storage/documents/letters/sp/{$pacSlug}/ipnu/");
+        $dynamicCover = "{$dynamicCoverPath}/ipnu-sp-cover.pdf";
 
         if (! is_dir($dynamicCoverPath)) {
             mkdir($dynamicCoverPath, 0755, true);
@@ -218,7 +219,7 @@ class SPController extends Controller
             compact('letter', 'pac'),
         );
 
-        $contentPath = public_path('storage/sp/content.pdf');
+        $contentPath = storage_path('app/public/documents/letters/sp/content.pdf');
         file_put_contents($contentPath, $contentPdf->output());
 
         $merger = new Merger();
@@ -226,7 +227,7 @@ class SPController extends Controller
         $merger->addFile($contentPath);
         $mergedPdf = $merger->merge();
 
-        $spDirectory = public_path('storage/sp/ipnu/' . $pacSlug . '/generated/' . $letter->id);
+        $spDirectory = public_path("storage/documents/letters/sp/{$pacSlug}/ipnu/generated/{$letter->id}");
         if (! is_dir($spDirectory)) {
             mkdir($spDirectory, 0755, true);
         }
@@ -236,7 +237,7 @@ class SPController extends Controller
 
         file_put_contents($mergedPath, $mergedPdf);
 
-        Storage::delete($contentPath);
+        unlink($contentPath);
 
         return response()->file($mergedPath, [
             'Content-Type' => 'application/pdf',
@@ -252,7 +253,7 @@ class SPController extends Controller
 
         $letter->update(['generated_at' => now()]);
 
-        $path = public_path("storage/sp/ippnu/{$pacSlug}/generated/{$letter->id}");
+        $path = public_path("storage/documents/letters/sp/{$pacSlug}/ippnu/generated/{$letter->id}");
 
         if (! is_dir($path)) {
             mkdir($path, 0755, true);

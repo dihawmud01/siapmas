@@ -798,9 +798,5 @@
                 </table>
             </div>
         </div>
-
-        <div class="footer">
-            <img src="{{ public_path('assets/images/sp/footer.jpeg') }}" alt="Footer" />
-        </div>
     </body>
 </html>

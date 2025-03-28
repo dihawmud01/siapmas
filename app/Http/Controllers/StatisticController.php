@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\FormalCadreLevel;
-use App\Enums\Gender;
 use App\Models\Member;
-use App\Models\Disposition;
 use App\Models\Letter;
 use App\Models\News;
 use App\Models\User;
@@ -104,8 +101,7 @@ class StatisticController extends Controller
         $todayOutgoingLetter = Letter::outgoing()
             ->today()
             ->count();
-        $todayDispositionLetter = Disposition::today()->count();
-        $todayLetterTransaction = $todayIncomingLetter + $todayOutgoingLetter + $todayDispositionLetter;
+        $todayLetterTransaction = $todayIncomingLetter + $todayOutgoingLetter;
 
         $yesterdayIncomingLetter = Letter::incoming()
             ->yesterday()
@@ -113,8 +109,7 @@ class StatisticController extends Controller
         $yesterdayOutgoingLetter = Letter::outgoing()
             ->yesterday()
             ->count();
-        $yesterdayDispositionLetter = Disposition::yesterday()->count();
-        $yesterdayLetterTransaction = $yesterdayIncomingLetter + $yesterdayOutgoingLetter + $yesterdayDispositionLetter;
+        $yesterdayLetterTransaction = $yesterdayIncomingLetter + $yesterdayOutgoingLetter;
 
         return view(
             'admins.index',
@@ -131,7 +126,6 @@ class StatisticController extends Controller
                 'lakutCounts',
                 'todayIncomingLetter',
                 'todayOutgoingLetter',
-                'todayDispositionLetter',
                 'todayLetterTransaction',
             ),
         );

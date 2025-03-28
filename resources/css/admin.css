@@ -268,12 +268,6 @@ h6 {
     font-family: 'Open Sans', sans-serif;
 }
 
-.card-title span {
-    color: #899bbd;
-    font-weight: 400;
-    font-size: 14px;
-}
-
 .card-img-overlay {
     background-color: rgba(255, 255, 255, 0.6);
 }
@@ -1489,3 +1483,63 @@ h6 {
 .btn-action {
     white-space: nowrap;
 }
+
+.pdf-preview {
+    position: relative;
+    transition: box-shadow 0.2s ease;
+    background: #fff;
+    width: 250px;
+    overflow: hidden;
+}
+
+.pdf-preview:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.pdf-thumbnail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f4f4f4;
+    width: 100%;
+    height: 120px;
+    overflow: hidden;
+}
+
+.pdf-thumbnail img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.pdf-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f4f4f4;
+    padding: 8px 10px;
+    overflow: hidden;
+    color: #444;
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pdf-meta .filename {
+    flex-grow: 1;
+}
+
+/*.btn-delete-attachment {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    right: 0;*/
+/*    z-index: 10;*/
+/*    margin: 5px;*/
+/*    border: none;*/
+/*    border-radius: 50%;*/
+/*    padding: 5px;*/
+/*    color: #1e1e1e;*/
+/*    font-size: 16px;*/
+/*}*/
