@@ -83,7 +83,7 @@
             @if ($outgoing->isEmpty())
                 <div class="d-flex align-items-center justify-content-center empty-content p-4">
                     <div class="text-center">
-                        <h1 class="text-secondary mb-3">{{ __('Belum ada surat masuk') }}</h1>
+                        <h1 class="text-secondary mb-3">{{ __('Belum ada surat keluar') }}</h1>
                     </div>
                 </div>
             @else
@@ -101,7 +101,7 @@
                         </thead>
 
                         <tbody>
-                            @forelse ($outgoing as $idx => $letter)
+                            @foreach ($outgoing as $idx => $letter)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td>{{ $letter->name }}</td>
@@ -141,11 +141,7 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="6" class="text-center">{{ __('Tidak ada data surat masuk') }}</td>
-                                </tr>
-                            @endforelse
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

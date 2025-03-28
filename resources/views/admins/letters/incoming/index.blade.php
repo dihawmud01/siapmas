@@ -101,7 +101,7 @@
                         </thead>
 
                         <tbody>
-                            @forelse ($incoming as $idx => $letter)
+                            @foreach ($incoming as $idx => $letter)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td>{{ $letter->name }}</td>
@@ -141,11 +141,7 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="6" class="text-center">{{ __('Tidak ada data surat masuk') }}</td>
-                                </tr>
-                            @endforelse
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
