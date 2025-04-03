@@ -16,16 +16,18 @@ class PACController extends Controller
 
         if ($request->has('search')) {
             $search = $request->search;
-            $pacs = $query->where('pac', 'like', "%$search%")->paginate(10);
+            $pacs = $query->where('pac', 'like', "%$search%")->get();
 
             if ($pacs->isEmpty()) {
                 $message = "Data tidak ditemukan untuk: $search";
             }
         } else {
-            $pacs = $query->paginate(10);
+            $pacs = $query->get(); // Ambil semua data tanpa pagination
         }
-        return view('admins.pac.index', compact('pacs'))->with('search', request('search'));
+
+        return view('admins.pac.index', compact('pacs', 'message'))->with('search', request('search'));
     }
+
 
     public function create()
     {

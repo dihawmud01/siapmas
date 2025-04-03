@@ -224,11 +224,11 @@ Route::middleware(['auth', 'role: 1'])->group(function () {
     Route::delete('/dashboard/pac/{id}', [PACController::class, 'destroy'])->name('pac.destroy');
 
     Route::get('/dashboard/quotes/', [QuoteController::class, 'index'])->name('quotes.index');
-    Route::get('/dashboard/quotes/create', [QuoteController::class, 'create'])->name('quotes.create');
-    Route::post('/dashboard/quotes/store', [QuoteController::class, 'store'])->name('quotes.store');
-    Route::get('/dashboard/quotes/{id}/edit', [QuoteController::class, 'edit'])->name('quotes.edit');
-    Route::put('/dashboard/quotes/{id}', [QuoteController::class, 'update'])->name('quotes.update');
-    Route::delete('/dashboard/quotes/{id}', [QuoteController::class, 'destroy'])->name('quotes.destroy');
+    Route::get('/dashboard/quotes/create', [QuoteController::class, 'createQuote'])->name('quotes.create');
+    Route::post('/dashboard/quotes/store', [QuoteController::class, 'storeQuote'])->name('quotes.store');
+    Route::get('/dashboard/quotes/{id}/edit', [QuoteController::class, 'editQuote'])->name('quotes.edit');
+    Route::put('/dashboard/quotes/{id}', [QuoteController::class, 'updateQuote'])->name('quotes.update');
+    Route::delete('/dashboard/quotes/{id}', [QuoteController::class, 'destroyQuote'])->name('quotes.destroy');
 
     Route::get('/dashboard/administrators/', [AdministratorController::class, 'index'])->name('administrators.index');
     Route::get('/dashboard/administrators/create', [AdministratorController::class, 'create'])->name(

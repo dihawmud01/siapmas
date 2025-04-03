@@ -33,24 +33,19 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $category->title }}</td>
                                                 <td>
-                                                    <form
-                                                            action="{{ route('categories.destroy', $category->id) }}"
-                                                            method="post"
-                                                            class="float-left"
-                                                    >
-                                                        <a
-                                                                href="{{ route('categories.edit', $category->id) }}"
-                                                                class="btn btn-warning btn-sm float-left mr-1"
-                                                        >
-                                                            <i class="ri-edit-box-fill"></i>
-                                                        </a>
+                                                    <a href="{{ route('categories.edit', $category->id) }}" 
+                                                    class="btn btn-warning btn-sm">
+                                                        <i class="ri-edit-box-fill"></i>
+                                                    </a>
+
+                                                    <form action="{{ route('categories.destroy', $category->id) }}" 
+                                                        method="POST" 
+                                                        class="d-inline">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button
-                                                                type="submit"
+                                                        <button type="submit" 
                                                                 class="btn btn-danger btn-sm"
-                                                                onclick="return confirm('{{ __('Apakah kamu yakin ingin menghapus kategori?') }}')"
-                                                        >
+                                                                onclick="return confirm('Apakah kamu yakin ingin menghapus kategori?')">
                                                             <i class="ri-delete-bin-2-line"></i>
                                                         </button>
                                                     </form>

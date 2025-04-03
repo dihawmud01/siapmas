@@ -44,55 +44,41 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($news as $post)
-                                                    <tr>
-                                                        <td>{{ $post->id }}</td>
-                                                        <td>{{ Str::limit($post->title, 50) }}</td>
-                                                        <td>{{ $post->category->title }}</td>
-                                                        <td>{{ $post->user->username }}</td>
-                                                        <td>
-                                                            @if ($post->active === 1)
-                                                                <span class="badge bg-success">
-                                                                    {{ __('Aktif') }}
-                                                                </span>
-                                                            @else
-                                                                <span class="badge bg-danger">
-                                                                    {{ __('Nonaktif ') }}
-                                                                </span>
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            <form
-                                                                action="{{ route('news.destroy', ['id' => $post->id]) }}"
-                                                                method="post"
-                                                                class="float-left"
-                                                            >
-                                                                <a
-                                                                    href="{{ route('news.index', ['slug' => $post->slug]) }}"
-                                                                    class="btn btn-info btn-sm float-left mr-1"
-                                                                    target="_blank"
-                                                                >
-                                                                    <i class="ri-eye-fill"></i>
-                                                                </a>
-                                                                <a
-                                                                    href="{{ route('news.edit', ['id' => $post->id]) }}"
-                                                                    class="btn btn-primary btn-sm float-left mr-1"
-                                                                >
-                                                                    <i class="ri-edit-box-fill"></i>
-                                                                </a>
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button
-                                                                    type="submit"
-                                                                    class="btn btn-danger btn-sm"
-                                                                    onclick="return confirm('{{ __('Apakah Anda yakin ingin menghapus postingan?') }}')"
-                                                                >
-                                                                    <i class="ri-delete-bin-2-line"></i>
-                                                                </button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
+                                            @foreach ($news as $index => $post)
+                                                <tr>
+                                                    <td>{{ $news->firstItem() + $index }}</td>
+                                                    <td>{{ Str::limit($post->title, 50) }}</td>
+                                                    <td>{{ $post->category->title }}</td>
+                                                    <td>{{ $post->user->username }}</td>
+                                                    <td>
+                                                        @if ($post->active === 1)
+                                                            <span class="badge bg-success">
+                                                                {{ __('Aktif') }}
+                                                            </span>
+                                                        @else
+                                                            <span class="badge bg-danger">
+                                                                {{ __('Nonaktif ') }}
+                                                            </span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <form action="{{ route('news.destroy', ['id' => $post->id]) }}" method="post" class="float-left">
+                                                            <a href="{{ route('news.show', ['slug' => $post->slug]) }}" class="btn btn-info btn-sm float-left mr-1" target="_blank">
+                                                                <i class="ri-eye-fill"></i>
+                                                            </a>
+                                                            <a href="{{ route('news.edit', ['id' => $post->id]) }}" class="btn btn-primary btn-sm float-left mr-1">
+                                                                <i class="ri-edit-box-fill"></i>
+                                                            </a>
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{{ __('Apakah Anda yakin ingin menghapus postingan?') }}')">
+                                                                <i class="ri-delete-bin-2-line"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+
                                             </tbody>
                                         </table>
                                     </div>

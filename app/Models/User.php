@@ -71,4 +71,10 @@ class User extends Authenticatable
             ],
         ];
     }
+
+    public function letters()
+    {
+        return $this->hasMany(Letter::class, 'user_id');
+    }
+
 }

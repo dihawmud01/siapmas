@@ -10,8 +10,8 @@
             <form action="{{ route('categories.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                    <label for="name" class="form-label">{{ __('Nama Kategori Baru') }}</label>
-                    <input type="text" name="name" class="form-control mb-3" id="name" required />
+                    <label for="title" class="form-label">{{ __('Nama Kategori Baru') }}</label>
+                    <input type="text" name="title" class="form-control mb-3" id="title" required />
                 </div>
                 <div class="mb-3">
                     <a href="{{ route('categories.index') }}" class="btn btn-warning btn-sm">{{ __('Kembali') }}</a>

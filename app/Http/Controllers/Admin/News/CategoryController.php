@@ -84,16 +84,16 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        if ($category->posts()->count()) {
+        if ($category->news()->count()) {
             return redirect()
                 ->route('categories.index')
-                ->with('error', 'Error! The categories has entries.');
+                ->with('error', 'Error! Kategori sudah memiliki entri.');
         }
 
         $category->delete();
 
         return redirect()
             ->route('categories.index')
-            ->with('info', 'Category deleted successfully!');
+            ->with('info', 'Kategori berhasil di hapus!');
     }
 }

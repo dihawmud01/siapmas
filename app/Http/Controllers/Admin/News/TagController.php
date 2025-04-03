@@ -92,16 +92,16 @@ class TagController extends Controller
     {
         $tag = Tag::findOrFail($id);
 
-        if ($tag->posts()->count()) {
+        if ($tag->news()->count()) {
             return redirect()
                 ->route('tags.index')
-                ->with('error', 'Error! The tag has entries.');
+                ->with('error', 'Error! Tag sudah memiliki entri.');
         }
 
         $tag->delete();
 
         return redirect()
             ->route('tags.index')
-            ->with('info', 'Tag deleted successfully!');
+            ->with('info', 'Tag berhasil di hapus!');
     }
 }

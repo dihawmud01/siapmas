@@ -105,8 +105,19 @@ class AgendaController extends Controller
 
     public function edit($id, Request $request)
     {
+        // Cari data event berdasarkan ID
         $event = Agenda::find($id);
 
+        // Jika tidak ditemukan, redirect dengan pesan error
+        if (!$event) {
+            return redirect()->route('admin.calendar.index')
+                            ->with('error', 'Agenda tidak ditemukan');
+        }
+
+        // Format 'date' untuk ditampilkan dalam input 'datetime-local'
+        $event->formatted_date = Carbon::parse($event->date)->format('Y-m-d\TH:i');
+
+        // Daftar organizer yang dapat dipilih
         $organizers = [
             'PC IPNU IPPNU BANYUMAS',
             'PAC BATURRADEN',
@@ -140,36 +151,38 @@ class AgendaController extends Controller
             'KOMISARIAT UIN SAIZU PURWOKERTO',
         ];
 
+        // Daftar kategori yang bisa dipilih
         $categories = ['Formal', 'Nonformal', 'Informal'];
 
+        // Kirim data ke view
         return view('admins.calendar.edit', compact('event', 'organizers', 'categories'));
     }
+
+
+
 
     public function update($id, Request $request)
     {
         $eventToUpdate = Agenda::findOrFail($id);
-        $event = $request->all();
+        $event = $request->except('pamphlet'); // Ambil semua kecuali pamflet
 
-        // Periksa apakah checkbox dicentang atau tidak
-        $status = isset($event['status']) ? true : false;
-        $event['status'] = $status;
+        // Cek jika ada file pamflet baru
+        if ($request->hasFile('pamphlet')) {
+            $extension = $request->pamphlet->getClientOriginalExtension();
+            $newFileName = 'agenda_' . $request->organizer . '-' . now()->timestamp . '.' . $extension;
+            $request->file('pamphlet')->move(public_path('/storage/images'), $newFileName);
+            $event['pamphlet'] = $newFileName;
+        }
+
+        // Handle status checkbox
+        $event['status'] = $request->has('status') ? true : false;
 
         $eventToUpdate->update($event);
 
         Alert::success('Mantap Rekan', 'Agenda Berhasil Di Ubah');
-
         return redirect()->route('admin.calendar.index');
     }
 
-    public function destroy($id)
-    {
-        $events = Agenda::findOrFail($id);
-        $events->delete();
-
-        Alert::success('Mantap Rekan', 'Agenda Berhasil Dihapus');
-
-        return redirect()->route('admin.calendar.index');
-    }
 
     public function getEvents()
     {

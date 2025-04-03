@@ -18,7 +18,7 @@
                                 <form
                                     role="form"
                                     method="POST"
-                                    action="{{ route('post.store') }}"
+                                    action="{{ route('news.store') }}"
                                     enctype="multipart/form-data"
                                 >
                                     @csrf

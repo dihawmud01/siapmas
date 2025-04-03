@@ -16,7 +16,7 @@
                                     <h3 class="card-title">{{ __('Buat Tag') }}</h3>
                                 </div>
 
-                                <form role="form" method="POST" action="{{ route('tag.store') }}">
+                                <form role="form" method="POST" action="{{ route('tags.store') }}">
                                     @csrf
                                     <div class="card-body">
                                         @include('admins.tags.form')

@@ -19,14 +19,7 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label for="name" class="form-label">{{ __('Nama Kegiatan') }}</label>
-                            <input
-                                type="text"
-                                name="name"
-                                class="form-control mb-3"
-                                id="name"
-                                required
-                                value="{{ $event->name }}"
-                            />
+                            <input type="text" name="title" class="form-control" value="{{ old('title', $event->title) }}" required>
                         </div>
                         <div class="mb-3">
                             <label for="organizer" class="form-label">{{ __('Penyelenggara') }}</label>
@@ -44,16 +37,10 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="time" class="form-label">{{ __('Waktu') }}</label>
-                            <input
-                                type="datetime-local"
-                                name="time"
-                                class="form-control mb-3"
-                                id="time"
-                                required
-                                value="{{ $event->time }}"
-                            />
+                            <label for="date" class="form-label">{{ __('Waktu') }}</label>
+                            <input type="datetime-local" name="date" class="form-control mb-3" id="date" value="{{ old('date', $event->formatted_date) }}" required />
                         </div>
+
                         <div class="mb-3">
                             <label for="place" class="form-label">{{ __('Tempat') }}</label>
                             <input
@@ -66,7 +53,7 @@
                             />
                         </div>
                         <div class="mb-3">
-                            <label for="category" class="form-label">{{ __('Pilih') }}</label>
+                            <label for="category" class="form-label">{{ __('Kategori') }}</label>
                             <select name="category" class="form-select" required aria-label="category">
                                 <option disabled selected>{{ __('-- Pilih --') }}</option>
 
@@ -74,18 +61,21 @@
                                     <option
                                         value="{{ $category }}"
                                         {{ $event->category == $category ? 'selected' : '' }}
-                                    ></option>
+                                    >
+                                        {{ $category }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
+
                         <div class="mb-3">
-                            <label for="img" class="form-label">{{ __('Pamflet Kegiatan') }}</label>
+                            <label for="pamphlet" class="form-label">{{ __('Pamflet Kegiatan') }}</label>
                             <input
                                 type="file"
-                                name="img"
+                                name="pamphlet"
                                 class="form-control mb-3"
-                                id="img"
-                                value="{{ $event->img }}"
+                                id="pamhlet"
+                                value="{{ $event->pamphlet }}"
                             />
                         </div>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\PAC;
+use App\Models\Letter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -17,19 +18,18 @@ class UserController extends Controller
         if ($request->has('search')) {
             $user = User::where('username', 'LIKE', '%' . $request->search . '%')
                 ->orWhere('name', 'LIKE', '%' . $request->search . '%')
-                ->paginate(25);
+                ->latest()
+                ->get();
         } else {
-            $user = User::with('pac')->latest()->paginate(25);
+            $user = User::with('pac')->latest()->get();
         }
-
-        $firstItem = $user instanceof \Illuminate\Pagination\LengthAwarePaginator ? $user->firstItem() : $user->first();
 
         return view('admins.admins.index', [
             'admins' => $user,
-            'userCounts' => $userCounts,
-            'firstItem' => $firstItem
+            'userCounts' => $userCounts
         ]);
     }
+
 
     public function create()
     {
@@ -137,6 +137,9 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
+        // Hapus semua surat terkait sebelum menghapus user
+        $user->letters()->delete();
+
         // Hapus foto jika bukan default.png
         if ($user->photo && $user->photo !== 'default.png') {
             $photoPath = public_path("storage/images/user/photos/{$user->id}/{$user->photo}");
@@ -151,11 +154,13 @@ class UserController extends Controller
             }
         }
 
+        // Hapus user setelah data terkait dihapus
         $user->delete();
 
         Alert::success('Success', 'User dan foto berhasil dihapus');
         return redirect()->route('dashboard.admins.index');
     }
+
 
 
     public function showAdmins(Request $request)
@@ -167,7 +172,7 @@ class UserController extends Controller
                 return $query->where('name', 'like', "%{$search}%");
             })
             ->latest()
-            ->paginate(20);
+            ->paginate(50);
 
         return view('admins.admins.index', compact('admins'));
     }

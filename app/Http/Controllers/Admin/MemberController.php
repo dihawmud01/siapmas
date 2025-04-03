@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\Gender;
 use App\Enums\MembershipStatus;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule; 
 use App\Models\Member;
 use App\Models\PAC;
 use App\Models\User;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Schema;
+
 
 
 class MemberController extends Controller
@@ -169,7 +171,7 @@ class MemberController extends Controller
                 [
                     'name' => 'required|string|max:255',
                     'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
-                    'gender' => 'required|string',
+                    'gender' => ['required', Rule::in(['male', 'female'])],
                     'place_of_birth' => 'required|string',
                     'date_of_birth' => 'required|date',
                     'address' => 'required|string',
@@ -339,16 +341,17 @@ class MemberController extends Controller
 
     public function update(Request $request, Member $member)
     {
+        // Validasi data input
         $validatedData = $request->validate(
             array_merge(
                 [
                     'name' => 'required|string|max:255',
                     'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
-                    'gender' => 'required|string',
+                    'gender' => ['required', Rule::in(['male', 'female'])], // Sesuaikan dengan enum
                     'place_of_birth' => 'required|string',
                     'date_of_birth' => 'required|date',
                     'address' => 'required|string',
-                    'formal_cadre_levels' => 'required|array|min:1',
+                    'formal_cadre_levels' => 'nullable|array',
                     'formal_cadre_levels.*' => 'string|in:makesta,lakmud,lakut',
                     'non_formal_cadre_levels' => 'nullable|array',
                     'non_formal_cadre_levels.*' => 'string|in:diklatama,diklatmad,diklatnas,latinpel',
@@ -363,18 +366,19 @@ class MemberController extends Controller
                         'pac_id' => 'required|integer',
                         'membership_status' => 'required|string',
                     ],
-            ),
+            )
         );
-
+        
+        // Tambahkan gender dan pac_id
         $validatedData['gender'] = Gender::tryFrom($request->gender);
         $user = Auth::user();
-
         $validatedData['pac_id'] = $user->role_id == 3 ? $user->pac_id : $request->pac_id;
 
         if ($user->role_id != 3) {
             $validatedData['membership_status'] = MembershipStatus::tryFrom($request->membership_status);
         }
 
+        // Proses data formal dan non-formal
         $formalCadres = collect($request->input('formal_cadre_levels', []));
         $validatedData['is_makesta'] = $formalCadres->contains('makesta');
         $validatedData['makesta_year'] = $validatedData['is_makesta'] ? $validatedData['makesta_year'] : null;
@@ -382,33 +386,44 @@ class MemberController extends Controller
         $validatedData['lakmud_year'] = $validatedData['is_lakmud'] ? $validatedData['lakmud_year'] : null;
         $validatedData['is_lakut'] = $formalCadres->contains('lakut');
         $validatedData['lakut_year'] = $validatedData['is_lakut'] ? $validatedData['lakut_year'] : null;
-
+        
         $nonFormalCadres = collect($request->input('non_formal_cadre_levels', []));
         $validatedData['is_diklatama'] = $nonFormalCadres->contains('diklatama');
         $validatedData['is_diklatnas'] = $nonFormalCadres->contains('diklatnas');
         $validatedData['is_diklatmad'] = $nonFormalCadres->contains('diklatmad');
         $validatedData['is_latinpel'] = $nonFormalCadres->contains('latinpel');
 
+        // Proses foto jika ada
         $pacSlug = Str::slug(PAC::where('id', $validatedData['pac_id'])->value('pac'));
-
         if ($request->hasFile('photo')) {
+            // Menghapus foto lama jika ada
             $oldPhotoPath = 'images/members/' . Str::slug($member->pac->pac) . "/photo/{$member->photo}";
-
             if ($member->photo && $member->photo !== 'default.png' && Storage::disk('public')->exists($oldPhotoPath)) {
                 Storage::disk('public')->delete($oldPhotoPath);
             }
 
+            // Menyimpan foto baru
             $file = $request->file('photo');
-            $filename = Str::slug($request->name) . '_' . now()->timestamp . '.' . $file->getClientOriginalExtension();
+            $filename = Str::slug($request->name) . '-' . now()->timestamp . '.' . $file->getClientOriginalExtension();
             $file->storeAs("images/members/{$pacSlug}/photo/", $filename, 'public');
             $validatedData['photo'] = $filename;
         }
 
-        $member->update($validatedData);
+        // Update data anggota
+        $updated = $member->update($validatedData);
 
-        Alert::success('Update anggota berhasil');
+        if ($updated) {
+            // Jika update berhasil
+            Alert::success('Update anggota berhasil');
+        } else {
+            // Jika update gagal
+            Alert::error('Update anggota gagal');
+        }
+
+        // Redirect ke index setelah update
         return redirect()->route('dashboard.members.index');
     }
+
 
     public function destroy(Member $member)
     {
