@@ -14,6 +14,11 @@
     <div class="card">
         <div class="card-header bg-transparent text-center">
             <div class="d-flex align-items-center p-4">
+                <div class="text-start">
+                    <a href="{{ route('dashboard.members.index') }}" class="btn fs-4 border-0">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
+                </div>
                 <div class="d-flex flex-column w-100">
                     <h3 class="fw-bold">{{ __('Edit Anggota') }}</h3>
                 </div>
@@ -59,24 +64,20 @@
                         name="gender"
                         label="{{ __('Jenis Kelamin') }}"
                         :options="$genders"
-                        :selected="old('gender', $member->gender->value)"
+                        :selected="$member->gender->value"
                     />
                     <x-input-form
                         name="place_of_birth"
                         label="{{ __('Tempat Lahir') }}"
-                        :value="old('place_of_birth', $member->place_of_birth)"
+                        :value="$member->place_of_birth"
                     />
                     <x-input-form
                         name="date_of_birth"
                         label="{{ __('Tanggal Lahir') }}"
                         type="date"
-                        :value="old('date_of_birth', $member->date_of_birth)"
+                        :value="$member->date_of_birth"
                     />
-                    <x-input-textarea
-                        name="address"
-                        label="{{ __('Alamat Lengkap') }}"
-                        :value="old('address', $member->address)"
-                    />
+                    <x-input-textarea name="address" label="{{ __('Alamat Lengkap') }}" :value="$member->address" />
 
                     <div
                         x-data="{
@@ -125,7 +126,7 @@
                                 name="makesta_year"
                                 label="{{ __('Tahun Makesta') }}"
                                 :options="$years"
-                                :selected="old('makesta_year', $member->makesta_year)"
+                                :selected="$member->makesta_year"
                                 required="0"
                             />
                         </div>
@@ -135,7 +136,7 @@
                                 name="lakmud_year"
                                 label="{{ __('Tahun Lakmud') }}"
                                 :options="$years"
-                                :selected="old('lakmud_year', $member->lakmud_year)"
+                                :selected="$member->lakmud_year"
                                 required="0"
                             />
                         </div>
@@ -145,7 +146,7 @@
                                 name="lakut_year"
                                 label="{{ __('Tahun Lakut') }}"
                                 :options="$years"
-                                :selected="old('lakut_year', $member->lakut_year)"
+                                :selected="$member->lakut_year"
                                 required="0"
                             />
                         </div>
@@ -192,9 +193,19 @@
 
                     <x-input-form name="phone" label="{{ __('No. HP') }}" :value="old('phone', $member->phone)" />
 
-                    @if (auth()->user()->role_id == 2)
-                        <x-input-select name="pac_id" label="{{ __('PAC') }}" :options="$pacList" :selected="$member->pac_id" />
-                        <x-input-select name="membership_status" label="{{ __('Status Keanggotaan') }}" :options="$membershipStatus" :selected="$member->membership_status->value" />
+                    @if (in_array(auth()->user()->role_id, [1, 2]))
+                        <x-input-select
+                            name="pac_id"
+                            label="{{ __('PAC') }}"
+                            :options="$pacList"
+                            :selected="$member->pac_id"
+                        />
+                        <x-input-select
+                            name="membership_status"
+                            label="{{ __('Status Keanggotaan') }}"
+                            :options="$membershipStatus"
+                            :selected="$member->membership_status->value"
+                        />
                     @endif
 
                     <div class="d-flex align-items-center justify-content-end">

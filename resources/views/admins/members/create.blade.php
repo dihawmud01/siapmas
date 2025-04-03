@@ -149,7 +149,7 @@
 
                     <x-input-form name="phone" label="{{ __('No. HP') }}" />
 
-                    @if (auth()->user()->role_id == 2)
+                    @if (in_array(auth()->user()->role_id, [1, 2]))
                         <x-input-select name="pac_id" label="{{ __('PAC') }}" :options="$pacList" />
                         <x-input-select
                             name="membership_status"

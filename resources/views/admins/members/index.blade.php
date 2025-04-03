@@ -152,17 +152,16 @@
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td>{{ $member['name'] }}</td>
                                     <td class="text-center">
-                                        <a
-                                            href="{{ asset('storage/images/' . ($member['photo'] != 'default.png' ? 'members/' . strtolower(str_replace(' ', '-', $member->pac->pac)) . '/photo/' . $member['photo'] : 'default.png')) }}"
-                                        >
-                                            <img
-                                                src="{{ asset('storage/images/' . ($member['photo'] != 'default.png' ? 'members/' . strtolower(str_replace(' ', '-', $member->pac->pac)) . '/photo/' . $member['photo'] : 'default.png')) }}"
-                                                width="60"
-                                                class="img-fluid img-thumbnail"
-                                                style="max-height: 60px"
-                                                alt="{{ __('Foto Anggota') }}"
-                                            />
-                                        </a>
+                                    <a href="{{ asset('storage/' . ($member->photo != 'default.png' ? $member->photo : 'images/default.png')) }}">
+                                        <img 
+                                            src="{{ asset('storage/' . ($member->photo != 'default.png' ? $member->photo : 'images/default.png')) }}"
+                                            width="60"
+                                            class="img-fluid img-thumbnail"
+                                            style="max-height: 60px"
+                                            alt="{{ __('Foto Anggota') }}"
+                                        />
+                                    </a>
+
                                     </td>
 
                                     @if (auth()->user()->role_id != 3)

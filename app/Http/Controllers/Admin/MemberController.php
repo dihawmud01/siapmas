@@ -396,18 +396,36 @@ class MemberController extends Controller
         // Proses foto jika ada
         $pacSlug = Str::slug(PAC::where('id', $validatedData['pac_id'])->value('pac'));
         if ($request->hasFile('photo')) {
-            // Menghapus foto lama jika ada
-            $oldPhotoPath = 'images/members/' . Str::slug($member->pac->pac) . "/photo/{$member->photo}";
-            if ($member->photo && $member->photo !== 'default.png' && Storage::disk('public')->exists($oldPhotoPath)) {
-                Storage::disk('public')->delete($oldPhotoPath);
+            // Ambil slug PAC dan ID member
+            $pacSlug = Str::slug($member->pac->pac);
+            $memberId = $member->id;
+        
+            // Hapus foto lama jika ada
+            $oldPhotoPath = public_path("storage/images/members/{$pacSlug}/{$memberId}/{$member->photo}");
+            if ($member->photo && $member->photo !== 'default.png' && file_exists($oldPhotoPath)) {
+                unlink($oldPhotoPath);
             }
-
-            // Menyimpan foto baru
+        
+            // Simpan foto baru
             $file = $request->file('photo');
             $filename = Str::slug($request->name) . '-' . now()->timestamp . '.' . $file->getClientOriginalExtension();
-            $file->storeAs("images/members/{$pacSlug}/photo/", $filename, 'public');
-            $validatedData['photo'] = $filename;
+        
+            // Path tujuan yang benar
+            $destinationPath = public_path("storage/images/members/{$pacSlug}/{$memberId}/");
+        
+            // Buat folder jika belum ada
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+        
+            // Pindahkan file ke lokasi tujuan
+            $file->move($destinationPath, $filename);
+        
+            // Simpan path relatif ke database
+            $validatedData['photo'] = "images/members/{$pacSlug}/{$memberId}/{$filename}";
         }
+        
+                
 
         // Update data anggota
         $updated = $member->update($validatedData);
