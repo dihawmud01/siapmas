@@ -8,11 +8,18 @@
         "isolatedModules": true,
         "target": "ESNext",
         "esModuleInterop": true,
+        "noImplicitAny": false,
         "forceConsistentCasingInFileNames": true,
         "noEmit": true,
         "paths": {
             "@/*": ["./resources/js/*"]
-        }
+        },
+        "types": ["react", "react-dom"]
     },
-    "include": ["resources/js/**/*.ts", "resources/js/**/*.tsx", "resources/js/**/*.d.ts"]
+    "include": [
+        "resources/js/**/*.ts",
+        "resources/js/**/*.tsx",
+        "resources/js/**/*.d.ts",
+        "resources/js/types/env.d.ts"
+    ]
 }
