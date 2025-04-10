@@ -292,13 +292,13 @@ h6 {
     }
 
     #header {
-        padding: 10px 0 !important;
-        background: #ffffff !important; /* Background putih */
         position: fixed !important;
-        width: 100% !important;
-        z-index: 9999 !important;
         top: 0 !important;
         left: 0 !important;
+        z-index: 9999 !important;
+        background: #ffffff !important; /* Background putih */
+        padding: 10px 0 !important;
+        width: 100% !important;
     }
 
     .logo h1 {
@@ -310,27 +310,27 @@ h6 {
     }
 
     .logo .logo-text .logo-title {
-        font-size: 1rem !important;
         color: #333 !important; /* Warna teks logo menjadi lebih gelap */
+        font-size: 1rem !important;
     }
 
     .logo .logo-text .logo-text-secondary {
-        font-size: 0.7rem !important;
         color: #555 !important; /* Warna teks sekunder logo menjadi lebih gelap */
+        font-size: 0.7rem !important;
     }
 
     #navbar {
         position: fixed !important;
         top: -100% !important;
         left: 0 !important;
-        width: 100% !important;
-        max-width: none !important;
-        overflow-y: auto !important;
+        z-index: 9998 !important;
         transition: top 0.3s ease-out !important;
         background: #ffffff !important; /* Background menu putih */
-        z-index: 9998 !important;
         padding-top: 60px !important;
+        width: 100% !important;
+        max-width: none !important;
         height: auto !important;
+        overflow-y: auto !important;
     }
 
     #navbar.navbar-mobile {
@@ -352,11 +352,11 @@ h6 {
     }
 
     #navbar ul li a {
-        padding: 15px 15px !important; /* Padding horizontal dikurangi menjadi 15px */
-        font-size: 1rem !important;
-        color: #333 !important; /* Warna teks menu menjadi gelap */
         display: block !important;
         transition: color 0.3s ease !important;
+        padding: 15px 15px !important; /* Padding horizontal dikurangi menjadi 15px */
+        color: #333 !important; /* Warna teks menu menjadi gelap */
+        font-size: 1rem !important;
     }
 
     #navbar ul li a:hover,
@@ -365,11 +365,11 @@ h6 {
     }
 
     #navbar ul li.dropdown ul {
-        position: static !important;
         display: none !important;
+        position: static !important;
         margin: 0 !important;
-        padding: 0 !important;
         background: #f9f9f9 !important; /* Background dropdown sedikit abu-abu */
+        padding: 0 !important;
     }
 
     #navbar ul li.dropdown.dropdown-active > ul {
@@ -391,14 +391,14 @@ h6 {
     }
 
     #navbar .mobile-nav-toggle {
-        color: #333 !important; /* Warna ikon hamburger menjadi gelap */
-        font-size: 28px !important;
-        cursor: pointer !important;
         display: block !important;
         position: fixed !important;
         top: 15px !important;
         right: 20px !important;
         z-index: 9999 !important;
+        cursor: pointer !important;
+        color: #333 !important; /* Warna ikon hamburger menjadi gelap */
+        font-size: 28px !important;
     }
 
     #navbar .desktop-nav-toggle {
@@ -408,8 +408,8 @@ h6 {
     /* Gaya tambahan untuk dropdown profil di mobile */
     #navbar ul li.dropdown > a {
         display: flex !important;
-        align-items: center !important;
         justify-content: space-between !important;
+        align-items: center !important;
         padding-right: 30px !important;
     }
 
@@ -419,8 +419,8 @@ h6 {
 
     #navbar ul li.dropdown ul.profile {
         margin: 0 !important;
-        padding: 0 !important;
         background: #f9f9f9 !important;
+        padding: 0 !important;
     }
 
     #navbar ul li.dropdown ul.profile li {
@@ -428,10 +428,10 @@ h6 {
     }
 
     #navbar ul li.dropdown ul.profile li a {
-        padding: 10px 20px !important;
-        color: #333 !important;
         display: block !important;
         align-items: center !important;
+        padding: 10px 20px !important;
+        color: #333 !important;
     }
 
     #navbar ul li.dropdown ul.profile li.dropdown-header {
@@ -440,13 +440,13 @@ h6 {
     }
 
     #navbar ul li.dropdown ul.profile li.dropdown-header h6 {
-        font-size: 1rem !important;
         margin-bottom: 0 !important;
+        font-size: 1rem !important;
     }
 
     #navbar ul li.dropdown ul.profile li.border-top {
-        border-top: 1px solid #eee !important;
         margin-top: 10px !important;
+        border-top: 1px solid #eee !important;
         padding-top: 10px !important;
     }
 }
@@ -503,7 +503,7 @@ h6 {
 }
 
 #hero .carousel-item::before {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.2);
     content: '';
 }
 
@@ -549,17 +549,17 @@ h6 {
     }
 
     #hero h2 {
-        font-size: 20px; /* Ukuran font header yang lebih kecil untuk mobile */
         margin-right: 0; /* Hilangkan margin kanan yang besar */
         margin-bottom: 20px; /* Sesuaikan margin bawah */
+        font-size: 20px; /* Ukuran font header yang lebih kecil untuk mobile */
         line-height: 1.3; /* Tingkatkan line-height untuk keterbacaan */
     }
 
     #hero .btn {
-        font-size: 16px; /* Ukuran font tombol yang lebih kecil untuk mobile */
-        padding: 10px 20px; /* Padding tombol yang lebih kecil */
-        border-radius: 0.25rem !important; /* Sesuaikan radius border jika perlu */
         margin-top: 20px;
+        border-radius: 0.25rem !important; /* Sesuaikan radius border jika perlu */
+        padding: 10px 20px; /* Padding tombol yang lebih kecil */
+        font-size: 16px; /* Ukuran font tombol yang lebih kecil untuk mobile */
     }
 
     /* Atur ukuran background image agar tetap proporsional */
@@ -1062,7 +1062,6 @@ section {
     text-align: center;
 }
 
-
 /*--------------------------------------------------------------
 # Kader Berdasarkan PAC/Komisariat
 --------------------------------------------------------------*/
@@ -1077,27 +1076,25 @@ section {
 
     .card-body.pt-5 {
         padding-top: 1.5rem !important; /* Reduce top padding of card body */
-        padding-left: 15px !important; /* Add left padding */
         padding-right: 15px !important; /* Add right padding */
+        padding-left: 15px !important; /* Add left padding */
     }
 
     .card-title.text-center {
-        font-size: 1.2rem; /* Reduce font size of the title */
         margin-bottom: 1rem; /* Adjust margin bottom of the title */
+        font-size: 1.2rem; /* Reduce font size of the title */
     }
 
     #pieChart {
-        min-height: 300px !important; /* Reduce the minimum height of the pie chart */
         margin-bottom: 1.5rem !important; /* Adjust margin bottom of the pie chart */
+        min-height: 300px !important; /* Reduce the minimum height of the pie chart */
     }
-    
+
     /* Optional: Adjust legend position or orientation if needed */
     /*
     
     */
 }
-
-
 
 /* Portfolio Section
 --------------------------------*/

@@ -11,18 +11,25 @@
 @section('content')
     <section id="hero" class="mb-5">
         <div class="hero-container">
-            <div id="heroCarousel" class="carousel slide carousel-fade " data-bs-ride="carousel" data-bs-interval="5000">
+            <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
                 <ol id="hero-carousel-indicators" class="carousel-indicators"></ol>
 
                 <div class="carousel-inner align-items-center justify-content-center" role="listbox">
-                    <div class="carousel-item active" style="background-image: url({{ asset('assets/images/logokomi.png') }})">
+                    <div
+                        class="carousel-item active"
+                        style="background-image: url({{ asset('assets/images/bg.jpeg') }})"
+                    >
                         <div class="carousel-container">
                             <div class="container">
                                 <h2 class="animate__animated animate__fadeInDown mb-2">
-                                    {{ __('Selamat Datang') }}<br />
+                                    {{ __('Selamat Datang') }}
+                                    <br />
                                     {{ __('Di Website PC IPNU IPPNU BANYUMAS') }}
                                 </h2>
-                                <a href="{{ route('login') }}" class="btn btn-success btn-lg rounded-4 fw-semibold text-decoration-none p-4">
+                                <a
+                                    href="{{ route('login') }}"
+                                    class="btn btn-success btn-lg rounded-4 fw-semibold text-decoration-none p-4"
+                                >
                                     {{ __('Mulai Sekarang') }}
                                 </a>
                             </div>
@@ -30,11 +37,17 @@
                     </div>
 
                     @foreach ($home as $value)
-                        <div class="carousel-item" style="background-image: url({{ asset('storage/images/' . $value->img) }})">
+                        <div
+                            class="carousel-item"
+                            style="background-image: url({{ asset('storage/images/' . $value->img) }})"
+                        >
                             <div class="carousel-container">
                                 <div class="container">
                                     <h2 class="animate__animated animate__fadeInDown mb-2">{{ $value['title'] }}</h2>
-                                    <a href="{{ route('login') }}" class="btn btn-success btn-lg rounded-4 fw-semibold text-decoration-none p-4">
+                                    <a
+                                        href="{{ route('login') }}"
+                                        class="btn btn-success btn-lg rounded-4 fw-semibold text-decoration-none p-4"
+                                    >
                                         {{ __('Mulai Sekarang') }}
                                     </a>
                                 </div>
@@ -74,17 +87,32 @@
 
             <div class="row counters p-4 text-center">
                 <div class="col-12 col-md-4">
-                    <span data-purecounter-start="0" data-purecounter-end="{{ $formalMemberLevelCounts['makesta'] }}" data-purecounter-duration="6" class="purecounter"></span>
+                    <span
+                        data-purecounter-start="0"
+                        data-purecounter-end="{{ $formalMemberLevelCounts['makesta'] }}"
+                        data-purecounter-duration="6"
+                        class="purecounter"
+                    ></span>
                     <p>{{ __('Kader Makesta') }}</p>
                 </div>
 
                 <div class="col-12 col-md-4">
-                    <span data-purecounter-start="0" data-purecounter-end="{{ $formalMemberLevelCounts['lakmud'] }}" data-purecounter-duration="5" class="purecounter"></span>
+                    <span
+                        data-purecounter-start="0"
+                        data-purecounter-end="{{ $formalMemberLevelCounts['lakmud'] }}"
+                        data-purecounter-duration="5"
+                        class="purecounter"
+                    ></span>
                     <p>{{ __('Kader Lakmud') }}</p>
                 </div>
 
                 <div class="col-12 col-md-4">
-                    <span data-purecounter-start="0" data-purecounter-end="{{ $formalMemberLevelCounts['lakut'] }}" data-purecounter-duration="4" class="purecounter"></span>
+                    <span
+                        data-purecounter-start="0"
+                        data-purecounter-end="{{ $formalMemberLevelCounts['lakut'] }}"
+                        data-purecounter-duration="4"
+                        class="purecounter"
+                    ></span>
                     <p>{{ __('Kader Lakut') }}</p>
                 </div>
             </div>
@@ -94,14 +122,29 @@
     <div class="col-12 p-4" data-aos="fade-up">
         <div class="card mt-5">
             <div class="card-body pt-5">
-                <h4 class="card-title text-center">{{ __('Data Rekan & Rekanita') }} <span>{{ __('Dari Tahun Ke Tahun') }}</span></h4>
+                <h4 class="card-title text-center">
+                    {{ __('Data Rekan & Rekanita') }}
+                    <span>{{ __('Dari Tahun Ke Tahun') }}</span>
+                </h4>
                 <div id="reportsChart"></div>
                 <script>
                     document.addEventListener('DOMContentLoaded', () => {
                         const makestaCounts = @json($makestaCounts);
                         const lakmudCounts = @json($lakmudCounts);
                         const lakutCounts = @json($lakutCounts);
-                        const years = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026'];
+                        const years = [
+                            '2016',
+                            '2017',
+                            '2018',
+                            '2019',
+                            '2020',
+                            '2021',
+                            '2022',
+                            '2023',
+                            '2024',
+                            '2025',
+                            '2026',
+                        ];
                         const makestaData = years.map((year) => makestaCounts[year] || 0);
                         const lakmudData = years.map((year) => lakmudCounts[year] || 0);
                         const lakutData = years.map((year) => lakutCounts[year] || 0);
@@ -115,7 +158,10 @@
                             chart: { height: 350, type: 'area', toolbar: { show: false } },
                             markers: { size: 4 },
                             colors: ['#5CB338', '#ECE852', '#FB4141'],
-                            fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.3, opacityTo: 0.4, stops: [0, 90, 100] } },
+                            fill: {
+                                type: 'gradient',
+                                gradient: { shadeIntensity: 1, opacityFrom: 0.3, opacityTo: 0.4, stops: [0, 90, 100] },
+                            },
                             dataLabels: { enabled: false },
                             stroke: { curve: 'smooth', width: 2 },
                             xaxis: { type: 'datetime', categories: years },
@@ -132,7 +178,11 @@
         <div class="card">
             <div class="card-body pt-5">
                 <h4 class="card-title text-center">{{ __('Kader Berdasarkan Jenis Kelamin') }}</h4>
-                <div id="trafficChart" style="min-height: 400px" class="echart d-flex justify-content-center align-items-center mb-5"></div>
+                <div
+                    id="trafficChart"
+                    style="min-height: 400px"
+                    class="echart d-flex justify-content-center align-items-center mb-5"
+                ></div>
                 <script>
                     document.addEventListener('DOMContentLoaded', () => {
                         echarts.init(document.querySelector('#trafficChart')).setOption({
@@ -164,17 +214,44 @@
         <div class="card">
             <div class="card-body pt-5">
                 <h4 class="card-title text-center">{{ __('Kader Berdasarkan PAC/Komisariat') }}</h4>
-                <div id="pieChart" style="min-height: 600px" class="echart d-flex justify-content-center align-items-center mb-5"></div>
+                <div
+                    id="pieChart"
+                    style="min-height: 600px"
+                    class="echart d-flex justify-content-center align-items-center mb-5"
+                ></div>
                 <script>
                     document.addEventListener('DOMContentLoaded', () => {
                         const pacCounts = @json($pacCounts);
                         const pac = [
-                            'BATURRADEN', 'CILONGOK', 'KEDUNGBANTENG', 'KARANGLEWAS', 'PURWOJATI',
-                            'PURWOKERTO BARAT', 'PURWOKERTO TIMUR', 'PURWOKERTO UTARA', 'PURWOKERTO SELATAN',
-                            'SUMBANG', 'SOKARAJA', 'KEMBARAN', 'TAMBAK', 'SOMAGEDE', 'BANYUMAS',
-                            'KEMRANJEN', 'GUMELAR', 'AJIBARANG', 'PEKUNCEN', 'WANGON', 'RAWALO',
-                            'JATILAWANG', 'KEBASEN', 'PATIKRAJA', 'KALIBAGOR', 'LUMBIR', 'SUMPIUH',
-                            'KOMISARIAT UNU PURWOKERTO', 'KOMISARIAT UIN SAIZU PURWOKERTO',
+                            'BATURRADEN',
+                            'CILONGOK',
+                            'KEDUNGBANTENG',
+                            'KARANGLEWAS',
+                            'PURWOJATI',
+                            'PURWOKERTO BARAT',
+                            'PURWOKERTO TIMUR',
+                            'PURWOKERTO UTARA',
+                            'PURWOKERTO SELATAN',
+                            'SUMBANG',
+                            'SOKARAJA',
+                            'KEMBARAN',
+                            'TAMBAK',
+                            'SOMAGEDE',
+                            'BANYUMAS',
+                            'KEMRANJEN',
+                            'GUMELAR',
+                            'AJIBARANG',
+                            'PEKUNCEN',
+                            'WANGON',
+                            'RAWALO',
+                            'JATILAWANG',
+                            'KEBASEN',
+                            'PATIKRAJA',
+                            'KALIBAGOR',
+                            'LUMBIR',
+                            'SUMPIUH',
+                            'KOMISARIAT UNU PURWOKERTO',
+                            'KOMISARIAT UIN SAIZU PURWOKERTO',
                         ];
 
                         const data = Object.keys(pacCounts).map((key) => {
@@ -227,7 +304,7 @@
 
     <section id="news" class="section-bg p-5">
         <div class="container" data-aos="fade-up">
-            <header class="section-header text-center pt-5">
+            <header class="section-header pt-5 text-center">
                 <h3 class="fw-bold">{{ __('Berita Terkini') }}</h3>
             </header>
             <div class="row news-container mt-4 p-4" data-aos="fade-up" data-aos-delay="200">
@@ -236,22 +313,49 @@
                         <div class="news-wrap">
                             <figure>
                                 <a href="{{ route('news.show', ['slug' => $news->slug]) }}">
-                                    <img src="{{ asset('storage/images/' . $news->img) }}" class="img-fluid rounded-1" alt="{{ $news->title }}" style="width: 100%; height: 250px; object-fit: cover; box-shadow: 0 0 30px rgba(1, 41, 112, 0.1);" />
+                                    <img
+                                        src="{{ asset('storage/images/' . $news->img) }}"
+                                        class="img-fluid rounded-1"
+                                        alt="{{ $news->title }}"
+                                        style="
+                                            width: 100%;
+                                            height: 250px;
+                                            object-fit: cover;
+                                            box-shadow: 0 0 30px rgba(1, 41, 112, 0.1);
+                                        "
+                                    />
                                 </a>
-                                <a href="{{ asset('storage/images/' . $news->img) }}" data-lightbox="news" data-title="{{ $news->title }}" class="link-preview">
+                                <a
+                                    href="{{ asset('storage/images/' . $news->img) }}"
+                                    data-lightbox="news"
+                                    data-title="{{ $news->title }}"
+                                    class="link-preview"
+                                >
                                     <i class="bi bi-plus text-dark"></i>
                                 </a>
-                                <a href="{{ route('news.show', ['slug' => $news->slug]) }}" class="link-details" title="More Details">
+                                <a
+                                    href="{{ route('news.show', ['slug' => $news->slug]) }}"
+                                    class="link-details"
+                                    title="More Details"
+                                >
                                     <i class="bi bi-link text-dark"></i>
                                 </a>
                             </figure>
 
                             <div class="news-info text-center">
-                                <a href="{{ route('news.show', ['slug' => $news->slug]) }}" class="text-decoration-none">
+                                <a
+                                    href="{{ route('news.show', ['slug' => $news->slug]) }}"
+                                    class="text-decoration-none"
+                                >
                                     <h4 class="text-dark">{{ Str::limit($news->title, '35') }}</h4>
                                 </a>
-                                <a href="{{ route('categories', ['slug' => $news->category->slug]) }}" class="text-decoration-none">
-                                    <p class="text-success" style="text-transform: none; text-decoration: none">{{ $news->category->title }}</p>
+                                <a
+                                    href="{{ route('categories', ['slug' => $news->category->slug]) }}"
+                                    class="text-decoration-none"
+                                >
+                                    <p class="text-success" style="text-transform: none; text-decoration: none">
+                                        {{ $news->category->title }}
+                                    </p>
                                 </a>
                             </div>
                         </div>
@@ -272,13 +376,26 @@
                     @foreach ($quotes as $quote)
                         <div class="swiper-slide d-flex align-items-center justify-content-center">
                             <div class="quote-item d-flex align-items-center flex-column text-center">
-                                <img src="{{ asset('storage/images/' . $quote->img) }}" class="quote-img rounded-circle mb-3" alt="" style="width: 110px; height: 110px; object-fit: cover; border: 4px solid green" />
+                                <img
+                                    src="{{ asset('storage/images/' . $quote->img) }}"
+                                    class="quote-img rounded-circle mb-3"
+                                    alt=""
+                                    style="width: 110px; height: 110px; object-fit: cover; border: 4px solid green"
+                                />
                                 <h3 class="fw-bold">{{ $quote->name }}</h3>
                                 <h4>{{ $quote->who }}</h4>
                                 <p class="d-flex align-items-center">
-                                    <img src="{{ asset('assets/images/quote-sign-left.png') }}" class="quote-sign-left me-2" alt="" />
+                                    <img
+                                        src="{{ asset('assets/images/quote-sign-left.png') }}"
+                                        class="quote-sign-left me-2"
+                                        alt=""
+                                    />
                                     {{ $quote->quote }}
-                                    <img src="{{ asset('assets/images/quote-sign-right.png') }}" class="quote-sign-right ms-2" alt="" />
+                                    <img
+                                        src="{{ asset('assets/images/quote-sign-right.png') }}"
+                                        class="quote-sign-right ms-2"
+                                        alt=""
+                                    />
                                 </p>
                             </div>
                         </div>
