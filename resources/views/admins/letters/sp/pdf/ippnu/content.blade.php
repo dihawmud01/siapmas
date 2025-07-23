@@ -144,11 +144,12 @@
             }
 
             .secretary-signature-img {
-                display: block;
-                opacity: 0.9;
-                margin: -53px auto -28px -88px;
-                height: 100px;
+            display: block;
+            opacity: 0.9;
+            margin: -53px auto -28px -70px;
+            height: 95px;
             }
+
 
             .bordered-td {
                 padding-top: 20px;
@@ -177,7 +178,7 @@
 
     <body>
         <div class="header">
-            <img src="{{ public_path('assets/images/sp/ippnu/header.png') }}" alt="Header" />
+            <img src="{{ asset('assets/images/sp/ippnu/header.png') }}" alt="Header" />
         </div>
 
         <div style="text-align: center">
@@ -329,27 +330,27 @@
                         <td class="bordered-td">
                             <div class="signature-space">
                                 <img
-                                    src="{{ public_path('assets/images/sp/signatures/chairman-signature.png') }}"
+                                    src="{{ asset('assets/images/sp/signatures/chairman-ipp-signature.png') }}"
                                     class="chairman-signature-img"
                                     alt="Tanda Tangan Ketua"
                                 />
                             </div>
-                            <p><strong>FAHMI ABDURRAHMAN</strong></p>
+                            <p><strong>YENI RAHMAWATI</strong></p>
                         </td>
                         <td class="bordered-td">
                             <div class="signature-space">
                                 <img
-                                    src="{{ public_path('assets/images/sp/signatures/secretary-signature.png') }}"
+                                    src="{{ asset('assets/images/sp/signatures/secretary-ipp-signaturree.png') }}"
                                     class="secretary-signature-img"
                                     alt="Tanda Tangan Sekretaris"
                                 />
                             </div>
-                            <p><strong>AKHMAD AINUN NAJIB</strong></p>
+                            <p><strong>AINUN FAJRIYANI</strong></p>
                         </td>
                     </tr>
                     <tr>
-                        <td><p>NIA. 11.20.99.00002</p></td>
-                        <td><p>NIA. 11.20.99.00032</p></td>
+                        <td><p>NIA. 33.02.1706.0019</p></td>
+                        <td><p>NIA. 33.02.2204.0026</p></td>
                     </tr>
                 </table>
             </div>
@@ -765,27 +766,27 @@
                         <td class="bordered-td">
                             <div class="signature-space">
                                 <img
-                                    src="{{ public_path('assets/images/sp/signatures/chairman-signature.png') }}"
+                                    src="{{ asset('assets/images/sp/signatures/chairman-ipp-signature.png') }}"
                                     class="chairman-signature-img"
                                     alt="Tanda Tangan Ketua"
                                 />
                             </div>
-                            <p><strong>FAHMI ABDURRAHMAN</strong></p>
+                            <p><strong>YENI RAHMAWATI</strong></p>
                         </td>
                         <td class="bordered-td">
                             <div class="signature-space">
                                 <img
-                                    src="{{ public_path('assets/images/sp/signatures/secretary-signature.png') }}"
+                                    src="{{ asset('assets/images/sp/signatures/secretary-ipp-signaturree.png') }}"
                                     class="secretary-signature-img"
                                     alt="Tanda Tangan Sekretaris"
                                 />
                             </div>
-                            <p><strong>AKHMAD AINUN NAJIB</strong></p>
+                            <p><strong>AINUN FAJRIYANI</strong></p>
                         </td>
                     </tr>
                     <tr>
-                        <td><p>NIA. 11.20.99.00002</p></td>
-                        <td><p>NIA. 11.20.99.00032</p></td>
+                        <td><p>NIA. 33.02.1706.0019</p></td>
+                        <td><p>NIA. 33.02.2204.0026</p></td>
                     </tr>
                 </table>
             </div>

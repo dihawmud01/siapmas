@@ -10,7 +10,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ __('Tim IT PC IPNU IPPNU Banyumas') }}</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ __('Media Pelajar NU Banyumas') }}</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -51,7 +51,7 @@
     <div class="credits">
         {{ __('Dibuat oleh') }}
         <a href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            {{ __('Tim IT PC IPNU IPPNU Banyumas') }}
+            {{ __('Media Pelajar NU Banyumas') }}
         </a>
     </div>
 </footer>

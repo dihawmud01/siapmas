@@ -1,7 +1,9 @@
-<div class="d-flex align-items-start mb-4" x-data="{ inputs: [''], maxCount: {{ $count }} }">
-    <label class="form-label label me-3 text-start">{{ $label }}</label>
+<div class="row mb-4" x-data="{ inputs: [''], maxCount: {{ $count }} }">
+    <div class="col-12 col-md-3">
+        <label class="form-label">{{ $label }}</label>
+    </div>
 
-    <div class="d-flex flex-column w-100">
+    <div class="col-12 col-md-9">
         <template x-for="(input, idx) in inputs" :key="idx">
             <div class="input-group mb-2">
                 <input
@@ -11,7 +13,6 @@
                     x-model="inputs[idx]"
                     required
                 />
-
                 <button
                     type="button"
                     class="btn btn-danger rounded-end"
@@ -23,16 +24,14 @@
             </div>
         </template>
 
-        <div class="mt-1">
-            <button
-                type="button"
-                class="btn btn-sm btn-success"
-                @click="if (inputs.length < maxCount) inputs.push('')"
-                :disabled="inputs.length >= maxCount"
-            >
-                <i class="bi bi-person-plus-fill"></i>
-                {{ __('Tambah') }}
-            </button>
-        </div>
+        <button
+            type="button"
+            class="btn btn-sm btn-success mt-2"
+            @click="if (inputs.length < maxCount) inputs.push('')"
+            :disabled="inputs.length >= maxCount"
+        >
+            <i class="bi bi-person-plus-fill"></i>
+            {{ __('Tambah') }}
+        </button>
     </div>
 </div>

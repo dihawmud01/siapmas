@@ -35,7 +35,7 @@ class UserController extends Controller
     {
         $roles = Role::whereIn('id', [1, 2, 3])->get();
         $pacList = PAC::all();
-        
+
         return view('admins.admins.create', compact('roles', 'pacList'));
     }
 
@@ -59,15 +59,15 @@ class UserController extends Controller
         if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
             $filename = time() . '.' . $photo->getClientOriginalExtension();
-            
+
             $destinationPath = public_path("storage/images/user/photos/{$user->id}");
-            
+
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 0777, true);
             }
-            
+
             $photo->move($destinationPath, $filename);
-            
+
             $user->update(['photo' => $filename]);
         } else {
             $user->update(['photo' => 'default.png']);
@@ -82,13 +82,13 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $roles = Role::whereIn('id', [1, 2, 3])->get();
         $pacList = PAC::all();
-        
+
         return view('admins.admins.edit', compact('user', 'roles', 'pacList'));
     }
 
     public function update($id, Request $request)
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($id); // Ganti Auth::user($id) dengan cara yang benar untuk ambil user berdasarkan ID
 
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -96,36 +96,47 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,' . $user->id,
             'role_id' => 'required|integer',
             'pac_id' => 'nullable|integer',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'password' => 'string|min:8', // tambahkan validasi password
         ]);
 
+        // Update photo jika ada
         if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
             $filename = time() . '.' . $photo->getClientOriginalExtension();
-            
+
             $destinationPath = public_path("storage/images/user/photos/{$user->id}");
-            
+
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 0777, true);
             }
-            
+
             $photo->move($destinationPath, $filename);
-            
+
             if ($user->photo && $user->photo !== 'default.png') {
                 $oldPhotoPath = public_path("storage/images/user/photos/{$user->id}/{$user->photo}");
                 if (file_exists($oldPhotoPath)) {
                     unlink($oldPhotoPath);
                 }
             }
-            
+
             $validatedData['photo'] = $filename;
         }
-        
+
+        // Update password jika diisi
+        if ($request->filled('password')) {
+            $validatedData['password'] = Hash::make($request->password);
+        } else {
+            // Hindari overwrite password lama dengan null
+            unset($validatedData['password']);
+        }
+
         $user->update($validatedData);
-        
+
         Alert::success('Success', 'User berhasil diperbarui');
         return redirect()->route('dashboard.admins.index');
     }
+
 
     public function show($id)
     {

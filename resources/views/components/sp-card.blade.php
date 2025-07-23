@@ -8,7 +8,7 @@
                     @if ($letter->user->pac_id == 28 || $letter->user->pac_id == 29)
                         {{ $letter->user->pac->pac }}
                     @else
-                        {{ __('PAC ') . $letter->user->pac->pac }}
+                        {{ __('PAC ') . optional($letter->user->pac)->pac }}
                     @endif
                 </small>
             </div>

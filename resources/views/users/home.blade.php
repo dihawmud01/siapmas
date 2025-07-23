@@ -74,7 +74,7 @@
             </header>
 
             <h6 class="p-4 text-center">
-                {{ __('IPNU IPPNU Merupakan Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum quidem voluptas beatae iusto saepe eaque vel doloribus non aliquam, a esse molestiae illo ab exercitationem vero officiis quaerat veniam natus!') }}
+                {{ __('Pimpinan Cabang IPNU IPPNU Banyumas merupakan wadah kaderisasi pelajar Nahdlatul Ulama di wilayah Banyumas. Kami berkomitmen untuk mencetak generasi muda yang berilmu, berakhlak, dan berdaya saing tinggi melalui berbagai program pendidikan, pengembangan potensi, dan penguatan nilai-nilai ke-NU-an serta kebangsaan. Bersama IPNU IPPNU, pelajar Banyumas siap berkontribusi aktif untuk bangsa dan agama.') }}
             </h6>
         </div>
     </section>
@@ -82,7 +82,7 @@
     <section id="facts" class="my-5 p-5">
         <div class="container" data-aos="fade-up">
             <header class="section-header text-center">
-                <h3 class="fw-bold">{{ __('Data Kader PC IPNU IPPNU Banyumas') }}</h3>
+                <h3 class="fw-bold">{{ __('Data Anggota IPNU IPPNU di Banyumas') }}</h3>
             </header>
 
             <div class="row counters p-4 text-center">
@@ -210,97 +210,83 @@
         </div>
     </div>
 
-    <div class="col-12 p-4" data-aos="fade-up">
-        <div class="card">
-            <div class="card-body pt-5">
-                <h4 class="card-title text-center">{{ __('Kader Berdasarkan PAC/Komisariat') }}</h4>
-                <div
-                    id="pieChart"
-                    style="min-height: 600px"
-                    class="echart d-flex justify-content-center align-items-center mb-5"
-                ></div>
-                <script>
-                    document.addEventListener('DOMContentLoaded', () => {
-                        const pacCounts = @json($pacCounts);
-                        const pac = [
-                            'BATURRADEN',
-                            'CILONGOK',
-                            'KEDUNGBANTENG',
-                            'KARANGLEWAS',
-                            'PURWOJATI',
-                            'PURWOKERTO BARAT',
-                            'PURWOKERTO TIMUR',
-                            'PURWOKERTO UTARA',
-                            'PURWOKERTO SELATAN',
-                            'SUMBANG',
-                            'SOKARAJA',
-                            'KEMBARAN',
-                            'TAMBAK',
-                            'SOMAGEDE',
-                            'BANYUMAS',
-                            'KEMRANJEN',
-                            'GUMELAR',
-                            'AJIBARANG',
-                            'PEKUNCEN',
-                            'WANGON',
-                            'RAWALO',
-                            'JATILAWANG',
-                            'KEBASEN',
-                            'PATIKRAJA',
-                            'KALIBAGOR',
-                            'LUMBIR',
-                            'SUMPIUH',
-                            'KOMISARIAT UNU PURWOKERTO',
-                            'KOMISARIAT UIN SAIZU PURWOKERTO',
-                        ];
+<div class="col-12 p-4" data-aos="fade-up">
+    <div class="card shadow">
+        <div class="card-body pt-5">
+            <h4 class="card-title text-center mb-4 fw-bold text-success">
+                {{ __('Kader Berdasarkan PAC/Komisariat') }}
+            </h4>
 
-                        const data = Object.keys(pacCounts).map((key) => {
-                            const name = pac[parseInt(key) - 1];
-                            return { value: pacCounts[key], name };
-                        });
+            {{-- Tabel Kader --}}
+            <div class="table-responsive mb-4">
+                <table class="table table-hover table-bordered align-middle" id="kaderTable">
+                    <thead class="table-success text-center">
+                        <tr>
+                            <th>No</th>
+                            <th>PAC/Komisariat</th>
+                            <th>Jumlah Kader</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                            $pacList = [
+                                'PAC BATURRADEN',
+                                'PAC CILONGOK',
+                                'PAC KEDUNGBANTENG',
+                                'PAC KARANGLEWAS',
+                                'PAC PURWOJATI',
+                                'PAC PURWOKERTO BARAT',
+                                'PAC PURWOKERTO TIMUR',
+                                'PAC PURWOKERTO UTARA',
+                                'PAC PURWOKERTO SELATAN',
+                                'PAC SUMBANG',
+                                'PAC SOKARAJA',
+                                'PAC KEMBARAN',
+                                'PAC TAMBAK',
+                                'PAC SOMAGEDE',
+                                'PAC BANYUMAS',
+                                'PAC KEMRANJEN',
+                                'PAC GUMELAR',
+                                'PAC AJIBARANG',
+                                'PAC PEKUNCEN',
+                                'PAC WANGON',
+                                'PAC RAWALO',
+                                'PAC JATILAWANG',
+                                'PAC KEBASEN',
+                                'PAC PATIKRAJA',
+                                'PAC KALIBAGOR',
+                                'PAC LUMBIR',
+                                'PAC SUMPIUH',
+                                'PKPT UNU PURWOKERTO',
+                                'PKPT UIN SAIZU PURWOKERTO',
+                            ];
 
-                        const option = {
-                            title: { left: 'center' },
-                            tooltip: { trigger: 'item' },
-                            legend: { orient: 'horizontal', bottom: 0, show: true }, // Secara default, legend ditampilkan
-                            series: [
-                                {
-                                    name: '{{ __('PAC') }}',
-                                    type: 'pie',
-                                    radius: '50%',
-                                    data: data,
-                                    emphasis: {
-                                        itemStyle: {
-                                            shadowBlur: 10,
-                                            shadowOffsetX: 0,
-                                            shadowColor: 'rgba(0, 0, 0, 0.5)',
-                                        },
-                                    },
-                                },
-                            ],
-                        };
-
-                        // Cek apakah ini tampilan mobile dan sembunyikan legend
-                        if (window.innerWidth <= 768) {
-                            option.legend.show = false;
-                        }
-
-                        echarts.init(document.querySelector('#pieChart')).setOption(option);
-
-                        // Tambahkan event listener untuk resize window (opsional)
-                        window.addEventListener('resize', () => {
-                            if (window.innerWidth <= 768) {
-                                option.legend.show = false;
-                            } else {
-                                option.legend.show = true;
+                            // Bangun array kombinasi PAC + jumlah kader, lalu urutkan abjad
+                            $dataList = [];
+                            foreach ($pacCounts as $index => $count) {
+                                $name = $pacList[$index - 1] ?? 'Tidak Diketahui';
+                                $dataList[] = ['nama' => $name, 'jumlah' => $count];
                             }
-                            echarts.init(document.querySelector('#pieChart')).setOption(option);
-                        });
-                    });
-                </script>
+
+                            // Urutkan berdasar nama PAC
+                            usort($dataList, fn($a, $b) => strcmp($a['nama'], $b['nama']));
+                        @endphp
+
+                        @foreach($dataList as $i => $item)
+                            <tr>
+                                <td class="text-center">{{ $i + 1 }}</td>
+                                <td>{{ $item['nama'] }}</td>
+                                <td class="text-center">{{ $item['jumlah'] }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
+
         </div>
     </div>
+</div>
+
 
     <section id="news" class="section-bg p-5">
         <div class="container" data-aos="fade-up">

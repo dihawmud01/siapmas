@@ -105,13 +105,12 @@
                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                                         <li class="dropdown-header">
                                             <div class="d-flex align-items-center mb-3">
-                                                <img 
-                                                            src="{{ asset($user->photo != 'default.png' 
-                                                                ? 'storage/images/user/photos/' . $user->id . '/' . $user->img 
-                                                                : 'storage/images/default.png') }}" 
-                                                            style="width: 30px; height: 30px; object-fit: cover" 
-                                                            alt="{{ __('Profil') }}" 
-                                                            class="rounded-circle" 
+                                                <img src="{{ asset($user['photo'] != 'default.png' 
+                                                        ? 'storage/images/user/photos/' . $user['id'] . '/' . $user['photo'] 
+                                                        : 'storage/images/default.png') }}"
+                                                    style="width: 30px; height: 30px; object-fit: cover" 
+                                                    alt="{{ __('Profil') }}" 
+                                                    class="rounded-circle" 
                                                         />
                                                 <h6 class="text-uppercase fw-bold text-dark ms-2">
                                                     {{ Str::limit($user->username, 9) }}

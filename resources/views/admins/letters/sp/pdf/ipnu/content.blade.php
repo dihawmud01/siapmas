@@ -36,23 +36,24 @@
 
             body {
                 margin: 0;
-                font-size: 9pt;
-                line-height: 1.5;
-                font-family: 'Helvetica', sans-serif;
+                font-size: 11pt;
+                line-height: 1.15;
+                font-family: 'Arial Narrow', Arial, sans-serif;
                 text-align: justify;
             }
+
 
             .main-title {
                 display: inline-block;
                 position: relative;
                 font-weight: bold;
-                font-size: 9pt;
+                font-size: 11pt;
                 text-align: center;
                 text-transform: uppercase;
             }
 
             .main-title::after {
-                display: block;
+                display: none;
                 margin: 5px auto;
                 border-top: 2px solid #1e1e1e;
                 width: auto;
@@ -61,7 +62,7 @@
 
             .letter-number {
                 margin-bottom: 15px;
-                font-size: 9pt;
+                font-size: 11pt;
                 text-align: center;
             }
 
@@ -76,9 +77,9 @@
             .secondary-title {
                 position: relative;
                 align-items: center;
-                border-bottom: 2px solid #1e1e1e;
+                /*border-bottom: 2px solid #1e1e1e;*/
                 font-weight: bold;
-                font-size: 9pt;
+                font-size: 11pt;
                 text-align: center;
                 text-transform: uppercase;
             }
@@ -112,7 +113,7 @@
 
             .decision {
                 font-weight: bold;
-                font-size: 9pt;
+                font-size: 11pt;
                 text-align: center;
             }
 
@@ -154,15 +155,16 @@
             .chairman-signature-img {
                 display: block;
                 opacity: 0.9;
-                margin: -53px auto -28px 0;
-                height: 100px;
-            }
+                margin: -33px auto -28px 0;
+                height: auto;
+                max-height: 60px;
+        }
 
             .secretary-signature-img {
                 display: block;
                 opacity: 0.9;
                 margin: -53px auto -28px -88px;
-                height: 100px;
+                height: 150px;
             }
 
             .bordered-td {
@@ -191,7 +193,7 @@
 
     <body>
         <div class="header">
-            <img src="{{ public_path('assets/images/sp/ipnu/header.png') }}" alt="Header" />
+            <img src="{{ asset('assets/images/sp/ipnu/header.png') }}" alt="Header" />
         </div>
 
         <div style="text-align: center">
@@ -201,9 +203,11 @@
 
         <div class="about">Tentang</div>
         <div class="secondary-title" style="padding-bottom: 4px">
-            SUSUNAN PENGURUS PIMPINAN ANAK CABANG
+            SUSUNAN PENGURUS
             <br />
-            IKATAN PELAJAR NAHDLATUL ULAMA {{ $pac }} KABUPATEN BANYUMAS
+            PIMPINAN ANAK CABANG
+            <br />
+            IKATAN PELAJAR NAHDLATUL ULAMA {{ $pac }}
             <br />
             MASA KHIDMAT {{ $letter->start_period . '-' . $letter->end_period }}
         </div>
@@ -357,7 +361,7 @@
                         <td class="bordered-td">
                             <div class="signature-space">
                                 <img
-                                    src="{{ public_path('assets/images/sp/signatures/chairman-signature.png') }}"
+                                    src="{{ asset('assets/images/sp/signatures/chairman-signature.png') }}"
                                     class="chairman-signature-img"
                                     alt="Tanda Tangan Ketua"
                                 />
@@ -367,7 +371,7 @@
                         <td class="bordered-td">
                             <div class="signature-space">
                                 <img
-                                    src="{{ public_path('assets/images/sp/signatures/secretary-signature.png') }}"
+                                    src="{{ asset('assets/images/sp/signatures/secretary-signature.png') }}"
                                     class="secretary-signature-img"
                                     alt="Tanda Tangan Sekretaris"
                                 />
@@ -393,7 +397,7 @@
         </div>
 
         <div class="footer">
-            <img src="{{ public_path('assets/images/sp/ipnu/footer.jpeg') }}" alt="Footer" />
+            <img src="{{ asset('assets/images/sp/ipnu/footer.jpeg') }}" alt="Footer" />
         </div>
 
         <div class="attachment">
@@ -405,9 +409,11 @@
                 Nomor: {{ $letter->letter_number }}
             </p>
             <div class="secondary-title" style="padding-bottom: 4px">
-                SUSUNAN PENGURUS PIMPINAN ANAK CABANG
+                SUSUNAN PENGURUS
                 <br />
-                IKATAN PELAJAR NAHDLATUL ULAMA {{ $pac }} KABUPATEN BANYUMAS
+                PIMPINAN ANAK CABANG
+                <br/>
+                IKATAN PELAJAR NAHDLATUL ULAMA {{ $pac }}
                 <br />
                 MASA KHIDMAT {{ $letter->start_period . '-' . $letter->end_period }}
             </div>
@@ -478,6 +484,7 @@
 
                     <tr>
                         <td>
+                            <br/>
                             <p class="position"><strong>Sekretaris</strong></p>
                         </td>
                         <td><p>:</p></td>
@@ -498,6 +505,7 @@
 
                     <tr>
                         <td>
+                            <br/>
                             <p class="position"><strong>Bendahara</strong></p>
                         </td>
                         <td><p>:</p></td>
@@ -518,6 +526,7 @@
 
                     <tr>
                         <td>
+                            <br/>
                             <p class="attachment-subtitle"><strong>DEPARTEMEN-DEPARTEMEN</strong></p>
                         </td>
                     </tr>
@@ -551,6 +560,7 @@
                     </tr>
                     <tr>
                         <td>
+                            <br/>
                             <p class="position"><strong>B. Departemen Kaderisasi</strong></p>
                         </td>
                     </tr>
@@ -579,6 +589,7 @@
 
                     <tr>
                         <td>
+                            <br/>
                             <p class="position"><strong>C. Departemen Dakwah</strong></p>
                         </td>
                     </tr>
@@ -606,6 +617,7 @@
                     </tr>
                     <tr>
                         <td>
+                            <br/>
                             <p class="position"><strong>D. Departemen Olahraga, Seni, dan Budaya</strong></p>
                         </td>
                     </tr>
@@ -634,6 +646,7 @@
 
                     <tr>
                         <td>
+                            <br/>
                             <p class="attachment-subtitle"><strong>LEMBAGA-LEMBAGA</strong></p>
                         </td>
                     </tr>
@@ -666,6 +679,7 @@
                     </tr>
                     <tr>
                         <td>
+                            <br/>
                             <p class="position"><strong>B. Lembaga Pers dan Penerbitan</strong></p>
                         </td>
                     </tr>
@@ -693,6 +707,7 @@
                     </tr>
                     <tr>
                         <td>
+                            <br/>
                             <p class="position">
                                 <strong>
                                     C. Lembaga Corps Brigade Pembangunan
@@ -773,7 +788,7 @@
                         <td class="bordered-td">
                             <div class="signature-space">
                                 <img
-                                    src="{{ public_path('assets/images/sp/signatures/chairman-signature.png') }}"
+                                    src="{{ asset('assets/images/sp/signatures/chairman-signature.png') }}"
                                     class="chairman-signature-img"
                                     alt="Tanda Tangan Ketua"
                                 />
@@ -783,7 +798,7 @@
                         <td class="bordered-td">
                             <div class="signature-space">
                                 <img
-                                    src="{{ public_path('assets/images/sp/signatures/secretary-signature.png') }}"
+                                    src="{{ asset('assets/images/sp/signatures/secretary-signature.png') }}"
                                     class="secretary-signature-img"
                                     alt="Tanda Tangan Sekretaris"
                                 />

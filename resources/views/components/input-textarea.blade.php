@@ -1,19 +1,18 @@
-<div class="d-flex align-items-start mb-4">
-    <label for="{{ $name }}" class="form-label label me-3 text-start">
+<div class="mb-4 row">
+    <label for="{{ $name }}" class="col-md-4 col-form-label text-md-end">
         {{ $label }}
     </label>
-    <div class="d-flex flex-column w-100">
+
+    <div class="col-md-8">
         <textarea
             name="{{ $name }}"
             id="{{ $name }}"
             class="form-control @error($name) is-invalid @enderror"
             rows="{{ $rows }}"
-        >
-{{ $value }}</textarea
-        >
+        >{{ $value }}</textarea>
 
         @error($name)
-            <div class="invalid-feedback d-block" role="alert">{{ $message }}</div>
+            <div class="invalid-feedback d-block">{{ $message }}</div>
         @enderror
     </div>
 </div>

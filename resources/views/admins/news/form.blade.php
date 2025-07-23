@@ -15,6 +15,7 @@
 
 <div class="mb-3">
     <label for="content" class="form-label fw-semibold">{{ __('Konten') }}</label>
+    <!-- Ganti textarea dengan CKEditor -->
     <textarea
         name="content"
         class="form-control @error('content') is-invalid @enderror"
@@ -22,8 +23,8 @@
         rows="7"
         placeholder="Tulis konten di sini..."
     >
-{{ old('content', $news->content ?? '') }}</textarea
-    >
+        {{ old('content', $news->content ?? '') }}
+    </textarea>
     @error('content')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror

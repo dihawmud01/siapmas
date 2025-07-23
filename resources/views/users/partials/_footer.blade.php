@@ -138,19 +138,19 @@ __('IPNU (Ikatan Pelajar Nahdlatul Ulama) dan IPPNU (Ikatan Pelajar Putri Nahdla
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-6 footer-newsletter">
-                    <h4>{{ __('Unduh Sekarang') }}</h4>
-                    <p class="text-light">
-                        {{ __('Unduh dan install aplikasi SIAPMAS di Play Store') }}
-                    </p>
-                    <a class="text-light" href="https://play.google.com/store/apps">
-                        <img
-                            style="width: 280px"
-                            src="{{ asset('assets/images/Google_Play_2022_logo.svg') }}"
-                            alt="logo playstore"
-                        />
-                    </a>
-                </div>
+                <!--<div class="col-lg-3 col-md-6 footer-newsletter">-->
+                <!--    <h4>{{ __('Unduh Sekarang') }}</h4>-->
+                <!--    <p class="text-light">-->
+                <!--        {{ __('Unduh dan install aplikasi SIAPMAS di Play Store') }}-->
+                <!--    </p>-->
+                <!--    <a class="text-light" href="https://play.google.com/store/apps">-->
+                <!--        <img-->
+                <!--            style="width: 280px"-->
+                <!--            src="{{ asset('assets/images/Google_Play_2022_logo.svg') }}"-->
+                <!--            alt="logo playstore"-->
+                <!--        />-->
+                <!--    </a>-->
+                <!--</div>-->
             </div>
         </div>
     </div>

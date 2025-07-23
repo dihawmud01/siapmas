@@ -59,84 +59,79 @@
     </div>
 </div>
 
-<div class="card">
-    <div class="card-body p-5">
-        <h5 class="card-title fw-bold fs-4 mb-4">
-            {{ __('Kader Berdasarkan PAC/Komisariat') }}
-        </h5>
-        <div id="pieChart" style="min-height: 600px" class="echart"></div>
+<div class="col-12 p-4" data-aos="fade-up">
+    <div class="card shadow">
+        <div class="card-body pt-5">
+            <h4 class="card-title text-center mb-4 fw-bold text-success">
+                {{ __('Kader Berdasarkan PAC/Komisariat') }}
+            </h4>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const pacCounts = @json($pacCounts);
-                const pac = [
-                    'BATURRADEN',
-                    'CILONGOK',
-                    'KEDUNGBANTENG',
-                    'KARANGLEWAS',
-                    'PURWOJATI',
-                    'PURWOKERTO BARAT',
-                    'PURWOKERTO TIMUR',
-                    'PURWOKERTO UTARA',
-                    'PURWOKERTO SELATAN',
-                    'SUMBANG',
-                    'SOKARAJA',
-                    'KEMBARAN',
-                    'TAMBAK',
-                    'SOMAGEDE',
-                    'BANYUMAS',
-                    'KEMRANJEN',
-                    'GUMELAR',
-                    'AJIBARANG',
-                    'PEKUNCEN',
-                    'WANGON',
-                    'RAWALO',
-                    'JATILAWANG',
-                    'KEBASEN',
-                    'PATIKRAJA',
-                    'KALIBAGOR',
-                    'LUMBIR',
-                    'SUMPIUH',
-                    'KOMISARIAT UNU PURWOKERTO',
-                    'KOMISARIAT UIN SAIZU PURWOKERTO',
-                ];
+            {{-- Tabel Kader --}}
+            <div class="table-responsive mb-4">
+                <table class="table table-hover table-bordered align-middle" id="kaderTable">
+                    <thead class="table-success text-center">
+                        <tr>
+                            <th>No</th>
+                            <th>PAC/Komisariat</th>
+                            <th>Jumlah Kader</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                            $pacList = [
+                                'PAC BATURRADEN',
+                                'PAC CILONGOK',
+                                'PAC KEDUNGBANTENG',
+                                'PAC KARANGLEWAS',
+                                'PAC PURWOJATI',
+                                'PAC PURWOKERTO BARAT',
+                                'PAC PURWOKERTO TIMUR',
+                                'PAC PURWOKERTO UTARA',
+                                'PAC PURWOKERTO SELATAN',
+                                'PAC SUMBANG',
+                                'PAC SOKARAJA',
+                                'PAC KEMBARAN',
+                                'PAC TAMBAK',
+                                'PAC SOMAGEDE',
+                                'PAC BANYUMAS',
+                                'PAC KEMRANJEN',
+                                'PAC GUMELAR',
+                                'PAC AJIBARANG',
+                                'PAC PEKUNCEN',
+                                'PAC WANGON',
+                                'PAC RAWALO',
+                                'PAC JATILAWANG',
+                                'PAC KEBASEN',
+                                'PAC PATIKRAJA',
+                                'PAC KALIBAGOR',
+                                'PAC LUMBIR',
+                                'PAC SUMPIUH',
+                                'PKPT UNU PURWOKERTO',
+                                'PKPT UIN SAIZU PURWOKERTO',
+                            ];
 
-                const data = Object.keys(pacCounts).map((key) => {
-                    const name = pac[parseInt(key) - 1];
-                    return {
-                        value: pacCounts[key],
-                        name,
-                    };
-                });
+                            // Bangun array kombinasi PAC + jumlah kader, lalu urutkan abjad
+                            $dataList = [];
+                            foreach ($pacCounts as $index => $count) {
+                                $name = $pacList[$index - 1] ?? 'Tidak Diketahui';
+                                $dataList[] = ['nama' => $name, 'jumlah' => $count];
+                            }
 
-                echarts.init(document.querySelector('#pieChart')).setOption({
-                    title: {
-                        left: 'center',
-                    },
-                    tooltip: {
-                        trigger: 'item',
-                    },
-                    legend: {
-                        orient: 'vertical',
-                        left: 'left',
-                    },
-                    series: [
-                        {
-                            name: '{{ __('Akses Dari') }}',
-                            type: 'pie',
-                            radius: '50%',
-                            data: data,
-                            emphasis: {
-                                itemStyle: {
-                                    shadowBlur: 10,
-                                    shadowOffsetX: 0,
-                                    shadowColor: 'rgba(0, 0, 0, 0.5)',
-                                },
-                            },
-                        },
-                    ],
-                });
-            });
-        </script>
+                            // Urutkan berdasar nama PAC
+                            usort($dataList, fn($a, $b) => strcmp($a['nama'], $b['nama']));
+                        @endphp
+
+                        @foreach($dataList as $i => $item)
+                            <tr>
+                                <td class="text-center">{{ $i + 1 }}</td>
+                                <td>{{ $item['nama'] }}</td>
+                                <td class="text-center">{{ $item['jumlah'] }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
     </div>
 </div>

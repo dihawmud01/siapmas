@@ -184,6 +184,27 @@ class AgendaController extends Controller
     }
 
 
+    public function destroy($id)
+{
+    $event = Agenda::find($id);
+
+    if (!$event) {
+        return redirect()->route('admin.calendar.index')
+                         ->with('error', 'Agenda tidak ditemukan');
+    }
+
+    // Hapus file pamflet jika ada
+    if ($event->pamphlet && file_exists(public_path('/storage/images/' . $event->pamphlet))) {
+        unlink(public_path('/storage/images/' . $event->pamphlet));
+    }
+
+    $event->delete();
+
+    Alert::success('Mantap Rekan', 'Agenda Berhasil Dihapus');
+
+    return redirect()->route('admin.calendar.index');
+}
+
     public function getEvents()
     {
         $events = Agenda::all()->map(function ($agenda) {

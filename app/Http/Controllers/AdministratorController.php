@@ -29,22 +29,31 @@ class AdministratorController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $administrators = $request->all();
-        $request->file('images')->getClientOriginalExtension();
-        if ($request->img) {
-            $extension = $request->img->getClientOriginalExtension();
-            $newFileName = 'administrators' . '_' . $request->name . '-' . now()->timestamp . '.' . $extension;
-            $request->file('images')->move(public_path('/storage/images'), $newFileName);
-            $administrators['images'] = $newFileName;
-        }
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        $administrators = Administrator::create($administrators);
+    $administrators = $request->all();
 
-        Alert::success('Mantap Sahabat', 'Administrator Berhasil Ditambahkan');
+    if ($request->hasFile('img')) {
+        $file = $request->file('img');
+        $newFileName = 'administrators_' . $request->name . '_' . now()->timestamp . '.' . $file->getClientOriginalExtension();
 
-        return redirect()->route('administrators.index');
+        // Simpan ke storage/app/public/images
+        $file->storeAs('images', $newFileName, 'public');
+
+        // Simpan nama file ke kolom img
+        $administrators['img'] = $newFileName;
     }
+
+    Administrator::create($administrators);
+
+    Alert::success('Mantap Sahabat', 'Administrator Berhasil Ditambahkan');
+
+    return redirect()->route('administrators.index');
+}
 
     public function edit($id, Request $request)
     {
@@ -61,13 +70,22 @@ class AdministratorController extends Controller
         if ($request->img) {
             $extension = $request->img->getClientOriginalExtension();
             $newFileName = 'administrator_update' . '_' . $request->name . '-' . now()->timestamp . '.' . $extension;
-            $request->file('images')->move(public_path('/storage/images'), $newFileName);
-            $administratorData['images'] = $newFileName;
+            if ($request->hasFile('img')) {
+                $file = $request->file('img');
+                $newFileName = 'gambar_' . now()->timestamp . '.' . $file->getClientOriginalExtension();
+                $file->move(storage_path('app/public/images'), $newFileName);
+                $data['img'] = $newFileName; // jika kamu simpan ke database
+            } else {
+                // Optional: handle jika tidak ada file
+                // Misalnya log atau kasih nilai default
+            }
+
+            $administratorData['img'] = $newFileName;
         }
 
         $administratorToUpdate->update($administratorData);
 
-        Alert::success('Mantap Sahabat', 'administrators Berhasil Di Ubah');
+        Alert::success('Mantap Rekan/Rekanita', 'administrators Berhasil Di Ubah');
 
         return redirect()->route('administrators.index');
     }
@@ -77,7 +95,7 @@ class AdministratorController extends Controller
         $administrator = Administrator::findOrFail($id);
         $administrator->delete();
 
-        Alert::success('Mantap Sahabat', 'Administrator Berhasil Dihapus');
+        Alert::success('Mantap Rekan/Rekanita', 'Administrator Berhasil Dihapus');
 
         return redirect()->route('administrators.index');
     }

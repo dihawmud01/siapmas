@@ -28,7 +28,7 @@
                         <div class="card">
                             <div class="card-body profile-card d-flex flex-column align-items-center pt-4">
                                 <img
-                                    src="{{ asset('storage/images/' . $user->img) }}"
+                                    src="{{ asset('storage/images/user/photos/' . $user['id'] . '/' . $user['photo']) }}"
                                     alt="{{ __('Profil') }}"
                                     class="rounded-circle mb-3"
                                     style="height: 200px; width: 200px; object-fit: cover"
@@ -94,14 +94,21 @@
                                                 <label for="profile-img" class="col-md-4 col-lg-3 col-form-label">
                                                     {{ __('Foto Profil') }}
                                                 </label>
+                                                
                                                 <div class="col-md-8 col-lg-9">
-                                                    <img
-                                                        src="{{ asset('storage/images/' . $user->img) }}"
-                                                        alt="{{ __('Profil') }}"
+                                                    <a href="{{ asset($user->photo != 'default.png' 
+                                                        ? 'storage/images/user/photos/' . $user->id . '/' . $user->photo 
+                                                        : 'storage/images/default.png') }}" id="photo-link">
+    
+                                                    <img src="{{ asset($user->photo != 'default.png' 
+                                                        ? 'storage/images/user/photos/' . $user->id . '/' . $user->photo 
+                                                        : 'storage/images/default.png') }}" 
+                                                        
+                                                        class="rounded-circle"
                                                         style="height: 200px; width: 200px; object-fit: cover"
                                                         id="previewImg"
-                                                        class="rounded-circle"
-                                                    />
+                                                        alt="{{ __('Foto Profile') }}">
+                                                    </a>
                                                     <div class="pt-2">
                                                         <div class="mb-3">
                                                             <div>
@@ -109,7 +116,7 @@
                                                                     class="form-control edit-profile"
                                                                     id="formFileSm"
                                                                     type="file"
-                                                                    name="img"
+                                                                    name="images"
                                                                     onchange="previewFile()"
                                                                 />
                                                                 <input
@@ -177,7 +184,7 @@
                                             </div>
 
                                             <div class="row mb-3">
-                                                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">
+                                                <label for="fullName" id="name" class="col-md-4 col-lg-3 col-form-label">
                                                     {{ __('Username') }}
                                                 </label>
                                                 <div class="col-md-8 col-lg-9">
@@ -192,21 +199,21 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row mb-3">
-                                                <label for="nim" class="col-md-4 col-lg-3 col-form-label">
-                                                    {{ __('Nomor Induk Mahasiswa (NIM)') }}
-                                                </label>
-                                                <div class="col-md-8 col-lg-9">
-                                                    <input
-                                                        name="nim"
-                                                        type="text"
-                                                        class="form-control edit-profile"
-                                                        id="nim"
-                                                        value="{{ $user->nim }}"
-                                                        readonly
-                                                    />
-                                                </div>
-                                            </div>
+                                            <!--<div class="row mb-3">-->
+                                            <!--    <label for="nim" class="col-md-4 col-lg-3 col-form-label">-->
+                                            <!--        {{ __('Nomor Induk Mahasiswa (NIM)') }}-->
+                                            <!--    </label>-->
+                                            <!--    <div class="col-md-8 col-lg-9">-->
+                                            <!--        <input-->
+                                            <!--            name="nim"-->
+                                            <!--            type="text"-->
+                                            <!--            class="form-control edit-profile"-->
+                                            <!--            id="nim"-->
+                                            <!--            value="{{ $user->nim }}"-->
+                                            <!--            readonly-->
+                                            <!--        />-->
+                                            <!--    </div>-->
+                                            <!--</div>-->
 
                                             <div class="row mb-3">
                                                 <label for="pac" class="col-md-4 col-lg-3 col-form-label">
@@ -218,156 +225,156 @@
                                                         type="text"
                                                         class="form-control edit-profile"
                                                         id="pac"
-                                                        value="{{ $user->pac->pac }}"
+                                                        value="{{ optional($user->pac)->pac ?? '' }}"
                                                         readonly
                                                     />
                                                 </div>
                                             </div>
-                                            <div class="row mb-3">
-                                                <label for="level" class="col-md-4 col-lg-3 col-form-label">
-                                                    {{ __('Jenjang Kaderisasi') }}
-                                                </label>
-                                                <div class="col-md-8 col-lg-9">
-                                                    <input
-                                                        name="job"
-                                                        type="text"
-                                                        class="form-control edit-profile"
-                                                        id="level"
-                                                        value="{{ $user->cadre_level }}"
-                                                        readonly
-                                                    />
-                                                </div>
-                                            </div>
+                                            <!--<div class="row mb-3">-->
+                                            <!--    <label for="level" class="col-md-4 col-lg-3 col-form-label">-->
+                                            <!--        {{ __('Jenjang Kaderisasi') }}-->
+                                            <!--    </label>-->
+                                            <!--    <div class="col-md-8 col-lg-9">-->
+                                            <!--        <input-->
+                                            <!--            name="job"-->
+                                            <!--            type="text"-->
+                                            <!--            class="form-control edit-profile"-->
+                                            <!--            id="level"-->
+                                            <!--            value="{{ $user->cadre_level }}"-->
+                                            <!--            readonly-->
+                                            <!--        />-->
+                                            <!--    </div>-->
+                                            <!--</div>-->
 
-                                            <div class="row mb-3">
-                                                <label for="gender" class="col-md-4 col-lg-3 col-form-label">
-                                                    {{ __('Jenis Kelamin') }}
-                                                </label>
-                                                <div class="col-md-8 col-lg-9">
-                                                    <select class="form-select" name="gender" aria-label="gender">
-                                                        <option disabled selected>{{ __('-- Pilih --') }}</option>
-                                                        @foreach ($genders as $value => $label)
-                                                            <option
-                                                                value="{{ $value }}"
-                                                                {{ $user->gender == $value ? 'selected' : '' }}
-                                                            >
-                                                                {{ __($label) }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
+                                            <!--<div class="row mb-3">-->
+                                            <!--    <label for="gender" class="col-md-4 col-lg-3 col-form-label">-->
+                                            <!--        {{ __('Jenis Kelamin') }}-->
+                                            <!--    </label>-->
+                                            <!--    <div class="col-md-8 col-lg-9">-->
+                                            <!--        <select class="form-select" name="gender" aria-label="gender">-->
+                                            <!--            <option disabled selected>{{ __('-- Pilih --') }}</option>-->
+                                            <!--            @foreach ($genders as $value => $label)-->
+                                            <!--                <option-->
+                                            <!--                    value="{{ $value }}"-->
+                                            <!--                    {{ $user->gender == $value ? 'selected' : '' }}-->
+                                            <!--                >-->
+                                            <!--                    {{ __($label) }}-->
+                                            <!--                </option>-->
+                                            <!--            @endforeach-->
+                                            <!--        </select>-->
+                                            <!--    </div>-->
+                                            <!--</div>-->
 
-                                            <div class="row mb-3">
-                                                <label for="address" class="col-md-4 col-lg-3 col-form-label">
-                                                    {{ __('Alamat Lengkap') }}
-                                                </label>
-                                                <div class="col-md-8 col-lg-9">
-                                                    <textarea
-                                                        name="address"
-                                                        class="form-control edit-profile"
-                                                        id="address"
-                                                        required
-                                                    >
-{{ $user->address }}</textarea
-                                                    >
-                                                    <p class="text-danger"></p>
-                                                </div>
-                                            </div>
+<!--                                            <div class="row mb-3">-->
+<!--                                                <label for="address" class="col-md-4 col-lg-3 col-form-label">-->
+<!--                                                    {{ __('Alamat Lengkap') }}-->
+<!--                                                </label>-->
+<!--                                                <div class="col-md-8 col-lg-9">-->
+<!--                                                    <textarea-->
+<!--                                                        name="address"-->
+<!--                                                        class="form-control edit-profile"-->
+<!--                                                        id="address"-->
+<!--                                                        required-->
+<!--                                                    >-->
+<!--{{ $user->address }}</textarea-->
+<!--                                                    >-->
+<!--                                                    <p class="text-danger"></p>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
 
-                                            <div class="row mb-3">
-                                                <label for="date_of_birth" class="col-md-4 col-lg-3 col-form-label">
-                                                    {{ __('Tanggal Lahir') }}
-                                                </label>
-                                                <div class="col-md-8 col-lg-9">
-                                                    <input
-                                                        name="date_of_birth"
-                                                        type="date"
-                                                        class="form-control edit-profile"
-                                                        id="dateOfBirth"
-                                                        value="{{ $user->date_of_birth }}"
-                                                        required
-                                                    />
-                                                </div>
-                                            </div>
+<!--                                            <div class="row mb-3">-->
+<!--                                                <label for="date_of_birth" class="col-md-4 col-lg-3 col-form-label">-->
+<!--                                                    {{ __('Tanggal Lahir') }}-->
+<!--                                                </label>-->
+<!--                                                <div class="col-md-8 col-lg-9">-->
+<!--                                                    <input-->
+<!--                                                        name="date_of_birth"-->
+<!--                                                        type="date"-->
+<!--                                                        class="form-control edit-profile"-->
+<!--                                                        id="dateOfBirth"-->
+<!--                                                        value="{{ $user->date_of_birth }}"-->
+<!--                                                        required-->
+<!--                                                    />-->
+<!--                                                </div>-->
+<!--                                            </div>-->
 
-                                            <div class="row mb-3">
-                                                <label for="highschool" class="col-md-4 col-lg-3 col-form-label">
-                                                    {{ __('SMA/SMK/MA/Sederajat') }}
-                                                </label>
-                                                <div class="col-md-8 col-lg-9">
-                                                    <input
-                                                        name="highschool"
-                                                        type="text"
-                                                        class="form-control edit-profile"
-                                                        id="highschool"
-                                                        value="{{ $user->highschool }}"
-                                                        required
-                                                    />
-                                                </div>
-                                            </div>
+<!--                                            <div class="row mb-3">-->
+<!--                                                <label for="highschool" class="col-md-4 col-lg-3 col-form-label">-->
+<!--                                                    {{ __('SMA/SMK/MA/Sederajat') }}-->
+<!--                                                </label>-->
+<!--                                                <div class="col-md-8 col-lg-9">-->
+<!--                                                    <input-->
+<!--                                                        name="highschool"-->
+<!--                                                        type="text"-->
+<!--                                                        class="form-control edit-profile"-->
+<!--                                                        id="highschool"-->
+<!--                                                        value="{{ $user->highschool }}"-->
+<!--                                                        required-->
+<!--                                                    />-->
+<!--                                                </div>-->
+<!--                                            </div>-->
 
-                                            <div class="row mb-3">
-                                                <label for="grad_year" class="col-md-4 col-lg-3 col-form-label">
-                                                    {{ __('Tahun Lulus SMA/SMK/MA/Sederajat') }}
-                                                </label>
-                                                <div class="col-md-8 col-lg-9">
-                                                    <select
-                                                        name="grad_year"
-                                                        class="edit-profile form-select"
-                                                        id="gradYear"
-                                                        required
-                                                    >
-                                                        @for ($year = date('Y'); $year >= 1980; $year--)
-                                                            <option
-                                                                value="{{ $year }}"
-                                                                {{ $user->grad_year == $year ? 'selected' : '' }}
-                                                            >
-                                                                {{ $year }}
-                                                            </option>
-                                                        @endfor
-                                                    </select>
-                                                </div>
-                                            </div>
+<!--                                            <div class="row mb-3">-->
+<!--                                                <label for="grad_year" class="col-md-4 col-lg-3 col-form-label">-->
+<!--                                                    {{ __('Tahun Lulus SMA/SMK/MA/Sederajat') }}-->
+<!--                                                </label>-->
+<!--                                                <div class="col-md-8 col-lg-9">-->
+<!--                                                    <select-->
+<!--                                                        name="grad_year"-->
+<!--                                                        class="edit-profile form-select"-->
+<!--                                                        id="gradYear"-->
+<!--                                                        required-->
+<!--                                                    >-->
+<!--                                                        @for ($year = date('Y'); $year >= 1980; $year--)-->
+<!--                                                            <option-->
+<!--                                                                value="{{ $year }}"-->
+<!--                                                                {{ $user->grad_year == $year ? 'selected' : '' }}-->
+<!--                                                            >-->
+<!--                                                                {{ $year }}-->
+<!--                                                            </option>-->
+<!--                                                        @endfor-->
+<!--                                                    </select>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
 
-                                            <div class="row mb-3">
-                                                <label for="bachelor_year" class="col-md-4 col-lg-3 col-form-label">
-                                                    {{ __('Tahun Masuk Kuliah') }}
-                                                </label>
-                                                <div class="col-md-8 col-lg-9">
-                                                    <select
-                                                        name="bachelor_year"
-                                                        class="edit-profile form-select"
-                                                        id="bachelorYear"
-                                                        required
-                                                    >
-                                                        @for ($year = date('Y'); $year >= 1980; $year--)
-                                                            <option
-                                                                value="{{ $year }}"
-                                                                {{ $user->bachelor_year == $year ? 'selected' : '' }}
-                                                            >
-                                                                {{ $year }}
-                                                            </option>
-                                                        @endfor
-                                                    </select>
-                                                </div>
-                                            </div>
+<!--                                            <div class="row mb-3">-->
+<!--                                                <label for="bachelor_year" class="col-md-4 col-lg-3 col-form-label">-->
+<!--                                                    {{ __('Tahun Masuk Kuliah') }}-->
+<!--                                                </label>-->
+<!--                                                <div class="col-md-8 col-lg-9">-->
+<!--                                                    <select-->
+<!--                                                        name="bachelor_year"-->
+<!--                                                        class="edit-profile form-select"-->
+<!--                                                        id="bachelorYear"-->
+<!--                                                        required-->
+<!--                                                    >-->
+<!--                                                        @for ($year = date('Y'); $year >= 1980; $year--)-->
+<!--                                                            <option-->
+<!--                                                                value="{{ $year }}"-->
+<!--                                                                {{ $user->bachelor_year == $year ? 'selected' : '' }}-->
+<!--                                                            >-->
+<!--                                                                {{ $year }}-->
+<!--                                                            </option>-->
+<!--                                                        @endfor-->
+<!--                                                    </select>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
 
-                                            <div class="row mb-3">
-                                                <label for="wa" class="col-md-4 col-lg-3 col-form-label">
-                                                    {{ __('Nomor WhatsApp') }}
-                                                </label>
-                                                <div class="col-md-8 col-lg-9">
-                                                    <input
-                                                        name="wa"
-                                                        type="text"
-                                                        class="form-control edit-profile"
-                                                        id="wa"
-                                                        value="{{ $user->phone }}"
-                                                        required
-                                                    />
-                                                </div>
-                                            </div>
+<!--                                            <div class="row mb-3">-->
+<!--                                                <label for="wa" class="col-md-4 col-lg-3 col-form-label">-->
+<!--                                                    {{ __('Nomor WhatsApp') }}-->
+<!--                                                </label>-->
+<!--                                                <div class="col-md-8 col-lg-9">-->
+<!--                                                    <input-->
+<!--                                                        name="wa"-->
+<!--                                                        type="text"-->
+<!--                                                        class="form-control edit-profile"-->
+<!--                                                        id="wa"-->
+<!--                                                        value="{{ $user->phone }}"-->
+<!--                                                        required-->
+<!--                                                    />-->
+<!--                                                </div>-->
+<!--                                            </div>-->
 
                                             <div class="row mb-3">
                                                 <label for="email" class="col-md-4 col-lg-3 col-form-label">
@@ -427,7 +434,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="tab-pane fade pt-3" id="profileChangePassword">
+                                    <div class="tab-pane fade show active profile-edit pt-3" id="ChangePassword">
                                         <form method="POST" action="{{ route('change-password') }}">
                                             @csrf
                                             <div class="row mb-3">

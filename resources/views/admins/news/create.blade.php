@@ -37,3 +37,17 @@
         </div>
     </div>
 @endsection
+
+<!-- Menambahkan CKEditor dari CDN -->
+<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+
+<!-- Inisialisasi CKEditor untuk textarea dengan id "content" -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        ClassicEditor
+            .create(document.querySelector('#content'))
+            .catch(error => {
+                console.error(error);
+            });
+    });
+</script>

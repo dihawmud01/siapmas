@@ -35,7 +35,7 @@ class ProfileController extends Controller
             ->where('active', 1)
             ->latest()
             ->get();
-
+ 
         // Count the number of picture and book news uploaded by users
         $postCounts = News::where('user_id', '=', $profile->id)
             ->where('active', 1)
@@ -66,50 +66,80 @@ class ProfileController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'gender' => 'required|in:male,female',
-            'address' => 'required|string|max:500',
-            'date_of_birth' => 'required|date',
-            'highschool' => 'required|string|max:255',
-            'grad_year' => 'required|integer|min:1900|max:' . date('Y'),
-            'bachelor_year' => 'required|integer|min:1900|max:' . date('Y'),
             'bio' => 'required|string|max:255',
         ]);
 
         $user = Auth::user();
         $user->fill(
             $request->only([
-                'address',
                 'phone',
                 'x',
                 'fb',
                 'ig',
-                'gender',
                 'bio',
-                'place_of_birth',
-                'date_of_birth',
-                'highschool',
-                'grad_year',
-                'bachelor_year',
             ]),
         );
-
+        // Handle profile image update
         if ($request->input('remove_img') == '1') {
-            $user->img = 'default.png';
-        } elseif ($request->hasFile('img')) {
-            $extension = $request->img->getClientOriginalExtension();
+            $user->photo = 'default.png';
+        } elseif ($request->hasFile('images')) {
+            $file = $request->file('images');
+            $extension = $file->getClientOriginalExtension();
             $newFileName = 'profile_' . $user->username . '-' . now()->timestamp . '.' . $extension;
-            $request->file('img')->move(public_path('/storage/images'), $newFileName);
-            $user->img = $newFileName;
+            // Buat folder user jika belum ada
+            $destinationPath = storage_path('app/public/images/user/photos/' . $user->id);
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+
+            // Simpan file ke folder yang sesuai
+            $file->move($destinationPath, $newFileName);
+
+            // Simpan nama file ke kolom 'photo'
+            $user->photo = $newFileName;
         }
 
+        // Save user details
         $user->save();
 
-        Alert::success('Mantap Sahabat', 'Profil Anda Sudah Diperbaharui');
+        Alert::success('Mantap Rekan/Rekanita', 'Profil Anda Sudah Diperbaharui');
 
         return redirect()
             ->route('profile')
             ->with('users', $user);
     }
+
+
+    public function store(Request $request): RedirectResponse
+    {
+        // Validate incoming request
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'bio' => 'required|string|max:255',
+        ]);
+
+        $data = $request->all();
+        $data['user_id'] = Auth::user()->id;  // Assign logged-in user as the owner
+
+        // Handle file upload for profile image
+        if ($request->hasFile('images')) {
+            $file = $request->file('images');
+            $extension = $file->getClientOriginalExtension();
+            $newFileName = 'profile_' . Auth::user()->username . '-' . now()->timestamp . '.' . $extension;
+            $file->storeAs('images', $newFileName, 'public');
+            $data['images'] = $newFileName;
+        }
+
+        // Create a new user entry with the provided data
+        $user = User::create($data);
+
+        Alert::success('Mantap Rekan/Rekanita', 'Profil Baru Anda Berhasil Disimpan');
+
+        return redirect()
+            ->route('profile')
+            ->with('users', $user);
+    }
+
 
     public function showUploads(Request $request)
     {
@@ -149,7 +179,7 @@ class ProfileController extends Controller
 
         return redirect()
             ->back()
-            ->with('Mantap Sahabat', 'Password Berhasil Diubah.');
+            ->with('Mantap Rekan/Rekanita', 'Password Berhasil Diubah.');
     }
 
     public function storePost(Request $request): RedirectResponse

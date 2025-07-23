@@ -88,7 +88,7 @@
                         href="{{ route('pac.index') }}"
                     >
                         <i class="bi bi-exclude"></i>
-                        <span>{{ __('PAC') }}</span>
+                        <span>{{ __('PAC/PKPT') }}</span>
                     </a>
                 </li>
             @endif

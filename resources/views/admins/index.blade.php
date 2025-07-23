@@ -344,104 +344,109 @@
         <div id="todayGraphic"></div>
 
         <div class="col-12">
-            <div class="card">
-                <div class="card-body p-4">
-                    <div class="card-header d-flex justify-content-between align-items-center mb-4 border-0 bg-white">
-                        <h5 class="card-title fw-bold align-items-baseline fs-4 d-flex mb-0">
-                            {{ __('Data Postingan Berita') }}
-                        </h5>
-                        <div class="dropdown rounded filter" data-target="news">
-                            <button
-                                class="btn text-secondary fs-6 border-secondary-subtle dropdown-btn"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                                type="button"
-                                id="dropdownButton"
-                            >
-                                <span id="selectedFilter">{{ __('Semua') }}</span>
-                                <i class="bi bi-filter ms-1"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end" id="dropdownMenu">
-                                <li>
-                                    <a class="dropdown-item active" href="#" data-filter="all">
-                                        {{ __('Semua') }}
-                                    </a>
-                                </li>
-                                <li><a class="dropdown-item" href="#" data-filter="today">{{ __('Hari Ini') }}</a></li>
-                                <li>
-                                    <a class="dropdown-item" href="#" data-filter="month">{{ __('Bulan Ini') }}</a>
-                                </li>
-                                <li><a class="dropdown-item" href="#" data-filter="year">{{ __('Tahun ini') }}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <table class="table-bordered table-hover table text-nowrap" id="table">
-                        <thead>
-                            <tr>
-                                <th class="text-center" style="width: 30px">{{ __('No.') }}</th>
-                                <th class="text-start">{{ __('Judul') }}</th>
-                                <th class="text-center">{{ __('Kategori') }}</th>
-                                <th class="text-center">{{ __('Penulis') }}</th>
-                                <th class="text-center">{{ __('Status') }}</th>
-                                <th class="text-start">{{ __('Dibuat pada') }}</th>
-                                <th class="text-start">{{ __('Diperbarui pada') }}</th>
-                                <th class="text-center">{{ __('Aksi') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($news as $post)
-                                <tr data-updated="{{ $post->formatted_updated_date }}" data-row>
-                                    <td class="text-center"></td>
-                                    <td class="text-start">{{ $post->title }}</td>
-                                    <td class="text-center">{{ $post->category->title }}</td>
-                                    <td class="text-center">{{ $post->user->username }}</td>
-                                    <td class="text-center">
-                                        @if ($post->active === 1)
-                                            <span class="badge bg-success">{{ __('Aktif') }}</span>
-                                        @else
-                                            <span class="badge bg-danger">{{ __('Nonaktif') }}</span>
-                                        @endif
-                                    </td>
-                                    <td class="text-start">
-                                        {{ \Carbon\Carbon::parse($post->created_at)->format('d M Y') }}
-                                    </td>
-                                    <td class="text-start">
-                                        {{ \Carbon\Carbon::parse($post->updated_at)->format('d M Y') }}
-                                    </td>
-                                    <td class="text-center">
-                                        <form
-                                            action="{{ route('news.destroy', ['id' => $post->id]) }}"
-                                            method="post"
-                                            class="float-left"
-                                        >
-                                            <a
-                                                href="{{ route('news.show', ['slug' => $post->slug]) }}"
-                                                class="btn btn-success btn-sm"
-                                                target="_blank"
-                                            >
-                                                <i class="ri-eye-fill"></i>
-                                            </a>
-                                            <a
-                                                href="{{ route('news.edit', ['id' => $post->id]) }}"
-                                                class="btn btn-warning btn-sm"
-                                            >
-                                                <i class="ri-edit-fill"></i>
-                                            </a>
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">
-                                                <i class="ri-delete-bin-5-line"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+    <div class="card">
+        <div class="card-body p-4">
+            <div class="card-header d-flex justify-content-between align-items-center mb-4 border-0 bg-white" style="flex-wrap: wrap;">
+                <h5 class="card-title fw-bold align-items-baseline fs-4 d-flex mb-0" style="flex: 1 1 auto; min-width: 200px;">
+                    {{ __('Data Postingan Berita') }}
+                </h5>
+                <div class="dropdown rounded filter mt-2 mt-md-0" data-target="news" style="flex-shrink: 0;">
+                    <button
+                        class="btn text-secondary fs-6 border border-secondary-subtle dropdown-btn"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        type="button"
+                        id="dropdownButton"
+                    >
+                        <span id="selectedFilter">{{ __('Semua') }}</span>
+                        <i class="bi bi-filter ms-1"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" id="dropdownMenu">
+                        <li>
+                            <a class="dropdown-item active" href="#" data-filter="all">{{ __('Semua') }}</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" data-filter="today">{{ __('Hari Ini') }}</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" data-filter="month">{{ __('Bulan Ini') }}</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" data-filter="year">{{ __('Tahun ini') }}</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
+
+            <!-- Wrapper for scroll on small screens -->
+            <div style="width: 100%; overflow-x: auto;">
+                <table class="table table-bordered table-hover text-nowrap" id="table" style="min-width: 900px;">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 30px">{{ __('No.') }}</th>
+                            <th class="text-start">{{ __('Judul') }}</th>
+                            <th class="text-center">{{ __('Kategori') }}</th>
+                            <th class="text-center">{{ __('Penulis') }}</th>
+                            <th class="text-center">{{ __('Status') }}</th>
+                            <th class="text-start">{{ __('Dibuat pada') }}</th>
+                            <th class="text-start">{{ __('Diperbarui pada') }}</th>
+                            <th class="text-center">{{ __('Aksi') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($news as $post)
+                            <tr data-updated="{{ $post->formatted_updated_date }}" data-row>
+                                <td class="text-center"></td>
+                                <td class="text-start">{{ $post->title }}</td>
+                                <td class="text-center">{{ $post->category->title }}</td>
+                                <td class="text-center">{{ $post->user->username }}</td>
+                                <td class="text-center">
+                                    @if ($post->active === 1)
+                                        <span class="badge bg-success">{{ __('Aktif') }}</span>
+                                    @else
+                                        <span class="badge bg-danger">{{ __('Nonaktif') }}</span>
+                                    @endif
+                                </td>
+                                <td class="text-start">
+                                    {{ \Carbon\Carbon::parse($post->created_at)->format('d M Y') }}
+                                </td>
+                                <td class="text-start">
+                                    {{ \Carbon\Carbon::parse($post->updated_at)->format('d M Y') }}
+                                </td>
+                                <td class="text-center">
+                                    <form
+                                        action="{{ route('news.destroy', ['id' => $post->id]) }}"
+                                        method="post"
+                                        class="float-left"
+                                    >
+                                        <a
+                                            href="{{ route('news.show', ['slug' => $post->slug]) }}"
+                                            class="btn btn-success btn-sm"
+                                            target="_blank"
+                                        >
+                                            <i class="ri-eye-fill"></i>
+                                        </a>
+                                        <a
+                                            href="{{ route('news.edit', ['id' => $post->id]) }}"
+                                            class="btn btn-warning btn-sm"
+                                        >
+                                            <i class="ri-edit-fill"></i>
+                                        </a>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="ri-delete-bin-5-line"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div> <!-- End scroll wrapper -->
         </div>
+    </div>
+</div>
     </div>
 
     <script src="{{ asset('js/statistic.js') }}"></script>

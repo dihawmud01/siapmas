@@ -21,17 +21,24 @@ class QuoteController extends Controller
     }
 
     public function storeQuote(Request $request)
-    {
-        $quotes = $request->all();
-        $request->file('images')->getClientOriginalExtension();
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        if ($request->img) {
-            $extension = $request->img->getClientOriginalExtension();
-            $newFileName = 'quotes' . '_' . $request->name . '-' . now()->timestamp . '.' . $extension;
-            $request->file('image')->move(public_path('/storage/images'), $newFileName);
-            $quotes['image'] = $newFileName;
-        }
+    $quotes = $request->all();
 
+    if ($request->hasFile('img')) {
+        $file = $request->file('img');
+        $newFileName = 'quotes_' . $request->name . '_' . now()->timestamp . '.' . $file->getClientOriginalExtension();
+
+        // Simpan ke storage/app/public/images
+        $file->storeAs('images', $newFileName, 'public');
+
+        // Simpan nama file ke kolom img
+        $quotes['img'] = $newFileName;
+    }
         $quotes = Quote::create($quotes);
         Alert::success('Mantap Sahabat', 'Quote Berhasil Ditambahkan');
 
@@ -51,8 +58,17 @@ class QuoteController extends Controller
         if ($request->img) {
             $extension = $request->img->getClientOriginalExtension();
             $newFileName = 'quotes_update' . '_' . $request->name . '-' . now()->timestamp . '.' . $extension;
-            $request->file('images')->move(public_path('/storage/images'), $newFileName);
-            $quoteData['images'] = $newFileName;
+            if ($request->hasFile('img')) {
+                $file = $request->file('img');
+                $newFileName = 'gambar_' . now()->timestamp . '.' . $file->getClientOriginalExtension();
+                $file->move(storage_path('app/public/images'), $newFileName);
+                $data['img'] = $newFileName; // jika kamu simpan ke database
+            } else {
+                // Optional: handle jika tidak ada file
+                // Misalnya log atau kasih nilai default
+            }
+
+            $quoteData['img'] = $newFileName;
         }
 
         $quoteToUpdate->update($quoteData);

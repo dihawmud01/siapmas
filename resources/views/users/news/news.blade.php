@@ -47,7 +47,7 @@
                         <section class="mb-5">
                             <div class="card bg-light">
                                 <div class="card-body" style="color: black">
-                                    <p class="fs-5 mt-2">
+                                    <p class="news-content">
                                         {!! $news->content !!}
                                     </p>
                                 </div>

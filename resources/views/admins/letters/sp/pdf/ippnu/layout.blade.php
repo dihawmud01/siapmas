@@ -75,7 +75,7 @@
             </p>
 
             <div class="logo">
-                <img src="{{ public_path('assets/images/sp/ippnu/logo.png') }}" alt="Logo" />
+                <img src="{{ asset('assets/images/sp/ippnu/logo.png') }}" alt="Logo" />
             </div>
 
             <p class="footer">

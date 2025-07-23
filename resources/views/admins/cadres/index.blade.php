@@ -21,65 +21,69 @@
                 </form>
             </div>
             <div class="row">
-                <table class="table">
+    <div class="table-responsive" style="overflow-x:auto;">
+        <table class="table table-bordered table-hover" style="min-width: 600px;">
+            <thead class="table-light">
+                <tr>
+                    <th class="text-center">{{ __('No') }}</th>
+                    <th class="text-center">{{ __('Nama') }}</th>
+                    <th>{{ __('PAC') }}</th>
+                    <th class="text-center">{{ __('Kelamin') }}</th>
+                    <th class="text-center">{{ __('Profile') }}</th>
+                    <th class="text-center" colspan="3">{{ __('Aksi') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($cadres as $cadre)
                     <tr>
-                        <td class="text-center">{{ __('No') }}</td>
-                        <td class="text-center">{{ __('Nama') }}</td>
-                        <td>{{ __('PAC') }}</td>
-                        <td class="text-center">{{ __('Kelamin') }}</td>
-                        <td class="text-center">{{ __('Profile') }}</td>
-                        <td class="text-center"></td>
-                        <td class="text-center">{{ __('Aksi') }}</td>
-                        <td class="text-center"></td>
+                        <td class="text-center">{{ $loop->iteration }}</td>
+                        <td>{{ $cadre['name'] }}</td>
+                        <td>{{ $cadre['pac'] }}</td>
+                        <td class="text-center">{{ $cadre['gender'] }}</td>
+                        <td class="text-center">
+                            <img
+                                src="{{ asset('storage/uploads/' . $cadre['photo']) }}"
+                                width="60"
+                                class="img-fluid img-thumbnail"
+                                style="max-height: 60px;"
+                                alt="{{ __('Profile') }}"
+                            />
+                        </td>
+                        <td class="text-end">
+                            <a
+                                href="{{ route('cadres.view', ['id' => $cadre->id]) }}"
+                                class="btn btn-secondary btn-sm"
+                            >
+                                {{ __('Lihat') }}
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a
+                                href="{{ route('cadres.edit', ['id' => $cadre->id]) }}"
+                                class="btn btn-warning btn-sm"
+                            >
+                                {{ __('Edit') }}
+                            </a>
+                        </td>
+                        <td class="text-start">
+                            <form action="{{ route('cadres.destroy', $cadre->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button
+                                    type="submit"
+                                    class="btn btn-danger btn-sm"
+                                    onclick="return confirm('{{ __('Apakah Anda yakin ingin menghapus cadres ini?') }}')"
+                                >
+                                    {{ __('Hapus') }}
+                                </button>
+                            </form>
+                        </td>
                     </tr>
-                    @foreach ($cadres as $cadre)
-                        <tr>
-                            <td class="text-center">{{ $loop->iteration }}</td>
-                            <td>{{ $cadre['name'] }}</td>
-                            <td>{{ $cadre['pac'] }}</td>
-                            <td class="text-center">{{ $cadre['gender'] }}</td>
-                            <td class="text-center">
-                                <img
-                                    src="{{ asset('storage/uploads/' . $cadre['photo']) }}"
-                                    width="60"
-                                    class="img-fluid img-thumbnail"
-                                    style="max-height: 60px"
-                                    alt="{{ __('Profile') }}"
-                                />
-                            </td>
-                            <td class="text-end">
-                                <a
-                                    href="{{ route('cadres.view', ['id' => $cadre->id]) }}"
-                                    class="btn btn-secondary btn-sm"
-                                >
-                                    {{ __('Lihat') }}
-                                </a>
-                            </td>
-                            <td class="text-center">
-                                <a
-                                    href="{{ route('cadres.edit', ['id' => $cadre->id]) }}"
-                                    class="btn btn-warning btn-sm"
-                                >
-                                    {{ __('Edit') }}
-                                </a>
-                            </td>
-                            <td class="text-start">
-                                <form action="{{ route('cadres.destroy', $cadre->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button
-                                        type="submit"
-                                        class="btn btn-danger btn-sm"
-                                        onclick="return confirm('{{ __('Apakah Anda yakin ingin menghapus cadres ini?') }}')"
-                                    >
-                                        {{ __('Hapus') }}
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </table>
-            </div>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
         </div>
     </div>
 @endsection

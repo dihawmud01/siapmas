@@ -27,7 +27,7 @@
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td>{{ $event['title'] }}</td>
                             <td>{{ $event['organizer'] }}</td>
-                            <td>{{ \Carbon\Carbon::parse($event['start'])->locale('id')->translatedFormat('l, d F Y H:i') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($event['date'])->locale('id')->translatedFormat('l, d F Y H:i') }}</td>
                             <td class="text-center">
                                 @if ($event->status == false)
                                     <button class="btn btn-danger btn-sm">{{ __('Belum Terlaksana') }}</button>

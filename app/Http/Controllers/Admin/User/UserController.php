@@ -31,7 +31,7 @@ class UserController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function create()
+    public function createe()
     {
         $hobbies = [
             'Bermain Game' => 'Bermain Game Online',
@@ -143,14 +143,23 @@ class UserController extends Controller
      * @return RedirectResponse
      */
     public function update(UpdateNewsRequest $request, int $id): RedirectResponse
-    {
-        $user = User::findOrFail($id);
-        $user->update($request->all());
-
-        return redirect()
-            ->route('users.index')
-            ->with('success', 'User updated successfully.');
+{
+    $user = User::findOrFail($id);
+    
+    // Mengecek jika password baru diinputkan
+    if ($request->filled('password')) {
+        // Enkripsi password baru dan simpan
+        $request->merge(['password' => bcrypt($request->password)]);
     }
+
+    // Update data pengguna termasuk password jika diubah
+    $user->update($request->all());
+
+    return redirect()
+        ->route('users.index')
+        ->with('success', 'User updated successfully.');
+}
+
 
     /**
      * Delete User.

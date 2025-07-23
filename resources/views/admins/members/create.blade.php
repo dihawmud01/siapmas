@@ -25,151 +25,161 @@
             </div>
         </div>
 
-        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-            <div class="row mt-5 pt-4">
-                <form action="{{ route('dashboard.members.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <x-input-form name="name" label="{{ __('Nama Lengkap sesuai KTP') }}" />
-                    <x-input-form
-                        name="photo"
-                        label="{{ __('Foto Profil') }}"
-                        type="file"
-                        accept="image/jpeg,image/png"
-                        required="0"
-                    />
+        <div class="card-body px-3 px-md-5 py-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <form action="{{ route('dashboard.members.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
 
-                    <x-input-select name="gender" label="{{ __('Jenis Kelamin') }}" :options="$genders" />
-
-                    <x-input-form name="place_of_birth" label="{{ __('Tempat Lahir') }}" />
-
-                    <x-input-form name="date_of_birth" label="{{ __('Tanggal Lahir') }}" type="date" />
-
-                    <x-input-textarea name="address" label="{{ __('Alamat Lengkap') }}" />
-
-                    <div
-                        x-data="{
-                            formalCadreLevels: {{ json_encode(old('formal_cadre_levels', []) ?: []) }},
-                        }"
-                        x-init="
-                            $watch('formalCadreLevels', (value) => {
-                                if (value.includes('lakmud') && ! value.includes('makesta')) {
-                                    value.push('makesta')
-                                }
-                            })
-                        "
-                    >
-                        <div class="d-flex align-items-start mb-4">
-                            <label class="form-label label me-3 text-start">
-                                {{ __('Jenjang Kaderisasi Formal') }}
-                            </label>
-                            <div class="d-flex flex-column w-100">
-                                @foreach ($formalCadreLevels as $level)
-                                    <div class="form-check">
-                                        <input
-                                            type="checkbox"
-                                            id="formal_cadre_levels_{{ $level }}"
-                                            name="formal_cadre_levels[]"
-                                            value="{{ $level }}"
-                                            class="form-check-input"
-                                            x-model="formalCadreLevels"
-                                            @change="$dispatch('checkbox-changed', '{{ $level }}')"
-                                            :disabled="('{{ $level }}' === 'makesta' && formalCadreLevels.includes('lakmud'))"
-                                            {{ in_array($level, old('formal_cadre_levels[]', [])) ? 'checked' : '' }}
-                                        />
-                                        <label for="formal_cadre_levels_{{ $level }}" class="form-check-label">
-                                            {{ ucfirst($level) }}
-                                        </label>
+                            <form action="{{ route('dashboard.members.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                            
+                                {{-- Nama dan Foto --}}
+                                <div class="row g-4 mb-3">
+                                    <div class="col-md-6">
+                                        <x-input-form name="name" label="{{ __('Nama Lengkap sesuai KTP') }}" />
                                     </div>
-                                @endforeach
-
-                                <template x-if="formalCadreLevels.includes('makesta')">
-                                    <input type="hidden" name="formal_cadre_levels[]" value="makesta" />
-                                </template>
-                            </div>
-                        </div>
-
-                        <div x-show="formalCadreLevels.includes('makesta')">
-                            <x-input-select
-                                name="makesta_year"
-                                label="{{ __('Tahun Makesta') }}"
-                                :options="$years"
-                                required="0"
-                            />
-                        </div>
-
-                        <div x-show="formalCadreLevels.includes('lakmud')">
-                            <x-input-select
-                                name="lakmud_year"
-                                label="{{ __('Tahun Lakmud') }}"
-                                :options="$years"
-                                required="0"
-                            />
-                        </div>
-
-                        <div x-show="formalCadreLevels.includes('lakut')">
-                            <x-input-select
-                                name="lakut_year"
-                                label="{{ __('Tahun Lakut') }}"
-                                :options="$years"
-                                required="0"
-                            />
-                        </div>
-                    </div>
-
-                    <div
-                        x-data="{
-                            nonFormalCadreLevels:
-                                {{ json_encode(old('non_formal_cadre_levels', []) ?: []) }},
-                        }"
-                    >
-                        <div class="d-flex align-items-start mb-4">
-                            <label class="form-label label me-3 text-start">
-                                {{ __('Jenjang Kaderisasi Non-Formal') }}
-                            </label>
-                            <div class="d-flex flex-column w-100">
-                                @foreach ($nonFormalCadreLevels as $level)
-                                    <div class="form-check">
-                                        <input
-                                            type="checkbox"
-                                            id="non_formal_cadre_levels_{{ $level }}"
-                                            name="non_formal_cadre_levels[]"
-                                            value="{{ $level }}"
-                                            class="form-check-input"
-                                            x-model="nonFormalCadreLevels"
-                                            {{ in_array($level, old('non_formal_cadre_levels[]', [])) ? 'checked' : '' }}
+                                    <div class="col-md-6">
+                                        <x-input-form
+                                            name="photo"
+                                            label="{{ __('Foto Profil') }}"
+                                            type="file"
+                                            accept="image/jpeg,image/png"
+                                            required="0"
                                         />
-                                        <label for="non_formal_cadre_levels_{{ $level }}" class="form-check-label">
-                                            {{ ucfirst($level) }}
-                                        </label>
                                     </div>
-                                @endforeach
+                                </div>
+                            
+                                {{-- Gender dan No HP --}}
+                                <div class="row g-4 mb-3">
+                                    <div class="col-md-6">
+                                        <x-input-select name="gender" label="{{ __('Jenis Kelamin') }}" :options="$genders" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <x-input-form name="phone" label="{{ __('No. HP') }}" />
+                                    </div>
+                                </div>
+                            
+                                {{-- Tempat dan Tanggal Lahir --}}
+                                <div class="row g-4 mb-3">
+                                    <div class="col-md-6">
+                                        <x-input-form name="place_of_birth" label="{{ __('Tempat Lahir') }}" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <x-input-form name="date_of_birth" label="{{ __('Tanggal Lahir') }}" type="date" />
+                                    </div>
+                                </div>
+                            
+                                {{-- Alamat --}}
+                                <div class="mb-4">
+                                    <x-input-textarea name="address" label="{{ __('Alamat Lengkap') }}" />
+                                </div>
+                            
+                                {{-- Kaderisasi Formal --}}
+                                <div class="mb-4" 
+                                     x-data="{
+                                         formalCadreLevels: {{ json_encode(old('formal_cadre_levels', []) ?: []) }},
+                                     }"
+                                     x-init="
+                                        $watch('formalCadreLevels', value => {
+                                            if (value.includes('lakmud') && !value.includes('makesta')) {
+                                                value.push('makesta');
+                                            }
+                                        })
+                                     ">
+                                    <label class="form-label d-block">{{ __('Jenjang Kaderisasi Formal') }}</label>
+                                    <div class="row g-3">
+                                        @foreach ($formalCadreLevels as $level)
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input
+                                                        type="checkbox"
+                                                        id="formal_cadre_levels_{{ $level }}"
+                                                        name="formal_cadre_levels[]"
+                                                        value="{{ $level }}"
+                                                        class="form-check-input"
+                                                        x-model="formalCadreLevels"
+                                                        @change="$dispatch('checkbox-changed', '{{ $level }}')"
+                                                        :disabled="('{{ $level }}' === 'makesta' && formalCadreLevels.includes('lakmud'))"
+                                                        {{ in_array($level, old('formal_cadre_levels[]', [])) ? 'checked' : '' }}
+                                                    />
+                                                    <label class="form-check-label" for="formal_cadre_levels_{{ $level }}">
+                                                        {{ ucfirst($level) }}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                            
+                                    <div class="row mt-3 g-4">
+                                        <template x-if="formalCadreLevels.includes('makesta')">
+                                            <div class="col-md-4">
+                                                <x-input-select name="makesta_year" label="{{ __('Tahun Makesta') }}" :options="$years" required="0" />
+                                            </div>
+                                        </template>
+                                        <template x-if="formalCadreLevels.includes('lakmud')">
+                                            <div class="col-md-4">
+                                                <x-input-select name="lakmud_year" label="{{ __('Tahun Lakmud') }}" :options="$years" required="0" />
+                                            </div>
+                                        </template>
+                                        <template x-if="formalCadreLevels.includes('lakut')">
+                                            <div class="col-md-4">
+                                                <x-input-select name="lakut_year" label="{{ __('Tahun Lakut') }}" :options="$years" required="0" />
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            
+                                {{-- Kaderisasi Non-Formal --}}
+                                <div class="mb-4" x-data="{ nonFormalCadreLevels: {{ json_encode(old('non_formal_cadre_levels', []) ?: []) }} }">
+                                    <label class="form-label d-block">{{ __('Jenjang Kaderisasi Non-Formal') }}</label>
+                                    <div class="row g-3">
+                                        @foreach ($nonFormalCadreLevels as $level)
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input
+                                                        type="checkbox"
+                                                        id="non_formal_cadre_levels_{{ $level }}"
+                                                        name="non_formal_cadre_levels[]"
+                                                        value="{{ $level }}"
+                                                        class="form-check-input"
+                                                        x-model="nonFormalCadreLevels"
+                                                        {{ in_array($level, old('non_formal_cadre_levels[]', [])) ? 'checked' : '' }}
+                                                    />
+                                                    <label class="form-check-label" for="non_formal_cadre_levels_{{ $level }}">
+                                                        {{ ucfirst($level) }}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            
+                                {{-- PAC & Keanggotaan --}}
+                                @if (in_array(auth()->user()->role_id, [1, 2]))
+                                    <div class="row g-4 mb-3">
+                                        <div class="col-md-6">
+                                            <x-input-select name="pac_id" label="{{ __('PAC') }}" :options="$pacList" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <x-input-select name="membership_status" label="{{ __('Status Keanggotaan') }}" :options="$membershipStatus" />
+                                        </div>
+                                    </div>
+                                @endif
+                            
+                                {{-- Tombol --}}
+                                <div class="d-flex flex-column flex-md-row justify-content-end gap-3 mt-4">
+                                    <a href="{{ route('dashboard.members.index') }}" class="btn btn-outline-secondary w-100 w-md-auto">
+                                        {{ __('Kembali') }}
+                                    </a>
+                                    <button type="submit" class="btn btn-success w-100 w-md-auto">
+                                        {{ __('Tambah') }}
+                                    </button>
+                                </div>
+                            </form>                    
                             </div>
-                        </div>
-                    </div>
-
-                    <x-input-form name="phone" label="{{ __('No. HP') }}" />
-
-                    @if (in_array(auth()->user()->role_id, [1, 2]))
-                        <x-input-select name="pac_id" label="{{ __('PAC') }}" :options="$pacList" />
-                        <x-input-select
-                            name="membership_status"
-                            label="{{ __('Status Keanggotaan') }}"
-                            :options="$membershipStatus"
-                        />
-                    @endif
-
-                    <div class="d-flex align-items-center justify-content-end">
-                        <a
-                            href="{{ route('dashboard.members.index') }}"
-                            class="text-secondary text-decoration-none me-3"
-                        >
-                            {{ __('Kembali') }}
-                        </a>
-                        <button type="submit" class="btn btn-success">
-                            {{ __('Tambah') }}
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
